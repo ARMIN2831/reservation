@@ -26,7 +26,6 @@ Route::get('/start', function () {
         'hotel_id' => 1,
         'role' => 'admin',
     ]);
-
 });
 
 

@@ -35,6 +35,20 @@ return new class extends Migration
             $table->string('role');
             $table->timestamps();
         });
+        Schema::create('facilities', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('type');
+            $table->string('icon')->nullable();
+            $table->timestamps();
+        });
+        Schema::create('hotel_facilities', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('facility_id')->references('id')->on('facilities')->onDelete('cascade');
+            $table->foreignId('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
+            $table->boolean('status')->default(0);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -44,5 +58,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('hotels');
         Schema::dropIfExists('hotel_users');
+        Schema::dropIfExists('facilities');
+        Schema::dropIfExists('hotel_facilities');
     }
 };

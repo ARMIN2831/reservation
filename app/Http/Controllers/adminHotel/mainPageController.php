@@ -19,7 +19,6 @@ class mainPageController extends Controller
             'description' => 'required',
             'mapAddress' => 'required',
         ]);
-        dd($validatedData);
         Hotel::whereId($id)->update($validatedData);
         return redirect()->route('hotel.mainPage');
     }
