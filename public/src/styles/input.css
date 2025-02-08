@@ -1,0 +1,356 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base{
+    @font-face {
+        font-family: "yekan-thin";
+        src: url("../../public/fonts/yekan/woff2/iranyekanwebthinfanum.woff2") format("woff2"),
+             url("../../public/fonts/yekan/woff/iranyekanwebthinfanum.woff") format("woff"),
+             url("../../public/fonts/yekan/ttf/iranyekanwebthinfanum.ttf") format("truetype"),
+             url("../../public/fonts/yekan/otf/iranyekanwebthinfanum.otf") format("opentype"),
+             url("../../public/fonts/yekan/eot/iranyekanwebthinfanum.eot");
+        font-style: normal;
+        font-weight: 100;
+    }
+    @font-face {
+        font-family: "yekan-light";
+        src: url("../../public/fonts/yekan/woff2/iranyekanweblightfanum.woff2") format("woff2"),
+             url("../../public/fonts/yekan/woff/iranyekanweblightfanum.woff") format("woff"),
+             url("../../public/fonts/yekan/ttf/iranyekanweblightfanum.ttf") format("truetype"),
+             url("../../public/fonts/yekan/otf/iranyekanweblightfanum.otf") format("opentype"),
+             url("../../public/fonts/yekan/eot/iranyekanweblightfanum.eot");
+        font-style: normal;
+        font-weight: 300;
+    }
+    @font-face {
+        font-family: "yekan-regular";
+        src: url("../../public/fonts/yekan/woff2/iranyekanwebregularfanum.woff2") format("woff2"),
+             url("../../public/fonts/yekan/woff/iranyekanwebregularfanum.woff") format("woff"),
+             url("../../public/fonts/yekan/ttf/iranyekanwebregularfanum.ttf") format("truetype"),
+             url("../../public/fonts/yekan/otf/iranyekanwebregularfanum.otf") format("opentype"),
+             url("../../public/fonts/yekan/eot/iranyekanwebregularfanum.eot");
+        font-style: normal;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "yekan-medium";
+        src: url("../../public/fonts/yekan/woff2/iranyekanwebmediumfanum.woff2") format("woff2"),
+             url("../../public/fonts/yekan/woff/iranyekanwebmediumfanum.woff") format("woff"),
+             url("../../public/fonts/yekan/ttf/iranyekanwebmediumfanum.ttf") format("truetype"),
+             url("../../public/fonts/yekan/otf/iranyekanwebmediumfanum.otf") format("opentype"),
+             url("../../public/fonts/yekan/eot/iranyekanwebmediumfanum.eot");
+        font-style: normal;
+        font-weight: 500;
+    }
+    @font-face {
+        font-family: "yekan-bold";
+        src: url("../../public/fonts/yekan/woff2/iranyekanwebboldfanum.woff2") format("woff2"),
+             url("../../public/fonts/yekan/woff/iranyekanwebboldfanum.woff") format("woff"),
+             url("../../public/fonts/yekan/ttf/iranyekanwebboldfanum.ttf") format("truetype"),
+             url("../../public/fonts/yekan/otf/iranyekanwebboldfanum.otf") format("opentype"),
+             url("../../public/fonts/yekan/eot/iranyekanwebboldfanum.eot");
+        font-style: normal;
+        font-weight: 700;
+    }
+    @font-face {
+        font-family: "yekan-extraBold";
+        src: url("../../public/fonts/yekan/woff2/iranyekanwebextraboldfanum.woff2") format("woff2"),
+             url("../../public/fonts/yekan/woff/iranyekanwebextraboldfanum.woff") format("woff"),
+             url("../../public/fonts/yekan/ttf/iranyekanwebextraboldfanum.ttf") format("truetype"),
+             url("../../public/fonts/yekan/otf/iranyekanwebextraboldfanum.otf") format("opentype"),
+             url("../../public/fonts/yekan/eot/iranyekanwebextraboldfanum.eot");
+        font-style: normal;
+        font-weight: 800;
+    }
+    @font-face {
+        font-family: "yekan-black";
+        src: url("../../public/fonts/yekan/woff2/iranyekanwebblackfanum.woff2") format("woff2"),
+             url("../../public/fonts/yekan/woff/iranyekanwebblackfanum.woff") format("woff"),
+             url("../../public/fonts/yekan/ttf/iranyekanwebblackfanum.ttf") format("truetype"),
+             url("../../public/fonts/yekan/otf/iranyekanwebblackfanum.otf") format("opentype"),
+             url("../../public/fonts/yekan/eot/iranyekanwebblackfanum.eot");
+        font-style: normal;
+        font-weight: 900;
+    }
+    @font-face {
+        font-family: "yekan-extraBlack";
+        src: url("../../public/fonts/yekan/woff2/iranyekanwebextrablackfanum.woff2") format("woff2"),
+             url("../../public/fonts/yekan/woff/iranyekanwebextrablackfanum.woff") format("woff"),
+             url("../../public/fonts/yekan/ttf/iranyekanwebextrablackfanum.ttf") format("truetype"),
+             url("../../public/fonts/yekan/otf/iranyekanwebextrablackfanum.otf") format("opentype"),
+             url("../../public/fonts/yekan/eot/iranyekanwebextrablackfanum.eot");
+        font-style: normal;
+        font-weight: 950;
+    }
+
+
+
+    @font-face {
+        font-family: "poppins-thin";
+        src: url("../../public/fonts/poppins/WOFF2/Poppins-Thin.woff2") format("woff2"),
+             url("../../public/fonts/poppins/WOFF/Poppins-Thin.woff") format("woff"),
+             url("../../public/fonts/poppins/TTF/Poppins-Thin.ttf") format("truetype"),
+             url("../../public/fonts/poppins/OTF/Poppins-Thin.otf") format("opentype");
+        font-style: normal;
+        font-weight: 100;
+    }
+    @font-face {
+        font-family: "poppins-light";
+        src: url("../../public/fonts/poppins/WOFF2/Poppins-Light.woff2") format("woff2"),
+             url("../../public/fonts/poppins/WOFF/Poppins-Light.woff") format("woff"),
+             url("../../public/fonts/poppins/TTF/Poppins-Light.ttf") format("truetype"),
+             url("../../public/fonts/poppins/OTF/Poppins-Light.otf") format("opentype");
+        font-style: normal;
+        font-weight: 300;
+    }
+    @font-face {
+        font-family: "poppins-regular";
+        src: url("../../public/fonts/poppins/WOFF2/Poppins-Regular.woff2") format("woff2"),
+             url("../../public/fonts/poppins/WOFF/Poppins-Regular.woff") format("woff"),
+             url("../../public/fonts/poppins/TTF/Poppins-Regular.ttf") format("truetype"),
+             url("../../public/fonts/poppins/OTF/Poppins-Regular.otf") format("opentype");
+        font-style: normal;
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: "poppins-medium";
+        src: url("../../public/fonts/poppins/WOFF2/Poppins-Medium.woff2") format("woff2"),
+             url("../../public/fonts/poppins/WOFF/Poppins-Medium.woff") format("woff"),
+             url("../../public/fonts/poppins/TTF/Poppins-Medium.ttf") format("truetype"),
+             url("../../public/fonts/poppins/OTF/Poppins-Medium.otf") format("opentype");
+        font-style: normal;
+        font-weight: 500;
+    }
+    @font-face {
+        font-family: "poppins-bold";
+        src: url("../../public/fonts/poppins/WOFF2/Poppins-Bold.woff2") format("woff2"),
+             url("../../public/fonts/poppins/WOFF/Poppins-Bold.woff") format("woff"),
+             url("../../public/fonts/poppins/TTF/Poppins-Bold.ttf") format("truetype"),
+             url("../../public/fonts/poppins/OTF/Poppins-Bold.otf") format("opentype");
+        font-style: normal;
+        font-weight: 700;
+    }
+    @font-face {
+        font-family: "poppins-extraBold";
+        src: url("../../public/fonts/poppins/WOFF2/Poppins-ExtraBold.woff2") format("woff2"),
+             url("../../public/fonts/poppins/WOFF/Poppins-ExtraBold.woff") format("woff"),
+             url("../../public/fonts/poppins/TTF/Poppins-ExtraBold.ttf") format("truetype"),
+             url("../../public/fonts/poppins/OTF/Poppins-ExtraBold.otf") format("opentype");
+        font-style: normal;
+        font-weight: 800;
+    }
+    @font-face {
+        font-family: "poppins-black";
+        src: url("../../public/fonts/poppins/WOFF2/Poppins-Black.woff2") format("woff2"),
+             url("../../public/fonts/poppins/WOFF/Poppins-Black.woff") format("woff"),
+             url("../../public/fonts/poppins/TTF/Poppins-Black.ttf") format("truetype"),
+             url("../../public/fonts/poppins/OTF/Poppins-Black.otf") format("opentype");
+        font-style: normal;
+        font-weight: 900;
+    }
+
+
+
+    .noscrollbar::-webkit-scrollbar {
+        display: none; /* پنهان کردن اسکرول بار */
+    }
+    
+    /* برای Firefox */
+    .noscrollbar {
+        scrollbar-width: none; /* پنهان کردن اسکرول بار در Firefox */
+    }
+    
+    /* برای Internet Explorer و Edge */
+    .noscrollbar {
+        -ms-overflow-style: none; /* پنهان کردن اسکرول بار */
+    }
+
+
+    .navbar-item-children-links{
+        display: none;
+    }
+    .navbar-item.active .navbar-item-children-links{
+        display: flex;
+    }
+    .navbar-item.active .navbar-item-button{
+        background-color: #DBF0DD80;
+    }
+
+
+    .sidbar-bottom-navtab.active{
+        @apply bg-neutral-200 text-green-600;
+    }
+
+
+
+    .navbar-item-button{
+        transition: all 200ms ease-out;
+    }
+    .navbar-item-button:hover{
+        transition: none;
+        background-color: #dbf0dd48;
+    }
+
+
+
+
+
+
+    .navbar-item-child-link{
+        @apply text-green-300;
+    }
+    .navbar-item-child-link.active{
+        @apply text-neutral-200;
+    }
+    .navbar-item-child-link:hover{
+
+    }
+
+
+    input[type='checkbox'] + label svg{
+        opacity: 0;
+        transition: all 150ms ease-out;
+    }
+    input[type='checkbox']:checked + label svg{
+        opacity: 1;
+    }
+
+
+    .modal{
+        display: none;
+    }
+    .modal-content{
+        transition: all 300ms ease-in;
+        opacity: 0;
+    }
+
+    .modal.active{
+        display: block;
+    }
+    .modal.active .modal-content{
+        opacity: 100;
+    }
+
+
+
+    .manage-room-item{
+        transition: all 150ms ease-in-out;
+    }
+    .manage-room-item:hover{
+        filter: drop-shadow(0px 0px 10px #d6d6d686); 
+    }
+    .manage-room-item.active{
+        background-color: #DBF0DD80;
+    }
+    .manage-room-item.disabled .text{
+        color: #ADADAD !important;
+    }
+
+
+
+
+    .roomItemButton{
+        color: #255346;
+    }
+    .roomItemButton.active{
+        color: #ADADAD;
+    }
+    .roomItemButton.disabled{
+        color: #FF0000;
+    }
+
+
+
+    .edit-room-image:first-child{
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+
+
+
+    .checkbox-item-button:has(input:checked){
+        background-color: #DBF0DD;
+        color: #464646;
+    }
+
+
+    .radio-label .icon{
+        opacity: 0;
+    }
+    input:checked + .radio-label .icon{
+        opacity: 100;
+    }
+
+
+
+    .dropArea{
+        transition: all 250ms ease-out;
+    }
+    .dropArea.active{
+        background-color: #255346;
+    }
+    .dropArea.hover{
+        background-color: #DBF0DD;
+    }
+
+
+    .accordiion .accordiion-button{
+        border-radius: 12px 12px 12px 12px;
+    }
+    .accordiion .accordiion-button svg{
+        color: #255346;
+        transition: all 250ms ease-out;
+    }
+    .accordiion .accordiion-button span{
+        color: #ADADAD;
+    }
+
+
+    .accordiion.active .accordiion-button{
+        border-radius: 12px 12px 0px 0px
+    }
+    .accordiion.active .accordiion-button svg{
+        transform: rotate(180deg);
+    }
+    .accordiion.active .accordiion-button span{
+        color: #8CB398;
+    }
+    .accordiion .accordiion-content{
+        display: none;
+        transition: all 150ms ease-out;
+    }
+    .accordiion.active .accordiion-content{
+        border-radius: 0px 0px 12px 12px;
+        display: flex;
+    }
+
+
+
+    .inputContainer:has(input:focus){
+        border: 1px solid #adadad
+    }
+
+
+    @media (max-width: 512px) {
+        .best-persons-list:nth-child(1),
+        .best-persons-list:nth-child(2),
+        .best-persons-list:nth-child(3){
+            background-color: #DBF0DD
+        }
+    }
+}
+
+
+@layer components{
+    .font-normal {
+        @apply font-farsi-regular;
+    }
+    .font-medium {
+        @apply font-farsi-medium;
+    }
+    .font-bold {
+        @apply font-farsi-bold;
+    }
+}

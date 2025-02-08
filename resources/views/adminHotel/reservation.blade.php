@@ -1,0 +1,700 @@
+@extends('layouts.adminHotel')
+@section('content')
+    <div class="w-full h-full overflow-auto noscrollbar flex flex-col gap-7 1024max:pt-[76px] 1024max:gap-0">
+            <div class="w-full items-center py-[18px] px-[25px] bg-light hidden 768max:flex">
+                <h3 class=" text-base text-green-300 font-medium font-farsi-medium">
+                    مدیریت رزرو ها
+                </h3>
+            </div>
+            <main class=" w-full h-full p-4.5 rounded-xl bg-neutral-50 overflow-auto flex flex-col gap-6 768max:rounded-none 768max:px-[25px]">
+                <!-- بخش وارد کردن اطلاعات برای جستجو -->
+                <div class="w-full p-4.5 bg-light rounded-xl grid grid-cols-[1.1fr_1fr_1fr_1.1fr_1fr] gap-2 512max:hidden 640max:grid-cols-2 768max:grid-cols-3">
+                    <!-- انتخاب -->
+                    <div class="w-full flex flex-col gap-2">
+                        <label for="" class=" text-xs text-neutral-700 font-normal">
+                            انتخاب کنید
+                        </label>
+                        <input class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="تاریخ ورود">
+                    </div>
+                    <!-- تاریخ ورود -->
+                    <div class="w-full flex flex-col gap-2">
+                        <label class=" text-xs text-neutral-700 font-normal">
+                            تاریخ ورود
+                        </label>
+                        <div class="w-full flex items-center">
+                            <input data-jdp class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
+                            <svg class=" w-4.5 text-green-300 -mr-[25px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- تاریخ خروج -->
+                    <div class="w-full flex flex-col gap-2">
+                        <label class=" text-xs text-neutral-700 font-normal">
+                            تاریخ خروج
+                        </label>
+                        <div class="w-full flex items-center">
+                            <input data-jdp class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
+                            <svg class=" w-4.5 text-green-300 -mr-[25px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- نام مسافر ... -->
+                    <div class="w-full flex flex-col gap-2">
+                        <label for="" class=" text-xs text-neutral-700 font-normal">
+                            شناسه رزرو / نام مسافر
+                        </label>
+                        <input class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="شناسه رزرو / نام مسافر">
+                    </div>
+                    <!-- ذکمه جستجو -->
+                    <button class="w-full max-w-[140px] h-10 text-sm text-light font-medium flex items-center justify-center px-4.5 rounded-md bg-green-600 transition-all duration-500 hover:bg-green-300 hover:transition-none self-end" type="submit">
+                        جستجو
+                    </button>
+                </div>
+                <!-- body -->
+                <div class="w-full h-full flex flex-col gap-2">
+                    <!-- هدر این بخش -->
+                    <div class="w-full p-4.5 bg-green-300 rounded-xl grid grid-cols-[1.3fr_2.3fr_1.3fr_1.3fr_1.7fr_1fr] items-center 768max:hidden">
+                        <!-- شناسه رزرو -->
+                        <div class="w-full flex items-center justify-center">
+                            <span class=" text-xs text-light font-normal">
+                                شناسه رزرو
+                            </span>
+                        </div>
+                        <!-- نام مسافر/ اتاق -->
+                        <div class="w-full flex items-center">
+                            <span class=" text-xs text-light font-normal">
+                                نام مسافر/ اتاق
+                            </span>
+                        </div>
+                        <!-- تاریخ ورود -->
+                        <div class="w-full flex items-center justify-center">
+                            <span class=" text-xs text-light font-normal">
+                                تاریخ ورود
+                            </span>
+                        </div>
+                        <!-- تاریخ خروج -->
+                        <div class="w-full flex items-center justify-center">
+                            <span class=" text-xs text-light font-normal">
+                                تاریخ خروج
+                            </span>
+                        </div>
+                        <!-- آخرین وضعیت -->
+                        <div class="w-full flex items-center justify-center">
+                            <span class=" text-xs text-light font-normal">
+                                آخرین وضعیت
+                            </span>
+                        </div>
+                    </div>
+                    <!-- اسکرولر و والد ایتم ها -->
+                    <div class="w-full flex flex-col gap-4.5 overflow-y-scroll flex-grow-[1] flex-shrink-[1] 768max:bg-light 768max:rounded-xl 768max:p-4.5 768max:overflow-hidden">
+                        <!-- هدر توی طرح موبایل -->
+                        <div class="w-full hidden items-center justify-between 768max:flex">
+                            <h5 class=" text-base text-green-600 font-bold">
+                                لیست رزرو ها
+                            </h5>
+                            <button class="flex items-center justify-center gap-2">
+                                <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
+                                    <svg class=" w-[13px] text-inherit" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8.25 6.33333V10.3333M5.75 6.33333V10.3333M3.25 3.66667V11.6667C3.25 12.0203 3.3817 12.3594 3.61612 12.6095C3.85054 12.8595 4.16848 13 4.5 13H9.5C9.83152 13 10.1495 12.8595 10.3839 12.6095C10.6183 12.3594 10.75 12.0203 10.75 11.6667V3.66667M2 3.66667H12M3.875 3.66667L5.125 1H8.875L10.125 3.66667" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span class=" text-sm text-neutral-700 font-normal font-farsi-regular">
+                                    حذف انتخاب شده ها
+                                </span>
+                            </button>
+                        </div>
+                        <!-- items container -->
+                        <div class="w-full flex flex-col gap-2 768max:max-w-[800px] 768max:overflow-y-scroll">
+                            <!-- item -->
+                            <div class="reservation-item w-full py-4 px-6 grid grid-cols-[1.3fr_2.3fr_1.3fr_1.3fr_1.7fr_1fr] items-center bg-light rounded-xl 768max:flex 768max:flex-col 768max:gap-[30px] 768max:bg-[#DBF0DD80] 768max:py-[25px] 768max:px-4.5">
+                                <!-- شناسه رزرو -->
+                                <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm font-medium text-neutral-700">
+                                        841128695
+                                    </span>
+                                </div>
+                                <!--  نام مسافر/ اتاق + تاریخ اقامت و نوع اتاق و تعداد مهمان در موبایل-->
+                                <div class="w-full flex flex-col justify-center gap-1 768max:gap-[21px]">
+                                    <div class="flex items-center gap-2">
+                                        <div class=" hidden 768max:block">
+                                            <input class=" hidden" type="checkbox" id="inputText1" name="">
+                                            <label for="inputText1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
+                                                <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </label>
+                                        </div>
+                                        <span class=" text-sm font-normal text-neutral-700 768max:font-bold">
+                                            رضا پور تقی
+                                        </span>
+                                    </div>
+                                    <span class=" text-xs font-normal text-neutral-400 768max:hidden">
+                                        1 اتاق سینگل اکونومی
+                                    </span>
+                                    <div class="w-full hidden flex-col gap-3 768max:flex">
+                                        <div class="w-full flex items-center gap-2">
+                                            <span class=" text-xs text-neutral-400 font-normal">
+                                                تاریخ اقامت:
+                                            </span>
+                                            <span class=" text-sm text-neutral-700 font-normal">
+                                                1403/11/20 - 1403/11/28
+                                            </span>
+                                        </div>
+                                        <div class="w-full flex items-center gap-2">
+                                            <span class=" text-xs text-neutral-400 font-normal">
+                                                نوع اتاق:
+                                            </span>
+                                            <span class=" text-sm text-neutral-700 font-normal">
+                                                1 اتاق سینگل اکونومی
+                                            </span>
+                                        </div>
+                                        <div class="w-full flex items-center gap-2">
+                                            <span class=" text-xs text-neutral-400 font-normal">
+                                                تعداد مهمان :
+                                            </span>
+                                            <span class=" text-sm text-neutral-700 font-normal">
+                                                1 نفر
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- تاریخ ورود -->
+                                <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm font-normal text-neutral-700">
+                                        1403/12/29
+                                    </span>
+                                </div>
+                                <!-- تاریخ خروج -->
+                                <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm font-normal text-neutral-700">
+                                        1404/12/29
+                                    </span>
+                                </div>
+                                <!-- آخرین وضعیت -->
+                                <div class="w-full flex justify-center items-center gap-1 768max:hidden">
+                                    <!-- دکمه وضعیت -->
+                                    <div class="">
+                                        <button id="dropdownButton1" data-dropdown-toggle="dropdown1" class=" min-w-[140px] px-3 flex items-center justify-center gap-2 rounded-[20px] bg-neutral-50 h-10 relative">
+                                            <span class=" text-sm text-neutral-400 font-medium">
+                                                تایید
+                                            </span>
+                                            <svg class=" text-neutral-400 w-4 absolute z-[2] top-0 bottom-0 left-[18px] my-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                            </svg>
+                                        </button>
+                                        <div id="dropdown1" class="z-10 hidden bg-light divide-y divide-gray-100 rounded-xl shadow-sm w-44">
+                                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownButton1">
+                                              <li>
+                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-xs text-neutral-700 font-medium transition-all duration-500 ease-out hover:transition-none">
+                                                    تایید شد
+                                                </a>
+                                              </li>
+                                              <li>
+                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-xs text-neutral-700 font-medium transition-all duration-500 ease-out hover:transition-none">
+                                                    رد شد
+                                                </a>
+                                              </li>
+                                              <li>
+                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-xs text-neutral-700 font-medium transition-all duration-500 ease-out hover:transition-none">
+                                                    کنسل شد
+                                                </a>
+                                              </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- دکمه لغو و تایید در موبایل -->
+                                <div class="w-full hidden items-center px-[26px] gap-2 768max:flex">
+                                    <button class="rounded-[6px] flex items-center justify-center py-2 px-4 text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 w-full flex-grow-[1]">
+                                        لغو
+                                    </button>
+                                    <button class="rounded-[6px] flex items-center justify-center py-2 px-4 text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 w-full flex-grow-[1]">
+                                        تایید
+                                    </button>
+                                </div>
+                                <!-- جزئیات رزرو در موبایل -->
+                                <div class="w-full hidden grid-cols-2 gap-x-3 gap-y-4.5 768max:grid">
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            تاریخ رزرو:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-normal">
+                                            1403/11/06
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            زمان رزرو:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-normal">
+                                            06:12
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            وضعیت پرداخت:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-normal">
+                                            پرداخت انجام شده است
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            مبلغ پرداختی:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-bold">
+                                            6,336,500 تومان
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- دکمه جزئیات بیشتر -->
+                                 <button onclick="modalController(roomReservationProperties)" class=" text-xs text-green-300 font-normal text-center disabled:text-neutral-400 768max:self-center">
+                                    جزئیات بیشتر
+                                 </button>
+                            </div>
+                            <!-- item -->
+                            <!-- حالت تایید شده -->
+                            <div class="reservation-item active w-full py-4 px-6 grid grid-cols-[1.3fr_2.3fr_1.3fr_1.3fr_1.7fr_1fr] items-center bg-[#DBF0DD80] rounded-xl 768max:flex 768max:flex-col 768max:gap-[30px] 768max:bg-[#DBF0DD] 768max:py-[25px] 768max:px-4.5">
+                                <!-- شناسه رزرو -->
+                                <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm font-medium text-neutral-700">
+                                        841128695
+                                    </span>
+                                </div>
+                                <!--  نام مسافر/ اتاق + تاریخ اقامت و نوع اتاق و تعداد مهمان در موبایل-->
+                                <div class="w-full flex flex-col justify-center gap-1 768max:gap-[21px]">
+                                    <div class="flex items-center gap-2">
+                                        <span class=" text-sm font-normal text-neutral-700 768max:font-bold">
+                                            رضا پور تقی
+                                        </span>
+                                    </div>
+                                    <span class=" text-xs font-normal text-neutral-400 768max:hidden">
+                                        1 اتاق سینگل اکونومی
+                                    </span>
+                                    <div class="w-full hidden flex-col gap-3 768max:flex">
+                                        <div class="w-full flex items-center gap-2">
+                                            <span class=" text-xs text-neutral-400 font-normal">
+                                                تاریخ اقامت:
+                                            </span>
+                                            <span class=" text-sm text-neutral-700 font-normal">
+                                                1403/11/20 - 1403/11/28
+                                            </span>
+                                        </div>
+                                        <div class="w-full flex items-center gap-2">
+                                            <span class=" text-xs text-neutral-400 font-normal">
+                                                نوع اتاق:
+                                            </span>
+                                            <span class=" text-sm text-neutral-700 font-normal">
+                                                1 اتاق سینگل اکونومی
+                                            </span>
+                                        </div>
+                                        <div class="w-full flex items-center gap-2">
+                                            <span class=" text-xs text-neutral-400 font-normal">
+                                                تعداد مهمان :
+                                            </span>
+                                            <span class=" text-sm text-neutral-700 font-normal">
+                                                1 نفر
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- تاریخ ورود -->
+                                <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm font-normal text-neutral-700">
+                                        1403/12/29
+                                    </span>
+                                </div>
+                                <!-- تاریخ خروج -->
+                                <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm font-normal text-neutral-700">
+                                        1404/12/29
+                                    </span>
+                                </div>
+                                <!-- آخرین وضعیت -->
+                                <div class="w-full flex justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm text-green-600 font-medium text-center">
+                                       تایید شد
+                                    </span>
+                                </div>
+                                <!-- وضعیت در موبایل-->
+                                <div class="w-full hidden items-center px-[26px] gap-2 768max:flex">
+                                    <div class="w-full flex justify-center items-center gap-1">
+                                        <span class=" text-sm text-green-600 font-medium text-center">
+                                           تایید شد
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- جزئیات رزرو در موبایل -->
+                                <div class="w-full hidden grid-cols-2 gap-x-3 gap-y-4.5 768max:grid">
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            تاریخ رزرو:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-normal">
+                                            1403/11/06
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            زمان رزرو:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-normal">
+                                            06:12
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            وضعیت پرداخت:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-normal">
+                                            پرداخت انجام شده است
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            مبلغ پرداختی:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-bold">
+                                            6,336,500 تومان
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- دکمه جزئیات بیشتر -->
+                                 <button onclick="modalController(roomReservationProperties)" class=" text-xs text-green-300 font-normal text-center disabled:text-neutral-400">
+                                    جزئیات بیشتر
+                                 </button>
+                            </div>
+                            <!-- item -->
+                            <!-- حالت کنسل شده -->
+                            <div class="reservation-item disabled w-full py-4 px-6 grid grid-cols-[1.3fr_2.3fr_1.3fr_1.3fr_1.7fr_1fr] items-center bg-[#ADADAD1A] rounded-xl 768max:flex 768max:flex-col 768max:gap-[30px] 768max:py-[25px] 768max:px-4.5">
+                                <!-- شناسه رزرو -->
+                                <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm font-medium text-neutral-400">
+                                        841128695
+                                    </span>
+                                </div>
+                                <!--  نام مسافر/ اتاق + تاریخ اقامت و نوع اتاق و تعداد مهمان در موبایل-->
+                                <div class="w-full flex flex-col justify-center gap-1 768max:gap-[21px]">
+                                    <span class=" text-sm font-normal text-neutral-400 768max:font-bold">
+                                        رضا پور تقی
+                                    </span>
+                                    <span class=" text-xs font-normal text-neutral-400 768max:hidden">
+                                        1 اتاق سینگل اکونومی
+                                    </span>
+                                    <div class="w-full hidden flex-col gap-3 768max:flex">
+                                        <div class="w-full flex items-center gap-2">
+                                            <span class=" text-xs text-neutral-400 font-normal">
+                                                تاریخ اقامت:
+                                            </span>
+                                            <span class=" text-sm text-neutral-400 font-normal">
+                                                1403/11/20 - 1403/11/28
+                                            </span>
+                                        </div>
+                                        <div class="w-full flex items-center gap-2">
+                                            <span class=" text-xs text-neutral-400 font-normal">
+                                                نوع اتاق:
+                                            </span>
+                                            <span class=" text-sm text-neutral-400 font-normal">
+                                                1 اتاق سینگل اکونومی
+                                            </span>
+                                        </div>
+                                        <div class="w-full flex items-center gap-2">
+                                            <span class=" text-xs text-neutral-400 font-normal">
+                                                تعداد مهمان :
+                                            </span>
+                                            <span class=" text-sm text-neutral-400 font-normal">
+                                                1 نفر
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- تاریخ ورود -->
+                                <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm font-normal text-neutral-400">
+                                        1403/12/29
+                                    </span>
+                                </div>
+                                <!-- تاریخ خروج -->
+                                <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm font-normal text-neutral-400">
+                                        1404/12/29
+                                    </span>
+                                </div>
+                                <!-- آخرین وضعیت -->
+                                <div class="w-full flex justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm text-[#ff0000] font-medium text-center">
+                                       کنسل شد
+                                    </span>
+                                </div>
+                                <!-- وضعیت در موبایل -->
+                                <div class="w-full hidden items-center px-[26px] gap-2 768max:flex">
+                                    <div class="w-full flex justify-center items-center gap-1">
+                                        <span class=" text-sm text-[#ff0000] font-medium text-center">
+                                           کنسل شد
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- جزئیات رزرو در موبایل -->
+                                <div class="w-full hidden grid-cols-2 gap-x-3 gap-y-4.5 768max:grid">
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            تاریخ رزرو:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-normal">
+                                            1403/11/06
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            زمان رزرو:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-normal">
+                                            06:12
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            وضعیت پرداخت:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-normal">
+                                            پرداخت انجام شده است
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span class=" text-xs text-neutral-400 font-normal">
+                                            مبلغ پرداختی:
+                                        </span>
+                                        <span class=" text-sm text-neutral-400 font-bold">
+                                            6,336,500 تومان
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- دکمه جزئیات بیشتر -->
+                                 <button class=" text-xs text-green-300 font-normal text-center disabled:text-neutral-400" disabled>
+                                    جزئیات بیشتر
+                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full grid grid-cols-[1fr_1fr_1fr_1.5fr] gap-4.5 512max:grid-cols-1 512max:gap-4.5 768max:grid-cols-2 1024max:grid-cols-3 1280max:gap-3 1280max:grid-cols-4">
+                        <div class="w-full flex flex-col items-center justify-center gap-[21px] p-4.5 rounded-xl bg-green-600 h-[117px]">
+                            <span class=" text-sm text-light font-normal text-center">
+                                تعداد رزرو های امروز
+                            </span>
+                            <span class=" text-[18px] text-light font-medium text-center">
+                                241 رزرو
+                            </span>
+                        </div>
+                        <div class="w-full flex flex-col items-center justify-center gap-[21px] p-4.5 rounded-xl bg-green-600 h-[117px]">
+                            <span class=" text-sm text-light font-normal text-center">
+                                تعداد رزرو های هفته
+                            </span>
+                            <span class=" text-[18px] text-light font-medium text-center">
+                                6,409 رزرو
+                            </span>
+                        </div>
+                        <div class="w-full flex flex-col items-center justify-center gap-[21px] p-4.5 rounded-xl bg-green-600 h-[117px]">
+                            <span class=" text-sm text-light font-normal text-center">
+                                تعداد رزرو های سال
+                            </span>
+                            <span class=" text-[18px] text-light font-medium text-center">
+                                94,359 رزرو
+                            </span>
+                        </div>
+                        <div class="w-full flex flex-col items-center justify-center gap-[21px] p-4.5 rounded-xl bg-green-600 h-[117px]">
+                            <span class=" text-sm text-light font-normal text-center">
+                                درآمد نهایی سال
+                            </span>
+                            <span class=" text-[20px] text-light font-bold text-center 1280max:text-[18px]">
+                                21,256,206,024 تومان
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    <!-- پاپ جزئیات رزرو اتاق -->
+    <div class="roomReservationProperties modal w-[100vw] h-[100vh] fixed z-[15] top-0 left-0 bg-[#0000002c] px-6 py-4">
+            <div class=" modal-content w-full h-full flex items-center justify-center">
+                <div class="w-full max-w-[800px] p-4.5 bg-light rounded-xl flex flex-col gap-[68px]">
+                    <!-- body -->
+                    <div class="w-full flex flex-col gap-2">
+                        <!--  -->
+                        <div class="w-full py-[13px] px-4.5 rounded-xl bg-neutral-50">
+                            <h6 class=" text-sm text-green-600 font-normal">
+                                جزئیات رزرو اتاق
+                            </h6>
+                        </div>
+                        <!--  -->
+                        <div class="w-full rounded-xl bg-neutral-50 p-4.5 min-h-[200px] grid grid-cols-3 gap-x-2 gap-y-4.5 items-start 512max:grid-cols-1 content-start 768max:grid-cols-2">
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    نام مسافر:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    رضا پورتقی
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    اتاق:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    1403/11/20
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    تاریخ ورود:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    1 اتاق سینگل اکونومی
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    تاریخ خروج:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    1403/11/20
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    شماره اتاق:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    321
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    شناسه رزرو:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    841128695
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    تعداد مهمان:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    1 نفر
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    شماره تماس:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    09197563483
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    کد ملی مسافر:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    571756348
+                                </span>
+                            </div>
+                        </div>
+                        <!--  -->
+                        <div class="w-full rounded-xl bg-green-100 p-4.5 grid grid-cols-3 gap-x-2 gap-y-4.5 items-start content-start 512max:grid-cols-1 768max:grid-cols-2">
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    زمان رزرو:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    12:30
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    شناسه پرداخت:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    843621790
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    مبلغ پرداختی:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    6,336,500 تومان
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    وضعیت پرداخت:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    پرداخت شد
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    تاریخ رزرو:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    1403/12/24
+                                </span>
+                            </div>
+                            <!-- item -->
+                            <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    شماره کارت:
+                                </span>
+                                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    5064-3690-4572-1869
+                                </span>
+                            </div>
+                        </div>
+                        <!--  -->
+                        <div class="w-full rounded-xl bg-neutral-50 p-4.5 flex items-center">
+                            <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                وضعیت رزرو:
+                            </span>
+                            <span class=" text-sm text-green-600 font-bold 512max:text-xs">
+                                رزرو توسط ادمین 5 تایید شد
+                            </span>
+                        </div>
+                    </div>
+                    <!-- buttons -->
+                    <div class="w-full flex items-center gap-4.5 justify-end 640max:gap-2">
+                        <button class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 640max:min-w-[0px] 640max:flex-grow-[1] 640max:px-2 640max:text-xs">
+                            لغو رزرو
+                        </button>
+                        <a href="#" class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 640max:min-w-[0px] 640max:flex-grow-[1] 640max:px-2 640max:text-xs">
+                            ارسال پیام
+                        </a>
+                        <button onclick="modalController(roomReservationProperties)" class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 640max:min-w-[0px] 640max:flex-grow-[1] 640max:px-2 640max:text-xs">
+                            بازگشت
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script>
+        jalaliDatepicker.startWatch();
+    </script>
+@endsection
