@@ -41,7 +41,9 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
         Route::get('/', [mainPageController::class, 'index'])->name('dashboard');
         Route::get('mainPage', [mainPageController::class, 'index'])->name('mainPage');
         Route::post('updateHotel/{id}', [mainPageController::class, 'updateHotel'])->name('updateHotel');
-
+        Route::post('updateFacility/{id}', [mainPageController::class, 'updateFacility'])->name('updateFacility');
+        Route::post('addPhotoGallery/{id}', [mainPageController::class, 'addPhotoGallery'])->name('addPhotoGallery');
+        Route::post('deleteGallery/{id}', [mainPageController::class, 'deleteGallery'])->name('deleteGallery');
 
 
 
