@@ -21,6 +21,6 @@ class Hotel extends Model
     }
     public function rooms()
     {
-        return $this->hasMany(Rooms::class);
+        return $this->hasMany(Room::class);
     }
 }

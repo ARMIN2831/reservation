@@ -60,19 +60,19 @@
                                         </span>
                                         <div class="w-full flex-grow-[1] flex items-center gap-2 flex-wrap">
                                             <label for="room-type-1" class="checkbox-item-button h-[30px] transition-all duration-200 ease-out px-5 py-[4.5] rounded-[20px] bg-neutral-50 flex-shrink-[0] flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                                <input class="hidden" type="radio" id="room-type-1" name="room-type" value="standard" {{ isset($room) && $room->type == 'standard' ? 'checked' : '' }}>
+                                                <input class="hidden" type="radio" id="room-type-1" name="room-type" value="استاندارد" {{ isset($room) && $room->type == 'standard' ? 'checked' : '' }}>
                                                 <span>
                                                     اتاق استاندارد
                                                 </span>
                                             </label>
                                             <label for="room-type-2" class="checkbox-item-button h-[30px] transition-all duration-200 ease-out px-5 py-[4.5] rounded-[20px] bg-neutral-50 flex-shrink-[0] flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                                <input class="hidden" type="radio" id="room-type-2" name="room-type" value="family" {{ isset($room) && $room->type == 'family' ? 'checked' : '' }}>
+                                                <input class="hidden" type="radio" id="room-type-2" name="room-type" value="خانوادگی" {{ isset($room) && $room->type == 'family' ? 'checked' : '' }}>
                                                 <span>
                                                     اتاق خانوادگی
                                                 </span>
                                             </label>
                                             <label for="room-type-3" class="checkbox-item-button h-[30px] transition-all duration-200 ease-out px-5 py-[4.5] rounded-[20px] bg-neutral-50 flex-shrink-[0] flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                                <input class="hidden" type="radio" id="room-type-3" name="room-type" value="suite" {{ isset($room) && $room->type == 'suite' ? 'checked' : '' }}>
+                                                <input class="hidden" type="radio" id="room-type-3" name="room-type" value="سوئیت" {{ isset($room) && $room->type == 'suite' ? 'checked' : '' }}>
                                                 <span>
                                                     سوئیت
                                                 </span>

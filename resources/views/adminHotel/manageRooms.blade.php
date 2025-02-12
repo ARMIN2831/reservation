@@ -75,26 +75,27 @@
                     </div>
                     <!-- body -->
                     <div class="noscrollbar w-full h-full flex flex-col gap-4.5 overflow-auto flex-grow-[1] flex-shrink-[1] 768max:overflow-visible">
+                        {{--{{ dd($sharedData->rooms) }}--}}
                         @foreach($sharedData->rooms as $room)
                             <!-- item -->
                             <div class="manage-room-item w-full grid grid-cols-[201px_1.5fr_1fr_1fr_1.3fr_140px] gap-5 items-center py-2 px-4.5 rounded-xl bg-light 512max:px-2 512max:pt-2 512max:pb-4.5  768max:grid-cols-1 768max:gap-2 768max:py-4.5 1280max:grid-cols-[201px_1.5fr_1fr_1fr_1.3fr_120px] 1280max:gap-3">
                                 <!-- image and checkbox -->
                                 <div class="w-full flex items-center gap-4.5">
-                                    <input class=" hidden" type="checkbox" id="sallam" name="name">
-                                    <label for="sallam" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center 768max:hidden" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
+                                    <input class=" hidden" type="checkbox" id="selectInputRoom{{ $room->id }}" name="name">
+                                    <label for="selectInputRoom{{ $room->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center 768max:hidden" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
                                         <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
                                     </label>
-                                    <img src="../../../public/public/images/image1.jpg" alt="#" class=" w-full flex-grow-[1] aspect-165/104 rounded-[6px] object-cover 768max:aspect-364/206">
+                                    <img src="{{ asset('storage/' . @$room->files[0]->address) }}" alt="#" class=" w-full flex-grow-[1] aspect-165/104 rounded-[6px] object-cover 768max:aspect-364/206">
                                 </div>
                                 <!-- title -->
                                 <div class="w-full flex flex-col gap-2 768max:my-[10px]">
                                 <span class=" text-sm text-green-600 font-normal font-farsi-regular text 768max:hidden">
-                                    شماره 321
+                                    شماره {{ $room->id }}
                                 </span>
                                     <span class=" text-sm text-neutral-700 font-bold font-farsi-bold text 768max:text-base">
-                                    اتاق سینگل اکونومی
+                                    {{ $room->title }}
                                 </span>
                                 </div>
                                 <!-- type -->
@@ -109,16 +110,16 @@
                                 <!-- bed type -->
                                 <div class="items-center gap-1 768max:flex">
                                 <span class="hidden text-xs text-neutral-400 font-normal font-farsi-regular text 768max:inline 768max:text-sm">
-                                    نوع تخت :
+                                    تعداد تخت :
                                 </span>
                                     <span class=" text-xs text-neutral-700 font-normal font-farsi-regular text 768max:text-sm 768max:font-medium 768max:font-farsi-medium">
-                                    1 سینگل
+                                    {{ $room->single }}  دبل {{ $room->double }}, سینگل
                                 </span>
                                 </div>
                                 <!-- services -->
                                 <div class=" flex-col gap-2 768max:flex 768max:w-full">
                                 <span class=" text-xs text-neutral-700 font-normal font-farsi-regular text 768max:hidden">
-                                    تلویزیون، اینترنت وای فای، حمام خصوصی، مینی بار
+                                    {{ implode(', ', $room->facilities->pluck('title')->toArray()) }}
                                 </span>
                                     <span class="hidden text-xs text-neutral-400 font-normal font-farsi-regular text 768max:inline 768max:text-sm">
                                     خدمات :
@@ -137,16 +138,20 @@
                                 </div>
                                 <!-- button -->
                                 <div class="w-full 768max:hidden">
-                                    <button id="roomDropdownButton1" data-dropdown-toggle="roomDropdownContent1" class=" roomItemButton w-full bg-neutral-50 rounded-[36px] flex items-center justify-between py-2 px-3">
-                                    <span class=" text-inherit text-sm font-medium font-farsi-medium">
-                                        موجود
-                                    </span>
-                                        <svg class=" w-[16px] text-[#d9d9d9]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                        </svg>
+                                    <button id="roomDropdownButton{{ $room->id }}" data-dropdown-toggle="roomDropdownContent{{ $room->id }}" class="@if($room->status == 0) disabled @endif roomItemButton w-full bg-neutral-50 rounded-[36px] flex items-center justify-between py-2 px-3">
+                                        @if($room->status == 0)
+                                            <span class=" text-inherit text-sm font-medium font-farsi-medium">غیر قابل رزرو</span>
+                                            <svg class=" w-[16px] text-[#d9d9d9]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                                        @elseif($room->status == 2)
+                                            <span class=" text-inherit text-sm font-medium font-farsi-medium">تایید شد</span>
+                                            <svg class=" w-[16px] text-[#d9d9d9]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                                        @elseif($room->status == 1)
+                                            <span class=" text-inherit text-sm font-medium font-farsi-medium">موجود</span>
+                                            <svg class=" w-[16px] text-[#d9d9d9]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                                        @endif
                                     </button>
-                                    <div id="roomDropdownContent1" class="z-10 hidden bg-light divide-y divide-gray-100 rounded-xl shadow-sm w-44">
-                                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="roomDropdownButton1">
+                                    <div id="roomDropdownContent{{ $room->id }}" class="z-10 hidden  bg-light divide-y divide-gray-100 rounded-xl shadow-sm w-44">
+                                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="roomDropdownButton{{ $room->id }}">
                                             <li>
                                                 <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-xs text-neutral-700 font-medium transition-all duration-500 ease-out hover:transition-none">
                                                     موجود
@@ -167,6 +172,7 @@
                                 </div>
                             </div>
                         @endforeach
+{{--
 
                         <!-- item -->
                         <div class="manage-room-item w-full grid grid-cols-[201px_1.5fr_1fr_1fr_1.3fr_140px] gap-5 items-center py-2 px-4.5 rounded-xl bg-light 512max:px-2 512max:pt-2 512max:pb-4.5  768max:grid-cols-1 768max:gap-2 768max:py-4.5 1280max:grid-cols-[201px_1.5fr_1fr_1fr_1.3fr_120px] 1280max:gap-3">
@@ -438,6 +444,8 @@
                                 </div>
                             </div>
                         </div>
+--}}
+
                     </div>
                 </div>
             </main>

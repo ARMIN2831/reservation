@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Facility;
 use App\Models\File;
 use App\Models\RoomFacility;
-use App\Models\Rooms;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class editRoomsController extends Controller
@@ -26,7 +26,7 @@ class editRoomsController extends Controller
             'double_beds' => 'required',
             'room-type' => 'required',
         ]);
-        $room = Rooms::create([
+        $room = Room::create([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
             'single' => $validatedData['single_beds'],
