@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use App\Models\Hotel;
-use App\Models\HotelUser;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -22,7 +21,7 @@ class ShareAdminHotelData
             $user = auth()->user();
             $hotel = Hotel::whereHas('users', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
-            })->with('files','facilities')->first();
+            })->with('files','facilities','rooms')->first();
             View::share('sharedData', $hotel);
         }
 

@@ -697,4 +697,5 @@
     <script>
         jalaliDatepicker.startWatch();
     </script>
+    <script src="{{ asset('src/scripts/reservation.js') }}"></script>
 @endsection

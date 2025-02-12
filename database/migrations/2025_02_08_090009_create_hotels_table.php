@@ -39,7 +39,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('type');
-            $table->string('icon')->nullable();
+            $table->text('icon')->nullable();
             $table->timestamps();
         });
         Schema::create('hotel_facilities', function (Blueprint $table) {

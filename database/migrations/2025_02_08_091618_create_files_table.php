@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['image', 'video', 'voice']);
+            $table->string('title')->nullable();
             $table->morphs('model');
             $table->string('address');
             $table->timestamps();

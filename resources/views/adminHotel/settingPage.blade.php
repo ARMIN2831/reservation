@@ -682,4 +682,5 @@
                 </form>
             </div>
         </div>
+<script src="{{ asset('src/scripts/settingPage.js') }}"></script>
 @endsection

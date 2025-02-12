@@ -256,19 +256,13 @@
 
 </div>
 
-<script src="{{ asset('src/scripts/Swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ asset('src/scripts/leaflet.js') }}"></script>
 <script src="{{ asset('src/scripts/mainScipts.js') }}"></script>
 <script>
     let coordinates = {{ $sharedData->mapAddress ? $sharedData->mapAddress : '[35.6892, 51.3890]' }};
 </script>
 <script src="{{ asset('src/scripts/mapScripts.js') }}"></script>
-<script src="{{ asset('src/scripts/mainPage.js') }}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.js"></script>
-<script src="{{ asset('src/scripts/settingPage.js') }}"></script>
-<script src="{{ asset('src/scripts/manageRooms.js') }}"></script>
-<script src="{{ asset('src/scripts/editRooms.js') }}"></script>
-<script src="{{ asset('src/scripts/reservation.js') }}"></script>
 </body>
 </html>

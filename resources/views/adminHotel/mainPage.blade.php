@@ -66,7 +66,7 @@
                                     <!-- image -->
                                     <div class="w-[110px] relative aspect-square">
                                         <img class=" object-contain w-full aspect-square rounded-full bg-neutral-50" src="../../../public/public/images/darvishiLogo.png" alt="#">
-                                        <a href="settingPage.blade.php" class=" w-[30px] aspect-square rounded-full border-[1px] border-light flex items-center justify-center bg-green-300 absolute z-[2] left-0 bottom-0">
+                                        <a href="{{ route('hotel.settingPage') }}" class=" w-[30px] aspect-square rounded-full border-[1px] border-light flex items-center justify-center bg-green-300 absolute z-[2] left-0 bottom-0">
                                             <svg class=" w-[13px] text-light" viewBox="0 0 13.5 13.5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g clip-path="url(#clip0_177_599)">
                                                     <path d="M4.13922 2.05706C3.96322 1.87545 3.75285 1.73066 3.52036 1.63114C3.28786 1.53161 3.03789 1.47933 2.78499 1.47734C2.53209 1.47535 2.28133 1.52369 2.04729 1.61955C1.81326 1.71541 1.60064 1.85687 1.42181 2.03569C1.24298 2.21452 1.10151 2.42713 1.00565 2.66115C0.909785 2.89518 0.861441 3.14593 0.863429 3.39882C0.865418 3.65171 0.917701 3.90167 1.01723 4.13416C1.11677 4.36664 1.26156 4.577 1.44318 4.75299L2.18992 5.49971C1.90442 5.79715 1.74686 6.19462 1.75103 6.60688C1.7552 7.01913 1.92077 7.41334 2.21223 7.70494L3.17379 8.66597C3.20708 8.7017 3.24723 8.73036 3.29184 8.75024C3.33645 8.77011 3.38461 8.7808 3.43344 8.78166C3.48227 8.78252 3.53077 8.77354 3.57606 8.75525C3.62134 8.73696 3.66248 8.70974 3.69701 8.6752C3.73154 8.64067 3.75877 8.59954 3.77706 8.55426C3.79535 8.50897 3.80433 8.46047 3.80347 8.41164C3.80261 8.36281 3.79192 8.31466 3.77205 8.27005C3.75217 8.22544 3.72351 8.18529 3.68778 8.152L2.72671 7.19048C2.5716 7.03538 2.48258 6.82623 2.47833 6.60692C2.47408 6.3876 2.55493 6.17517 2.70392 6.01417L8.61291 11.9229C8.82626 12.1363 9.0915 12.2914 9.38244 12.3729L12.061 13.123C12.1231 13.1403 12.1887 13.1408 12.2511 13.1245C12.3135 13.1081 12.3704 13.0754 12.4159 13.0299C12.4615 12.9843 12.4942 12.9274 12.5106 12.865C12.5269 12.8027 12.5264 12.7371 12.5091 12.675L11.7589 9.996C11.6775 9.70507 11.5228 9.44033 11.3089 9.22698L4.13922 2.05706Z" fill="currentColor"/>
@@ -623,7 +623,7 @@
         </div>
     </div>
 
-    <script>
 
-    </script>
+    <script src="{{ asset('src/scripts/Swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('src/scripts/mainPage.js') }}"></script>
 @endsection

@@ -3,16 +3,17 @@ let singlebedCountInput = document.getElementById('singlebedCountInput')
 let doublebedCountInput = document.getElementById('doublebedCountInput')
 
 
-function addOrDeleteBed (type, inputElem){
+function addOrDeleteBed(type, inputElem) {
+    let value = parseInt(inputElem.value, 10);
+    if (isNaN(value)) value = 0;
+
     switch (type) {
         case 'add':
-            inputElem.value = +(inputElem.value) + 1
+            inputElem.value = value + 1;
             break;
         case 'delete':
-            if(+(inputElem.value) > 1){
-                inputElem.value = +(inputElem.value) - 1
-            }else{
-                return
+            if (value > 0) {
+                inputElem.value = value - 1;
             }
             break;
         default:
@@ -27,7 +28,7 @@ function modalController (modal){
 
 
 
-// 
+//
 let addImagePopUp = document.querySelector('.roomsNewImage')
 
 
@@ -72,7 +73,7 @@ function handleFiles(files) {
     const file = files[0]; // فقط فایل اول را در نظر می‌گیریم
 
     // بررسی نوع فایل
-    if (file.type === 'image/jpeg') {
+    if (file.type === 'image/jpeg' || file.type === 'image/png') {
         // بررسی اندازه فایل (کمتر از 100 کیلوبایت)
         if (file.size <= 1000 * 1024) {
             let defaultText = dropArea.querySelectorAll('.dropAreaText')

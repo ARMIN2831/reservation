@@ -19,4 +19,8 @@ class Hotel extends Model
     {
         return $this->morphMany(File::class, 'model','model_type');
     }
+    public function rooms()
+    {
+        return $this->hasMany(Rooms::class);
+    }
 }

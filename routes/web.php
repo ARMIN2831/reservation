@@ -40,19 +40,25 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
         //mainPage routes
         Route::get('/', [mainPageController::class, 'index'])->name('dashboard');
         Route::get('mainPage', [mainPageController::class, 'index'])->name('mainPage');
-        Route::post('updateHotel/{id}', [mainPageController::class, 'updateHotel'])->name('updateHotel');
-        Route::post('updateFacility/{id}', [mainPageController::class, 'updateFacility'])->name('updateFacility');
-        Route::post('addPhotoGallery/{id}', [mainPageController::class, 'addPhotoGallery'])->name('addPhotoGallery');
-        Route::post('deleteGallery/{id}', [mainPageController::class, 'deleteGallery'])->name('deleteGallery');
+        Route::post('updateHotel/{hotelId}', [mainPageController::class, 'updateHotel'])->name('updateHotel');
+        Route::post('updateFacility/{hotelId}', [mainPageController::class, 'updateFacility'])->name('updateFacility');
+        Route::post('addPhotoGallery/{hotelId}', [mainPageController::class, 'addPhotoGallery'])->name('addPhotoGallery');
+        Route::post('deleteGallery/{hotelId}', [mainPageController::class, 'deleteGallery'])->name('deleteGallery');
 
 
 
-
+        //manageRoom routes
         Route::get('manageRooms', [manageRoomsController::class, 'index'])->name('manageRooms');
+
+
         Route::get('reservation', [reservationController::class, 'index'])->name('reservation');
         Route::get('settingPage', [settingPageController::class, 'index'])->name('settingPage');
-        Route::get('editRooms', [editRoomsController::class, 'index'])->name('editRooms');
 
+
+        //editRoom routes
+        Route::get('editRoom', [editRoomsController::class, 'index'])->name('editRoom');
+        Route::get('addRoom', [editRoomsController::class, 'index'])->name('addRoom');
+        Route::post('storeRoom/{hotelId}', [editRoomsController::class, 'storeRoom'])->name('storeRoom');
     });
 
 });
