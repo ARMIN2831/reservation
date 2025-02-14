@@ -9,7 +9,7 @@ class Hotel extends Model
     protected $guarded = ['id'];
     public function users()
     {
-        return $this->belongsToMany(User::class,'hotel_users');
+        return $this->belongsToMany(User::class,'hotel_users')->withPivot('role');
     }
     public function facilities()
     {

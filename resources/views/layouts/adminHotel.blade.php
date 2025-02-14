@@ -251,7 +251,24 @@
                 </button>
             </div>
         </header>
+        @if($errors->any())
+            <div class="max-w-md mx-auto mt-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold">مشکلات زیر را بررسی کنید:</h3>
+                <ul class="mt-2 space-y-1 list-disc list-inside">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="max-w-md mx-auto mt-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded-lg shadow-md">
+                <strong>خطا:</strong> {{ session('error') }}
+            </div>
+        @endif
+
         @yield('content')
+
     </div>
 
 </div>

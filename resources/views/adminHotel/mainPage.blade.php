@@ -17,17 +17,6 @@
                         <h5 class=" text-base text-green-300 font-medium font-farsi-medium">
                             اطلاعات هتل
                         </h5>
-
-
-                        @if($errors->any())
-                            <div class=" text-base text-green-300 font-medium font-farsi-medium">
-                                <ul>
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
                         <div class=" flex items-center justify-end gap-4.5">
                             <button class="editButton flex items-center justify-center gap-2">
                                 <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">

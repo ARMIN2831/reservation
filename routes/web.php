@@ -52,7 +52,14 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
 
 
         Route::get('reservation', [reservationController::class, 'index'])->name('reservation');
+
+
+        //settingPage routes
         Route::get('settingPage', [settingPageController::class, 'index'])->name('settingPage');
+        Route::post('updateHotelSetting/{hotelId}', [settingPageController::class, 'updateHotelSetting'])->name('updateHotelSetting');
+        Route::post('updateHotelSettingPassword/{hotelId}', [settingPageController::class, 'updateHotelSettingPassword'])->name('updateHotelSettingPassword');
+        Route::post('addUserAccess/{hotelId}', [settingPageController::class, 'addUserAccess'])->name('addUserAccess');
+        Route::get('deleteUser/{userId}', [settingPageController::class, 'deleteUser'])->name('deleteUser');
 
 
         //editRoom routes
