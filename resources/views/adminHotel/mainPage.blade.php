@@ -47,14 +47,14 @@
                     <div class="w-full grid grid-cols-300-1fr gap-4.5 768max:grid-cols-1">
                         <div class="w-full pb-8 bg-green-600 rounded-xl p-2 flex flex-col">
                             <!-- banner -->
-                            <img src="../../../public/public/images/banner.png" class="w-full h-[91px] rounded-xl object-cover">
+                            <img src="{{ asset('storage/' . $sharedData->banner) }}" class="w-full h-[91px] rounded-xl object-cover">
                             <!-- body -->
                             <div class="w-full flex flex-col gap-6 -mt-[60px]">
                                 <!-- top -->
                                 <div class="flex flex-col items-center gap-4.5">
                                     <!-- image -->
                                     <div class="w-[110px] relative aspect-square">
-                                        <img class=" object-contain w-full aspect-square rounded-full bg-neutral-50" src="../../../public/public/images/darvishiLogo.png" alt="#">
+                                        <img class=" object-contain w-full aspect-square rounded-full bg-neutral-50" src="{{ asset('storage/' . $sharedData->logo) }}" alt="#">
                                         <a href="{{ route('hotel.settingPage') }}" class=" w-[30px] aspect-square rounded-full border-[1px] border-light flex items-center justify-center bg-green-300 absolute z-[2] left-0 bottom-0">
                                             <svg class=" w-[13px] text-light" viewBox="0 0 13.5 13.5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g clip-path="url(#clip0_177_599)">
