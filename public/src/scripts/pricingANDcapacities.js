@@ -28,3 +28,9 @@ accordionButton.forEach(item => {
         item.parentElement.classList.add('active')
     })
 })
+
+
+
+let examInput1 = document.getElementById('examInput1')
+let examInput2 = document.getElementById('examInput2')
+let examInput3 = document.getElementById('examInput3')

@@ -153,17 +153,17 @@
                                     <div id="roomDropdownContent{{ $room->id }}" class="z-10 hidden  bg-light divide-y divide-gray-100 rounded-xl shadow-sm w-44">
                                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="roomDropdownButton{{ $room->id }}">
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-xs text-neutral-700 font-medium transition-all duration-500 ease-out hover:transition-none">
+                                                <a href="{{ route('hotel.updateRoomStatus', [$room->id, 1]) }}" class="block px-4 py-2 hover:bg-gray-100 text-xs text-neutral-700 font-medium transition-all duration-500 ease-out hover:transition-none">
                                                     موجود
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-xs text-neutral-700 font-medium transition-all duration-500 ease-out hover:transition-none">
+                                                <a href="{{ route('hotel.updateRoomStatus', [$room->id, 3]) }}" class="block px-4 py-2 hover:bg-gray-100 text-xs text-neutral-700 font-medium transition-all duration-500 ease-out hover:transition-none">
                                                     رزرو شد
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-xs text-neutral-700 font-medium transition-all duration-500 ease-out hover:transition-none">
+                                                <a href="{{ route('hotel.updateRoomStatus', [$room->id, 0]) }}" class="block px-4 py-2 hover:bg-gray-100 text-xs text-neutral-700 font-medium transition-all duration-500 ease-out hover:transition-none">
                                                     غیر قابل رزرو
                                                 </a>
                                             </li>

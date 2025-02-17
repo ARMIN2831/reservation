@@ -340,6 +340,154 @@
             background-color: #DBF0DD
         }
     }
+
+    .bannerSection{
+        background-image: url('../../public/images/bannerBackground.png')
+    }
+
+
+    .travelTypeButtonContainer{
+        width: min-content;
+        height: 54px;
+        background: #fff;
+        border-radius: 12px 12px 0px 0px;
+    }
+
+   
+
+    .travelTypeButton:not(.active){
+        background-color: #255346;
+        color: #ffffff;
+    }
+    .travelTypeButton:not(.active):first-child{
+        border-top-right-radius: 12px;
+    }
+    .travelTypeButton:not(.active):last-child{
+        border-top-left-radius: 12px;
+    }
+
+    .travelTypeButton:first-child:not(.active){
+        border-top-right-radius: 12px;
+    }
+    .travelTypeButton:last-child:not(.active.){
+        border-top-left-radius: 12px;
+    }
+
+    .travelTypeButton.active{
+        color: #A8A8A8;
+        background-color: #ffffff;
+        height: 65px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+    .travelTypeButton.preElem{
+        border-bottom-left-radius: 12px;
+    }
+    .travelTypeButton.nextElem{
+        border-bottom-right-radius: 12px;
+    }
+    @media (max-width : 1024px) {
+        .travelTypeButton.active{
+            height: 54px;
+        }
+    }
+    @media (max-width : 768px) {
+        .travelTypeButton.active{
+            height: 75px;
+        }
+    }
+
+
+    .websiteWeblogItem *{
+        transition: all 200ms ease-out
+    }
+    .websiteWeblogItem:hover .websiteWeblogItemImg{
+        filter: grayscale(100%);
+    }
+    .websiteWeblogItem:hover .websiteWeblogItemTitle{
+        color: #8CB398;
+    }
+    .websiteWeblogItem:hover .websiteWeblogItemِDate{
+        background-color: #8CB398;
+    }
+    .websiteWeblogItem:hover .websiteWeblogItemِBodyText{
+        color: #ADADAD
+    }
+
+
+
+
+
+
+    .userCommentsSlider .swiper-slide{
+        transition: all 300ms ease-out;
+    }
+    @media (max-width: 1024px) {
+        .userCommentsSlider .swiper-slide.swiper-slide-active{
+            transform: scale(1.1)
+        }
+    }
+    @media (max-width: 640px){
+        .userCommentsSlider .swiper-slide:not(.swiper-slide-active){
+            filter: blur(3px);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+    .footer-accordion-button svg{
+        transition: all 50ms ease-in
+    }
+    .footer-accordion-button.active svg {
+        transform: rotate(180deg)
+    }
+
+
+
+    .travelTypeSelectionTabContentAirplanePartButton.active{
+        background-color: #8CB398
+    }
+
+
+    .userDashboardSidbarButton{
+        background-color: #fff;
+    }
+    .userDashboardSidbarButton.active{
+        background-color: #8CB39880
+    }
+
+
+    .userDashboardAccordion{
+
+    }
+    .userDashboardAccordionButton span{
+        color: #ADADAD;
+        transition: all 200ms ease-out;
+    }
+    .userDashboardAccordionButton svg{
+        transition: all 200ms ease-out;
+    }
+    .userDashboardAccordion.active .userDashboardAccordionButton span{
+        color: #255346;
+    }
+    .userDashboardAccordion.active .userDashboardAccordionButton svg{
+        transform: rotate(180deg);
+    }
+
+    .userDashboardAccordionContent{
+        display: none;
+    }
+    .userDashboardAccordion.active .userDashboardAccordionContent{
+        display: flex;
+    }
 }
 
 

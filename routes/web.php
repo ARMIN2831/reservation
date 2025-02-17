@@ -5,8 +5,10 @@ use App\Http\Controllers\adminHotel\HotelAuthController;
 use App\Http\Controllers\adminHotel\HotelController;
 use App\Http\Controllers\adminHotel\mainPageController;
 use App\Http\Controllers\adminHotel\manageRoomsController;
+use App\Http\Controllers\adminHotel\pricingANDcapacitiesController;
 use App\Http\Controllers\adminHotel\reservationController;
 use App\Http\Controllers\adminHotel\settingPageController;
+use App\Http\Controllers\adminHotel\statusPageController;
 use App\Http\Middleware\ShareAdminHotelData;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +51,7 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
 
         //manageRoom routes
         Route::get('manageRooms', [manageRoomsController::class, 'index'])->name('manageRooms');
+        Route::get('updateRoomStatus/{roomId}/{status}', [manageRoomsController::class, 'updateRoomStatus'])->name('updateRoomStatus');
 
 
         Route::get('reservation', [reservationController::class, 'index'])->name('reservation');
@@ -66,6 +69,14 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
         Route::get('editRoom', [editRoomsController::class, 'index'])->name('editRoom');
         Route::get('addRoom', [editRoomsController::class, 'index'])->name('addRoom');
         Route::post('storeRoom/{hotelId}', [editRoomsController::class, 'storeRoom'])->name('storeRoom');
+
+
+        //statusPage routes
+        Route::get('statusPage', [statusPageController::class, 'index'])->name('statusPage');
+
+
+        //editRoom routes
+        Route::get('pricingANDcapacities', [pricingANDcapacitiesController::class, 'index'])->name('pricingANDcapacities');
     });
 
 });

@@ -115,7 +115,7 @@ function handleFiles(files) {
     const file = files[0]; // فقط فایل اول را در نظر می‌گیریم
 
     // بررسی نوع فایل
-    if (file.type === 'image/jpeg' || file.type === 'image/png') {
+    if (file.type === 'image/jpeg') {
         // بررسی اندازه فایل (کمتر از 100 کیلوبایت)
         if (file.size <= 1000 * 1024) {
             let defaultText = dropArea.querySelectorAll('.dropAreaText')
