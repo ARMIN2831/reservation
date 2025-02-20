@@ -13,7 +13,8 @@ use App\Http\Middleware\ShareAdminHotelData;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/start', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate:fresh');
+    \Illuminate\Support\Facades\Artisan::call('migrate');
+    /*\Illuminate\Support\Facades\Artisan::call('migrate:fresh');
     \App\Models\User::create([
         'firstName' => 'super admin',
         'lastName' => 'super admin',
@@ -27,7 +28,7 @@ Route::get('/start', function () {
         'user_id' => 1,
         'hotel_id' => 1,
         'role' => 'admin',
-    ]);
+    ]);*/
 });
 
 

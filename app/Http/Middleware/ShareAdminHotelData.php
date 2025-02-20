@@ -21,7 +21,7 @@ class ShareAdminHotelData
             $user = auth()->user();
             $hotel = Hotel::whereHas('users', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
-            })->with('files','facilities','rooms.files')->first();
+            })->with('files','facilities','rooms.files','reserves')->first();
             View::share('sharedData', $hotel);
         }
 
