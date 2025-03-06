@@ -7,80 +7,80 @@
     @font-face {
         font-family: "yekan-thin";
         src: url("../../public/fonts/yekan/woff2/iranyekanwebthinfanum.woff2") format("woff2"),
-             url("../../public/fonts/yekan/woff/iranyekanwebthinfanum.woff") format("woff"),
-             url("../../public/fonts/yekan/ttf/iranyekanwebthinfanum.ttf") format("truetype"),
-             url("../../public/fonts/yekan/otf/iranyekanwebthinfanum.otf") format("opentype"),
-             url("../../public/fonts/yekan/eot/iranyekanwebthinfanum.eot");
+        url("../../public/fonts/yekan/woff/iranyekanwebthinfanum.woff") format("woff"),
+        url("../../public/fonts/yekan/ttf/iranyekanwebthinfanum.ttf") format("truetype"),
+        url("../../public/fonts/yekan/otf/iranyekanwebthinfanum.otf") format("opentype"),
+        url("../../public/fonts/yekan/eot/iranyekanwebthinfanum.eot");
         font-style: normal;
         font-weight: 100;
     }
     @font-face {
         font-family: "yekan-light";
         src: url("../../public/fonts/yekan/woff2/iranyekanweblightfanum.woff2") format("woff2"),
-             url("../../public/fonts/yekan/woff/iranyekanweblightfanum.woff") format("woff"),
-             url("../../public/fonts/yekan/ttf/iranyekanweblightfanum.ttf") format("truetype"),
-             url("../../public/fonts/yekan/otf/iranyekanweblightfanum.otf") format("opentype"),
-             url("../../public/fonts/yekan/eot/iranyekanweblightfanum.eot");
+        url("../../public/fonts/yekan/woff/iranyekanweblightfanum.woff") format("woff"),
+        url("../../public/fonts/yekan/ttf/iranyekanweblightfanum.ttf") format("truetype"),
+        url("../../public/fonts/yekan/otf/iranyekanweblightfanum.otf") format("opentype"),
+        url("../../public/fonts/yekan/eot/iranyekanweblightfanum.eot");
         font-style: normal;
         font-weight: 300;
     }
     @font-face {
         font-family: "yekan-regular";
         src: url("../../public/fonts/yekan/woff2/iranyekanwebregularfanum.woff2") format("woff2"),
-             url("../../public/fonts/yekan/woff/iranyekanwebregularfanum.woff") format("woff"),
-             url("../../public/fonts/yekan/ttf/iranyekanwebregularfanum.ttf") format("truetype"),
-             url("../../public/fonts/yekan/otf/iranyekanwebregularfanum.otf") format("opentype"),
-             url("../../public/fonts/yekan/eot/iranyekanwebregularfanum.eot");
+        url("../../public/fonts/yekan/woff/iranyekanwebregularfanum.woff") format("woff"),
+        url("../../public/fonts/yekan/ttf/iranyekanwebregularfanum.ttf") format("truetype"),
+        url("../../public/fonts/yekan/otf/iranyekanwebregularfanum.otf") format("opentype"),
+        url("../../public/fonts/yekan/eot/iranyekanwebregularfanum.eot");
         font-style: normal;
         font-weight: 400;
     }
     @font-face {
         font-family: "yekan-medium";
         src: url("../../public/fonts/yekan/woff2/iranyekanwebmediumfanum.woff2") format("woff2"),
-             url("../../public/fonts/yekan/woff/iranyekanwebmediumfanum.woff") format("woff"),
-             url("../../public/fonts/yekan/ttf/iranyekanwebmediumfanum.ttf") format("truetype"),
-             url("../../public/fonts/yekan/otf/iranyekanwebmediumfanum.otf") format("opentype"),
-             url("../../public/fonts/yekan/eot/iranyekanwebmediumfanum.eot");
+        url("../../public/fonts/yekan/woff/iranyekanwebmediumfanum.woff") format("woff"),
+        url("../../public/fonts/yekan/ttf/iranyekanwebmediumfanum.ttf") format("truetype"),
+        url("../../public/fonts/yekan/otf/iranyekanwebmediumfanum.otf") format("opentype"),
+        url("../../public/fonts/yekan/eot/iranyekanwebmediumfanum.eot");
         font-style: normal;
         font-weight: 500;
     }
     @font-face {
         font-family: "yekan-bold";
         src: url("../../public/fonts/yekan/woff2/iranyekanwebboldfanum.woff2") format("woff2"),
-             url("../../public/fonts/yekan/woff/iranyekanwebboldfanum.woff") format("woff"),
-             url("../../public/fonts/yekan/ttf/iranyekanwebboldfanum.ttf") format("truetype"),
-             url("../../public/fonts/yekan/otf/iranyekanwebboldfanum.otf") format("opentype"),
-             url("../../public/fonts/yekan/eot/iranyekanwebboldfanum.eot");
+        url("../../public/fonts/yekan/woff/iranyekanwebboldfanum.woff") format("woff"),
+        url("../../public/fonts/yekan/ttf/iranyekanwebboldfanum.ttf") format("truetype"),
+        url("../../public/fonts/yekan/otf/iranyekanwebboldfanum.otf") format("opentype"),
+        url("../../public/fonts/yekan/eot/iranyekanwebboldfanum.eot");
         font-style: normal;
         font-weight: 700;
     }
     @font-face {
         font-family: "yekan-extraBold";
         src: url("../../public/fonts/yekan/woff2/iranyekanwebextraboldfanum.woff2") format("woff2"),
-             url("../../public/fonts/yekan/woff/iranyekanwebextraboldfanum.woff") format("woff"),
-             url("../../public/fonts/yekan/ttf/iranyekanwebextraboldfanum.ttf") format("truetype"),
-             url("../../public/fonts/yekan/otf/iranyekanwebextraboldfanum.otf") format("opentype"),
-             url("../../public/fonts/yekan/eot/iranyekanwebextraboldfanum.eot");
+        url("../../public/fonts/yekan/woff/iranyekanwebextraboldfanum.woff") format("woff"),
+        url("../../public/fonts/yekan/ttf/iranyekanwebextraboldfanum.ttf") format("truetype"),
+        url("../../public/fonts/yekan/otf/iranyekanwebextraboldfanum.otf") format("opentype"),
+        url("../../public/fonts/yekan/eot/iranyekanwebextraboldfanum.eot");
         font-style: normal;
         font-weight: 800;
     }
     @font-face {
         font-family: "yekan-black";
         src: url("../../public/fonts/yekan/woff2/iranyekanwebblackfanum.woff2") format("woff2"),
-             url("../../public/fonts/yekan/woff/iranyekanwebblackfanum.woff") format("woff"),
-             url("../../public/fonts/yekan/ttf/iranyekanwebblackfanum.ttf") format("truetype"),
-             url("../../public/fonts/yekan/otf/iranyekanwebblackfanum.otf") format("opentype"),
-             url("../../public/fonts/yekan/eot/iranyekanwebblackfanum.eot");
+        url("../../public/fonts/yekan/woff/iranyekanwebblackfanum.woff") format("woff"),
+        url("../../public/fonts/yekan/ttf/iranyekanwebblackfanum.ttf") format("truetype"),
+        url("../../public/fonts/yekan/otf/iranyekanwebblackfanum.otf") format("opentype"),
+        url("../../public/fonts/yekan/eot/iranyekanwebblackfanum.eot");
         font-style: normal;
         font-weight: 900;
     }
     @font-face {
         font-family: "yekan-extraBlack";
         src: url("../../public/fonts/yekan/woff2/iranyekanwebextrablackfanum.woff2") format("woff2"),
-             url("../../public/fonts/yekan/woff/iranyekanwebextrablackfanum.woff") format("woff"),
-             url("../../public/fonts/yekan/ttf/iranyekanwebextrablackfanum.ttf") format("truetype"),
-             url("../../public/fonts/yekan/otf/iranyekanwebextrablackfanum.otf") format("opentype"),
-             url("../../public/fonts/yekan/eot/iranyekanwebextrablackfanum.eot");
+        url("../../public/fonts/yekan/woff/iranyekanwebextrablackfanum.woff") format("woff"),
+        url("../../public/fonts/yekan/ttf/iranyekanwebextrablackfanum.ttf") format("truetype"),
+        url("../../public/fonts/yekan/otf/iranyekanwebextrablackfanum.otf") format("opentype"),
+        url("../../public/fonts/yekan/eot/iranyekanwebextrablackfanum.eot");
         font-style: normal;
         font-weight: 950;
     }
@@ -90,63 +90,63 @@
     @font-face {
         font-family: "poppins-thin";
         src: url("../../public/fonts/poppins/WOFF2/Poppins-Thin.woff2") format("woff2"),
-             url("../../public/fonts/poppins/WOFF/Poppins-Thin.woff") format("woff"),
-             url("../../public/fonts/poppins/TTF/Poppins-Thin.ttf") format("truetype"),
-             url("../../public/fonts/poppins/OTF/Poppins-Thin.otf") format("opentype");
+        url("../../public/fonts/poppins/WOFF/Poppins-Thin.woff") format("woff"),
+        url("../../public/fonts/poppins/TTF/Poppins-Thin.ttf") format("truetype"),
+        url("../../public/fonts/poppins/OTF/Poppins-Thin.otf") format("opentype");
         font-style: normal;
         font-weight: 100;
     }
     @font-face {
         font-family: "poppins-light";
         src: url("../../public/fonts/poppins/WOFF2/Poppins-Light.woff2") format("woff2"),
-             url("../../public/fonts/poppins/WOFF/Poppins-Light.woff") format("woff"),
-             url("../../public/fonts/poppins/TTF/Poppins-Light.ttf") format("truetype"),
-             url("../../public/fonts/poppins/OTF/Poppins-Light.otf") format("opentype");
+        url("../../public/fonts/poppins/WOFF/Poppins-Light.woff") format("woff"),
+        url("../../public/fonts/poppins/TTF/Poppins-Light.ttf") format("truetype"),
+        url("../../public/fonts/poppins/OTF/Poppins-Light.otf") format("opentype");
         font-style: normal;
         font-weight: 300;
     }
     @font-face {
         font-family: "poppins-regular";
         src: url("../../public/fonts/poppins/WOFF2/Poppins-Regular.woff2") format("woff2"),
-             url("../../public/fonts/poppins/WOFF/Poppins-Regular.woff") format("woff"),
-             url("../../public/fonts/poppins/TTF/Poppins-Regular.ttf") format("truetype"),
-             url("../../public/fonts/poppins/OTF/Poppins-Regular.otf") format("opentype");
+        url("../../public/fonts/poppins/WOFF/Poppins-Regular.woff") format("woff"),
+        url("../../public/fonts/poppins/TTF/Poppins-Regular.ttf") format("truetype"),
+        url("../../public/fonts/poppins/OTF/Poppins-Regular.otf") format("opentype");
         font-style: normal;
         font-weight: 400;
     }
     @font-face {
         font-family: "poppins-medium";
         src: url("../../public/fonts/poppins/WOFF2/Poppins-Medium.woff2") format("woff2"),
-             url("../../public/fonts/poppins/WOFF/Poppins-Medium.woff") format("woff"),
-             url("../../public/fonts/poppins/TTF/Poppins-Medium.ttf") format("truetype"),
-             url("../../public/fonts/poppins/OTF/Poppins-Medium.otf") format("opentype");
+        url("../../public/fonts/poppins/WOFF/Poppins-Medium.woff") format("woff"),
+        url("../../public/fonts/poppins/TTF/Poppins-Medium.ttf") format("truetype"),
+        url("../../public/fonts/poppins/OTF/Poppins-Medium.otf") format("opentype");
         font-style: normal;
         font-weight: 500;
     }
     @font-face {
         font-family: "poppins-bold";
         src: url("../../public/fonts/poppins/WOFF2/Poppins-Bold.woff2") format("woff2"),
-             url("../../public/fonts/poppins/WOFF/Poppins-Bold.woff") format("woff"),
-             url("../../public/fonts/poppins/TTF/Poppins-Bold.ttf") format("truetype"),
-             url("../../public/fonts/poppins/OTF/Poppins-Bold.otf") format("opentype");
+        url("../../public/fonts/poppins/WOFF/Poppins-Bold.woff") format("woff"),
+        url("../../public/fonts/poppins/TTF/Poppins-Bold.ttf") format("truetype"),
+        url("../../public/fonts/poppins/OTF/Poppins-Bold.otf") format("opentype");
         font-style: normal;
         font-weight: 700;
     }
     @font-face {
         font-family: "poppins-extraBold";
         src: url("../../public/fonts/poppins/WOFF2/Poppins-ExtraBold.woff2") format("woff2"),
-             url("../../public/fonts/poppins/WOFF/Poppins-ExtraBold.woff") format("woff"),
-             url("../../public/fonts/poppins/TTF/Poppins-ExtraBold.ttf") format("truetype"),
-             url("../../public/fonts/poppins/OTF/Poppins-ExtraBold.otf") format("opentype");
+        url("../../public/fonts/poppins/WOFF/Poppins-ExtraBold.woff") format("woff"),
+        url("../../public/fonts/poppins/TTF/Poppins-ExtraBold.ttf") format("truetype"),
+        url("../../public/fonts/poppins/OTF/Poppins-ExtraBold.otf") format("opentype");
         font-style: normal;
         font-weight: 800;
     }
     @font-face {
         font-family: "poppins-black";
         src: url("../../public/fonts/poppins/WOFF2/Poppins-Black.woff2") format("woff2"),
-             url("../../public/fonts/poppins/WOFF/Poppins-Black.woff") format("woff"),
-             url("../../public/fonts/poppins/TTF/Poppins-Black.ttf") format("truetype"),
-             url("../../public/fonts/poppins/OTF/Poppins-Black.otf") format("opentype");
+        url("../../public/fonts/poppins/WOFF/Poppins-Black.woff") format("woff"),
+        url("../../public/fonts/poppins/TTF/Poppins-Black.ttf") format("truetype"),
+        url("../../public/fonts/poppins/OTF/Poppins-Black.otf") format("opentype");
         font-style: normal;
         font-weight: 900;
     }
@@ -156,12 +156,12 @@
     .noscrollbar::-webkit-scrollbar {
         display: none; /* پنهان کردن اسکرول بار */
     }
-    
+
     /* برای Firefox */
     .noscrollbar {
         scrollbar-width: none; /* پنهان کردن اسکرول بار در Firefox */
     }
-    
+
     /* برای Internet Explorer و Edge */
     .noscrollbar {
         -ms-overflow-style: none; /* پنهان کردن اسکرول بار */
@@ -239,7 +239,7 @@
         transition: all 150ms ease-in-out;
     }
     .manage-room-item:hover{
-        filter: drop-shadow(0px 0px 10px #d6d6d686); 
+        filter: drop-shadow(0px 0px 10px #d6d6d686);
     }
     .manage-room-item.active{
         background-color: #DBF0DD80;
@@ -353,7 +353,7 @@
         border-radius: 12px 12px 0px 0px;
     }
 
-   
+
 
     .travelTypeButton:not(.active){
         background-color: #255346;
@@ -369,7 +369,7 @@
     .travelTypeButton:first-child:not(.active){
         border-top-right-radius: 12px;
     }
-    .travelTypeButton:last-child:not(.active.){
+    .travelTypeButton:last-child:not(.active){
         border-top-left-radius: 12px;
     }
 
@@ -465,8 +465,13 @@
     }
 
 
-    .userDashboardAccordion{
-
+    .userDashboardAccordion:not(.active){
+        display: none;
+    }
+    @media (max-width: 1024px) {
+        .userDashboardAccordion:not(.active){
+            display: flex;
+        }
     }
     .userDashboardAccordionButton span{
         color: #ADADAD;
@@ -488,6 +493,182 @@
     .userDashboardAccordion.active .userDashboardAccordionContent{
         display: flex;
     }
+
+
+    .bgImage-email{
+        background-image: url('../../public/images/bgImage-email.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+    .bgImage-message{
+        background-image: url('../../public/images/bgImage-message.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+    .bgImage-mobile{
+        background-image: url('../../public/images/bgImage-mobile.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+
+    .underBorderActivedButton{
+        color: #fff;
+    }
+    .underBorderActivedButton.active{
+        border-bottom: 2px solid #DBF0DD;
+        color: #DBF0DD
+    }
+
+
+
+    .xHotel1-images .swiper-slide{
+        transition: all 100ms ease-in;
+    }
+    .xHotel1-images .swiper-slide.swiper-slide-active{
+        transform: scale(1.1)
+    }
+    .xHotel1-images-pagination .swiper-pagination-bullet{
+        background-color: #8CB398;
+        transition: all 100ms ease-in;
+    }
+    .xHotel1-images-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active{
+        background-color: #255346;
+        width: 32px;
+        border-radius: 4px
+    }
+
+
+    .paymentMethodItem{
+        transition: all 300ms ease-out;
+    }
+    .paymentMethodItem .paymentMethodItem-button{
+        padding-top: 39px;
+        padding-bottom: 39px;
+        transition: all 300ms ease-out;
+    }
+    .paymentMethodItem:has(input.selectionRadio[type="radio"]:checked) .paymentMethodItem-button{
+        padding-top: 18px;
+        padding-bottom: 27px;
+    }
+    .paymentMethodItem .paymentMethodItem-content{
+        display: none;
+    }
+    .paymentMethodItem:has(input.selectionRadio[type="radio"]:checked) .paymentMethodItem-content{
+        display: flex;
+    }
+    .paymentMethodItem-button{
+
+    }
+
+    @media (max-width: 640px) {
+        .paymentMethodItem .paymentMethodItem-button{
+            padding-top: 24px;
+            padding-bottom: 24px;
+        }
+
+    }
+
+
+    .paymentMethodOnlineItem{
+        transition: all 300ms ease-out;
+        border: 1px solid #00000000;
+    }
+    .paymentMethodOnlineItem:hover{
+        border-color:#ADADAD;
+        transition: none;
+    }
+    .paymentMethodOnlineItem img{
+        filter: grayscale(100%);
+        transition: all 300ms ease-out;
+    }
+    .paymentMethodOnlineItem:has(input:checked){
+        border: 1px solid #8CB398;
+    }
+    .paymentMethodOnlineItem:has(input:checked) img{
+        filter: grayscale(0%);
+
+    }
+
+
+
+    .pricingRangeInput[type="range"]{
+        /* transform: translateY(4px); */
+    }
+    .pricingRangeInput[type="range"]::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        height: 5px;
+    }
+    .pricingRangeInput[type="range"]::-moz-range-track {
+        -moz-appearance: none;
+        height: 5px;
+    }
+    .pricingRangeInput[type="range"]::-ms-track {
+        appearance: none;
+        height: 5px;
+    }
+    .pricingRangeInput[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 16px;
+        width: 16px;
+        background-color: #fff;
+        border: 1px solid #255346;
+        cursor: pointer;
+        margin-top: -5px;
+        pointer-events: auto;
+        border-radius: 50%;
+    }
+    .pricingRangeInput[type="range"]::-moz-range-thumb {
+        -webkit-appearance: none;
+        height: 16px;
+        width: 16px;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: #fff;
+        border: 1px solid #255346;
+        pointer-events: 6px;
+    }
+    .pricingRangeInput[type="range"]::-ms-thumb {
+        appearance: none;
+        height: 16px;
+        width: 16px;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: #fff;
+        border: 1px solid #255346;
+        pointer-events: auto;
+    }
+    .pricingRangeInput[type="range"]:active::-webkit-slider-thumb {
+        background-color: #ffffff;
+        border: 1px solid #252525;
+    }
+
+    #rangeInput2::-webkit-slider-thumb{
+        transform: translateY(-8px);
+    }
+    #rangeInput2::-moz-range-thumb{
+        transform: translateY(-8px);
+    }
+    #rangeInput2::-ms-thumb{
+        transform: translateY(-8px);
+    }
+
+
+    #rangeInput2-2::-webkit-slider-thumb{
+        transform: translateY(-8px);
+    }
+    #rangeInput2-2::-moz-range-thumb{
+        transform: translateY(-8px);
+    }
+    #rangeInput2-2::-ms-thumb{
+        transform: translateY(-8px);
+    }
+
+
+
+
 }
 
 
@@ -501,4 +682,6 @@
     .font-bold {
         @apply font-farsi-bold;
     }
+
+
 }

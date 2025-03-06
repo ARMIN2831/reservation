@@ -18,6 +18,8 @@ function offCanvasManager (){
     }
 }
 
+document.querySelector
+
 offCanvasButton.addEventListener('click', event => {
     offCanvasManager()
 })
@@ -29,7 +31,45 @@ let allButtons = document.querySelectorAll('button')
 allButtons.forEach(button => {
     button.addEventListener('click', event => {
         if(button.type != "submit"){
-            event.preventDefault()
+            return
         }
+        event.preventDefault()
     })
 })
+
+
+function modalController (modal){
+    modal.classList.toggle('active')
+}
+
+function addOrDescreseInputValue (type, inputElem){
+    switch (type) {
+        case 'add':
+            inputElem.value = +(inputElem.value) + 1
+            break;
+        case 'delete':
+            if(+(inputElem.value) > 0){
+                inputElem.value = +(inputElem.value) - 1
+            }else{
+                return
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+function openFullscreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { // Firefox
+        elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { // IE/Edge
+        elem.msRequestFullscreen();
+    }
+}
+
+window.addEventListener('load', openFullscreen())
