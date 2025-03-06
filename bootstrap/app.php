@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'logged' => \App\Http\Middleware\logged::class,
             'checkLogin' => \App\Http\Middleware\checkLogin::class,
             'share.admin.hotel.data' => \App\Http\Middleware\ShareAdminHotelData::class,
+            'share.user.data' => \App\Http\Middleware\ShareUserData::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
