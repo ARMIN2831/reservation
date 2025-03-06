@@ -2,15 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Hotel;
-use App\Models\People;
-use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class ShareUserData
+class UserCheckLogin
 {
     /**
      * Handle an incoming request.
@@ -19,11 +16,9 @@ class ShareUserData
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check()) {
-            $user = User::where('id',auth()->user()->id)->with('people')->first();
-            View::share('userSharedData', $user);
+        if (Auth::check()) {
+            return $next($request);
         }
-
-        return $next($request);
+        return redirect()->route('login');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\adminHotel\pricingANDcapacitiesController;
 use App\Http\Controllers\adminHotel\reservationController;
 use App\Http\Controllers\adminHotel\settingPageController;
 use App\Http\Controllers\adminHotel\statusPageController;
+use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\userDashboardController;
 use App\Http\Controllers\userHotel\hotelBookingController;
 use App\Http\Middleware\ShareAdminHotelData;
@@ -36,10 +37,17 @@ Route::get('/start', function () {
 
 /*user routes*/
 Route::middleware([ShareUserData::class])->group(function () {
+
+    Route::middleware('UserLogged')->controller(UserAuthController::class)->group(function() {
+        Route::get('login', 'login')->name('login');
+        Route::post('doLogin', 'doLogin')->name('doLogin');
+    });
+    Route::get('logout', [UserAuthController::class,'logout'])->name('logout');
+
     Route::get('/', [\App\Http\Controllers\mainPageController::class, 'index'])->name('index');
 
 
-    Route::prefix('userDashboard')->controller(userDashboardController::class)->name('userDashboard.')->group(function () {
+    Route::middleware('UserCheckLogin')->prefix('userDashboard')->controller(userDashboardController::class)->name('userDashboard.')->group(function () {
         Route::get('/', 'index')->name('index');
     });
 

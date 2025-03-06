@@ -18,6 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'logged' => \App\Http\Middleware\logged::class,
             'checkLogin' => \App\Http\Middleware\checkLogin::class,
+
+            'UserLogged' => \App\Http\Middleware\UserLogged::class,
+            'UserCheckLogin' => \App\Http\Middleware\UserCheckLogin::class,
+
             'share.admin.hotel.data' => \App\Http\Middleware\ShareAdminHotelData::class,
             'share.user.data' => \App\Http\Middleware\ShareUserData::class,
         ]);

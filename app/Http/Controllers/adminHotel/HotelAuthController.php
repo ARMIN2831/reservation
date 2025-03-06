@@ -15,7 +15,7 @@ class HotelAuthController extends Controller
 
     public function doLogin(Request $request)
     {
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password, 'type' => 'hotel'])) {
             Auth::user();
             return redirect()->route('hotel.dashboard');
         } else return redirect()->route('hotel.login')->with('failed','نام کاربری یا رمز عبور اشتباه است!');
