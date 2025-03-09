@@ -35,23 +35,37 @@ Route::get('/start', function () {
 });
 
 
+/*api routes*/
+Route::prefix('api')->name('api.')->group(function () {
+
+
+    Route::get('hotelSearchDestination/{search}', [\App\Http\Controllers\mainPageController::class,'hotelSearchDestination'])->name('hotelSearchDestination');
+
+});
+
 /*user routes*/
 Route::middleware([ShareUserData::class])->group(function () {
 
+
+    //user auth routes
+    Route::get('logout', [UserAuthController::class,'logout'])->name('logout');
     Route::middleware('UserLogged')->controller(UserAuthController::class)->group(function() {
         Route::get('login', 'login')->name('login');
         Route::post('doLogin', 'doLogin')->name('doLogin');
     });
-    Route::get('logout', [UserAuthController::class,'logout'])->name('logout');
 
+
+    //mainPage
     Route::get('/', [\App\Http\Controllers\mainPageController::class, 'index'])->name('index');
 
 
+    //UserCheckLogin
     Route::middleware('UserCheckLogin')->prefix('userDashboard')->controller(userDashboardController::class)->name('userDashboard.')->group(function () {
         Route::get('/', 'index')->name('index');
     });
 
 
+    //hotelBooking
     Route::prefix('hotelBooking')->controller(hotelBookingController::class)->name('hotelBooking.')->group(function () {
         Route::get('/{id}', 'index')->name('index');
     });
