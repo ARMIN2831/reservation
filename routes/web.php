@@ -8,20 +8,26 @@ use App\Http\Controllers\adminHotel\pricingANDcapacitiesController;
 use App\Http\Controllers\adminHotel\reservationController;
 use App\Http\Controllers\adminHotel\settingPageController;
 use App\Http\Controllers\adminHotel\statusPageController;
+use App\Http\Controllers\hotelBookingController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\userDashboardController;
-use App\Http\Controllers\userHotel\hotelBookingController;
 use App\Http\Middleware\ShareAdminHotelData;
 use App\Http\Middleware\ShareUserData;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/start', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate');
-    /*\Illuminate\Support\Facades\Artisan::call('migrate:fresh');
-    \App\Models\User::create([
+    \Illuminate\Support\Facades\Artisan::call('migrate:fresh');
+    \Illuminate\Support\Facades\Artisan::call('cache:clear');
+    \Illuminate\Support\Facades\Artisan::call('config:cache');
+    $people = \App\Models\People::create([
         'firstName' => 'super admin',
         'lastName' => 'super admin',
+        'nationalCode' => '5790103911',
+    ]);
+    \App\Models\User::create([
         'username' => '5790103911',
+        'people_id' => $people->id,
+        'type' => 'hotel',
         'password' => bcrypt('123456'),
     ]);
     \App\Models\Hotel::create([
@@ -31,9 +37,11 @@ Route::get('/start', function () {
         'user_id' => 1,
         'hotel_id' => 1,
         'role' => 'admin',
-    ]);*/
+    ]);
 });
-
+Route::get('/test', function () {
+    return view('welcome');
+});
 
 /*api routes*/
 Route::prefix('api')->name('api.')->group(function () {
@@ -67,7 +75,7 @@ Route::middleware([ShareUserData::class])->group(function () {
 
     //hotelBooking
     Route::prefix('hotelBooking')->controller(hotelBookingController::class)->name('hotelBooking.')->group(function () {
-        Route::get('/{id}', 'index')->name('index');
+        Route::get('/', 'results')->name('results');
     });
 });
 

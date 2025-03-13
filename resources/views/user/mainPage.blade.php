@@ -116,253 +116,120 @@
                         <!-- content -->
                         <div class="w-full h-full">
                             <!-- هتل -->
-                            <div id="travelTypeSelectionTabContent1" class="travelTypeSelectionTabContents w-full h-full ">
-                                <div class="w-full h-full flex flex-col justify-end gap-[22px]">
-                                    <div class="w-full grid grid-cols-[1fr_340px_0.5fr_0.5fr] gap-5 items-end 1150max:grid-cols-2 1150max:content-start 640max:justify-items-center 640max:grid-cols-1 512max:gap-[14px]">
-                                        <div class="w-full flex flex-col gap-[6px] relative" x-data="{ destination: '', suggestions: [], showSuggestions: false }">
-                                            <label for="destination" class="text-sm text-[#A8A8A8] font-normal 512max:text-xs">
-                                                مقصد:
-                                            </label>
-                                            <input
-                                                id="destination"
-                                                type="text"
-                                                placeholder="مقصد یا نام هتل (داخلی یا خارجی)"
-                                                class="h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-[6px] bg-neutral-50 focus:outline-none 768max:h-12"
-                                                oninput="fetchSuggestions(this.value)"
-                                                onfocusout="setTimeout(() => toggleSuggestion('none'), 200)"
-                                                onfocusin="toggleSuggestion('block')"
-                                            />
-                                            <input id="hotel_id" type="hidden" name="hotel_id">
-                                            <ul id="suggestions-list" class="suggestions-list mt-2 bg-neutral-50 text-neutral-700 text-sm w-full absolute" style="top: 90px;display: none"></ul>
-                                        </div>
-
-                                        <script>
-                                            function changeDestination(value,id){
-                                                document.getElementById('destination').value = value;
-                                                document.getElementById('hotel_id').value = id;
-                                            }
-
-                                            function toggleSuggestion(dis) {
-                                                const suggestionsList = document.getElementById('suggestions-list');
-                                                suggestionsList.style.display = dis;
-                                            }
-                                            // تابع برای دریافت پیشنهادات از API
-                                            function fetchSuggestions(destination) {
-                                                const suggestionsList = document.getElementById('suggestions-list');
-                                                suggestionsList.style.display = 'block';
-
-                                                // اگر کمتر از ۲ کاراکتر وارد شده باشد، لیست را خالی کنید
-                                                if (destination.length < 2) {
-                                                    suggestionsList.innerHTML = '';
-                                                    return;
-                                                }
-
-                                                // درخواست به API
-                                                fetch(`/api/hotelSearchDestination/${destination}`)
-                                                    .then(response => response.json())
-                                                    .then(data => {
-                                                        console.log(data);
-                                                        // نمایش داده‌ها در صفحه
-                                                        displaySuggestions(data.hotels,data.cities);
-                                                    })
-                                                    .catch(error => {
-                                                        console.error('Error fetching suggestions:', error);
-                                                        suggestionsList.innerHTML = '<div class="flex items-center justify-center gap-2" style="padding: 1rem;font-weight: 400;line-height: 180%; font-size: 1.2rem">خطا در دریافت داده‌ها</div>';
-                                                    });
-                                            }
-
-                                            // تابع برای نمایش پیشنهادات در صفحه
-                                            function displaySuggestions(hotels,cities) {
-                                                const suggestionsList = document.getElementById('suggestions-list');
-
-                                                // اگر داده‌ای وجود نداشته باشد
-                                                if (hotels.length === 0 && cities.length === 0) {
-                                                    suggestionsList.innerHTML = '<div class="flex items-center justify-center gap-2" style="padding: 1rem;font-weight: 400;line-height: 180%; font-size: 1.2rem"><svg style="margin-top: 3px" viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor"><path d="M12 1.5c5.799 0 10.5 4.701 10.5 10.5S17.799 22.5 12 22.5 1.5 17.799 1.5 12 6.201 1.5 12 1.5ZM12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 6a.75.75 0 0 1 .745.663l.005.087v7.5a.75.75 0 0 1-1.495.087l-.005-.087v-7.5A.75.75 0 0 1 12 9Zm0-3a.75.75 0 0 1 .745.663l.005.087v.75a.75.75 0 0 1-1.495.087L11.25 7.5v-.75A.75.75 0 0 1 12 6Z"></path></svg> نتیجه‌ای یافت نشد </div>';
-                                                    return;
-                                                }
-
-                                                // ایجاد لیست پیشنهادات
-                                                suggestionsList.innerHTML = cities
-                                                    .map(suggestion => `
-<span class="destination-item" onclick="changeDestination('${suggestion}',0)">
-<svg viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor" class="ml-2 shrink-0"><path d="M11.28 1.534c4.437-.419 8.22 3.11 8.22 7.59 0 4.053-1.89 7.941-6.398 12.888-.593.65-1.62.651-2.212 0-4.219-4.628-6.14-8.33-6.374-12.09-.263-4.237 2.701-8.005 6.765-8.388ZM18 9.124c0-3.604-3.031-6.432-6.579-6.097C8.192 3.332 5.8 6.374 6.013 9.83c.21 3.37 1.977 6.775 5.982 11.17l.531-.59c3.803-4.306 5.402-7.66 5.471-11.054L18 9.124ZM12 5.25a3.75 3.75 0 1 1 0 7.5 3.75 3.75 0 0 1 0-7.5Zm0 1.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" fill-rule="evenodd"></path></svg>
-<span>
-<span class="font-medium">${suggestion}</span>
-<span class="block text-1">اصفهان</span>
-</span>
-</span>
-`)
-
-                                                // ایجاد لیست پیشنهادات
-                                                suggestionsList.innerHTML += hotels
-                                                    .map(suggestion => `
-<span class="destination-item" onclick="changeDestination('${suggestion.title}','${suggestion.id}')">
-<svg viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor" class="ml-2"><path d="M14.655 3.75a.675.675 0 0 1 .67.59l.005.085h2.595A2.175 2.175 0 0 1 20.1 6.6v12.067a1.425 1.425 0 0 1-1.425 1.425H5.107c-.75 0-1.357-.607-1.357-1.357v-7.966a2.228 2.228 0 0 1 2.047-2.242v-.015a.675.675 0 0 1 1.345-.085l.005.085v.007h2.738v-1.92a2.175 2.175 0 0 1 2.047-2.17v-.004a.675.675 0 0 1 1.345-.085l.006.085h.697a.674.674 0 0 1 .675-.675Zm-4.77 6.12H5.97a.877.877 0 0 0-.545.196l-.073.067a.879.879 0 0 0-.251.63v7.972c0 .003.003.007.007.007h4.778V9.87h-.001Zm2.712-4.096h-.537a.825.825 0 0 0-.825.826v12.142h2.063v-1.305a1.425 1.425 0 0 1 1.313-1.42l.111-.005h.548c.788 0 1.425.638 1.425 1.425v1.304l1.98.001a.07.07 0 0 0 .052-.022l.017-.023.006-.03V6.6a.825.825 0 0 0-.825-.825h-3.27l-.01-.001h-2.048Zm2.673 11.588h-.547a.075.075 0 0 0-.075.075v1.304h.697v-1.304a.075.075 0 0 0-.023-.052l-.023-.017-.029-.006Zm-6.758-.99a.675.675 0 0 1 .085 1.345l-.085.005h-2.04a.676.676 0 0 1-.084-1.345l.084-.005h2.04Zm0-2.76a.675.675 0 0 1 .085 1.345l-.085.005h-2.04a.676.676 0 0 1-.084-1.345l.084-.005h2.04Zm5.46-.322a.675.675 0 0 1 .085 1.345l-.085.005h-1.364a.676.676 0 0 1-.085-1.345l.085-.005h1.364Zm3.406 0a.675.675 0 0 1 .084 1.345l-.084.005h-1.366a.676.676 0 0 1-.084-1.345l.084-.005h1.366Zm-8.866-2.438a.675.675 0 0 1 .085 1.345l-.085.005h-2.04a.676.676 0 0 1-.084-1.345l.084-.005h2.04Zm5.46-.292a.675.675 0 0 1 .085 1.345l-.085.005h-1.364a.676.676 0 0 1-.085-1.345l.085-.005h1.364Zm3.406 0a.675.675 0 0 1 .084 1.345l-.084.005h-1.366a.676.676 0 0 1-.084-1.345l.084-.005h1.366Zm-3.405-2.723a.675.675 0 0 1 .084 1.345l-.085.005h-1.364a.675.675 0 0 1-.085-1.344l.085-.006h1.364Zm3.405 0a.675.675 0 0 1 .084 1.345l-.084.005h-1.366a.675.675 0 0 1-.084-1.344l.084-.006h1.366Z" fill-rule="evenodd"></path></svg>
-<span>
-<span class="font-medium">${suggestion.title}</span>
-<span class="block text-1">اصفهان</span>
-</span>
-</span>
-`)
-                                                    .join('');
-                                            }
-                                        </script>
-                                        <style>
-                                            .suggestions-list {
-                                                list-style: none;
-                                                padding: 0;
-                                                margin: 0;
-                                                border: 1px solid #e0e0e0;
-                                                border-radius: 6px;
-                                                background-color: #fff;
-                                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                                                max-height: 200px;
-                                                overflow-y: auto;
-                                            }
-
-                                            .destination-item {
-                                                display: flex;
-                                                align-items: center;
-                                                border: 0 solid rgba(0, 0, 0, .12);
-                                                border-top-width: 1px;
-                                                height: 56px;
-                                                margin: 0 .875rem;
-                                                font-size: .875rem;
-                                                cursor: pointer;
-                                            }
-                                            .destination-item:hover {
-                                                background-color: #f2f9ff;
-                                            }
-                                            .suggestions-list .destination-item:first-child {
-                                                border-top: 0;
-                                            }
-                                            .suggestions-list li:hover {
-                                                background-color: #f5f5f5;
-                                            }
-
-                                            .suggestions-list li.no-results {
-                                                color: #757575;
-                                                cursor: default;
-                                            }
-
-                                            .suggestions-list li.no-results:hover {
-                                                background-color: transparent;
-                                            }
-                                        </style>
+                            <form action="{{ route('hotelBooking.results') }}" method="get">
+                                @csrf
+                                <div id="travelTypeSelectionTabContent1" class="travelTypeSelectionTabContents w-full h-full ">
+                                    <div class="w-full h-full flex flex-col justify-end gap-[22px]">
+                                        <div class="w-full grid grid-cols-[1fr_340px_0.5fr_0.5fr] gap-5 items-end 1150max:grid-cols-2 1150max:content-start 640max:justify-items-center 640max:grid-cols-1 512max:gap-[14px]">
+                                            <div class="w-full flex flex-col gap-[6px] relative" x-data="{ destination: '', suggestions: [], showSuggestions: false }">
+                                                <label for="destination" class="text-sm text-[#A8A8A8] font-normal 512max:text-xs">
+                                                    مقصد:
+                                                </label>
+                                                <input
+                                                    id="destination"
+                                                    type="text"
+                                                    name="destination"
+                                                    placeholder="مقصد یا نام هتل (داخلی یا خارجی)"
+                                                    class="h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-[6px] bg-neutral-50 focus:outline-none 768max:h-12"
+                                                    oninput="fetchSuggestions(this.value)"
+                                                    onfocusout="setTimeout(() => toggleSuggestion('none'), 200)"
+                                                    onfocusin="toggleSuggestion('block')"
+                                                />
+                                                <input id="hotel_id" type="hidden" name="hotel_id">
+                                                <ul id="suggestions-list" class="suggestions-list mt-2 bg-neutral-50 text-neutral-700 text-sm w-full absolute" style="top: 90px;display: none"></ul>
+                                            </div>
 
 
-
-                                        <div class="w-full flex flex-col gap-[6px]" x-data="{ dateRange: null }">
-                                            <label for="dateRange" class="text-sm text-[#A8A8A8] font-normal 512max:text-xs">
-                                                تاریخ صفر:
-                                            </label>
-                                            <input
-                                                id="dateRange"
-                                                type="text"
-                                                placeholder="تاریخ ورود و خروج"
-                                                class="h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-[6px] bg-neutral-50 focus:outline-none 768max:h-12"
-                                                x-ref="dateRangeInput"
-                                            />
-                                        </div>
-
-                                        <script>
-                                            document.addEventListener('alpine:init', () => {
-                                                Alpine.data('dateRangePicker', () => ({
-                                                    init() {
-                                                        flatpickr(this.$refs.dateRangeInput, {
-                                                            mode: 'range',
-                                                            locale: 'fa', // برای تقویم فارسی
-                                                            dateFormat: 'Y/m/d',
-                                                            onChange: (selectedDates) => {
-                                                                this.dateRange = selectedDates;
-                                                            }
-                                                        });
-                                                    }
-                                                }));
-                                            });
-                                        </script>
+                                            <div class="w-full flex flex-col gap-[6px]">
+                                                <label for="dateRange" class="text-sm text-[#A8A8A8] font-normal 512max:text-xs">
+                                                    تاریخ صفر:
+                                                </label>
+                                                <input
+                                                    id="dateRange"
+                                                    type="text"
+                                                    name="dates"
+                                                    placeholder="تاریخ ورود و خروج"
+                                                    onchange="convertDateRange(this.value)"
+                                                    class="h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-[6px] bg-neutral-50 focus:outline-none 768max:h-12"
+                                                />
+                                            </div>
 
 
+                                            <div class="w-full flex flex-col gap-[6px]" x-data="passengerModal()">
+                                                <label for="passengers" class="text-sm text-[#A8A8A8] font-normal 512max:text-xs">
+                                                    مسافران:
+                                                </label>
+                                                <input
+                                                    id="passengers"
+                                                    type="text"
+                                                    placeholder="1 بزرگسال، 1 اتاق"
+                                                    class="h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-[6px] bg-neutral-50 focus:outline-none 768max:h-12"
+                                                    x-model="passengerText"
+                                                    @click="isPassengerModalOpen = true"
+                                                    readonly
+                                                />
 
-                                        <div class="w-full flex flex-col gap-[6px]" x-data="{ isPassengerModalOpen: false, adults: 1, rooms: 1 }">
-                                            <label for="passengers" class="text-sm text-[#A8A8A8] font-normal 512max:text-xs">
-                                                مسافران:
-                                            </label>
-                                            <input
-                                                id="passengers"
-                                                type="text"
-                                                placeholder="1 بزرگسال، 1 اتاق"
-                                                class="h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-[6px] bg-neutral-50 focus:outline-none 768max:h-12"
-                                                x-model="`${adults} بزرگسال، ${rooms} اتاق`"
-                                                @click="isPassengerModalOpen = true"
-                                                readonly
-                                            />
+                                                <!-- Hidden Input برای ذخیره اطلاعات اتاق‌ها -->
+                                                <input
+                                                    type="hidden"
+                                                    name="rooms_data"
+                                                    x-model="roomsJSON"
+                                                />
 
-                                            <!-- مدال انتخاب تعداد مسافران و اتاق‌ها -->
-                                            <div x-show="isPassengerModalOpen" class="passenger-modal">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h3>تعداد مسافران و اتاق‌ها</h3>
-                                                        <button @click="isPassengerModalOpen = false">×</button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="passenger-count">
-                                                            <label>بزرگسالان:</label>
-                                                            <button @click="adults > 1 ? adults-- : null">-</button>
-                                                            <span x-text="adults"></span>
-                                                            <button @click="adults++">+</button>
+                                                <!-- Modal -->
+                                                <div x-show="isPassengerModalOpen" @click.away="isPassengerModalOpen = false" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+                                                    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+                                                        <div class="space-y-4">
+                                                            <!-- Room List -->
+                                                            <template x-for="(room, index) in rooms" :key="index">
+                                                                <div class="border p-4 rounded-lg">
+                                                                    <div class="flex justify-between items-center mb-4">
+                                                                        <h3 class="font-semibold">اتاق <span x-text="index + 1"></span></h3>
+                                                                        <button @click="removeRoom(index)" class="text-red-500 hover:text-red-700">حذف اتاق</button>
+                                                                    </div>
+                                                                    <div class="space-y-2">
+                                                                        <div class="flex justify-between items-center">
+                                                                            <span>بزرگسالان:</span>
+                                                                            <div class="flex items-center gap-2">
+                                                                                <a @click="decrementAdults(index)" class="px-2 py-1 bg-gray-200 rounded">-</a>
+                                                                                <span x-text="room.adults"></span>
+                                                                                <a @click="incrementAdults(index)" class="px-2 py-1 bg-gray-200 rounded">+</a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="flex justify-between items-center">
+                                                                            <span>کودکان:</span>
+                                                                            <div class="flex items-center gap-2">
+                                                                                <a @click="decrementChildren(index)" class="px-2 py-1 bg-gray-200 rounded">-</a>
+                                                                                <span x-text="room.children"></span>
+                                                                                <a @click="incrementChildren(index)" class="px-2 py-1 bg-gray-200 rounded">+</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </template>
+
+                                                            <!-- Add Room Button -->
+                                                            <a @click="addRoom" class="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                                                افزودن اتاق
+                                                            </a>
+
+                                                            <!-- Close Modal Button -->
+                                                            <a @click="isPassengerModalOpen = false" class="w-full py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+                                                                بستن
+                                                            </a>
                                                         </div>
-                                                        <div class="room-count">
-                                                            <label>اتاق‌ها:</label>
-                                                            <button @click="rooms > 1 ? rooms-- : null">-</button>
-                                                            <span x-text="rooms"></span>
-                                                            <button @click="rooms++">+</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button @click="isPassengerModalOpen = false">اعمال</button>
                                                     </div>
                                                 </div>
                                             </div>
+
+
+                                            <button class="w-full h-[60px] flex items-center justify-center flex-grow-[1] px-4 text-light text-[18px] font-medium text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 640max:max-w-[200px] 640max:mt-4 640max:self-center 768max:h-12">
+                                                جستجو
+                                            </button>
                                         </div>
-
-
-
-                                        <button
-                                            class="w-full h-[60px] flex items-center justify-center flex-grow-[1] px-4 text-light text-[18px] font-medium text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 640max:max-w-[200px] 640max:mt-4 640max:self-center 768max:h-12"
-                                            @click="searchHotels"
-                                        >
-                                            جستجو
-                                        </button>
-
-                                        <script>
-                                            function searchHotels() {
-                                                const data = {
-                                                    destination: this.destination,
-                                                    dateRange: this.dateRange,
-                                                    adults: this.adults,
-                                                    rooms: this.rooms
-                                                };
-
-                                                // ارسال داده‌ها به سرور با استفاده از Axios یا Fetch
-                                                fetch('/api/search-hotels', {
-                                                    method: 'POST',
-                                                    headers: {
-                                                        'Content-Type': 'application/json',
-                                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                                    },
-                                                    body: JSON.stringify(data)
-                                                })
-                                                    .then(response => response.json())
-                                                    .then(data => {
-                                                        console.log(data);
-                                                        // هدایت کاربر به صفحه نتایج
-                                                    });
-                                            }
-                                        </script>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                             <!-- پرواز داخلی -->
                             <div id="travelTypeSelectionTabContent2" class="travelTypeSelectionTabContents w-full h-full hidden">
                                 <div class="w-full h-full flex flex-col items-center gap-5">
@@ -2682,40 +2549,194 @@
     </main>
 
     <script src="{{ asset('src/user-part-scripts/script.js') }}"></script>
+    <link href="https://bgsrb.github.io/flatpickr-jalali/dist/flatpickr.min.css" rel="stylesheet">
+    <script src="https://bgsrb.github.io/flatpickr-jalali/examples/jalali/jdate.min.js"></script>
+    <script>window.Date=window.JDate;</script>
+    <script src="https://bgsrb.github.io/flatpickr-jalali/dist/flatpickr.min.js"></script>
+    <script src="https://bgsrb.github.io/flatpickr-jalali/dist/plugins/rangePlugin.js"></script>
+    <script src="https://bgsrb.github.io/flatpickr-jalali/dist/l10n/fa.js"></script>
+
+    <style>
+        .suggestions-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .destination-item {
+            display: flex;
+            align-items: center;
+            border: 0 solid rgba(0, 0, 0, .12);
+            border-top-width: 1px;
+            height: 56px;
+            margin: 0 .875rem;
+            font-size: .875rem;
+            cursor: pointer;
+        }
+        .destination-item:hover {
+            background-color: #f2f9ff;
+        }
+        .suggestions-list .destination-item:first-child {
+            border-top: 0;
+        }
+        .suggestions-list li:hover {
+            background-color: #f5f5f5;
+        }
+
+        .suggestions-list li.no-results {
+            color: #757575;
+            cursor: default;
+        }
+
+        .suggestions-list li.no-results:hover {
+            background-color: transparent;
+        }
+    </style>
+
     <script>
-        const items = document.querySelectorAll('.travelTypeButton');
+        function changeDestination(value,id){
+            document.getElementById('destination').value = value;
+            document.getElementById('hotel_id').value = id;
+        }
 
-        items.forEach(item => {
-            item.addEventListener('click', () => {
-                // حذف کلاس active و highlight از همه عناصر
-                items.forEach(i => {
-                    i.classList.remove('active');
-                    i.classList.remove('nextElem');
-                    i.classList.remove('preElem');
+        function toggleSuggestion(dis) {
+            const suggestionsList = document.getElementById('suggestions-list');
+            suggestionsList.style.display = dis;
+        }
+        // تابع برای دریافت پیشنهادات از API
+        function fetchSuggestions(destination) {
+            const suggestionsList = document.getElementById('suggestions-list');
+            suggestionsList.style.display = 'block';
+
+            // اگر کمتر از ۲ کاراکتر وارد شده باشد، لیست را خالی کنید
+            if (destination.length < 2) {
+                suggestionsList.innerHTML = '';
+                return;
+            }
+
+            // درخواست به API
+            fetch(`/api/hotelSearchDestination/${destination}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    // نمایش داده‌ها در صفحه
+                    displaySuggestions(data.hotels,data.cities);
+                })
+                .catch(error => {
+                    console.error('Error fetching suggestions:', error);
+                    suggestionsList.innerHTML = '<div class="flex items-center justify-center gap-2" style="padding: 1rem;font-weight: 400;line-height: 180%; font-size: 1.2rem">خطا در دریافت داده‌ها</div>';
                 });
+        }
 
-                // افزودن کلاس active به عنصر کلیک شده
-                item.classList.add('active');
-                const index = Array.from(items).indexOf(item);
+        // تابع برای نمایش پیشنهادات در صفحه
+        function displaySuggestions(hotels,cities) {
+            const suggestionsList = document.getElementById('suggestions-list');
 
-                // پیدا کردن برادر قبلی که display: none ندارد
-                let prevIndex = index - 1;
-                while (prevIndex >= 0 && getComputedStyle(items[prevIndex]).display === 'none') {
-                    prevIndex--;
-                }
-                if (prevIndex >= 0) {
-                    items[prevIndex].classList.add('preElem');
-                }
+            // اگر داده‌ای وجود نداشته باشد
+            if (hotels.length === 0 && cities.length === 0) {
+                suggestionsList.innerHTML = '<div class="flex items-center justify-center gap-2" style="padding: 1rem;font-weight: 400;line-height: 180%; font-size: 1.2rem"><svg style="margin-top: 3px" viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor"><path d="M12 1.5c5.799 0 10.5 4.701 10.5 10.5S17.799 22.5 12 22.5 1.5 17.799 1.5 12 6.201 1.5 12 1.5ZM12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 6a.75.75 0 0 1 .745.663l.005.087v7.5a.75.75 0 0 1-1.495.087l-.005-.087v-7.5A.75.75 0 0 1 12 9Zm0-3a.75.75 0 0 1 .745.663l.005.087v.75a.75.75 0 0 1-1.495.087L11.25 7.5v-.75A.75.75 0 0 1 12 6Z"></path></svg> نتیجه‌ای یافت نشد </div>';
+                return;
+            }
 
-                // پیدا کردن برادر بعدی که display: none ندارد
-                let nextIndex = index + 1;
-                while (nextIndex < items.length && getComputedStyle(items[nextIndex]).display === 'none') {
-                    nextIndex++;
+            // ایجاد لیست پیشنهادات
+            suggestionsList.innerHTML = cities
+                .map(suggestion => `
+<span class="destination-item" onclick="changeDestination('${suggestion.city}',0)">
+<svg viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor" class="ml-2 shrink-0"><path d="M11.28 1.534c4.437-.419 8.22 3.11 8.22 7.59 0 4.053-1.89 7.941-6.398 12.888-.593.65-1.62.651-2.212 0-4.219-4.628-6.14-8.33-6.374-12.09-.263-4.237 2.701-8.005 6.765-8.388ZM18 9.124c0-3.604-3.031-6.432-6.579-6.097C8.192 3.332 5.8 6.374 6.013 9.83c.21 3.37 1.977 6.775 5.982 11.17l.531-.59c3.803-4.306 5.402-7.66 5.471-11.054L18 9.124ZM12 5.25a3.75 3.75 0 1 1 0 7.5 3.75 3.75 0 0 1 0-7.5Zm0 1.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" fill-rule="evenodd"></path></svg>
+<span>
+<span class="font-medium">${suggestion.city}</span>
+<span class="block text-1">${suggestion.province}</span>
+</span>
+</span>
+`)
+
+            // ایجاد لیست پیشنهادات
+            suggestionsList.innerHTML += hotels
+                .map(suggestion => `
+<span class="destination-item" onclick="changeDestination('${suggestion.title}','${suggestion.id}')">
+<svg viewBox="0 0 24 24" width="24px" height="24px" fill="currentColor" class="ml-2"><path d="M14.655 3.75a.675.675 0 0 1 .67.59l.005.085h2.595A2.175 2.175 0 0 1 20.1 6.6v12.067a1.425 1.425 0 0 1-1.425 1.425H5.107c-.75 0-1.357-.607-1.357-1.357v-7.966a2.228 2.228 0 0 1 2.047-2.242v-.015a.675.675 0 0 1 1.345-.085l.005.085v.007h2.738v-1.92a2.175 2.175 0 0 1 2.047-2.17v-.004a.675.675 0 0 1 1.345-.085l.006.085h.697a.674.674 0 0 1 .675-.675Zm-4.77 6.12H5.97a.877.877 0 0 0-.545.196l-.073.067a.879.879 0 0 0-.251.63v7.972c0 .003.003.007.007.007h4.778V9.87h-.001Zm2.712-4.096h-.537a.825.825 0 0 0-.825.826v12.142h2.063v-1.305a1.425 1.425 0 0 1 1.313-1.42l.111-.005h.548c.788 0 1.425.638 1.425 1.425v1.304l1.98.001a.07.07 0 0 0 .052-.022l.017-.023.006-.03V6.6a.825.825 0 0 0-.825-.825h-3.27l-.01-.001h-2.048Zm2.673 11.588h-.547a.075.075 0 0 0-.075.075v1.304h.697v-1.304a.075.075 0 0 0-.023-.052l-.023-.017-.029-.006Zm-6.758-.99a.675.675 0 0 1 .085 1.345l-.085.005h-2.04a.676.676 0 0 1-.084-1.345l.084-.005h2.04Zm0-2.76a.675.675 0 0 1 .085 1.345l-.085.005h-2.04a.676.676 0 0 1-.084-1.345l.084-.005h2.04Zm5.46-.322a.675.675 0 0 1 .085 1.345l-.085.005h-1.364a.676.676 0 0 1-.085-1.345l.085-.005h1.364Zm3.406 0a.675.675 0 0 1 .084 1.345l-.084.005h-1.366a.676.676 0 0 1-.084-1.345l.084-.005h1.366Zm-8.866-2.438a.675.675 0 0 1 .085 1.345l-.085.005h-2.04a.676.676 0 0 1-.084-1.345l.084-.005h2.04Zm5.46-.292a.675.675 0 0 1 .085 1.345l-.085.005h-1.364a.676.676 0 0 1-.085-1.345l.085-.005h1.364Zm3.406 0a.675.675 0 0 1 .084 1.345l-.084.005h-1.366a.676.676 0 0 1-.084-1.345l.084-.005h1.366Zm-3.405-2.723a.675.675 0 0 1 .084 1.345l-.085.005h-1.364a.675.675 0 0 1-.085-1.344l.085-.006h1.364Zm3.405 0a.675.675 0 0 1 .084 1.345l-.084.005h-1.366a.675.675 0 0 1-.084-1.344l.084-.006h1.366Z" fill-rule="evenodd"></path></svg>
+<span>
+<span class="font-medium">${suggestion.title}</span>
+<span class="block text-1">${suggestion.province}</span>
+</span>
+</span>
+`)
+                .join('');
+        }
+    </script>
+
+    <script>
+        flatpickr("#dateRange", {
+            mode: 'range',
+            locale: 'fa',
+            dateFormat: 'Y/m/d',
+        });
+        function convertDateRange(dateRange) {
+            const [startDate, endDate] = dateRange.split(' to ');
+            document.getElementById('dateRange').value = `${startDate} تا ${endDate}`;
+        }
+    </script>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('passengerModal', () => ({
+                isPassengerModalOpen: false,
+                rooms: [{ adults: 1, children: 0 }],
+
+                get totalAdults() {
+                    return this.rooms.reduce((sum, room) => sum + room.adults, 0);
+                },
+
+                get totalChildren() {
+                    return this.rooms.reduce((sum, room) => sum + room.children, 0);
+                },
+
+                get passengerText() {
+                    const adultsText = this.totalAdults === 1 ? '1 بزرگسال' : `${this.totalAdults} بزرگسال`;
+                    const childrenText = this.totalChildren === 0 ? '' : `، ${this.totalChildren} کودک`;
+                    return `${adultsText}${childrenText}`;
+                },
+
+                get roomsJSON() {
+                    return JSON.stringify(this.rooms); // تبدیل اطلاعات اتاق‌ها به JSON
+                },
+
+                addRoom() {
+                    this.rooms.push({ adults: 1, children: 0 });
+                },
+
+                removeRoom(index) {
+                    if (this.rooms.length > 1) {
+                        this.rooms.splice(index, 1);
+                    }
+                },
+
+                incrementAdults(index) {
+                    this.rooms[index].adults++;
+                },
+
+                decrementAdults(index) {
+                    if (this.rooms[index].adults > 1) {
+                        this.rooms[index].adults--;
+                    }
+                },
+
+                incrementChildren(index) {
+                    this.rooms[index].children++;
+                },
+
+                decrementChildren(index) {
+                    if (this.rooms[index].children > 0) {
+                        this.rooms[index].children--;
+                    }
                 }
-                if (nextIndex < items.length) {
-                    items[nextIndex].classList.add('nextElem');
-                }
-            });
+            }));
         });
     </script>
 @endsection

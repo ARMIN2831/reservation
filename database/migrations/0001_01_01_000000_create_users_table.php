@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('peoples', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
             $table->id();
             $table->string('firstName');
             $table->string('lastName');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('mobile')->unique()->nullable();
             $table->string('type')->nullable();
-            $table->foreignId('people_id')->references('id')->on('peoples')->onDelete('cascade');
+            $table->foreignId('people_id')->references('id')->on('people')->onDelete('cascade');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -48,7 +48,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('peoples');
+        Schema::dropIfExists('people');
         Schema::dropIfExists('users');
         Schema::dropIfExists('sessions');
     }

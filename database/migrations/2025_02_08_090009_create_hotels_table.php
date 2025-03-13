@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('address')->nullable();
             $table->string('mapAddress')->nullable();
+            $table->string('city')->nullable();
+            $table->string('province')->nullable();
+            $table->string('country')->nullable();
             $table->string('password')->nullable();
             $table->string('cart')->nullable();
             $table->string('cartOwner')->nullable();

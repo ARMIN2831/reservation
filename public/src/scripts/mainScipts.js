@@ -31,9 +31,8 @@ let allButtons = document.querySelectorAll('button')
 allButtons.forEach(button => {
     button.addEventListener('click', event => {
         if(button.type != "submit"){
-            return
+            event.preventDefault()
         }
-        event.preventDefault()
     })
 })
 

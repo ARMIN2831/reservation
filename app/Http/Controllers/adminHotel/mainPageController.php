@@ -22,6 +22,18 @@ class mainPageController extends Controller
             'description' => 'required',
             'mapAddress' => 'required',
         ]);
+
+        $map = explode(',',$validatedData['mapAddress']);
+        $lat = explode('[',$map[0])[1];
+        $lon = explode(']',$map[1])[0];
+        $url = "https://nominatim.openstreetmap.org/reverse?lat={$lat}&lon={$lon}&format=json";
+        $client = new \GuzzleHttp\Client();
+        $response = $client->get($url, ['headers' => ['User-Agent' => 'LaravelApp']]);
+        $data = json_decode($response->getBody(), true);
+        $validatedData['city'] = $data['address']['city'];
+        $validatedData['province'] = $data['address']['state'];
+        $validatedData['country'] = $data['address']['country'];
+
         Hotel::whereId($id)->update($validatedData);
         return redirect()->route('hotel.mainPage');
     }
