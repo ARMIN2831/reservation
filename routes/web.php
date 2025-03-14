@@ -16,7 +16,8 @@ use App\Http\Middleware\ShareUserData;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/start', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate:fresh');
+    \Illuminate\Support\Facades\Artisan::call('storage:link');
+    /*\Illuminate\Support\Facades\Artisan::call('migrate:fresh');
     \Illuminate\Support\Facades\Artisan::call('cache:clear');
     \Illuminate\Support\Facades\Artisan::call('config:cache');
     $people = \App\Models\People::create([
@@ -37,7 +38,7 @@ Route::get('/start', function () {
         'user_id' => 1,
         'hotel_id' => 1,
         'role' => 'admin',
-    ]);
+    ]);*/
 });
 Route::get('/test', function () {
     return view('welcome');

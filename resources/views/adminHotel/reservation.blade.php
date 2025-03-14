@@ -567,14 +567,14 @@
                                 </span>
                             </div>
                             <!-- item -->
-                            <div class="w-full flex items-center gap-1">
+                            {{--<div class="w-full flex items-center gap-1">
                                 <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
                                     شماره اتاق:
                                 </span>
                                 <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
                                     321
                                 </span>
-                            </div>
+                            </div>--}}
                             <!-- item -->
                             <div class="w-full flex items-center gap-1">
                                 <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
@@ -594,14 +594,14 @@
                                 </span>
                             </div>
                             <!-- item -->
-                            <div class="w-full flex items-center gap-1">
+                            {{--<div class="w-full flex items-center gap-1">
                                 <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
                                     شماره تماس:
                                 </span>
                                 <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
                                     09197563483
                                 </span>
-                            </div>
+                            </div>--}}
                             <!-- item -->
                             <div class="w-full flex items-center gap-1">
                                 <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
@@ -660,14 +660,14 @@
                                 </span>
                             </div>
                             <!-- item -->
-                            <div class="w-full flex items-center gap-1">
+                            {{--<div class="w-full flex items-center gap-1">
                                 <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
                                     شماره کارت:
                                 </span>
                                 <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
                                     5064-3690-4572-1869
                                 </span>
-                            </div>
+                            </div>--}}
                         </div>
                         <!--  -->
                         <div class="w-full rounded-xl bg-neutral-50 p-4.5 flex items-center">
@@ -681,12 +681,12 @@
                     </div>
                     <!-- buttons -->
                     <div class="w-full flex items-center gap-4.5 justify-end 640max:gap-2">
-                        <button class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 640max:min-w-[0px] 640max:flex-grow-[1] 640max:px-2 640max:text-xs">
+                        {{--<button class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 640max:min-w-[0px] 640max:flex-grow-[1] 640max:px-2 640max:text-xs">
                             لغو رزرو
                         </button>
                         <a href="#" class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 640max:min-w-[0px] 640max:flex-grow-[1] 640max:px-2 640max:text-xs">
                             ارسال پیام
-                        </a>
+                        </a>--}}
                         <button onclick="modalController(roomReservationProperties)" class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 640max:min-w-[0px] 640max:flex-grow-[1] 640max:px-2 640max:text-xs">
                             بازگشت
                         </button>

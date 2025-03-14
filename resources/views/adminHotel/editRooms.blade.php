@@ -51,33 +51,14 @@
                                         <label for="" class=" text-sm text-neutral-700 font-normal font-farsi-regular">
                                             عنوان اتاق :
                                         </label>
-                                        <input name="title" type="text" placeholder="عنوان اتاق" class=" bg-neutral-50 rounded-[6px] px-4.5 py-2 text-sm text-neutral-700 font-medium font-farsi-medium focus:border-neutral-400 focus:border-[1px] focus:outline-none" value="{{ isset($room) ? $room->title : '' }}">
+                                        <input name="title" type="text" placeholder="عنوان اتاق" class=" bg-neutral-50 rounded-[6px] px-4.5 py-2 text-sm text-neutral-700 font-medium font-farsi-medium focus:border-neutral-400 focus:border-[1px] focus:outline-none" value="{{ isset($room) ? $room->title : old('title') }}">
                                     </div>
                                     <!-- room type -->
-                                    <div class="w-full flex items-center gap-2 mb-4.5 1024max:flex-col 1024max:items-start">
-                                        <span class="text-sm text-neutral-700 font-normal font-farsi-regular flex-shrink-[0]">
-                                            نوع اتاق
-                                        </span>
-                                        <div class="w-full flex-grow-[1] flex items-center gap-2 flex-wrap">
-                                            <label for="room-type-1" class="checkbox-item-button h-[30px] transition-all duration-200 ease-out px-5 py-[4.5] rounded-[20px] bg-neutral-50 flex-shrink-[0] flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                                <input class="hidden" type="radio" id="room-type-1" name="room-type" value="استاندارد" {{ isset($room) && $room->type == 'standard' ? 'checked' : '' }}>
-                                                <span>
-                                                    اتاق استاندارد
-                                                </span>
-                                            </label>
-                                            <label for="room-type-2" class="checkbox-item-button h-[30px] transition-all duration-200 ease-out px-5 py-[4.5] rounded-[20px] bg-neutral-50 flex-shrink-[0] flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                                <input class="hidden" type="radio" id="room-type-2" name="room-type" value="خانوادگی" {{ isset($room) && $room->type == 'family' ? 'checked' : '' }}>
-                                                <span>
-                                                    اتاق خانوادگی
-                                                </span>
-                                            </label>
-                                            <label for="room-type-3" class="checkbox-item-button h-[30px] transition-all duration-200 ease-out px-5 py-[4.5] rounded-[20px] bg-neutral-50 flex-shrink-[0] flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                                <input class="hidden" type="radio" id="room-type-3" name="room-type" value="سوئیت" {{ isset($room) && $room->type == 'suite' ? 'checked' : '' }}>
-                                                <span>
-                                                    سوئیت
-                                                </span>
-                                            </label>
-                                        </div>
+                                    <div class="w-full flex flex-col gap-[9px] mb-[21px]">
+                                        <label for="room-type" class=" text-sm text-neutral-700 font-normal font-farsi-regular">
+                                            نوع اتاق :
+                                        </label>
+                                        <input name="room-type" type="text" placeholder="نوع اتاق" class=" bg-neutral-50 rounded-[6px] px-4.5 py-2 text-sm text-neutral-700 font-medium font-farsi-medium focus:border-neutral-400 focus:border-[1px] focus:outline-none" value="{{ isset($room) ? $room->type : old('room-type') }}">
                                     </div>
                                     <!-- bed -->
                                     <div class="w-full flex flex-col gap-[20px] mb-[30px]">
@@ -92,7 +73,7 @@
                                                                 <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
                                                             </svg>
                                                         </button>
-                                                        <input id="singlebedCountInput" name="single_beds" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->single_beds : 1 }}" type="text" readonly>
+                                                        <input id="singlebedCountInput" name="single_beds" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->single_beds : old('single_beds') }}" type="text" readonly>
                                                         <button type="button" onclick="addOrDeleteBed('delete', singlebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
                                                             <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                                                 <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
@@ -109,7 +90,7 @@
                                                                 <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
                                                             </svg>
                                                         </button>
-                                                        <input id="doublebedCountInput" name="double_beds" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->double_beds : 1 }}" type="text" readonly>
+                                                        <input id="doublebedCountInput" name="double_beds" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->double_beds : old('double_beds') }}" type="text" readonly>
                                                         <button type="button" onclick="addOrDeleteBed('delete', doublebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
                                                             <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                                                 <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
@@ -121,26 +102,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- services -->
-                                    <div class="w-full flex flex-wrap gap-x-4.5 gap-y-5 mb-[25px]">
-                                        @foreach($sharedData->facilities as $facilities)
-                                            @if($facilities->type == 3)
-                                                <div class="flex items-center gap-[9px]">
-                                                    <input class="hidden" type="checkbox" id="service-{{$facilities->id}}" name="service[]" value="{{$facilities->id}}" {{ isset($room) && in_array($facilities->id, $room->services) ? 'checked' : '' }}>
-                                                    <label for="service-{{$facilities->id}}" class="radio-label flex items-center justify-center w-4.5 aspect-square rounded-full bg-[#DBF0DD80]">
-                                                        <div class="icon w-[10px] aspect-square rounded-full bg-green-600 transition-all duration-200 ease-out">
-                                                        </div>
-                                                    </label>
-                                                    <label for="service-{{$facilities->id}}" class=" text-xs text-neutral-700 font-normal">
-                                                        {{ $facilities->title }}
-                                                    </label>
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
                                     <!-- caption -->
                                     <div class="w-full">
-                                        <textarea name="description" id="" class=" w-full text-xs text-neutral-700 rounded-[6px] bg-neutral-50 font-normal min-h-[56px] h-auto placeholder:text-neutral-400 focus:border-neutral-400 focus:border-[1px] focus:outline-none px-[6px] py-1" placeholder="توضیحات">{{ isset($room) ? $room->description : '' }}</textarea>
+                                        <textarea name="description" id="" class=" w-full text-xs text-neutral-700 rounded-[6px] bg-neutral-50 font-normal min-h-[56px] h-auto placeholder:text-neutral-400 focus:border-neutral-400 focus:border-[1px] focus:outline-none px-[6px] py-1" placeholder="توضیحات">{{ isset($room) ? $room->description : old('description') }}</textarea>
                                     </div>
                                 </div>
                                 <!-- buttons -->

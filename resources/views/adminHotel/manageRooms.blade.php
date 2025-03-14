@@ -45,7 +45,7 @@
                             افزودن اتاق
                         </span>
                     </a>
-                    <div class="w-full p-4.5 rounded-xl bg-green-300 grid grid-cols-[201px_1.5fr_1fr_1fr_1.3fr_140px] gap-5 768max:hidden">
+                    <div style="grid-template-columns: 197px 1.5fr 1fr 1fr 140px;" class="w-full p-4.5 rounded-xl bg-green-300 grid gap-5 768max:hidden">
                         <div class=""></div>
                         <div class="flex items-center">
                             <span class=" text-sm text-light font-normal font-farsi-regular">
@@ -62,11 +62,11 @@
                                 نوع تخت
                             </span>
                         </div>
-                        <div class="flex items-center justify-center">
+                        {{--<div class="flex items-center justify-center">
                             <span class=" text-sm text-light font-normal font-farsi-regular">
                                 خدمات
                             </span>
-                        </div>
+                        </div>--}}
                         <div class="flex items-center justify-center">
                             <span class=" text-sm text-light font-normal font-farsi-regular">
                                 وضعیت
@@ -78,9 +78,9 @@
                         {{--{{ dd($sharedData->rooms) }}--}}
                         @foreach($sharedData->rooms as $room)
                             <!-- item -->
-                            <div class="manage-room-item w-full grid grid-cols-[201px_1.5fr_1fr_1fr_1.3fr_140px] gap-5 items-center py-2 px-4.5 rounded-xl bg-light 512max:px-2 512max:pt-2 512max:pb-4.5  768max:grid-cols-1 768max:gap-2 768max:py-4.5 1280max:grid-cols-[201px_1.5fr_1fr_1fr_1.3fr_120px] 1280max:gap-3">
+                            <div style="grid-template-columns: 197px 1.5fr 1fr 1fr 140px;" class="manage-room-item w-full grid gap-5 items-center py-2 px-4.5 rounded-xl bg-light 512max:px-2 512max:pt-2 512max:pb-4.5  768max:grid-cols-1 768max:gap-2 768max:py-4.5 1280max:grid-cols-[201px_1.5fr_1fr_1fr_1.3fr_120px] 1280max:gap-3">
                                 <!-- image and checkbox -->
-                                <div class="w-full flex items-center gap-4.5">
+                                <div class="w-full flex items-center">
                                     <input class=" hidden" type="checkbox" id="selectInputRoom{{ $room->id }}" name="name">
                                     <label for="selectInputRoom{{ $room->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center 768max:hidden" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
                                         <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,11 +117,11 @@
                                 </span>
                                 </div>
                                 <!-- services -->
-                                <div class=" flex-col gap-2 768max:flex 768max:w-full">
+                                {{--<div class=" flex-col gap-2 768max:flex 768max:w-full">
                                 <span class=" text-xs text-neutral-700 font-normal font-farsi-regular text 768max:hidden">
                                     {{ implode(', ', $room->facilities->pluck('title')->toArray()) }}
                                 </span>
-                                    <span class="hidden text-xs text-neutral-400 font-normal font-farsi-regular text 768max:inline 768max:text-sm">
+                                <span class="hidden text-xs text-neutral-400 font-normal font-farsi-regular text 768max:inline 768max:text-sm">
                                     خدمات :
                                 </span>
                                     <div class="hidden w-full items-center flex-wrap gap-x-4 gap-y-2 768max:flex">
@@ -135,11 +135,12 @@
                                         شام
                                     </span>
                                     </div>
-                                </div>
+                                </div>--}}
                                 <!-- button -->
                                 <div class="w-full 768max:hidden">
-                                    <button id="roomDropdownButton{{ $room->id }}" data-dropdown-toggle="roomDropdownContent{{ $room->id }}" class="@if($room->status == 0) disabled @endif roomItemButton w-full bg-neutral-50 rounded-[36px] flex items-center justify-between py-2 px-3">
-                                        @if($room->status == 0)
+                                    <button id="roomDropdownButton{{ $room->id }}" data-dropdown-toggle="roomDropdownContent{{ $room->id }}" class="disabled roomItemButton w-full bg-neutral-50 rounded-[36px] flex items-center justify-between py-2 px-3">
+                                        <span class=" text-inherit text-sm font-medium font-farsi-medium">{{ $room->status }}</span>
+                                        {{--@if($room->status == 0)
                                             <span class=" text-inherit text-sm font-medium font-farsi-medium">غیر قابل رزرو</span>
                                             <svg class=" w-[16px] text-[#d9d9d9]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
                                         @elseif($room->status == 2)
@@ -148,9 +149,9 @@
                                         @elseif($room->status == 1)
                                             <span class=" text-inherit text-sm font-medium font-farsi-medium">موجود</span>
                                             <svg class=" w-[16px] text-[#d9d9d9]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-                                        @endif
+                                        @endif--}}
                                     </button>
-                                    <div id="roomDropdownContent{{ $room->id }}" class="z-10 hidden  bg-light divide-y divide-gray-100 rounded-xl shadow-sm w-44">
+                                    {{--<div id="roomDropdownContent{{ $room->id }}" class="z-10 hidden  bg-light divide-y divide-gray-100 rounded-xl shadow-sm w-44">
                                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="roomDropdownButton{{ $room->id }}">
                                             <li>
                                                 <a href="{{ route('hotel.updateRoomStatus', [$room->id, 1]) }}" class="block px-4 py-2 hover:bg-gray-100 text-xs text-neutral-700 font-medium transition-all duration-500 ease-out hover:transition-none">
@@ -168,7 +169,7 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div>--}}
                                 </div>
                             </div>
                         @endforeach

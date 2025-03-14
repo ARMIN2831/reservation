@@ -35,14 +35,6 @@ class editRoomsController extends Controller
             'hotel_id' => $hotelId,
             'status' => 1,
         ]);
-        if ($request->service){
-            foreach ($request->service as $facility){
-                RoomFacility::create([
-                    'room_id' => $room->id,
-                    'facility_id' => $facility,
-                ]);
-            }
-        }
         foreach ($validatedData['files'] as $file){
             $filePath = $file->store('uploads', 'public');
             File::create([

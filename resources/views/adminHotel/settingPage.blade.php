@@ -321,7 +321,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordiion w-full flex flex-col">
+                            {{--<div class="accordiion w-full flex flex-col">
                                 <!-- button -->
                                 <div class="accordiion-button w-full flex items-center py-3 px-4.5 bg-light gap-2">
                                     <svg class=" w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -424,14 +424,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--}}
                         </div>
                         <!-- buttons -->
-                        <div class="w-full flex items-center gap-4.5 justify-end p-4.5 bg-light rounded-xl">
+                        {{--<div class="w-full flex items-center gap-4.5 justify-end p-4.5 bg-light rounded-xl">
                             <button type="submit" class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                                 ذخیره
                             </button>
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
             </main>
