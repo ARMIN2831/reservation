@@ -25,12 +25,12 @@
         <div class="w-full flex flex-col items-center gap-[59px]">
             <!-- logo -->
             <a class=" w-full max-w-[170px]" href="#">
-                <img class=" w-full" src="../../public/public/images/logoWithText.svg" alt="#">
+                <img class=" w-full" src="{{ asset('public/images/logoWithText.svg') }}" alt="#">
             </a>
             <!-- navbar -->
             <div class="w-full flex flex-col">
                 <!-- navbar item -->
-                <div class="navbar-item active w-full flex flex-col gap-4.5">
+                <div class="navbar-item {{ (request()->is('hotel/dashboard/mainPage')) ? 'active' : '' }} w-full flex flex-col gap-4.5">
                     <a href="{{ route('hotel.mainPage') }}" class="navbar-item-button w-full flex items-center gap-2 py-2.5 px-4.5 rounded-md">
                         <div class=" w-10 aspect-square rounded-md bg-light flex items-center justify-center">
                             <svg class=" w-5 text-green-300" viewBox="0 0 19.047618865966797 19.047618865966797" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <!-- navbar item -->
-                <div class="navbar-item w-full flex flex-col gap-4.5">
+                <div class="navbar-item {{ (request()->is('hotel/dashboard/reservation')) ? 'active' : '' }} w-full flex flex-col gap-4.5">
                     <a href="{{ route('hotel.reservation') }}" class="navbar-item-button w-full flex items-center gap-2 py-2.5 px-4.5 rounded-md">
                         <div class=" w-10 aspect-square rounded-md bg-light flex items-center justify-center">
                             <svg class=" w-5 text-green-300" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -73,7 +73,7 @@
                     </a>
                 </div>
                 <!-- navbar item -->
-                <div class="navbar-item w-full flex flex-col gap-4.5">
+                <div class="navbar-item {{ (request()->is('hotel/dashboard/manageRooms')) ? 'active' : '' }} w-full flex flex-col gap-4.5">
                     <a href="{{ route('hotel.manageRooms') }}" class="navbar-item-button w-full flex items-center gap-2 py-2.5 px-4.5 rounded-md">
                         <div class=" w-10 aspect-square rounded-md bg-light flex items-center justify-center">
                             <svg class=" w-5 text-green-300" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,7 +93,7 @@
                     </a>
                 </div>
                 <!-- navbar item -->
-                <div class="navbar-item w-full flex flex-col gap-4.5">
+                <div class="navbar-item {{ (request()->is('hotel/dashboard/pricingANDcapacities')) ? 'active' : '' }} w-full flex flex-col gap-4.5">
                     <a href="{{ route('hotel.pricingANDcapacities') }}" class="navbar-item-button w-full flex items-center gap-2 py-2.5 px-4.5 rounded-md">
                         <div class=" w-10 aspect-square rounded-md bg-light flex items-center justify-center">
                             <svg class=" w-5 text-green-300" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -106,12 +106,12 @@
                             </span>
                     </a>
                     <div class="navbar-item-children-links 1024max:!hidden w-full flex-col px-8 gap-4.5 pb-2">
-                        <a href="#" class="navbar-item-child-link active text-sm font-normal font-farsi-regular">
-                            قیمت کذاری
-                        </a>
-                        <a href="#" class="navbar-item-child-link text-sm font-normal font-farsi-regular">
-                            ظرفیت اتاق ها
-                        </a>
+                        <button class="hotel-content-button navbar-item-child-link navbar-item-child-link-pricingPage text-sm font-normal font-farsi-regular text-start active" data-bs-target="pricingPageContent">
+                            قیمت گذاری
+                        </button>
+                        <button class="hotel-attr-content-button navbar-item-child-link navbar-item-child-link-pricingPage text-sm font-normal font-farsi-regular text-start " data-bs-target="capacitiesPageContent">
+                            ظرفیت و محدودیت اتاق ها
+                        </button>
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@
             <!-- right -->
             <div class="flex items-center gap-3 flex-shrink-0">
                 <!-- image -->
-                <img class=" bg-netural-50 w-[50px] aspect-square rounded-full object-contain object-center" src="../../../public/public/images/darvishiLogo.png" alt="#">
+                <img class=" bg-netural-50 w-[50px] aspect-square rounded-full object-contain object-center" src="{{ asset('public/images/darvishiLogo.png') }}" alt="#">
                 <!-- content -->
                 <div class="flex flex-col gap-1">
                     <h4 class=" text-sm text-green-600 font-farsi-bold font-bold">

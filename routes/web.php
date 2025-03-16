@@ -61,6 +61,7 @@ Route::middleware([ShareUserData::class])->group(function () {
     Route::middleware('UserLogged')->controller(UserAuthController::class)->group(function() {
         Route::get('login', 'login')->name('login');
         Route::post('doLogin', 'doLogin')->name('doLogin');
+        Route::post('doRegister', 'doRegister')->name('doRegister');
     });
 
 
