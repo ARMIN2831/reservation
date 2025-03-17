@@ -16,7 +16,8 @@ use App\Http\Middleware\ShareUserData;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/start', function () {
-    \Illuminate\Support\Facades\Artisan::call('storage:link');
+    \Illuminate\Support\Facades\Artisan::call('migrate');
+    /*\Illuminate\Support\Facades\Artisan::call('storage:link');*/
     /*\Illuminate\Support\Facades\Artisan::call('migrate:fresh');
     \Illuminate\Support\Facades\Artisan::call('cache:clear');
     \Illuminate\Support\Facades\Artisan::call('config:cache');
@@ -141,9 +142,10 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
         });
 
 
-        //editRoom routes
+        //pricingANDcapacity routes
         Route::controller(pricingANDcapacitiesController::class)->group(function() {
             Route::get('pricingANDcapacities', 'index')->name('pricingANDcapacities');
+            Route::post('setPrice', 'setPrice')->name('setPrice');
         });
     });
 
