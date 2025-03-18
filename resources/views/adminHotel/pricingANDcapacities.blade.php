@@ -2,7 +2,7 @@
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    @php $size = 300 * count($sharedData->rooms); @endphp
+    @php $size = 300 * count($sharedData->rooms); $size2 = 165 * count($sharedData->rooms); @endphp
     <div class="w-full h-full overflow-auto noscrollbar flex flex-col gap-7 1024max:pt-[76px] 1024max:gap-0">
         <div class="w-full items-center py-[18px] px-[25px] bg-light hidden 768max:flex">
             <h3 class=" text-base text-green-300 font-medium font-farsi-medium">
@@ -31,16 +31,21 @@
                                         تعیین نرخ
                                     </span>
                             </button>
-                            <button class="flex items-center justify-center gap-2">
-                                <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
-                                    <svg class=" w-[13px] text-inherit" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8.25 6.33333V10.3333M5.75 6.33333V10.3333M3.25 3.66667V11.6667C3.25 12.0203 3.3817 12.3594 3.61612 12.6095C3.85054 12.8595 4.16848 13 4.5 13H9.5C9.83152 13 10.1495 12.8595 10.3839 12.6095C10.6183 12.3594 10.75 12.0203 10.75 11.6667V3.66667M2 3.66667H12M3.875 3.66667L5.125 1H8.875L10.125 3.66667" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <span class=" text-base text-neutral-700 font-normal font-farsi-regular">
+                            <form action="{{ route('hotel.removePricing') }}" method="post">
+                                @csrf
+                                <input type="hidden" class="selectedOption" name="selected_option">
+                                <input type="hidden" class="selectedRoom" name="selected_room">
+                                <button class="flex items-center justify-center gap-2">
+                                    <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
+                                        <svg class=" w-[13px] text-inherit" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8.25 6.33333V10.3333M5.75 6.33333V10.3333M3.25 3.66667V11.6667C3.25 12.0203 3.3817 12.3594 3.61612 12.6095C3.85054 12.8595 4.16848 13 4.5 13H9.5C9.83152 13 10.1495 12.8595 10.3839 12.6095C10.6183 12.3594 10.75 12.0203 10.75 11.6667V3.66667M2 3.66667H12M3.875 3.66667L5.125 1H8.875L10.125 3.66667" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <span class=" text-base text-neutral-700 font-normal font-farsi-regular">
                                         حذف
                                     </span>
-                            </button>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <!-- body -->
@@ -48,7 +53,7 @@
                         <!-- navigation -->
                         <div class="w-full flex items-center justify-between">
                             <!-- prev month button -->
-                            <button id="prevDay" class="flex items-center gap-2">
+                            <button class="flex items-center gap-2 prevDay">
                                 <svg class=" w-4 text-[#D9D9D9]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                                 </svg>
@@ -69,7 +74,7 @@
                             </div>
                             <input id="selectedDate" type="hidden" value="{{ $currentDate }}">
                             <!-- next month button -->
-                            <button id="nextDay" class="flex items-center gap-2">
+                            <button class="flex items-center gap-2 nextDay">
                                     <span class=" text-sm text-green-600 font-normal">
                                         ماه بعد
                                     </span>
@@ -78,31 +83,6 @@
                                 </svg>
                             </button>
                         </div>
-                        <script>
-                            $('#prevDay').on('click', function () {
-                                var currentDate = new Date($('#selectedDate').val());
-                                var formattedDate;
-                                try {
-                                    formattedDate = currentDate.toISOString().split('T')[0].slice(0, 7);  // Format as YYYY-MM
-                                }catch (e) {
-                                    formattedDate = currentDate;
-                                }
-                                window.location.href = '{{ route('hotel.pricingANDcapacities') }}?date=' + formattedDate;
-                            });
-
-                            // Handle next month button
-                            $('#nextDay').on('click', function () {
-                                var currentDate = new Date($('#selectedDate').val());
-                                currentDate.setMonth(currentDate.getMonth() + 2);  // Move to next month
-                                var formattedDate;
-                                try {
-                                    formattedDate = currentDate.toISOString().split('T')[0].slice(0, 7);  // Format as YYYY-MM
-                                }catch (e) {
-                                    formattedDate = currentDate;
-                                }
-                                window.location.href = '{{ route('hotel.pricingANDcapacities') }}?date=' + formattedDate;
-                            });
-                        </script>
                         <!-- body -->
                         <div style="overflow-x: scroll;" class="grid items-center gap-2">
                             <!-- head -->
@@ -190,34 +170,34 @@
                                                     <div class="w-full grid grid-cols-2 justify-items-center items-center gap-6 1280max:gap-2">
                                                         <div class="w-full flex flex-col items-center gap-[30px]">
                                                             @if(isset($room->bord))
-                                                            <div class="w-full flex items-center justify-center gap-1 text-sm text-neutral-700 text-center font-normal relative 1280max:flex-col">
+                                                                <div class="w-full flex items-center justify-center gap-1 text-sm text-neutral-700 text-center font-normal relative 1280max:flex-col">
                                                             <span>
                                                                 {{ @$room->bord }}
                                                             </span>
-                                                                <span>
+                                                                    <span>
                                                                 تومان
                                                             </span>
-                                                                <!-- badge -->
-                                                                {{--<div class="flex items-center justify-center rounded-full bg-green-600 p-1 absolute z-[2] right-[-20px] top-0 bottom-0 my-auto text-xs text-light font-normal text-center aspect-square min-w-7 max-h-7">
-                                                                    10%
-                                                                </div>--}}
-                                                            </div>
+                                                                    <!-- badge -->
+                                                                    {{--<div class="flex items-center justify-center rounded-full bg-green-600 p-1 absolute z-[2] right-[-20px] top-0 bottom-0 my-auto text-xs text-light font-normal text-center aspect-square min-w-7 max-h-7">
+                                                                        10%
+                                                                    </div>--}}
+                                                                </div>
                                                             @endif
                                                         </div>
                                                         <div class="w-full flex flex-col items-center gap-[30px]">
                                                             @if(isset($room->bord))
-                                                            <div class="w-full flex items-center justify-center gap-1 text-sm text-neutral-700 text-center font-normal relative 1280max:flex-col">
+                                                                <div class="w-full flex items-center justify-center gap-1 text-sm text-neutral-700 text-center font-normal relative 1280max:flex-col">
                                                             <span>
                                                                 {{ @$room->ajax }}
                                                             </span>
-                                                                <span>
+                                                                    <span>
                                                                 تومان
                                                             </span>
-                                                                <!-- badge -->
-                                                               {{-- <div class="flex items-center justify-center rounded-full bg-green-600 p-1 absolute z-[2] right-[-20px] top-0 bottom-0 my-auto text-xs text-light font-normal text-center aspect-square min-w-7 max-h-7">
-                                                                    10%
-                                                                </div>--}}
-                                                            </div>
+                                                                    <!-- badge -->
+                                                                    {{-- <div class="flex items-center justify-center rounded-full bg-green-600 p-1 absolute z-[2] right-[-20px] top-0 bottom-0 my-auto text-xs text-light font-normal text-center aspect-square min-w-7 max-h-7">
+                                                                         10%
+                                                                     </div>--}}
+                                                                </div>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -913,7 +893,7 @@
 
 
 
-            <div class="capacitiesPageContent pricingPageTabContents hidden w-full h-auto">
+            <div class="capacitiesPageContent pricingPageTabContents hidden 1024max:!block w-full h-auto">
                 <div class="w-full flex flex-col items-center gap-5 1024max:hidden">
                     <!-- header  -->
                     <div class="w-full flex items-center justify-between px-4.5 py-[11px] bg-light rounded-xl 768max:hidden">
@@ -947,16 +927,21 @@
                                         تعیین محدودیت اتاق
                                     </span>
                                 </button>
-                                <button onclick="modalController(document.querySelector(''))" class="flex items-center justify-center gap-2">
-                                    <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
-                                        <svg class=" w-[13px] text-inherit" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M8.25 6.33333V10.3333M5.75 6.33333V10.3333M3.25 3.66667V11.6667C3.25 12.0203 3.3817 12.3594 3.61612 12.6095C3.85054 12.8595 4.16848 13 4.5 13H9.5C9.83152 13 10.1495 12.8595 10.3839 12.6095C10.6183 12.3594 10.75 12.0203 10.75 11.6667V3.66667M2 3.66667H12M3.875 3.66667L5.125 1H8.875L10.125 3.66667" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </div>
-                                    <span class=" text-base text-neutral-700 font-normal font-farsi-regular">
+                                <form action="{{ route('hotel.removeCapacity') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" class="selectedOption2" name="selected_option">
+                                    <input type="hidden" class="selectedRoom2" name="selected_room">
+                                    <button class="flex items-center justify-center gap-2">
+                                        <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
+                                            <svg class=" w-[13px] text-inherit" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M8.25 6.33333V10.3333M5.75 6.33333V10.3333M3.25 3.66667V11.6667C3.25 12.0203 3.3817 12.3594 3.61612 12.6095C3.85054 12.8595 4.16848 13 4.5 13H9.5C9.83152 13 10.1495 12.8595 10.3839 12.6095C10.6183 12.3594 10.75 12.0203 10.75 11.6667V3.66667M2 3.66667H12M3.875 3.66667L5.125 1H8.875L10.125 3.66667" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <span class=" text-base text-neutral-700 font-normal font-farsi-regular">
                                         حذف محدودیت اتاق
                                     </span>
-                                </button>
+                                    </button>
+                                </form>
                         </div>
                     </div>
                     <!-- body -->
@@ -964,7 +949,7 @@
                         <!-- navigation -->
                         <div class="w-full flex items-center justify-between">
                             <!-- prev month button -->
-                            <button class="flex items-center gap-2">
+                            <button class="flex items-center gap-2 prevDay">
                                 <svg class=" w-4 text-[#D9D9D9]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                                 </svg>
@@ -974,18 +959,10 @@
                             </button>
                             <!-- label -->
                             <div class="flex items-center justify-center gap-1 text-sm text-green-600 font-medium">
-                                    <span>
-                                        بهمن
-                                    </span>
-                                <span>
-                                        ماه
-                                    </span>
-                                <span>
-                                        1403
-                                    </span>
+                                <span>{{ $time }}</span>
                             </div>
                             <!-- next month button -->
-                            <button class="flex items-center gap-2">
+                            <button class="flex items-center gap-2 nextDay">
                                     <span class=" text-sm text-green-600 font-normal">
                                         ماه بعد
                                     </span>
@@ -995,560 +972,87 @@
                             </button>
                         </div>
                         <!-- body -->
-                        <div class="w-full flex flex-col gap-2">
+                        <div style="overflow-x: scroll;" class="grid items-center gap-2">
                             <!-- header -->
-                            <div class="w-full p-4.5 bg-green-300 rounded-xl grid grid-cols-[46px_1fr_1fr_1fr_1fr_1fr] gap-2 items-center justify-items-center">
-                                <div class=""></div>
-                                <div class="w-full flex items-center">
+                            <div style="grid-template-columns: 246px {{ $size2 }}px 1fr;" class="grid gap-4 items-center p-4.5 rounded-xl bg-green-300">
+                                <div class="w-full grid grid-cols-2 justify-items-center items-center gap-2">
                                         <span class=" text-xs text-light font-normal text-center">
                                             تاریخ
                                         </span>
+                                    <span class=" text-xs text-light font-normal text-center">
+
+                                        </span>
                                 </div>
-                                <div class="w-full flex items-center justify-center gap-2">
-                                    <label for="eexample1" class=" text-xs text-light font-normal">
-                                        اتاق سینگل اکونومی
-                                    </label>
-                                    <input id="eexample1" name="" type="checkbox" class=" hidden">
-                                    <label for="eexample1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </label>
-                                </div>
-                                <div class="w-full flex items-center justify-center gap-2">
-                                    <label for="eexample2" class=" text-xs text-light font-normal">
-                                        دبل اکونومی
-                                    </label>
-                                    <input id="eexample2" name="" type="checkbox" class=" hidden">
-                                    <label for="eexample2" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </label>
+                                <div class="w-full flex justify-items-center gap-16 1280max:gap-4 overflow-hidden">
+                                    @foreach($sharedData->rooms as $room)
+                                        <div class="w-full flex items-center justify-center gap-2">
+                                            <label for="room2{{ $room->id }}" class=" text-xs text-light font-normal">
+                                                {{ $room->title }}
+                                            </label>
+                                            <input value="{{ $room->id }}" id="room2{{ $room->id }}" name="room2[]" type="checkbox" class=" hidden">
+                                            <label for="room2{{ $room->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
+                                                <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <!-- items -> body -->
-                            <div class="w-full flex flex-col items-center gap-2">
+                            <div class="w-full flex flex-col gap-2">
                                 <!-- item -->
-                                <div class="w-full grid grid-cols-[46px_1fr_1fr_1fr_1fr_1fr] gap-2 items-center justify-items-center p-4.5 rounded-xl odd:bg-light even:bg-[#DBF0DD80]">
-                                    <div class=" w-full flex items-center">
-                                        <input id="sallamm1" name="" type="checkbox" class=" hidden">
-                                        <label for="sallamm1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                            <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div class="w-full flex flex-col">
-                                            <span class=" text-xs text-neutral-400 font-normal">
-                                                شنبه
+                                @foreach($options as $option)
+                                    <!-- item -->
+                                    <div style="grid-template-columns: 246px {{ $size2 }}px 1fr;" class="p-4.5 rounded-xl even:bg-[#DBF0DD80] odd:bg-light grid gap-4 items-center relative">
+                                        <!-- checkbox -->
+                                        <div class=" absolute z-[2] right-4.5 top-0 bottom-0 my-auto flex items-center justify-center 1280max:bottom-auto 1280max:top-4.5">
+                                            <input value="{{ $option['option']->date }}" id="option2{{ $option['option']->id }}" name="option2[]" type="checkbox" class=" hidden">
+                                            <label for="option2{{ $option['option']->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
+                                                <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </label>
+                                        </div>
+                                        <div class="w-full grid grid-cols-2 justify-items-center items-center gap-6">
+                                            <span class=" text-sm text-neutral-700 font-normal text-center">
+                                                {{ $option['option']->date }}
                                             </span>
-                                        <span class=" text-sm text-neutral-700 font-normal">
-                                                1 بهمن
-                                            </span>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm2" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm2" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
                                         </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm3" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm3" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
+                                        <div class="w-full flex justify-items-center items-center gap-16 1280max:gap-4">
+                                            @foreach($option['rooms'] as $room)
+                                                <div class="w-full flex flex-col max-w-[110px]">
+                                                    @if(isset($room->capacity))
+                                                    <div class="flex items-center gap-2 self-start">
+                                                        <div class=" w-full flex items-center">
+                                                            <input id="sallamm2{{ @$room->id }}" name="" type="checkbox" class=" hidden">
+                                                            <label for="sallamm2{{ @$room->id }}" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
+                                                                <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                </svg>
+                                                            </label>
+                                                        </div>
+                                                        <span class=" text-xs text-neutral-400 font-normal text-nowrap">
+                                                        رزرو : {{ $room->capacity }}
+                                                    </span>
+                                                    </div>
+                                                    <div class="flex items-center gap-2 self-end">
+                                                    <span class=" text-[18px] font-normal text-neutral-700">
+                                                        5
+                                                    </span>
+                                                        <span class=" text-sm font-normal text-neutral-700">
+                                                        بهمن
+                                                    </span>
+                                                    </div>
+                                                    @endif
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
-                                </div>
-                                <!-- item -->
-                                <div class="w-full grid grid-cols-[46px_1fr_1fr_1fr_1fr_1fr] gap-2 items-center justify-items-center p-4.5 rounded-xl odd:bg-light even:bg-[#DBF0DD80]">
-                                    <div class=" w-full flex items-center">
-                                        <input id="sallamm1" name="" type="checkbox" class=" hidden">
-                                        <label for="sallamm1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                            <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div class="w-full flex flex-col">
-                                            <span class=" text-xs text-neutral-400 font-normal">
-                                                شنبه
-                                            </span>
-                                        <span class=" text-sm text-neutral-700 font-normal">
-                                                1 بهمن
-                                            </span>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm2" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm2" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm3" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm3" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- item -->
-                                <div class="w-full grid grid-cols-[46px_1fr_1fr_1fr_1fr_1fr] gap-2 items-center justify-items-center p-4.5 rounded-xl odd:bg-light even:bg-[#DBF0DD80]">
-                                    <div class=" w-full flex items-center">
-                                        <input id="sallamm1" name="" type="checkbox" class=" hidden">
-                                        <label for="sallamm1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                            <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div class="w-full flex flex-col">
-                                            <span class=" text-xs text-neutral-400 font-normal">
-                                                شنبه
-                                            </span>
-                                        <span class=" text-sm text-neutral-700 font-normal">
-                                                1 بهمن
-                                            </span>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm2" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm2" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm3" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm3" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- item -->
-                                <div class="w-full grid grid-cols-[46px_1fr_1fr_1fr_1fr_1fr] gap-2 items-center justify-items-center p-4.5 rounded-xl odd:bg-light even:bg-[#DBF0DD80]">
-                                    <div class=" w-full flex items-center">
-                                        <input id="sallamm1" name="" type="checkbox" class=" hidden">
-                                        <label for="sallamm1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                            <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div class="w-full flex flex-col">
-                                            <span class=" text-xs text-neutral-400 font-normal">
-                                                شنبه
-                                            </span>
-                                        <span class=" text-sm text-neutral-700 font-normal">
-                                                1 بهمن
-                                            </span>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm2" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm2" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm3" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm3" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- item -->
-                                <div class="w-full grid grid-cols-[46px_1fr_1fr_1fr_1fr_1fr] gap-2 items-center justify-items-center p-4.5 rounded-xl odd:bg-light even:bg-[#DBF0DD80]">
-                                    <div class=" w-full flex items-center">
-                                        <input id="sallamm1" name="" type="checkbox" class=" hidden">
-                                        <label for="sallamm1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                            <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div class="w-full flex flex-col">
-                                            <span class=" text-xs text-neutral-400 font-normal">
-                                                شنبه
-                                            </span>
-                                        <span class=" text-sm text-neutral-700 font-normal">
-                                                1 بهمن
-                                            </span>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm2" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm2" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm3" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm3" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- item -->
-                                <div class="w-full grid grid-cols-[46px_1fr_1fr_1fr_1fr_1fr] gap-2 items-center justify-items-center p-4.5 rounded-xl odd:bg-light even:bg-[#DBF0DD80]">
-                                    <div class=" w-full flex items-center">
-                                        <input id="sallamm1" name="" type="checkbox" class=" hidden">
-                                        <label for="sallamm1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                            <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div class="w-full flex flex-col">
-                                            <span class=" text-xs text-neutral-400 font-normal">
-                                                شنبه
-                                            </span>
-                                        <span class=" text-sm text-neutral-700 font-normal">
-                                                1 بهمن
-                                            </span>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm2" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm2" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm3" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm3" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- item -->
-                                <div class="w-full grid grid-cols-[46px_1fr_1fr_1fr_1fr_1fr] gap-2 items-center justify-items-center p-4.5 rounded-xl odd:bg-light even:bg-[#DBF0DD80]">
-                                    <div class=" w-full flex items-center">
-                                        <input id="sallamm1" name="" type="checkbox" class=" hidden">
-                                        <label for="sallamm1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                            <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div class="w-full flex flex-col">
-                                            <span class=" text-xs text-neutral-400 font-normal">
-                                                شنبه
-                                            </span>
-                                        <span class=" text-sm text-neutral-700 font-normal">
-                                                1 بهمن
-                                            </span>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm2" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm2" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm3" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm3" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- item -->
-                                <div class="w-full grid grid-cols-[46px_1fr_1fr_1fr_1fr_1fr] gap-2 items-center justify-items-center p-4.5 rounded-xl odd:bg-light even:bg-[#DBF0DD80]">
-                                    <div class=" w-full flex items-center">
-                                        <input id="sallamm1" name="" type="checkbox" class=" hidden">
-                                        <label for="sallamm1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                            <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div class="w-full flex flex-col">
-                                            <span class=" text-xs text-neutral-400 font-normal">
-                                                شنبه
-                                            </span>
-                                        <span class=" text-sm text-neutral-700 font-normal">
-                                                1 بهمن
-                                            </span>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm2" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm2" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                    <div class="w-full flex flex-col max-w-[110px]">
-                                        <div class="flex items-center gap-2 self-start">
-                                            <div class=" w-full flex items-center">
-                                                <input id="sallamm3" name="" type="checkbox" class=" hidden">
-                                                <label for="sallamm3" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                            </div>
-                                            <span class=" text-xs text-neutral-400 font-normal text-nowrap">
-                                                    رزرو : 0
-                                                </span>
-                                        </div>
-                                        <div class="flex items-center gap-2 self-end">
-                                                <span class=" text-[18px] font-normal text-neutral-700">
-                                                    5
-                                                </span>
-                                            <span class=" text-sm font-normal text-neutral-700">
-                                                    بهمن
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
+
+
+
                             </div>
                         </div>
                     </div>
@@ -1577,8 +1081,8 @@
                         <div class="w-full flex flex-col gap-4.5">
                             <div class="w-full grid grid-cols-2 gap-4.5 items-center 512max:grid-cols-1">
 
-                                <input type="hidden" id="selectedOption" name="selected_option">
-                                <input type="hidden" id="selectedRoom" name="selected_room">
+                                <input type="hidden" class="selectedOption" name="selected_option">
+                                <input type="hidden" class="selectedRoom" name="selected_room">
 
                                 <div class="w-full flex flex-col gap-2">
                                     <label for="" class=" text-sm text-neutral-700 font-normal">
@@ -1727,7 +1231,8 @@
     <!-- پاپ اپ تعیین محدودیت اتاق -->
     <div class="determiningRoomRestrictionsModal modal w-[100vw] h-[100vh] fixed z-[15] top-0 left-0 bg-[#0000002c] px-6 py-4">
         <div class=" modal-content w-full h-full flex items-center justify-center">
-            <form action="#" class="w-full max-w-[800px] p-4.5 bg-light rounded-xl flex flex-col">
+            <form method="post" action="{{ route('hotel.setLimit') }}" class="w-full max-w-[800px] p-4.5 bg-light rounded-xl flex flex-col">
+                @csrf
                 <div class="w-full flex flex-col gap-8 max-h-[500px] overflow-y-auto">
                     <!-- header -->
                     <div class="w-full py-[13px] px-4.5 rounded-xl bg-neutral-50">
@@ -1745,7 +1250,7 @@
                                         تاریخ ورود
                                     </label>
                                     <div class="w-full flex items-center">
-                                        <input data-jdp="" class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
+                                        <input name="entry" data-jdp="" class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
                                         <svg class=" w-4.5 text-green-300 -mr-[25px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"></path>
                                         </svg>
@@ -1756,7 +1261,7 @@
                                         تاریخ خروج
                                     </label>
                                     <div class="w-full flex items-center">
-                                        <input data-jdp="" class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
+                                        <input name="exit" data-jdp="" class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
                                         <svg class=" w-4.5 text-green-300 -mr-[25px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"></path>
                                         </svg>
@@ -1766,7 +1271,7 @@
                             <div class="w-full flex items-center content-start gap-x-2 gap-y-3 flex-wrap">
                                 <div class="flex-shrink-[0]">
                                     <label for="fffff1-2" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff1-2" name="">
+                                        <input class="hidden" type="checkbox" id="fffff1-2" name="zero">
                                         <span>
                                                 شنبه
                                             </span>
@@ -1774,7 +1279,7 @@
                                 </div>
                                 <div class="flex-shrink-[0]">
                                     <label for="fffff2-2" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff2-2" name="">
+                                        <input class="hidden" type="checkbox" id="fffff2-2" name="one">
                                         <span>
                                                 یکشنبه
                                             </span>
@@ -1782,7 +1287,7 @@
                                 </div>
                                 <div class="flex-shrink-[0]">
                                     <label for="fffff3-2" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff3-2" name="">
+                                        <input class="hidden" type="checkbox" id="fffff3-2" name="two">
                                         <span>
                                                 دوشنبه
                                             </span>
@@ -1790,7 +1295,7 @@
                                 </div>
                                 <div class="flex-shrink-[0]">
                                     <label for="fffff4-2" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff4-2" name="">
+                                        <input class="hidden" type="checkbox" id="fffff4-2" name="three">
                                         <span>
                                                 سه شنبه
                                             </span>
@@ -1798,7 +1303,7 @@
                                 </div>
                                 <div class="flex-shrink-[0]">
                                     <label for="fffff5-2" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff5-2" name="">
+                                        <input class="hidden" type="checkbox" id="fffff5-2" name="four">
                                         <span>
                                                 چهارشنبه
                                             </span>
@@ -1806,7 +1311,7 @@
                                 </div>
                                 <div class="flex-shrink-[0]">
                                     <label for="fffff6-2" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff6-2" name="">
+                                        <input class="hidden" type="checkbox" id="fffff6-2" name="five">
                                         <span>
                                                 پنج شنبه
                                             </span>
@@ -1814,34 +1319,12 @@
                                 </div>
                                 <div class="flex-shrink-[0]">
                                     <label for="fffff7-2" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff7-2" name="">
+                                        <input class="hidden" type="checkbox" id="fffff7-2" name="six">
                                         <span>
                                                 جمعه
                                             </span>
                                     </label>
                                 </div>
-                            </div>
-                        </div>
-                        <!--  -->
-                        <div class="w-full grid grid-cols-1 items-center gap-4.5">
-                            <div class="w-full flex flex-col gap-2">
-                                <label for="" class=" text-sm text-neutral-700 font-normal">
-                                    پلن
-                                </label>
-                                <select id="countries" class="bg-neutral-50 text-black font-normal text-xs rounded-[6px] focus:outline-none focus:border-[1px] focus:border-neutral-400 block w-full p-2.5">
-                                    <option class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                        اقامت با صبحانه
-                                    </option>
-                                    <option class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                        اقامت با ناهار
-                                    </option>
-                                    <option class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                        اقامت با شام
-                                    </option>
-                                    <option class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                        مثال
-                                    </option>
-                                </select>
                             </div>
                         </div>
                         <!-- تنظیم محدودیت اتاق ها -->
@@ -1936,122 +1419,67 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <!-- item -->
-                                        <div class="w-full px-2 h-10 grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-2 items-center odd:bg-light even:bg-[#DBF0DD80]">
-                                            <div class="w-full flex items-center justify-center">
+                                        @foreach($sharedData->rooms as $room)
+
+                                            <!-- item -->
+                                            <div class="w-full px-2 h-10 grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-2 items-center odd:bg-light even:bg-[#DBF0DD80]">
+                                                <div class="w-full flex items-center justify-center">
                                                     <span class=" text-xs text-neutral-400 font-normal text-center">
-                                                        اتاق سینگل اکونومی
+                                                        {{ $room->title }}
                                                     </span>
+                                                </div>
+                                                <div class="w-full flex items-center justify-center h-full">
+                                                    <a data-input-counter-increment="quantity-input1-{{ $room->id }}" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
+                                                        <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                        </svg>
+                                                    </a>
+                                                    <input name="room[{{ $room->id }}][min]" id="quantity-input1-{{ $room->id }}" value="1" data-input-counter data-input-counter-min="0" data-input-counter-max="50" type="text" class=" w-full flex-grow-[1] h-full text-xs text-neutral-700 text-center font-normal focus:outline-none bg-transparent">
+                                                    <a data-input-counter-decrement="quantity-input1-{{ $room->id }}" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
+                                                        <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                                <div class="w-full flex items-center justify-center h-full">
+                                                    <a data-input-counter-increment="quantity-input2-{{ $room->id }}" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
+                                                        <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                        </svg>
+                                                    </a>
+                                                    <input name="room[{{ $room->id }}][max]" id="quantity-input2-{{ $room->id }}" value="1" data-input-counter data-input-counter-min="0" data-input-counter-max="50" type="text" class=" w-full flex-grow-[1] h-full text-xs text-neutral-700 text-center font-normal focus:outline-none bg-transparent">
+                                                    <a data-input-counter-decrement="quantity-input2-2" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
+                                                        <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                                <div class="w-full flex items-center justify-center h-full">
+                                                    <select name="room[{{ $room->id }}][entry]" aria-placeholder="بدون وضعیت" class="w-full h-full text-neutral-700 text-xs font-normal focus:outline-none text-ellipsis text-nowrap bg-transparent">
+                                                        <option value="بدون وضعیت" selected>بدون وضعیت</option>
+                                                        <option value="استعلام" >استعلام</option>
+                                                        <option value="باز" >باز</option>
+                                                        <option value="بسته" >بسته</option>
+                                                    </select>
+                                                </div>
+                                                <div class="w-full flex items-center justify-center h-full">
+                                                    <select name="room[{{ $room->id }}][exit]" aria-placeholder="بدون وضعیت" class="w-full h-full text-neutral-700 text-xs font-normal focus:outline-none text-ellipsis text-nowrap bg-transparent">
+                                                        <option value="بدون وضعیت" selected>بدون وضعیت</option>
+                                                        <option value="استعلام" >استعلام</option>
+                                                        <option value="باز" >باز</option>
+                                                        <option value="بسته" >بسته</option>
+                                                    </select>
+                                                </div>
+                                                <div class="w-full flex items-center justify-center h-full">
+                                                    <select name="room[{{ $room->id }}][status]" aria-placeholder="بدون وضعیت" class="w-full h-full text-neutral-700 text-xs font-normal focus:outline-none text-ellipsis text-nowrap bg-transparent">
+                                                        <option value="بدون وضعیت" selected>بدون وضعیت</option>
+                                                        <option value="استعلام" >استعلام</option>
+                                                        <option value="باز" >باز</option>
+                                                        <option value="بسته" >بسته</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="w-full flex items-center justify-center h-full">
-                                                <button data-input-counter-increment="quantity-input1-2" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
-                                                    <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                    </svg>
-                                                </button>
-                                                <input id="quantity-input1-2" value="1" data-input-counter data-input-counter-min="0" data-input-counter-max="50" type="text" class=" w-full flex-grow-[1] h-full text-xs text-neutral-700 text-center font-normal focus:outline-none bg-transparent">
-                                                <button data-input-counter-decrement="quantity-input1-2" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
-                                                    <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="w-full flex items-center justify-center h-full">
-                                                <button data-input-counter-increment="quantity-input2-2" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
-                                                    <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                    </svg>
-                                                </button>
-                                                <input id="quantity-input2-2" value="1" data-input-counter data-input-counter-min="0" data-input-counter-max="50" type="text" class=" w-full flex-grow-[1] h-full text-xs text-neutral-700 text-center font-normal focus:outline-none bg-transparent">
-                                                <button data-input-counter-decrement="quantity-input2-2" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
-                                                    <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="w-full flex items-center justify-center h-full">
-                                                <select aria-placeholder="بدون وضعیت" class="w-full h-full text-neutral-700 text-xs font-normal focus:outline-none text-ellipsis text-nowrap bg-transparent">
-                                                    <option selected>بدون وضعیت</option>
-                                                    <option >استعلام</option>
-                                                    <option >باز</option>
-                                                    <option >بسته</option>
-                                                </select>
-                                            </div>
-                                            <div class="w-full flex items-center justify-center h-full">
-                                                <select aria-placeholder="بدون وضعیت" class="w-full h-full text-neutral-700 text-xs font-normal focus:outline-none text-ellipsis text-nowrap bg-transparent">
-                                                    <option selected>بدون وضعیت</option>
-                                                    <option >استعلام</option>
-                                                    <option >باز</option>
-                                                    <option >بسته</option>
-                                                </select>
-                                            </div>
-                                            <div class="w-full flex items-center justify-center h-full">
-                                                <select aria-placeholder="بدون وضعیت" class="w-full h-full text-neutral-700 text-xs font-normal focus:outline-none text-ellipsis text-nowrap bg-transparent">
-                                                    <option selected>بدون وضعیت</option>
-                                                    <option >استعلام</option>
-                                                    <option >باز</option>
-                                                    <option >بسته</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <!-- item -->
-                                        <div class="w-full px-2 h-10 grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-2 items-center odd:bg-light even:bg-[#DBF0DD80]">
-                                            <div class="w-full flex items-center justify-center">
-                                                    <span class=" text-xs text-neutral-400 font-normal text-center">
-                                                        اتاق دبل اکونومی
-                                                    </span>
-                                            </div>
-                                            <div class="w-full flex items-center justify-center h-full">
-                                                <button data-input-counter-increment="quantity-input1-3" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
-                                                    <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                    </svg>
-                                                </button>
-                                                <input id="quantity-input1-3" value="1" data-input-counter data-input-counter-min="0" data-input-counter-max="50" type="text" class=" w-full flex-grow-[1] h-full text-xs text-neutral-700 text-center font-normal focus:outline-none bg-transparent">
-                                                <button data-input-counter-decrement="quantity-input1-3" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
-                                                    <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="w-full flex items-center justify-center h-full">
-                                                <button data-input-counter-increment="quantity-input2-3" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
-                                                    <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                    </svg>
-                                                </button>
-                                                <input id="quantity-input2-3" value="1" data-input-counter data-input-counter-min="0" data-input-counter-max="50" type="text" class=" w-full flex-grow-[1] h-full text-xs text-neutral-700 text-center font-normal focus:outline-none bg-transparent">
-                                                <button data-input-counter-decrement="quantity-input2-3" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
-                                                    <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="w-full flex items-center justify-center h-full">
-                                                <select aria-placeholder="بدون وضعیت" class="w-full h-full text-neutral-700 text-xs font-normal focus:outline-none text-ellipsis text-nowrap bg-transparent">
-                                                    <option selected>بدون وضعیت</option>
-                                                    <option >استعلام</option>
-                                                    <option >باز</option>
-                                                    <option >بسته</option>
-                                                </select>
-                                            </div>
-                                            <div class="w-full flex items-center justify-center h-full">
-                                                <select aria-placeholder="بدون وضعیت" class="w-full h-full text-neutral-700 text-xs font-normal focus:outline-none text-ellipsis text-nowrap bg-transparent">
-                                                    <option selected>بدون وضعیت</option>
-                                                    <option >استعلام</option>
-                                                    <option >باز</option>
-                                                    <option >بسته</option>
-                                                </select>
-                                            </div>
-                                            <div class="w-full flex items-center justify-center h-full">
-                                                <select aria-placeholder="بدون وضعیت" class="w-full h-full text-neutral-700 text-xs font-normal focus:outline-none text-ellipsis text-nowrap bg-transparent">
-                                                    <option selected>بدون وضعیت</option>
-                                                    <option >استعلام</option>
-                                                    <option >باز</option>
-                                                    <option >بسته</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -2059,9 +1487,9 @@
                     </div>
                 </div>
                 <div class="w-full flex items-center justify-end gap-4.5 pt-4.5">
-                    <button onclick="modalController(document.querySelector('.determiningRoomRestrictionsModal'))" class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                    <a onclick="modalController(document.querySelector('.determiningRoomRestrictionsModal'))" class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         بازگشت
-                    </button>
+                    </a>
                     <button class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         ذخیره
                     </button>
@@ -2072,12 +1500,15 @@
     <!-- پاپ اپ تعیین ظرفیت اتاق -->
     <div class="determinationOfCapacityModal modal w-[100vw] h-[100vh] fixed z-[15] top-0 left-0 bg-[#0000002c] px-6 py-4">
         <div class=" modal-content w-full h-full flex items-center justify-center">
-            <form action="#" class="w-full max-w-[800px] p-4.5 bg-light rounded-xl flex flex-col">
+            <form method="post" action="{{ route('hotel.setCapacity') }}" class="w-full max-w-[800px] p-4.5 bg-light rounded-xl flex flex-col">
+                @csrf
+                <input type="hidden" class="selectedOption2" name="selected_option">
+                <input type="hidden" class="selectedRoom2" name="selected_room">
                 <div class="w-full flex flex-col gap-8 max-h-[500px] overflow-y-auto">
                     <!-- header -->
                     <div class="w-full py-[13px] px-4.5 rounded-xl bg-neutral-50">
                         <h6 class=" text-[14px] text-green-600 font-normal font-farsi-regular">
-                            تعیین محدودیت اتاق
+                            تعیین ظرفیت اتاق
                         </h6>
                     </div>
                     <!-- body -->
@@ -2088,19 +1519,12 @@
                                 <label for="" class=" text-sm text-neutral-700 font-normal">
                                     عنوان اتاق:
                                 </label>
-                                <select id="countries" class="bg-neutral-50 text-black font-normal text-xs rounded-[6px] focus:outline-none focus:border-[1px] focus:border-neutral-400 block w-full p-2.5">
-                                    <option class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                        سینگل اکونومی 322
-                                    </option>
-                                    <option class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                        سینگل اکونومی 323
-                                    </option>
-                                    <option class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                        سینگل اکونومی 324
-                                    </option>
-                                    <option class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                        سینگل اکونومی 324
-                                    </option>
+                                <select name="room_id" id="countries" class="bg-neutral-50 text-black font-normal text-xs rounded-[6px] focus:outline-none focus:border-[1px] focus:border-neutral-400 block w-full p-2.5">
+                                    @foreach($sharedData->rooms as $room)
+                                        <option value="{{ $room->id }}" class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
+                                            {{ $room->title }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -2111,53 +1535,17 @@
                                         ظرفیت پایه:
                                     </span>
                                 <div class="flex">
-                                    <button onclick="addOrDescreseInputValue('add', examInput1)" class=" flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
+                                    <a onclick="addOrDescreseInputValue('add', examInput1)" class=" flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
                                         <svg class=" w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                             <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
                                         </svg>
-                                    </button>
-                                    <input id="examInput1" class=" w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="1" type="text" readonly>
-                                    <button onclick="addOrDescreseInputValue('delete', examInput1)" class=" flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
+                                    </a>
+                                    <input name="capacity" id="examInput1" class=" w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="1" type="text" readonly>
+                                    <a onclick="addOrDescreseInputValue('delete', examInput1)" class=" flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
                                         <svg class=" w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                             <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
                                         </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4.5 512max:w-full justify-between">
-                                    <span class=" text-sm text-black font-normal">
-                                        ظرفیت نفر اضافه:
-                                    </span>
-                                <div class="flex">
-                                    <button onclick="addOrDescreseInputValue('add', examInput2)" class=" flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
-                                        <svg class=" w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                            <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                    <input id="examInput2" class=" w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="1" type="text" readonly>
-                                    <button onclick="addOrDescreseInputValue('delete', examInput2)" class=" flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
-                                        <svg class=" w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                            <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4.5 512max:w-full justify-between">
-                                    <span class=" text-sm text-black font-normal">
-                                        کودک:
-                                    </span>
-                                <div class="flex">
-                                    <button onclick="addOrDescreseInputValue('add', examInput3)" class=" flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
-                                        <svg class=" w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                            <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                    <input id="examInput3" class=" w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="1" type="text" readonly>
-                                    <button onclick="addOrDescreseInputValue('delete', examInput3)" class=" flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
-                                        <svg class=" w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                            <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -2169,7 +1557,7 @@
                                         تاریخ ورود
                                     </label>
                                     <div class="w-full flex items-center">
-                                        <input data-jdp="" class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
+                                        <input name="entry" data-jdp="" class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
                                         <svg class=" w-4.5 text-green-300 -mr-[25px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"></path>
                                         </svg>
@@ -2180,7 +1568,7 @@
                                         تاریخ خروج
                                     </label>
                                     <div class="w-full flex items-center">
-                                        <input data-jdp="" class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
+                                        <input name="exit" data-jdp="" class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
                                         <svg class=" w-4.5 text-green-300 -mr-[25px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"></path>
                                         </svg>
@@ -2189,56 +1577,56 @@
                             </div>
                             <div class="w-full flex items-center content-start gap-x-2 gap-y-3 flex-wrap">
                                 <div class="flex-shrink-[0]">
-                                    <label for="fffff1-3" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff1-3" name="">
+                                    <label for="fffffa1" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
+                                        <input class="hidden" type="checkbox" id="fffffa1" name="zero">
                                         <span>
                                                 شنبه
                                             </span>
                                     </label>
                                 </div>
                                 <div class="flex-shrink-[0]">
-                                    <label for="fffff2-3" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff2-3" name="">
+                                    <label for="fffffa2" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
+                                        <input class="hidden" type="checkbox" id="fffffa2" name="one">
                                         <span>
                                                 یکشنبه
                                             </span>
                                     </label>
                                 </div>
                                 <div class="flex-shrink-[0]">
-                                    <label for="fffff3-3" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff3-3" name="">
+                                    <label for="fffffa3" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
+                                        <input class="hidden" type="checkbox" id="fffffa3" name="two">
                                         <span>
                                                 دوشنبه
                                             </span>
                                     </label>
                                 </div>
                                 <div class="flex-shrink-[0]">
-                                    <label for="fffff4-3" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff4-3" name="">
+                                    <label for="fffffa4" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
+                                        <input class="hidden" type="checkbox" id="fffffa4" name="three">
                                         <span>
                                                 سه شنبه
                                             </span>
                                     </label>
                                 </div>
                                 <div class="flex-shrink-[0]">
-                                    <label for="fffff5-3" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff5-3" name="">
+                                    <label for="fffffa5" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
+                                        <input class="hidden" type="checkbox" id="fffffa5" name="four">
                                         <span>
                                                 چهارشنبه
                                             </span>
                                     </label>
                                 </div>
                                 <div class="flex-shrink-[0]">
-                                    <label for="fffff6-3" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff6-3" name="">
+                                    <label for="fffffa6" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
+                                        <input class="hidden" type="checkbox" id="fffffa6" name="five">
                                         <span>
                                                 پنج شنبه
                                             </span>
                                     </label>
                                 </div>
                                 <div class="flex-shrink-[0]">
-                                    <label for="fffff7-3" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="fffff7-3" name="">
+                                    <label for="fffffa7" class="checkbox-item-button h-[40px] transition-all duration-200 ease-out px-6 px-[26px] rounded-[20px] bg-neutral-50 flex items-center justify-center text-xs text-neutral-200 font-normal font-farsi-regular">
+                                        <input class="hidden" type="checkbox" id="fffffa7" name="six">
                                         <span>
                                                 جمعه
                                             </span>
@@ -2249,9 +1637,9 @@
                     </div>
                 </div>
                 <div class="w-full flex items-center justify-end gap-4.5 pt-4.5">
-                    <button onclick="modalController(document.querySelector('.determinationOfCapacityModal'))" class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                    <a onclick="modalController(document.querySelector('.determinationOfCapacityModal'))" class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         بازگشت
-                    </button>
+                    </a>
                     <button class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         ذخیره
                     </button>
@@ -2263,6 +1651,7 @@
     <script src="{{ asset('src/scripts/pricingANDcapacities.js') }}"></script>
     <script>
         jalaliDatepicker.startWatch();
+
         var selectedOption = [];
         document.querySelectorAll('input[name="option[]"]').forEach(checkbox => {
             checkbox.addEventListener('change', function() {
@@ -2271,7 +1660,7 @@
                 }else {
                     selectedOption = selectedOption.filter(item => item !== this.value);
                 }
-                document.getElementById('selectedOption').value = selectedOption.join(',');
+                $('.selectedOption').val(selectedOption.join(','));
             });
         });
 
@@ -2284,10 +1673,59 @@
                 }else {
                     selectedRoom = selectedRoom.filter(item => item !== this.value);
                 }
-                document.getElementById('selectedRoom').value = selectedRoom.join(',');
+                $('.selectedRoom').val(selectedRoom.join(','));
+            });
+        });
+
+        var selectedOption2 = [];
+        document.querySelectorAll('input[name="option2[]"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    selectedOption2.push(this.value);
+                }else {
+                    selectedOption2 = selectedOption2.filter(item => item !== this.value);
+                }
+                $('.selectedOption2').val(selectedOption2.join(','));
             });
         });
 
 
+        var selectedRoom2 = [];
+        document.querySelectorAll('input[name="room2[]"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    selectedRoom2.push(this.value);
+                }else {
+                    selectedRoom2 = selectedRoom2.filter(item => item !== this.value);
+                }
+                $('.selectedRoom2').val(selectedRoom2.join(','));
+            });
+        });
+
+
+
+        $('.prevDay').on('click', function () {
+            var currentDate = new Date($('#selectedDate').val());
+            var formattedDate;
+            try {
+                formattedDate = currentDate.toISOString().split('T')[0].slice(0, 7);  // Format as YYYY-MM
+            }catch (e) {
+                formattedDate = currentDate;
+            }
+            window.location.href = '{{ route('hotel.pricingANDcapacities') }}?date=' + formattedDate;
+        });
+
+        // Handle next month button
+        $('.nextDay').on('click', function () {
+            var currentDate = new Date($('#selectedDate').val());
+            currentDate.setMonth(currentDate.getMonth() + 2);  // Move to next month
+            var formattedDate;
+            try {
+                formattedDate = currentDate.toISOString().split('T')[0].slice(0, 7);  // Format as YYYY-MM
+            }catch (e) {
+                formattedDate = currentDate;
+            }
+            window.location.href = '{{ route('hotel.pricingANDcapacities') }}?date=' + formattedDate;
+        });
     </script>
 @endsection

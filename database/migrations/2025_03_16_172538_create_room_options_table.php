@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('entry')->nullable();
             $table->string('exit')->nullable();
             $table->string('status')->nullable();
+            $table->integer('min')->nullable();
+            $table->integer('max')->nullable();
             $table->timestamps();
         });
     }

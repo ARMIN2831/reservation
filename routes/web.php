@@ -146,6 +146,10 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
         Route::controller(pricingANDcapacitiesController::class)->group(function() {
             Route::get('pricingANDcapacities', 'index')->name('pricingANDcapacities');
             Route::post('setPrice', 'setPrice')->name('setPrice');
+            Route::post('removePricing', 'removePricing')->name('removePricing');
+            Route::post('setCapacity', 'setCapacity')->name('setCapacity');
+            Route::post('removeCapacity', 'removeCapacity')->name('removeCapacity');
+            Route::post('setLimit', 'setLimit')->name('setLimit');
         });
     });
 

@@ -110,4 +110,130 @@ class pricingANDcapacitiesController extends Controller
         }
         return redirect()->route('hotel.pricingANDcapacities');
     }
+
+
+    public function removePricing(Request $request)
+    {
+        $optionIds = explode(',',$request->selected_option);
+        $roomIds = explode(',',$request->selected_room);
+        if ($request->selected_option){
+            RoomOption::whereIn('id',$optionIds)->update([
+                'bord' => null,
+                'ajax' => null,
+            ]);
+        }
+        if ($request->selected_room){
+            RoomOption::whereIn('room_id',$roomIds)->update([
+                'bord' => null,
+                'ajax' => null,
+            ]);
+        }
+        return redirect()->route('hotel.pricingANDcapacities');
+    }
+
+
+
+    public function setCapacity(Request $request)
+    {
+        $targetDays = [];
+        if ($request->zero) $targetDays[] = 6;
+        if ($request->one) $targetDays[] = 0;
+        if ($request->two) $targetDays[] = 1;
+        if ($request->three) $targetDays[] = 2;
+        if ($request->four) $targetDays[] = 3;
+        if ($request->five) $targetDays[] = 4;
+        if ($request->six) $targetDays[] = 5;
+        $filteredDates = [];
+        if ($request->entry and $request->exit){
+            try {
+                $startDate = Jalalian::fromFormat('Y/m/d', $request->entry)->toCarbon();
+                $endDate = Jalalian::fromFormat('Y/m/d', $request->exit)->toCarbon();
+                while ($startDate->lte($endDate)) {
+                    if (in_array($startDate->dayOfWeek, $targetDays)) {
+                        $filteredDates[] = Jalalian::fromCarbon($startDate)->format('Y/m/d');
+                    }
+                    $startDate->addDay();
+                }
+            }catch (Exception $e){}
+        }
+        $rooms = [];
+        if ($request->room_id) $rooms[] = $request->room_id;
+
+        if ($request->selected_option) $filteredDates = array_unique(array_merge($filteredDates,explode(',',$request->selected_option)));
+        if ($request->selected_room) $rooms = array_unique(array_merge($rooms,explode(',',$request->selected_room)));
+
+        foreach ($filteredDates as $date) {
+            foreach ($rooms as $roomId) {
+                $room = RoomOption::updateOrCreate(
+                    ['date' => $date, 'room_id' => $roomId],
+                    [
+                        'room_id' => $roomId,
+                        'date' => $date,
+                        'capacity' => $request->capacity,
+                    ]
+                );
+            }
+        }
+        return redirect()->route('hotel.pricingANDcapacities');
+    }
+
+
+    public function removeCapacity(Request $request)
+    {
+        $optionIds = explode(',',$request->selected_option);
+        $roomIds = explode(',',$request->selected_room);
+        if ($request->selected_option){
+            RoomOption::whereIn('id',$optionIds)->update([
+                'capacity' => null,
+            ]);
+        }
+        if ($request->selected_room){
+            RoomOption::whereIn('room_id',$roomIds)->update([
+                'capacity' => null,
+            ]);
+        }
+        return redirect()->route('hotel.pricingANDcapacities');
+    }
+
+
+
+    public function setLimit(Request $request)
+    {
+        $targetDays = [];
+        if ($request->zero) $targetDays[] = 6;
+        if ($request->one) $targetDays[] = 0;
+        if ($request->two) $targetDays[] = 1;
+        if ($request->three) $targetDays[] = 2;
+        if ($request->four) $targetDays[] = 3;
+        if ($request->five) $targetDays[] = 4;
+        if ($request->six) $targetDays[] = 5;
+        $filteredDates = [];
+        if ($request->entry and $request->exit){
+            try {
+                $startDate = Jalalian::fromFormat('Y/m/d', $request->entry)->toCarbon();
+                $endDate = Jalalian::fromFormat('Y/m/d', $request->exit)->toCarbon();
+                while ($startDate->lte($endDate)) {
+                    if (in_array($startDate->dayOfWeek, $targetDays)) {
+                        $filteredDates[] = Jalalian::fromCarbon($startDate)->format('Y/m/d');
+                    }
+                    $startDate->addDay();
+                }
+            }catch (Exception $e){}
+        }
+        foreach ($filteredDates as $date) {
+            foreach ($request->room as $roomId => $room) {
+                $room = RoomOption::updateOrCreate(
+                    ['date' => $date, 'room_id' => $roomId],
+                    [
+                        'min' => $room['min'],
+                        'max' => $room['max'],
+                        'entry' => $room['entry'],
+                        'exit' => $room['exit'],
+                        'status' => $room['status'],
+                    ]
+                );
+            }
+        }
+        return redirect()->route('hotel.pricingANDcapacities');
+    }
 }
