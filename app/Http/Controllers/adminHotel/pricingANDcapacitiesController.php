@@ -56,9 +56,9 @@ class pricingANDcapacitiesController extends Controller
             }
             $organizedData[$option->date] = $dateData;
         }
+        ksort($organizedData);
         return view('adminHotel.pricingANDcapacities', [
             'currentDate' => $date,
-            'organizedData' => $organizedData,
             'options' => $organizedData,
         ]);
     }

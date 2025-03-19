@@ -189,19 +189,11 @@
                                                                     </div>
                                                                     <div class="space-y-2">
                                                                         <div class="flex justify-between items-center">
-                                                                            <span>بزرگسالان:</span>
+                                                                            <span>تعداد نفر:</span>
                                                                             <div class="flex items-center gap-2">
-                                                                                <a @click="decrementAdults(index)" class="px-2 py-1 bg-gray-200 rounded">-</a>
-                                                                                <span x-text="room.adults"></span>
-                                                                                <a @click="incrementAdults(index)" class="px-2 py-1 bg-gray-200 rounded">+</a>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="flex justify-between items-center">
-                                                                            <span>کودکان:</span>
-                                                                            <div class="flex items-center gap-2">
-                                                                                <a @click="decrementChildren(index)" class="px-2 py-1 bg-gray-200 rounded">-</a>
-                                                                                <span x-text="room.children"></span>
-                                                                                <a @click="incrementChildren(index)" class="px-2 py-1 bg-gray-200 rounded">+</a>
+                                                                                <a @click="decrementPersons(index)" class="px-2 py-1 bg-gray-200 rounded">-</a>
+                                                                                <span x-text="room.persons"></span>
+                                                                                <a @click="incrementPersons(index)" class="px-2 py-1 bg-gray-200 rounded">+</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -2687,20 +2679,15 @@
         document.addEventListener('alpine:init', () => {
             Alpine.data('passengerModal', () => ({
                 isPassengerModalOpen: false,
-                rooms: [{ adults: 1, children: 0 }],
+                rooms: [{ persons: 1 }],
 
-                get totalAdults() {
-                    return this.rooms.reduce((sum, room) => sum + room.adults, 0);
-                },
-
-                get totalChildren() {
-                    return this.rooms.reduce((sum, room) => sum + room.children, 0);
+                get totalPersons() {
+                    return this.rooms.reduce((sum, room) => sum + room.persons, 0);
                 },
 
                 get passengerText() {
-                    const adultsText = this.totalAdults === 1 ? '1 بزرگسال' : `${this.totalAdults} بزرگسال`;
-                    const childrenText = this.totalChildren === 0 ? '' : `، ${this.totalChildren} کودک`;
-                    return `${adultsText}${childrenText}`;
+                    const personsText = this.totalPersons === 1 ? '1 نفر' : `${this.totalPersons} نفر`;
+                    return `${personsText}`;
                 },
 
                 get roomsJSON() {
@@ -2708,7 +2695,7 @@
                 },
 
                 addRoom() {
-                    this.rooms.push({ adults: 1, children: 0 });
+                    this.rooms.push({ persons: 1});
                 },
 
                 removeRoom(index) {
@@ -2717,25 +2704,15 @@
                     }
                 },
 
-                incrementAdults(index) {
-                    this.rooms[index].adults++;
+                incrementPersons(index) {
+                    this.rooms[index].persons++;
                 },
 
-                decrementAdults(index) {
-                    if (this.rooms[index].adults > 1) {
-                        this.rooms[index].adults--;
+                decrementPersons(index) {
+                    if (this.rooms[index].persons > 1) {
+                        this.rooms[index].persons--;
                     }
                 },
-
-                incrementChildren(index) {
-                    this.rooms[index].children++;
-                },
-
-                decrementChildren(index) {
-                    if (this.rooms[index].children > 0) {
-                        this.rooms[index].children--;
-                    }
-                }
             }));
         });
     </script>

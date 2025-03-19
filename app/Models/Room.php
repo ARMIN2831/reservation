@@ -22,4 +22,9 @@ class Room extends Model
     {
         return $this->hasMany(RoomOption::class);
     }
+
+    public function reserves()
+    {
+        return $this->hasMany(Reserve::class);
+    }
 }
