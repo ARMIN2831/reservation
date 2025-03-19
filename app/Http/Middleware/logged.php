@@ -16,7 +16,16 @@ class logged
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::user()) return $next($request);
-        else return redirect()->route($request->segment(1).'.dashboard');
+
+        $guard = $request->segment(1);
+        $route = $guard.'.dashboard';
+        if ($guard == 'login') {
+            $guard = 'user';
+            $route = 'userDashboard.index';
+        }
+
+
+        if (!Auth::guard($guard)->check()) return $next($request);
+        else return redirect()->route($route);
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\adminHotel;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class HotelAuthController extends Controller
+class AdminAuthController extends Controller
 {
     public function login()
     {
@@ -15,7 +15,7 @@ class HotelAuthController extends Controller
 
     public function doLogin(Request $request)
     {
-        if (Auth::guard('hotel')->attempt(['username' => $request->username, 'password' => $request->password, 'type' => 'hotel'])) {
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password, 'type' => 'admin'])) {
             Auth::user();
             return redirect()->route('hotel.dashboard');
         } else return redirect()->route('hotel.login')->with('failed','نام کاربری یا رمز عبور اشتباه است!');

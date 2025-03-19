@@ -17,7 +17,7 @@ class UserAuthController extends Controller
 
     public function doLogin(Request $request)
     {
-        if (Auth::attempt(['mobile' => $request->mobile, 'password' => $request->password, 'type' => 'user'])) {
+        if (Auth::guard('user')->attempt(['mobile' => $request->mobile, 'password' => $request->password, 'type' => 'user'])) {
             Auth::user();
             return response()->json(['success' => 'success'],200);
         } else return response()->json(['message' => 'موبایل یا رمز عبور اشتباه است!'],429);
@@ -52,7 +52,7 @@ class UserAuthController extends Controller
 
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('user')->logout();
         return redirect()->route('login');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminAuthController;
 use App\Http\Controllers\adminHotel\editRoomsController;
 use App\Http\Controllers\adminHotel\HotelAuthController;
 use App\Http\Controllers\adminHotel\mainPageController;
@@ -16,11 +17,12 @@ use App\Http\Middleware\ShareUserData;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/start', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate');
-    /*\Illuminate\Support\Facades\Artisan::call('storage:link');*/
-    /*\Illuminate\Support\Facades\Artisan::call('migrate:fresh');
     \Illuminate\Support\Facades\Artisan::call('cache:clear');
     \Illuminate\Support\Facades\Artisan::call('config:cache');
+    /*\Illuminate\Support\Facades\Artisan::call('migrate');
+    \Illuminate\Support\Facades\Artisan::call('storage:link');*/
+    /*\Illuminate\Support\Facades\Artisan::call('migrate:fresh');
+
     $people = \App\Models\People::create([
         'firstName' => 'super admin',
         'lastName' => 'super admin',
@@ -59,7 +61,7 @@ Route::middleware([ShareUserData::class])->group(function () {
 
     //user auth routes
     Route::get('logout', [UserAuthController::class,'logout'])->name('logout');
-    Route::middleware('UserLogged')->controller(UserAuthController::class)->group(function() {
+    Route::middleware('logged')->controller(UserAuthController::class)->group(function() {
         Route::get('login', 'login')->name('login');
         Route::post('doLogin', 'doLogin')->name('doLogin');
         Route::post('doRegister', 'doRegister')->name('doRegister');
@@ -71,7 +73,7 @@ Route::middleware([ShareUserData::class])->group(function () {
 
 
     //UserCheckLogin
-    Route::middleware('UserCheckLogin')->prefix('userDashboard')->controller(userDashboardController::class)->name('userDashboard.')->group(function () {
+    Route::middleware('auth:user')->prefix('userDashboard')->controller(userDashboardController::class)->name('userDashboard.')->group(function () {
         Route::get('/', 'index')->name('index');
     });
 
@@ -92,7 +94,7 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
         Route::post('doLogin', 'doLogin')->name('doLogin');
     });
 
-    Route::prefix('dashboard')->middleware('checkLogin')->group(function () {
+    Route::prefix('dashboard')->middleware('auth:hotel')->group(function () {
         //mainPage routes
         Route::controller(mainPageController::class)->group(function() {
             Route::get('/', 'index')->name('dashboard');
@@ -151,6 +153,22 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
             Route::post('removeCapacity', 'removeCapacity')->name('removeCapacity');
             Route::post('setLimit', 'setLimit')->name('setLimit');
         });
+    });
+
+});
+
+
+
+/*admin hotel routes*/
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::middleware('logged')->controller(AdminAuthController::class)->group(function() {
+        Route::get('login', 'login')->name('login');
+        Route::post('doLogin', 'doLogin')->name('doLogin');
+    });
+
+    Route::prefix('dashboard')->middleware('checkLogin')->group(function () {
+
     });
 
 });
