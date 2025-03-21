@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminAuthController;
+use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\adminHotel\editRoomsController;
 use App\Http\Controllers\adminHotel\HotelAuthController;
 use App\Http\Controllers\adminHotel\mainPageController;
@@ -19,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/start', function () {
     \Illuminate\Support\Facades\Artisan::call('cache:clear');
     \Illuminate\Support\Facades\Artisan::call('config:cache');
+    \App\Models\User::create([
+        'username' => '5790103911',
+        'people_id' => 1,
+        'type' => 'admin',
+        'password' => bcrypt('123456'),
+    ]);
     /*\Illuminate\Support\Facades\Artisan::call('migrate');
     \Illuminate\Support\Facades\Artisan::call('storage:link');*/
     /*\Illuminate\Support\Facades\Artisan::call('migrate:fresh');
@@ -167,8 +174,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('doLogin', 'doLogin')->name('doLogin');
     });
 
-    Route::prefix('dashboard')->middleware('checkLogin')->group(function () {
-
+    Route::prefix('dashboard')->middleware('auth:admin')->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+        Route::resource('hotels',\App\Http\Controllers\admin\HotelController::class);
+        Route::resource('users',\App\Http\Controllers\admin\UserController::class);
     });
 
 });

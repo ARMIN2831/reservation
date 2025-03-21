@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('reserves', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->string('startDate')->nullable();
-            $table->string('endDate')->nullable();
+            $table->string('entry_date')->nullable();
+            $table->string('exit_date')->nullable();
             $table->string('time')->nullable();
             $table->string('status')->nullable();
             $table->string('paymentStatus')->nullable();

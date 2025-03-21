@@ -10,20 +10,20 @@ class AdminAuthController extends Controller
 {
     public function login()
     {
-        return view('adminHotel.auth.login');
+        return view('admin.auth.login');
     }
 
     public function doLogin(Request $request)
     {
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password, 'type' => 'admin'])) {
-            Auth::user();
-            return redirect()->route('hotel.dashboard');
+        if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password, 'type' => 'admin'])) {
+            Auth::guard('admin')->user();
+            return redirect()->route('admin.dashboard');
         } else return redirect()->route('hotel.login')->with('failed','نام کاربری یا رمز عبور اشتباه است!');
     }
 
     public function logout()
     {
-        Auth::logout();
-        return redirect()->route('hotel.login');
+        Auth::guard('admin')->logout();
+        return redirect()->route('admin.login');
     }
 }

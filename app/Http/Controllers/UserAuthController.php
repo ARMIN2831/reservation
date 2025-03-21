@@ -18,7 +18,7 @@ class UserAuthController extends Controller
     public function doLogin(Request $request)
     {
         if (Auth::guard('user')->attempt(['mobile' => $request->mobile, 'password' => $request->password, 'type' => 'user'])) {
-            Auth::user();
+            Auth::guard('user')->user();
             return response()->json(['success' => 'success'],200);
         } else return response()->json(['message' => 'موبایل یا رمز عبور اشتباه است!'],429);
     }

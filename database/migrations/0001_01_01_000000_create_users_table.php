@@ -22,9 +22,9 @@ return new class extends Migration
 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique()->nullable();
-            $table->string('email')->unique()->nullable();
-            $table->string('mobile')->unique()->nullable();
+            $table->string('username')->nullable();
+            $table->string('email')->nullable();
+            $table->string('mobile')->nullable();
             $table->string('type')->nullable();
             $table->foreignId('people_id')->references('id')->on('people')->onDelete('cascade');
             $table->string('password');
