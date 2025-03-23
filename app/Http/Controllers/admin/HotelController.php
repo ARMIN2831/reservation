@@ -92,7 +92,7 @@ class HotelController extends Controller
      */
     public function edit($id)
     {
-        $hotel = Hotel::where('id',$id)->first();
+        $hotel = Hotel::where('id',$id)->with('rooms')->first();
         $users = User::where('type','hotel')->with('people')->get();
         $selectedUser = HotelUser::where('hotel_id',$id)->where('role','admin')->first()->id;
         return view('admin.hotels.edit',compact('hotel','users','selectedUser'));
@@ -132,7 +132,7 @@ class HotelController extends Controller
             $validatedData['province'] = $data['address']['state'];
             $validatedData['country'] = $data['address']['country'];
         }
-        $hotel = Hotel::update($validatedData);
+        $hotel = Hotel::where('id',$id)->update($validatedData);
         return redirect()->route('admin.hotels.index')->with('success', 'هتل با موفقیت اپدیت شد.');
     }
 
