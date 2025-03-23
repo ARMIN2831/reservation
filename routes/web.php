@@ -60,6 +60,7 @@ Route::prefix('api')->name('api.')->group(function () {
 
 
     Route::get('hotelSearchDestination/{search}', [\App\Http\Controllers\mainPageController::class,'hotelSearchDestination'])->name('hotelSearchDestination');
+    Route::post('changeMessageStatus', [\App\Http\Controllers\adminHotel\HotelController::class,'changeMessageStatus'])->name('changeMessageStatus');
 
 });
 

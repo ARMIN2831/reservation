@@ -166,7 +166,7 @@
                 </div>
             </div>
             <!-- left -->
-            <div class="flex items-center gap-7 w-full justify-end">
+            <div id="message-leave" class="flex items-center gap-7 w-full justify-end">
                 <!-- search box -->
                 <form action="#" class="inputContainer w-full max-w-[280px] h-10 flex items-center justify-center px-2 py-[5px] bg-neutral-50 rounded-xl">
                     <button type="submit" class=" h-full aspect-square flex items-center justify-center flex-shrink-0">
@@ -204,17 +204,78 @@
                             12
                         </div>
                     </a>
-                    <a href="#" class=" relative w-8 h-8 flex items-center justify-center hover:bg-green-600 hover:text-light text-green-300 p-1 rounded-full !aspect-square transition-all duration-600 ease-out hover:transition-none">
-                        <svg class=" w-full text-inherit" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4.46154 10.0004V6.35908C4.47235 5.64331 4.6243 4.93671 4.90868 4.27976C5.19306 3.62282 5.60428 3.02844 6.11878 2.53069C6.63328 2.03294 7.24094 1.64159 7.90695 1.37908C8.57296 1.11657 9.28423 0.988042 10 1.00087C10.7158 0.988042 11.427 1.11657 12.093 1.37908C12.7591 1.64159 13.3667 2.03294 13.8812 2.53069C14.3957 3.02844 14.8069 3.62282 15.0913 4.27976C15.3757 4.93671 15.5276 5.64331 15.5385 6.35908V10.0004M12.7692 17.2693C13.5037 17.2693 14.208 16.9776 14.7274 16.4583C15.2467 15.939 15.5385 15.2346 15.5385 14.5002V11.385M12.7692 17.2693C12.7692 17.7283 12.5869 18.1685 12.2623 18.4931C11.9377 18.8177 11.4975 19 11.0385 19H8.96154C8.50251 19 8.06228 18.8177 7.7377 18.4931C7.41312 18.1685 7.23077 17.7283 7.23077 17.2693C7.23077 16.8103 7.41312 16.3701 7.7377 16.0455C8.06228 15.721 8.50251 15.5386 8.96154 15.5386H11.0385C11.4975 15.5386 11.9377 15.721 12.2623 16.0455C12.5869 16.3701 12.7692 16.8103 12.7692 17.2693ZM2.38462 7.92362H3.76923C3.95284 7.92362 4.12893 7.99655 4.25877 8.12638C4.3886 8.2562 4.46154 8.43229 4.46154 8.61589V12.7695C4.46154 12.9531 4.3886 13.1292 4.25877 13.259C4.12893 13.3889 3.95284 13.4618 3.76923 13.4618H2.38462C2.01739 13.4618 1.66521 13.3159 1.40554 13.0563C1.14588 12.7966 1 12.4445 1 12.0773V9.30816C1 8.94096 1.14588 8.58879 1.40554 8.32914C1.66521 8.06949 2.01739 7.92362 2.38462 7.92362ZM17.6154 13.4618H16.2308C16.0472 13.4618 15.8711 13.3889 15.7412 13.259C15.6114 13.1292 15.5385 12.9531 15.5385 12.7695V8.61589C15.5385 8.43229 15.6114 8.2562 15.7412 8.12638C15.8711 7.99655 16.0472 7.92362 16.2308 7.92362H17.6154C17.9826 7.92362 18.3348 8.06949 18.5945 8.32914C18.8541 8.58879 19 8.94096 19 9.30816V12.0773C19 12.4445 18.8541 12.7966 18.5945 13.0563C18.3348 13.3159 17.9826 13.4618 17.6154 13.4618Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <div class=" bg-green-300 rounded-[10px] absolute z-[2] -bottom-[2px] left-[20px] flex items-center justify-center px-[5px] py-[2px] text-[8px] text-black font-bolf font-farsi-bold">
-                            12
+                    <div class="relative" id="message-icon">
+                        <a href="#" class="relative w-8 h-8 flex items-center justify-center hover:bg-green-600 hover:text-light text-green-300 p-1 rounded-full !aspect-square transition-all duration-600 ease-out hover:transition-none">
+                            <svg class="w-full text-inherit" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.46154 10.0004V6.35908C4.47235 5.64331 4.6243 4.93671 4.90868 4.27976C5.19306 3.62282 5.60428 3.02844 6.11878 2.53069C6.63328 2.03294 7.24094 1.64159 7.90695 1.37908C8.57296 1.11657 9.28423 0.988042 10 1.00087C10.7158 0.988042 11.427 1.11657 12.093 1.37908C12.7591 1.64159 13.3667 2.03294 13.8812 2.53069C14.3957 3.02844 14.8069 3.62282 15.0913 4.27976C15.3757 4.93671 15.5276 5.64331 15.5385 6.35908V10.0004M12.7692 17.2693C13.5037 17.2693 14.208 16.9776 14.7274 16.4583C15.2467 15.939 15.5385 15.2346 15.5385 14.5002V11.385M12.7692 17.2693C12.7692 17.7283 12.5869 18.1685 12.2623 18.4931C11.9377 18.8177 11.4975 19 11.0385 19H8.96154C8.50251 19 8.06228 18.8177 7.7377 18.4931C7.41312 18.1685 7.23077 17.7283 7.23077 17.2693C7.23077 16.8103 7.41312 16.3701 7.7377 16.0455C8.06228 15.721 8.50251 15.5386 8.96154 15.5386H11.0385C11.4975 15.5386 11.9377 15.721 12.2623 16.0455C12.5869 16.3701 12.7692 16.8103 12.7692 17.2693ZM2.38462 7.92362H3.76923C3.95284 7.92362 4.12893 7.99655 4.25877 8.12638C4.3886 8.2562 4.46154 8.43229 4.46154 8.61589V12.7695C4.46154 12.9531 4.3886 13.1292 4.25877 13.259C4.12893 13.3889 3.95284 13.4618 3.76923 13.4618H2.38462C2.01739 13.4618 1.66521 13.3159 1.40554 13.0563C1.14588 12.7966 1 12.4445 1 12.0773V9.30816C1 8.94096 1.14588 8.58879 1.40554 8.32914C1.66521 8.06949 2.01739 7.92362 2.38462 7.92362ZM17.6154 13.4618H16.2308C16.0472 13.4618 15.8711 13.3889 15.7412 13.259C15.6114 13.1292 15.5385 12.9531 15.5385 12.7695V8.61589C15.5385 8.43229 15.6114 8.2562 15.7412 8.12638C15.8711 7.99655 16.0472 7.92362 16.2308 7.92362H17.6154C17.9826 7.92362 18.3348 8.06949 18.5945 8.32914C18.8541 8.58879 19 8.94096 19 9.30816V12.0773C19 12.4445 18.8541 12.7966 18.5945 13.0563C18.3348 13.3159 17.9826 13.4618 17.6154 13.4618Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div class="bg-green-300 rounded-[10px] absolute z-[2] -bottom-[2px] left-[20px] flex items-center justify-center px-[5px] py-[2px] text-[8px] text-black font-bolf font-farsi-bold">
+                                {{ count($sharedData->messages) }}
+                            </div>
+                        </a>
+                        <!-- منوی بازشو -->
+                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg hidden" id="message-dropdown">
+                            <ul class="py-2">
+                                @foreach($sharedData->messages as $message)
+                                    <li class="px-4 py-2 bg-gray-100 hover:bg-gray-200 cursor-pointer" onclick="openModal('{{ $message->text }}',{{ $message->id }})">{{ $message->text }}</li>
+                                @endforeach
+                            </ul>
                         </div>
-                    </a>
+                    </div>
+                </div>
+                <div id="message-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+                    <div class="rounded-lg p-6 w-96 bg-gray-100">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 id="modal-title" class="text-lg font-bold">عنوان پیام</h3>
+                            <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <p id="modal-content">محتوای پیام</p>
+                    </div>
                 </div>
             </div>
         </header>
+        <script>
+            // نمایش منوی بازشو
+            document.getElementById('message-icon').addEventListener('mouseenter', function() {
+                document.getElementById('message-dropdown').classList.remove('hidden');
+            });
+
+            document.getElementById('message-leave').addEventListener('mouseleave', function() {
+                document.getElementById('message-dropdown').classList.add('hidden');
+            });
+
+            // باز کردن مودال
+            function openModal(message, id) {
+                /*document.getElementById('modal-title').innerText = message;*/
+                document.getElementById('message-modal').classList.remove('hidden');
+
+                fetch(`/api/changeMessageStatus`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ id: id }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('modal-content').innerText = `${message}`;
+                    })
+                    .catch(error => {
+                        console.error('خطا:', error);
+                        document.getElementById('modal-content').innerText = 'خطا در دریافت اطلاعات';
+                    });
+            }
+
+            // بستن مودال
+            function closeModal() {
+                document.getElementById('message-modal').classList.add('hidden');
+            }
+        </script>
         <!-- mobile and tablet header -->
         <header class=" w-full hidden items-center justify-between bg-green-600 fixed z-[10] top-0 right-0 pt-[26px] pb-[14px] px-[25px] rounded-br-xl rounded-bl-xl 1024max:flex">
             <!-- right -->
