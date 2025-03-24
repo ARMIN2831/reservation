@@ -214,7 +214,7 @@
                             </div>
                         </a>
                         <!-- منوی بازشو -->
-                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg hidden" id="message-dropdown">
+                        <div class="absolute left-0 w-48 bg-white rounded-lg shadow-lg hidden" id="message-dropdown">
                             <ul class="py-2">
                                 @foreach($sharedData->messages as $message)
                                     <li class="px-4 py-2 bg-gray-100 hover:bg-gray-200 cursor-pointer" onclick="openModal('{{ $message->text }}',{{ $message->id }})">{{ $message->text }}</li>

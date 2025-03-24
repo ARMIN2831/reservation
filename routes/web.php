@@ -90,6 +90,7 @@ Route::middleware([ShareUserData::class])->group(function () {
     //hotelBooking
     Route::prefix('hotelBooking')->controller(hotelBookingController::class)->name('hotelBooking.')->group(function () {
         Route::get('/', 'results')->name('results');
+        Route::get('showDescription', 'showDescription')->name('showDescription');
     });
 });
 
@@ -168,7 +169,7 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
 
 
 
-/*admin hotel routes*/
+/*admin routes*/
 Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('logged')->controller(AdminAuthController::class)->group(function() {

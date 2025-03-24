@@ -1,5 +1,5 @@
 
-let coordinates = [35.6892, 51.3890]
+
 var map = L.map('viewMap').setView(coordinates, 13);
 
 

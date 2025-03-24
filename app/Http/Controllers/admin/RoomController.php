@@ -62,7 +62,7 @@ class RoomController extends Controller
         $room = Room::where('id',$id)->first();
         if ($request->status != $room->status or $request->changeStatus){
             Message::create([
-                'text' => $request->changeStatus,
+                'text' => $request->changeStatus ?: 'تغییر وضعیت اتاق (پیام خودکار سیستم)',
                 'type' => 'admin',
                 'sender_id' => Auth::guard('admin')->user()->id,
                 'sender_model' => 'App\Models\User',
