@@ -61,7 +61,7 @@
                 <div class="w-full flex items-center gap-2 640max:flex-col">
                     <div class="w-full flex items-center gap-2 flex-grow-1 py-[14px] px-4.5 rounded-xl bg-light h-[50px] 512max:h-10">
                         <span class=" text-xs text-green-600 font-normal">
-                            محمد حسینی به حساب کاربری خود خوش آمدید!
+                            {{ $userSharedData->people->firstName.' '.$userSharedData->people->lastName }} به حساب کاربری خود خوش آمدید!
                         </span>
                     </div>
                     <div class="flex items-center gap-[14px] min-w-[252px] max-w-[450px] h-[50px] p-2 bg-light rounded-xl 512max:h-10 640max:w-full">
@@ -71,7 +71,7 @@
                             </svg>
                         </div>
                         <p class="w-full flex-grow-[1] text-sm text-neutral-700 font-normal">
-                            0 ریال
+                            {{ $userSharedData->wallet }} ریال
                         </p>
                         <button onclick="document.querySelector('.addWalletAmountModal').classList.add('active')" class=" h-full aspect-square rounded-[6px] bg-green-300 flex items-center justify-center">
                             <svg class=" w-4 text-light" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6">
@@ -119,7 +119,7 @@
                                             </div>
                                             <!-- name -->
                                             <span class=" text-sm text-light font-bold text-center">
-                                                محمد حسینی
+                                                {{ $userSharedData->people->firstName.' '.$userSharedData->people->lastName }}
                                             </span>
                                         </div>
                                         <!-- bottom -->
@@ -131,11 +131,11 @@
                                                     </svg>
                                                 </div>
                                                 <a href="#" class=" text-sm text-light font-normal font-farsi-regular text-nowrap" dir="ltr">
-                                                    +98 900 4670 578
+                                                    {{ $userSharedData->mobile }}
                                                 </a>
                                                 <div class="h-6 px-[6px] rounded-xl bg-green-300 text-light flex items-center justify-center">
                                                     <span class=" text-[10px] text-light font-normal text-center text-nowrap">
-                                                        تایید شده
+                                                        {{ $userSharedData->mobile_status }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -146,7 +146,7 @@
                                                     </svg>
                                                 </div>
                                                 <a href="#" class=" text-sm text-light font-normal font-farsi-regular text-nowrap" dir="ltr">
-                                                    info@darvishiroyalhotel.com
+                                                    {{ $userSharedData->email }}
                                                 </a>
                                             </div>
                                         </div>
@@ -181,7 +181,7 @@
                                                     نام و نام خانوادگی:
                                                 </span>
                                                 <span class=" text-sm text-neutral-700 font-normal 1280max:text-xs">
-                                                    محمد حسینی
+                                                    {{ $userSharedData->people->firstName.' '.$userSharedData->people->lastName }}
                                                 </span>
                                             </div>
                                             <div class="w-full flex items-center gap-2">
@@ -189,7 +189,7 @@
                                                     تاریخ تولد:
                                                 </span>
                                                 <span class=" text-sm text-neutral-700 font-normal 1280max:text-xs">
-                                                    1232/14/54
+                                                    {{ $userSharedData->people->birth }}
                                                 </span>
                                             </div>
                                             <div class="w-full flex items-center gap-2">
@@ -197,7 +197,7 @@
                                                     شماره تماس ضروری:
                                                 </span>
                                                 <span class=" text-sm text-neutral-700 font-normal 1280max:text-xs">
-                                                    0996385628595
+                                                    {{ $userSharedData->mobile }}
                                                 </span>
                                             </div>
                                             <div class="w-full flex items-center gap-2">
@@ -205,13 +205,14 @@
                                                     کد ملی:
                                                 </span>
                                                 <span class=" text-sm text-neutral-700 font-normal 1280max:text-xs">
-                                                    5429479274999
+                                                    {{ $userSharedData->people->nationalCode }}
                                                 </span>
                                             </div>
                                             <div class="w-full flex items-center gap-2">
                                                 <span class=" text-sm text-neutral-400 font-normal 1280max:text-xs">
                                                     وضعیت حساب:
                                                 </span>
+                                                @if($userSharedData->status == 'فعال')
                                                 <div class=" h-6 flex items-center justify-center gap-[6px] px-4.5 rounded-[20px] bg-green-300">
                                                     <svg class=" text-light w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
@@ -220,6 +221,16 @@
                                                         فعال
                                                     </span>
                                                 </div>
+                                                @elseif($userSharedData->status == 'غیرفعال')
+                                                    <div class=" h-6 flex items-center justify-center gap-[6px] px-4.5 rounded-[20px] bg-red-300">
+                                                        <svg class=" text-light w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                        </svg>
+                                                        <span class=" text-xs text-light font-medium text-center">
+                                                        غیرفعال
+                                                    </span>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -243,7 +254,8 @@
                             <div class="w-full flex flex-col gap-4.5 1024max:p-3 1024max:rounded-xl 1024max:bg-neutral-50">
                                     <div class="w-full h-max grid grid-cols-280-1fr gap-4.5 items-start 1280max:grid-cols-220-1fr 768max:justify-items-center 768max:grid-cols-1">
                                     <!-- right => (top in mobile) -->
-                                    <div class="w-full flex flex-col items-center gap-4.5 p-4.5 rounded-xl bg-light">
+                                    <form method="post" action="{{ route('userDashboard.changePassword') }}" class="w-full flex flex-col items-center gap-4.5 p-4.5 rounded-xl bg-light">
+                                        @csrf
                                         <!-- title -->
                                         <div class="w-full flex items-center">
                                             <span class=" text-sm text-green-300 font-bold">
@@ -256,8 +268,8 @@
                                                 رمز عبور جدید خود را وارد نمایید
                                             </span>
                                             <div class="w-full flex flex-col items-center gap-2">
-                                                <div class="inputContainer rounded-[6px] w-full flex items-center">
-                                                    <input id="" name="" placeholder="رمز عبور فعلی" type="password" class=" w-full h-10 rounded-[6px] rounded-l-none bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 focus:outline-none">
+                                                <div class="inputContainer rounded-[6px] w-full flex items-center relative">
+                                                    <input id="current_password" name="current_password" placeholder="رمز عبور فعلی" type="password" class=" w-full h-10 rounded-[6px] rounded-l-none bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 focus:outline-none">
                                                     <button class="showHideButton w-10 h-10 flex items-center justify-center rounded-[6px] rounded-r-none bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular p-2">
                                                         <svg class="eye-show w-4 text-neutral-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"></path>
@@ -267,9 +279,14 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"></path>
                                                         </svg>
                                                     </button>
+                                                    @error('current_password')
+                                                    <span style="font-size: 8px;position: absolute;font-weight: 600;bottom: -10px;color: red;" class="invalid-feedback" role="alert">
+                                                        <p>{{ $message }}</p>
+                                                    </span>
+                                                    @enderror
                                                 </div>
-                                                <div class="inputContainer rounded-[6px] w-full flex items-center">
-                                                    <input id="" name="" placeholder="رمز عبور جدید" type="password" class=" w-full h-10 rounded-[6px] rounded-l-none bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 focus:outline-none">
+                                                <div class="inputContainer rounded-[6px] w-full flex items-center relative">
+                                                    <input id="new_password" name="new_password" placeholder="رمز عبور جدید" type="password" class=" w-full h-10 rounded-[6px] rounded-l-none bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 focus:outline-none">
                                                     <button class="showHideButton w-10 h-10 flex items-center justify-center rounded-[6px] rounded-r-none bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular p-2">
                                                         <svg class="eye-show w-4 text-neutral-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"></path>
@@ -279,9 +296,14 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"></path>
                                                         </svg>
                                                     </button>
+                                                    @error('new_password')
+                                                    <span style="font-size: 8px;position: absolute;font-weight: 600;bottom: -10px;color: red;" class="invalid-feedback" role="alert">
+                                                        <p>{{ $message }}</p>
+                                                    </span>
+                                                    @enderror
                                                 </div>
-                                                <div class="inputContainer rounded-[6px] w-full flex items-center">
-                                                    <input id="" name="" placeholder="تکرار رمز عبور جدید" type="password" class=" w-full h-10 rounded-[6px] rounded-l-none bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 focus:outline-none">
+                                                <div class="inputContainer rounded-[6px] w-full flex items-center relative">
+                                                    <input id="new_password_confirmation" name="new_password_confirmation" placeholder="تکرار رمز عبور جدید" type="password" class=" w-full h-10 rounded-[6px] rounded-l-none bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 focus:outline-none">
                                                     <button class="showHideButton w-10 h-10 flex items-center justify-center rounded-[6px] rounded-r-none bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular p-2">
                                                         <svg class="eye-show w-4 text-neutral-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"></path>
@@ -291,6 +313,11 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"></path>
                                                         </svg>
                                                     </button>
+                                                    @error('new_password_confirmation')
+                                                    <span style="font-size: 8px;position: absolute;font-weight: 600;bottom: -10px;color: red;" class="invalid-feedback" role="alert">
+                                                        <p>{{ $message }}</p>
+                                                    </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -302,9 +329,9 @@
                                         <a href="#" class=" text-xs text-green-300 font-normal underline">
                                             رمز فعلی را فراموش کرده ام
                                         </a>
-                                    </div>
+                                    </form>
                                     <!-- left => (bottom in mobile) -->
-                                     <div class="w-full min-h-full flex flex-col gap-4.5 bg-light rounded-xl p-4.5">
+                                     {{--<div class="w-full min-h-full flex flex-col gap-4.5 bg-light rounded-xl p-4.5">
                                         <!-- head -->
                                         <div class="w-full flex items-center">
                                             <h6 class=" text-sm text-green-300 font-bold 512max:text-xs">
@@ -401,7 +428,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                     </div>
+                                     </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -812,7 +839,7 @@
                                             </div>
                                             <div class="flex items-center justify-center gap-2">
                                                 <span class=" text-[20px] text-light font-bold">
-                                                    34,345,570
+                                                    {{ $userSharedData->wallet }}
                                                 </span>
                                                 <span class=" text-base text-light font-medium">
                                                     تومان
@@ -853,7 +880,7 @@
                                                     شماره شبا:
                                                 </span>
                                                 <span class=" text-sm text-neutral-700 font-normal 1280max:text-xs">
-                                                    IR3501900000000023359231
+                                                    {{ $userSharedData->shaba }}
                                                 </span>
                                             </div>
                                             <div class="w-full flex items-center gap-2">
@@ -861,7 +888,7 @@
                                                     شماره کارت:
                                                 </span>
                                                 <span class=" text-sm text-neutral-700 font-normal 1280max:text-xs">
-                                                    1055-2262-3379-6104
+                                                    {{ $userSharedData->card }}
                                                 </span>
                                             </div>
                                             <div class="w-full flex items-center gap-2">
@@ -869,7 +896,7 @@
                                                     شماره حساب:
                                                 </span>
                                                 <span class=" text-sm text-neutral-700 font-normal 1280max:text-xs">
-                                                    234567876545678
+                                                    {{ $userSharedData->bank }}
                                                 </span>
                                             </div>
                                         </div>

@@ -84,6 +84,7 @@ Route::middleware([ShareUserData::class])->group(function () {
     //UserCheckLogin
     Route::middleware('auth:user')->prefix('userDashboard')->controller(userDashboardController::class)->name('userDashboard.')->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::post('changePassword', 'changePassword')->name('changePassword');
     });
 
 
