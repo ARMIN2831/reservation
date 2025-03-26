@@ -7,6 +7,7 @@ use App\Models\People;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,11 +20,10 @@ class ShareUserData
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check()) {
-            $user = User::where('id',auth()->user()->id)->with('people')->first();
+        if (Auth::guard('user')->check()) {
+            $user = User::where('id',Auth::guard('user')->user()->id)->with('people')->first();
             View::share('userSharedData', $user);
         }
-
         return $next($request);
     }
 }

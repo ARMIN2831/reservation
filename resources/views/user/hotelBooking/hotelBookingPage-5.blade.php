@@ -3,7 +3,7 @@
     <main class=" w-full mt-[-80px] flex flex-col items-center gap-20 pb-8 flex-grow-[1] justify-end z-[2]">
         <div class="w-full flex-grow-[1] flex flex-col items-center g45">
             <section class="w-full max-w-[1440px] px-[100px] 768max:px-7 1024max:px-[36px] 1280max:px-[64px]">
-                <div class="w-full flex flex-col gap-4.5">
+                <form method="get" action="{{ route('hotelBooking.reserveHotel') }}" class="w-full flex flex-col gap-4.5">
                     <!-- مراحل رزرو -->
                     <div class="w-full h-max grid grid-cols-6 justify-items-center items-start gap-x-2 gap-y-4 py-11 px-4.5 rounded-xl bg-green-100 512max:grid-cols-3 640max:px-2 640max:py-4.5 640max:grid-cols-4">
                         <!-- items -->
@@ -62,6 +62,19 @@
                         </div>
                     </div>
                     <!-- other -->
+                    @foreach(request()->query() as $key => $value)
+                        @if(is_array($value))
+                            @foreach($value as $arrayValue)
+                                @if(is_array($arrayValue))
+                                    <input type="hidden" name="{{ $key }}[]" value="{{ serialize($arrayValue) }}">
+                                @else
+                                    <input type="hidden" name="{{ $key }}[]" value="{{ $arrayValue }}">
+                                @endif
+                            @endforeach
+                        @else
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endif
+                    @endforeach
                     <div class="w-full grid grid-cols-[1fr_300px] items-start gap-2 768max:grid-cols-1 768max:gap-4.5 850max:grid-cols-[1fr_270px]">
                         <!-- right => top in mobile -->
                         <div class="w-full flex flex-col gap-4.5">
@@ -90,38 +103,12 @@
                                                 درگاه پرداخت خود را انتخاب کنید
                                             </span>
                                             <div class="w-full grid grid-cols-8 gap-2 512max:grid-cols-3 640max:grid-cols-4 1024max:grid-cols-5 1280max:grid-cols-6">
-                                                <label for="pmo-2" class="paymentMethodOnlineItem w-full aspect-square overflow-hidden rounded-md">
-                                                    <input type="radio" name="pmo" id="pmo-2" class="hidden" checked>
-                                                    <img src="{{ asset('public/images/zarinPal.png') }}" alt="#" class=" w-full h-full object-contain object-center">
+                                                @foreach($gateways as $gateway)
+                                                <label for="pmo-{{ $gateway->id }}" class="paymentMethodOnlineItem w-full aspect-square overflow-hidden rounded-md">
+                                                    <input value="{{ $gateway->id }}" type="radio" name="pmo" id="pmo-{{ $gateway->id }}" class="hidden" checked>
+                                                    <img src="{{ asset('storage/' . $gateway->image) }}" alt="#" class=" w-full h-full object-contain object-center">
                                                 </label>
-                                                <label for="pmo-3" class="paymentMethodOnlineItem w-full aspect-square overflow-hidden rounded-md">
-                                                    <input type="radio" name="pmo" id="pmo-3" class="hidden">
-                                                    <img src="{{ asset('public/images/zarinPal.png') }}" alt="#" class=" w-full h-full object-contain object-center">
-                                                </label>
-                                                <label for="pmo-4" class="paymentMethodOnlineItem w-full aspect-square overflow-hidden rounded-md">
-                                                    <input type="radio" name="pmo" id="pmo-4" class="hidden">
-                                                    <img src="{{ asset('public/images/zarinPal.png') }}" alt="#" class=" w-full h-full object-contain object-center">
-                                                </label>
-                                                <label for="pmo-5" class="paymentMethodOnlineItem w-full aspect-square overflow-hidden rounded-md">
-                                                    <input type="radio" name="pmo" id="pmo-5" class="hidden">
-                                                    <img src="{{ asset('public/images/zarinPal.png') }}" alt="#" class=" w-full h-full object-contain object-center">
-                                                </label>
-                                                <label for="pmo-6" class="paymentMethodOnlineItem w-full aspect-square overflow-hidden rounded-md">
-                                                    <input type="radio" name="pmo" id="pmo-6" class="hidden">
-                                                    <img src="{{ asset('public/images/zarinPal.png') }}" alt="#" class=" w-full h-full object-contain object-center">
-                                                </label>
-                                                <label for="pmo-7" class="paymentMethodOnlineItem w-full aspect-square overflow-hidden rounded-md">
-                                                    <input type="radio" name="pmo" id="pmo-7" class="hidden">
-                                                    <img src="{{ asset('public/images/zarinPal.png') }}" alt="#" class=" w-full h-full object-contain object-center">
-                                                </label>
-                                                <label for="pmo-8" class="paymentMethodOnlineItem w-full aspect-square overflow-hidden rounded-md">
-                                                    <input type="radio" name="pmo" id="pmo-8" class="hidden">
-                                                    <img src="{{ asset('public/images/zarinPal.png') }}" alt="#" class=" w-full h-full object-contain object-center">
-                                                </label>
-                                                <label for="pmo-9" class="paymentMethodOnlineItem w-full aspect-square overflow-hidden rounded-md">
-                                                    <input type="radio" name="pmo" id="pmo-9" class="hidden">
-                                                    <img src="{{ asset('public/images/zarinPal.png') }}" alt="#" class=" w-full h-full object-contain object-center">
-                                                </label>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +159,7 @@
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-lg text-light font-bold">
-                                            10,391,200
+                                            {{ $totalPrice }}
                                         </span>
                                         <span class=" text-sm text-light font-medium">
                                             تومان
@@ -185,20 +172,20 @@
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-lg text-light font-bold">
-                                            10,391,200
+                                            {{ $totalPrice }}
                                         </span>
                                         <span class=" text-sm text-light font-medium">
                                             تومان
                                         </span>
                                     </div>
                                 </div>
-                                <div class="w-full flex items-center justify-between">
+                                {{--<div class="w-full flex items-center justify-between">
                                     <span class=" text-sm text-light font-medium">
                                         تخفیف:
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-lg text-green-300 font-bold">
-                                            10,391,200
+                                            {{ $totalPrice }}
                                         </span>
                                         <span class=" text-sm text-green-300 font-medium">
                                             تومان
@@ -215,7 +202,7 @@
                                             اعمال
                                         </button>
                                     </div>
-                                </div>
+                                </div>--}}
                             </div>
                             <!-- bottom -->
                             <div class="w-full flex flex-col gap-4.5 py-4.5 640max:py-0 640max:pt-4.5">
@@ -226,7 +213,7 @@
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-[20px] text-light font-bold">
-                                            10,391,200
+                                            {{ $totalPrice }}
                                         </span>
                                         <span class=" text-sm text-light font-medium">
                                             تومان
@@ -240,7 +227,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </section>
         </div>
         <section class=" w-full max-w-[1440px] px-[100px] 768max:px-[0px] 1024max:px-[36px] 1280max:px-[64px]">

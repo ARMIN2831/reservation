@@ -69,14 +69,14 @@
                                 <div class="w-full flex flex-col gap-4.5 p-4.5 rounded-xl bg-light min-h-[170px] 1150max:col-start-1 1150max:col-end-3">
                                     <div class="flex items-center gap-2">
                                         <h2 class=" text-2xl text-neutral-700 font-medium 1150max:text-xl 640max:text-lg">
-                                            هتل بین المللی قصر مشهد
+                                            {{ $hotel->title }}
                                         </h2>
                                         <div class="flex items-center gap-1">
                                             <svg class=" w-4 text-green-600" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M4.37446 11.9555L7.5005 10.1039L10.6265 11.9798L9.80781 8.47153L12.5617 6.13267L8.93946 5.81595L7.5005 2.50258L6.06153 5.79159L2.4393 6.10831L5.19319 8.47153L4.37446 11.9555ZM2.86107 14L4.09163 8.82236L0 5.34136L5.38968 4.88334L7.5005 0L9.61131 4.88236L15 5.34039L10.9084 8.82138L12.1399 13.999L7.5005 11.2509L2.86107 14Z" fill="currentColor"/>
                                             </svg>
                                             <span class=" text-xs text-green-600 font-normal">
-                                                5 ستاره
+                                                {{ $hotel->star }} ستاره
                                             </span>
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M10.2827 22.7921C11.6005 21.5565 12.8202 20.2135 13.9299 18.7761C16.2674 15.7416 17.6894 12.7497 17.7856 10.0893C17.8237 9.00807 17.6505 7.93002 17.2763 6.91953C16.9022 5.90903 16.3348 4.98683 15.608 4.208C14.8811 3.42917 14.0099 2.8097 13.0462 2.38659C12.0825 1.96348 11.0462 1.74541 9.9991 1.74541C8.95203 1.74541 7.9157 1.96348 6.95201 2.38659C5.98832 2.8097 5.11706 3.42917 4.39025 4.208C3.66345 4.98683 3.09602 5.90903 2.72187 6.91953C2.34771 7.93002 2.1745 9.00807 2.21259 10.0893C2.30999 12.7497 3.73311 15.7416 6.06947 18.7761C7.17916 20.2135 8.39882 21.5565 9.71665 22.7921C9.84346 22.9105 9.9378 22.9966 9.99967 23.0502L10.2827 22.7921ZM9.15405 24.1715C9.15405 24.1715 0.833008 16.9303 0.833008 9.80513C0.833008 7.29305 1.79878 4.88387 3.51786 3.10756C5.23695 1.33126 7.56852 0.333344 9.99967 0.333344C12.4308 0.333344 14.7624 1.33126 16.4815 3.10756C18.2006 4.88387 19.1663 7.29305 19.1663 9.80513C19.1663 16.9303 10.8453 24.1715 10.8453 24.1715C10.3824 24.6119 9.6204 24.6072 9.15405 24.1715ZM9.99967 13.1203C10.8506 13.1203 11.6666 12.771 12.2683 12.1493C12.87 11.5276 13.208 10.6844 13.208 9.80513C13.208 8.9259 12.87 8.08269 12.2683 7.46098C11.6666 6.83927 10.8506 6.49 9.99967 6.49C9.14877 6.49 8.33272 6.83927 7.73104 7.46098C7.12936 8.08269 6.79134 8.9259 6.79134 9.80513C6.79134 10.6844 7.12936 11.5276 7.73104 12.1493C8.33272 12.771 9.14877 13.1203 9.99967 13.1203ZM9.99967 14.541C8.7841 14.541 7.61831 14.0421 6.75877 13.1539C5.89923 12.2658 5.41634 11.0612 5.41634 9.80513C5.41634 8.54909 5.89923 7.3445 6.75877 6.45635C7.61831 5.56819 8.7841 5.06924 9.99967 5.06924C11.2153 5.06924 12.381 5.56819 13.2406 6.45635C14.1001 7.3445 14.583 8.54909 14.583 9.80513C14.583 11.0612 14.1001 12.2658 13.2406 13.1539C12.381 14.0421 11.2153 14.541 9.99967 14.541Z" fill="currentColor"/>
                                         </svg>
                                         <span class=" text-xs text-green-600 font-normal">
-                                            ایران، خراسان رضوی، مشهد، خیابان امام رضا (ع)، بین امام رضا (ع) ۲۴ و ۲۶
+                                            {{ $hotel->address }}
                                         </span>
                                     </div>
                                 </div>
@@ -96,10 +96,10 @@
                                     </span>
                                     <div class="flex flex-col items-center gap-2 self-center justify-self-center">
                                         <span class=" text-base text-neutral-700 font-bold text-center">
-                                            1403/12/28
+                                            {{ $dates[0] }}
                                         </span>
                                         <span class=" text-xs text-neutral-400 font-normal text-center">
-                                            ساعت 12:30
+                                            ساعت 14:00
                                         </span>
                                     </div>
                                 </div>
@@ -110,10 +110,10 @@
                                     </span>
                                     <div class="flex flex-col items-center gap-2 self-center justify-self-center">
                                         <span class=" text-base text-neutral-700 font-bold text-center">
-                                            1404/01/04
+                                            {{ $dates[1] }}
                                         </span>
                                         <span class=" text-xs text-neutral-400 font-normal text-center">
-                                            ساعت 12:30
+                                            ساعت 12:00
                                         </span>
                                     </div>
                                 </div>
@@ -142,12 +142,22 @@
                                          </div>
                                     </div>
                                     <div class="flex items-center gap-2 512max:w-full">
-                                        <button class="rounded-[6px] w-full flex items-center justify-center py-2 px-4 h-10 min-w-[160px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:text-xs 512max:h-8 512max:px-4">
+                                        <a onclick="changeRooms()" class="rounded-[6px] w-full flex items-center justify-center py-2 px-4 h-10 min-w-[160px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:text-xs 512max:h-8 512max:px-4">
                                             ویرایش مسافران
-                                        </button>
+                                        </a>
                                     </div>
+                                    <script>
+                                        function changeRooms(){
+                                            if (window.history.length > 2) {
+                                                window.history.back();
+                                            } else {
+                                                window.location.href = "{{ route('hotelBooking.results') }}";
+                                            }
+                                        }
+                                    </script>
                                 </div>
                                 <!-- bottom -->
+                                @foreach(request('peoples') as $peopleRoom)
                                 <div class="w-full py-8 px-4.5 flex flex-col gap-10 bg-light">
                                     <div class="w-full grid grid-cols-3 gap-x-2 gap-y-7 512max:grid-cols-1 512max:gap-3 1150max:grid-cols-2">
                                         <div class="w-full flex items-center gap-2 512max:justify-between">
@@ -155,7 +165,7 @@
                                                 اطلاعات سرپرست:
                                             </span>
                                             <span class=" text-sm text-black font-normal 640max:text-xs">
-                                                محمد حسینی
+                                                {{ $peopleRoom[0]['firstName'].' '.$peopleRoom[0]['lastName'] }}
                                             </span>
                                         </div>
                                         <div class="w-full flex items-center gap-2 512max:justify-between">
@@ -163,7 +173,7 @@
                                                 تلفن تماس:
                                             </span>
                                             <span class=" text-sm text-black font-normal 640max:text-xs">
-                                                09425873970
+                                                {{ $peopleRoom[0]['mobile'] }}
                                             </span>
                                         </div>
                                         <div class="w-full flex items-center gap-2 512max:justify-between">
@@ -171,7 +181,7 @@
                                                 تعداد مسافران:
                                             </span>
                                             <span class=" text-sm text-black font-normal 640max:text-xs">
-                                                1 نفر
+                                                {{ count($peopleRoom) }} نفر
                                             </span>
                                         </div>
                                         <div class="w-full flex items-center gap-2 512max:justify-between">
@@ -179,7 +189,7 @@
                                                 نوع اتاق:
                                             </span>
                                             <span class=" text-sm text-black font-normal 640max:text-xs">
-                                                اتاق سینگل اکونومی
+                                                {{ $peopleRoom[0]['title'] }}
                                             </span>
                                         </div>
                                     </div>
@@ -208,6 +218,7 @@
                                                 </span>
                                             </div>
                                         </div>
+                                        @foreach($peopleRoom as $people)
                                         <!-- items -->
                                         <div class="w-full flex flex-col gap-2">
                                             <div class="w-full p-4.5 rounded-xl grid grid-cols-4 justify-items-center items-center bg-neutral-50 512max:px-0 640max:rounded-md">
@@ -218,23 +229,25 @@
                                                 </div>
                                                 <div class="w-full flex items-center justify-center">
                                                     <span class=" text-sm text-neutral-700 font-normal text-center 640max:text-xs">
-                                                        محمد محمدی
+                                                        {{ $people['firstName'].' '.$people['lastName'] }}
                                                     </span>
                                                 </div>
                                                 <div class="w-full flex items-center justify-center">
                                                     <span class=" text-sm text-neutral-700 font-normal text-center 640max:text-xs">
-                                                        2475613809
+                                                        {{ $people['nationalCode'] }}
                                                     </span>
                                                 </div>
                                                 <div class="w-full flex items-center justify-center">
                                                     <span class=" text-sm text-neutral-700 font-normal text-center 640max:text-xs">
-                                                        مرد
+                                                        {{ $people['sex'] }}
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
+                                        @endforeach
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                         <!-- left => bottom in mobile -->
@@ -247,7 +260,7 @@
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-lg text-light font-bold">
-                                            10,391,200
+                                            {{ $totalPrice }}
                                         </span>
                                         <span class=" text-sm text-light font-medium">
                                             تومان
@@ -260,14 +273,14 @@
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-lg text-light font-bold">
-                                            10,391,200
+                                            {{ $totalPrice }}
                                         </span>
                                         <span class=" text-sm text-light font-medium">
                                             تومان
                                         </span>
                                     </div>
                                 </div>
-                                <div class="w-full flex items-center justify-between">
+                                {{--<div class="w-full flex items-center justify-between">
                                     <span class=" text-sm text-light font-medium">
                                         تخفیف:
                                     </span>
@@ -290,7 +303,7 @@
                                             اعمال
                                         </button>
                                     </div>
-                                </div>
+                                </div>--}}
                             </div>
                             <!-- bottom -->
                             <div class="w-full flex flex-col gap-4.5 py-4.5 640max:py-0 640max:pt-4.5">
@@ -301,7 +314,7 @@
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-[20px] text-light font-bold">
-                                            10,391,200
+                                            {{ $totalPrice }}
                                         </span>
                                         <span class=" text-sm text-light font-medium">
                                             تومان
@@ -309,9 +322,9 @@
                                     </div>
                                 </div>
                                 <!-- button -->
-                                <button class="rounded-[6px] flex items-center justify-center py-2 px-4 w-full h-10 text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                                <a href="{{ route('hotelBooking.selectPricing',request()->query()) }}" class="rounded-[6px] flex items-center justify-center py-2 px-4 w-full h-10 text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                                     پرداخت
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -335,263 +348,6 @@
                 <img class=" absolute z-[2] left-3 top-0 bottom-0 w-[654px] my-auto object-cover 768max:w-[120%] 768max:right-0 768max:left-auto 768max:top-[50%] 768max:bottom-auto" src="{{ asset('public/images/sectionCover.png') }}" alt="#">
             </div>
         </section>
-        <!-- modals -->
-        <div class="filterModal modal w-[100vw] h-[100vh] fixed z-[15] top-0 left-0 bg-[#00000079] px-6 py-4  overflow-auto">
-            <div class=" modal-content w-full flex items-center justify-center">
-                <div class="w-full flex flex-col items-center gap-2 pb-16">
-                    <div class="w-full flex flex-col items-center bg-[#fff] gap-[1px] rounded-xl overflow-hidden">
-                        <!-- تعداد نتایج -->
-                        <div class="w-full p-4.5 bg-neutral-50 flex flex-col gap-4.5">
-                            <div class="flex items-center gap-1">
-                                <span class=" text-sm text-neutral-700 font-normal">
-                                    نتایج:
-                                </span>
-                                <span class=" text-sm text-neutral-700 font-normal">
-                                    231
-                                </span>
-                            </div>
-                        </div>
-                        <!-- ستاره هتل -->
-                        <div class="w-full p-4.5 bg-neutral-50 flex flex-col gap-4.5">
-                            <span class=" text-sm text-neutral-700 font-normal">
-                                ستاره هتل
-                            </span>
-                            <!--  -->
-                            <div class="w-full flex items-center gap-x-2 gap-y-3 flex-wrap">
-                                <div class="flex-shrink-[0]">
-                                    <label for="hotelStart2-1" class="checkbox-item-button h-[32px] transition-all duration-200 ease-out px-[14px] rounded-[20px] bg-light flex items-center justify-center text-xs text-neutral-400 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="hotelStart2-1" name="hotelStart2" checked="">
-                                        <span>
-                                            پنج ستاره
-                                        </span>
-                                    </label>
-                                </div>
-                                <div class="flex-shrink-[0]">
-                                    <label for="hotelStart2-2" class="checkbox-item-button h-[32px] transition-all duration-200 ease-out px-[14px] rounded-[20px] bg-light flex items-center justify-center text-xs text-neutral-400 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="hotelStart2-2" name="hotelStart2">
-                                        <span>
-                                            چهار ستاره
-                                        </span>
-                                    </label>
-                                </div>
-                                <div class="flex-shrink-[0]">
-                                    <label for="hotelStart2-3" class="checkbox-item-button h-[32px] transition-all duration-200 ease-out px-[14px] rounded-[20px] bg-light flex items-center justify-center text-xs text-neutral-400 font-normal font-farsi-regular">
-                                        <input class="hidden" type="checkbox" id="hotelStart2-3" name="hotelStart2">
-                                        <span>
-                                            سه تاره یا کمتر
-                                        </span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- تعیین رنج قیمت -->
-                        <div class="w-full p-4.5 bg-neutral-50 flex flex-col gap-4.5">
-                            <span class=" text-sm text-neutral-700 font-normal">
-                                تعیین رنج قیمت
-                            </span>
-                            <!-- double range input -->
-                            <div class="w-full px-4.5 py-8 flex items-center justify-center relative">
-                                <div class="w-full relative">
-                                    <div class="w-full h-4 flex items-center relative">
-                                        <div class="w-full h-0.5 bg-[#ADADAD80]">
-
-                                        </div>
-                                        <div id="gradient-fill2" class="w-full absolute z-[2] left-0 h-1 top-0 bottom-0 my-auto">
-
-                                        </div>
-                                    </div>
-                                    <input id="rangeInput1-2" dir="ltr" type="range" min="0" max="100" value="10" class=" w-full appearance-none bg-transparent absolute z-[7] bottom-0 top-0 my-auto h-[0px] right-0">
-                                    <input id="rangeInput2-2" dir="ltr" type="range" min="0" max="100" value="90" class=" w-full appearance-none bg-transparent absolute z-[5] bottom-0 top-0 my-auto h-[0px] right-0 mt-2">
-                                </div>
-                                <div id="value1-2" class=" absolute z-[2] bottom-1 text-xs text-neutral-700 font-normal text-nowrap">
-
-                                </div>
-                                <div id="value2-2" class=" absolute z-[2] bottom-1 text-xs text-neutral-700 font-normal text-nowrap">
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- امکانات تفریحی رفاهی -->
-                        <div class="w-full p-4.5 bg-neutral-50 flex flex-col gap-4.5">
-                            <span class=" text-sm text-neutral-700 font-normal">
-                                امکانات تفریحی رفاهی
-                            </span>
-                            <div class="w-full flex flex-col gap-4.5">
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-1-1" name="">
-                                    <label for="hotelAttributes2-1-1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-1-1" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        اینترنت رایگان
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-1-2" name="">
-                                    <label for="hotelAttributes2-1-2" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-1-2" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        پارکینگ
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-1-3" name="">
-                                    <label for="hotelAttributes2-1-3" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-1-3" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        استخر
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-1-4" name="">
-                                    <label for="hotelAttributes2-1-4" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-1-4" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        سالن بدنسازی
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-1-5" name="">
-                                    <label for="hotelAttributes2-1-5" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-1-5" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        رستوران
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-1-6" name="">
-                                    <label for="hotelAttributes2-1-6" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-1-6" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        خدمات خشک شویی
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-1-7" name="">
-                                    <label for="hotelAttributes2-1-7" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-1-7" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        اتاق سیگار
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- نزدیکی به مراکز مهم -->
-                        <div class="w-full p-4.5 bg-neutral-50 flex flex-col gap-4.5">
-                            <span class=" text-sm text-neutral-700 font-normal">
-                                نزدیکی به مراکز مهم
-                            </span>
-                            <div class="w-full flex flex-col gap-4.5">
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-2-1" name="">
-                                    <label for="hotelAttributes2-2-1" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-2-1" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        مراکز دیدنی
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-2-2" name="">
-                                    <label for="hotelAttributes2-2-2" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-2-2" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        مراکز خرید
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-2-3" name="">
-                                    <label for="hotelAttributes2-2-3" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-2-3" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        ایستگاه مترو
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-2-4" name="">
-                                    <label for="hotelAttributes2-2-4" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-2-4" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        ایستگاه قطار
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-2-5" name="">
-                                    <label for="hotelAttributes2-2-5" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-2-5" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        فرودگاه
-                                    </label>
-                                </div>
-                                <!-- item -->
-                                <div class="flex items-center gap-[9px]">
-                                    <input class=" hidden" type="checkbox" id="hotelAttributes2-2-6" name="">
-                                    <label for="hotelAttributes2-2-6" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </label>
-                                    <label for="hotelAttributes2-2-6" class=" text-xs text-neutral-700 font-normal font-farsi-regular">
-                                        مسجد
-                                    </label>
-                                </div>
-                                <!-- item -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- submit button -->
-                    <button onclick="modalController(document.querySelector('.filterModal'))" class=" fixed z-[2] bottom-6 left-0 right-0 mx-auto w-full h-[60px] flex items-center justify-center flex-grow-[1] px-4 text-light text-[18px] font-medium text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 512max:h-10 512max:text-sm hover:transition-none 640max:max-w-[160px] 768max:h-12">
-                        فیلتر
-                    </button>
-                </div>
-            </div>
-        </div>
     </main>
 
     <script>

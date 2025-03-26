@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Facility;
+use App\Models\Gateway;
 use App\Models\Hotel;
+use App\Models\PeopleReserve;
 use App\Models\Reserve;
 use App\Models\Room;
 use App\Models\RoomOption;
 use Carbon\Carbon;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Morilog\Jalali\Jalalian;
 
 class hotelBookingController extends Controller
 {
@@ -219,7 +224,6 @@ class hotelBookingController extends Controller
                     $roomPrices[$room->id] = $totalPrice;
                 }
             }
-
             // Step 2: Generate all possible combinations
             $combinations = [];
             $needs = array_column($roomsData, 'persons');
@@ -235,12 +239,11 @@ class hotelBookingController extends Controller
                 $currentNeed = $needs[$index];
                 foreach ($availableRoomsForNeeds[$currentNeed] as $roomId => $roomData) {
                     $newCurrent = $current;
-                    $newCurrent[] = $roomData;
+                    $newCurrent[$currentNeed] = $roomData;
                     generateCombinations($availableRoomsForNeeds, $needs, $newCurrent, $index + 1, $result);
                 }
             }
             generateCombinations($availableRoomsForNeeds, $needs, [], 0, $combinations);
-
             //step 3:remove combinations
             $saver = [];
             foreach ($combinations as $key => $combination){
@@ -250,9 +253,9 @@ class hotelBookingController extends Controller
 
                 $totalPrice = 0;
                 $roomsInCombination = [];
-                foreach ($combination as $roomData) {
+                foreach ($combination as $needCount => $roomData) {
                     $totalPrice += $roomData->price;
-                    $roomsInCombination[] = [
+                    $roomsInCombination[$needCount] = [
                         'room_info' => $roomData,
                         'price_for_period' => $roomData->price,
                     ];
@@ -326,4 +329,241 @@ class hotelBookingController extends Controller
 
         return true;
     }
+
+    public function choosePeople(Request $request)
+    {
+        $numberOfDays = 0;
+        $dates = [];
+        if ($request->dates) {
+            $dates = explode(' تا ', $request->dates);
+            $entryDate = Carbon::createFromFormat('Y/m/d', $dates[0]);
+            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1]);
+            $numberOfDays = $entryDate->diffInDays($exitDate) + 1;
+        }
+
+
+        $rooms = [];
+        $totalPrice = 0;
+        foreach ($request->rooms as $needCount => $roomId){
+            $room = Room::where('id',$roomId)->first();
+            $room->needCount = $needCount;
+            $rooms[] = $room;
+
+            $options = RoomOption::where('room_id', $room->id)
+                ->whereBetween('date', [$dates[0], $dates[1]])
+                ->get();
+            foreach ($options as $option) $totalPrice += $numberOfDays * $option->bord;
+        }
+        $hotel = Hotel::where('id', $request->hotelId)->with('facilities')->first();
+        return view('user.hotelBooking.hotelBookingPage-3',compact('rooms','hotel','dates','totalPrice'));
+    }
+
+    public function showPeople(Request $request)
+    {
+        $numberOfDays = 0;
+        $dates = [];
+        if ($request->dates) {
+            $dates = explode(' تا ', $request->dates);
+            $entryDate = Carbon::createFromFormat('Y/m/d', $dates[0]);
+            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1]);
+            $numberOfDays = $entryDate->diffInDays($exitDate) + 1;
+        }
+
+
+        $rooms = [];
+        $totalPrice = 0;
+        $peoples = $request->peoples;
+        foreach ($request->rooms as $needCount => $roomId){
+            $room = Room::where('id',$roomId)->first();
+            $room->needCount = $needCount;
+            $rooms[] = $room;
+            foreach ($peoples as $key => $peopleRoom)
+                foreach ($peopleRoom as $key2 => $people)
+                    if ($room->id == $people['room_id']) $peoples[$key][$key2]['title'] = $room->title;
+
+
+
+            $options = RoomOption::where('room_id', $room->id)
+                ->whereBetween('date', [$dates[0], $dates[1]])
+                ->get();
+            foreach ($options as $option) $totalPrice += $numberOfDays * $option->bord;
+        }
+        $request->merge(['peoples' => $peoples]);
+        $hotel = Hotel::where('id', $request->hotelId)->with('facilities')->first();
+        return view('user.hotelBooking.hotelBookingPage-4',compact('rooms','hotel','dates','totalPrice'));
+    }
+
+
+    public function selectPricing(Request $request)
+    {
+        $numberOfDays = 0;
+        $dates = [];
+        if ($request->dates) {
+            $dates = explode(' تا ', $request->dates);
+            $entryDate = Carbon::createFromFormat('Y/m/d', $dates[0]);
+            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1]);
+            $numberOfDays = $entryDate->diffInDays($exitDate) + 1;
+        }
+        $totalPrice = 0;
+        foreach ($request->rooms as $needCount => $roomId){
+            $room = Room::where('id',$roomId)->first();
+            $room->needCount = $needCount;
+
+            $options = RoomOption::where('room_id', $room->id)
+                ->whereBetween('date', [$dates[0], $dates[1]])
+                ->get();
+            foreach ($options as $option) $totalPrice += $numberOfDays * $option->bord;
+        }
+        $gateways = Gateway::get();
+        return view('user.hotelBooking.hotelBookingPage-5',compact('gateways','totalPrice'));
+    }
+
+
+    public function reserveHotel(Request $request)
+    {
+        $numberOfDays = 0;
+        $dates = [];
+        if ($request->dates) {
+            $dates = explode(' تا ', $request->dates);
+            $entryDate = Carbon::createFromFormat('Y/m/d', $dates[0]);
+            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1]);
+            $numberOfDays = $entryDate->diffInDays($exitDate) + 1;
+        }
+        $totalPrice = 0;
+        foreach ($request->rooms as $needCount => $roomId){
+            $room = Room::where('id',$roomId)->first();
+            $room->needCount = $needCount;
+
+            $options = RoomOption::where('room_id', $room->id)
+                ->whereBetween('date', [$dates[0], $dates[1]])
+                ->get();
+            foreach ($options as $option) $totalPrice += $numberOfDays * $option->bord;
+        }
+
+        $response = zarinpal()
+            ->merchantId(Gateway::where('id',$request->pmo)->first()->api)
+            ->amount($totalPrice)
+            ->request()
+            ->description("reserve Hotel")
+            ->callbackUrl(route('hotelBooking.paymentRedirect'))
+            ->send();
+
+        if (!$response->success()) {
+            return $response->error()->message();
+        }
+        $reserve = Reserve::create([
+            'entry_date' => $dates[0],
+            'exit_date' => $dates[1],
+            'paymentStatus' => 'درحال انجام',
+            'paymentCode' => $response->authority(),
+            'price' => $totalPrice,
+            'model_type' => 'App\Models\Hotel',
+            'model_id' => $request->hotelId,
+            'type' => 'hotel',
+            'date' => Jalalian::now()->format('Y-m-d'),
+            'user_id' => Auth::guard('user')->user()->id,
+        ]);
+        foreach ($request->peoples as $key => $peopleRoom) {
+            $peopleRoom = unserialize($peopleRoom);
+            foreach ($peopleRoom as $key2 => $people){
+                PeopleReserve::create([
+                    'reserve_id' => $reserve->id,
+                    'sex' => @$people['sex'],
+                    'firstName' => @$people['firstName'],
+                    'lastName' => @$people['lastName'],
+                    'nationalCode' => @$people['nationalCode'],
+                    'mobile' => @$people['mobile'],
+                ]);
+            }
+        }
+        return $response->redirect();
+    }
+
+
+    public function paymentRedirect(Request $request)
+    {
+        $authority = $request->query('Authority');
+        $status = $request->query('Status');
+        if ($status != 'OK') {
+            return redirect()->route('wallet')->with(['failed' => "پرداخت توسط کاربر لغو شد."]);
+        }
+        dd($authority,$status);
+        /*$order = Order::where('code', $authority)->firstOrFail();
+        $response = zarinpal()
+            ->merchantId(Gateway::where('id',1)->first()->api)
+            ->amount($order->price)
+            ->verification()
+            ->authority($authority)
+            ->send();
+        if ($response->success()) {
+            $order->update([
+                'status' => 'پرداخت شده',
+                'card' => $response->cardPan(),
+                'ref_id' => $response->referenceId(),
+            ]);
+            User::where('id',auth()->user()->id)->update(['wallet' => auth()->user()->wallet + $order->price]);
+            return redirect()->route('wallet')->with(['message' => "پرداخت با موفقیت انجام شد. شماره تراکنش: " . $response->referenceId()]);
+        } else {
+            $order->update([
+                'status' => 'ناموفق',
+            ]);
+            return redirect()->route('wallet')->with(['failed' => "پرداخت ناموفق بود: " . $response->error()->message()]);
+        }*/
+    }
+
+/*
+    public function payment(Request $request)
+    {
+        $response = zarinpal()
+            ->merchantId($this->loadSetting(['zarin_api'])['zarin_api'][0])
+            ->amount($request->price)
+            ->request()
+            ->description("charge wallet")
+            ->callbackUrl(route('paymentRedirect'))
+            ->send();
+
+        if (!$response->success()) {
+            return $response->error()->message();
+        }
+        Order::create([
+            'user_id' => auth()->user()->id,
+            'price' => $request->price,
+            'status' => 'درحال انجام',
+            'code' => $response->authority(),
+            'date' => Jalalian::now()->format('Y-m-d'),
+        ]);
+        return $response->redirect();
+    }
+
+
+    public function paymentRedirect(Request $request)
+    {
+        $authority = $request->query('Authority');
+        $status = $request->query('Status');
+        if ($status != 'OK') {
+            return redirect()->route('wallet')->with(['failed' => "پرداخت توسط کاربر لغو شد."]);
+        }
+        $order = Order::where('code', $authority)->firstOrFail();
+        $response = zarinpal()
+            ->merchantId($this->loadSetting(['zarin_api'])['zarin_api'][0])
+            ->amount($order->price)
+            ->verification()
+            ->authority($authority)
+            ->send();
+
+        if ($response->success()) {
+            $order->update([
+                'status' => 'پرداخت شده',
+                'card' => $response->cardPan(),
+                'ref_id' => $response->referenceId(),
+            ]);
+            User::where('id',auth()->user()->id)->update(['wallet' => auth()->user()->wallet + $order->price]);
+            return redirect()->route('wallet')->with(['message' => "پرداخت با موفقیت انجام شد. شماره تراکنش: " . $response->referenceId()]);
+        } else {
+            $order->update([
+                'status' => 'ناموفق',
+            ]);
+            return redirect()->route('wallet')->with(['failed' => "پرداخت ناموفق بود: " . $response->error()->message()]);
+        }
+    }*/
 }

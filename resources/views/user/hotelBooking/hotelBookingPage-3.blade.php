@@ -1,6 +1,6 @@
 @extends('layouts.userHotel')
 @section('content')
-   <main class=" w-full mt-[-80px] flex flex-col items-center gap-20 pb-8 flex-grow-[1] justify-end z-[2]">
+    <main class=" w-full mt-[-80px] flex flex-col items-center gap-20 pb-8 flex-grow-[1] justify-end z-[2]">
         <div class="w-full flex-grow-[1] flex flex-col items-center g45">
             <section class="w-full max-w-[1440px] px-[100px] 768max:px-[28px] 1024max:px-[36px] 1280max:px-[64px]">
                 <div class="w-full flex flex-col gap-4.5">
@@ -35,7 +35,7 @@
                         <div class="w-full flex flex-col items-center gap-5 h-full justify-center pb-12 relative 640max:pb-6">
                             <svg class=" px-3 bg-green-100 box-content w-5 text-green-600" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15.8667 2.3H19.7V20.7C19.7 21.1067 19.5385 21.4967 19.2509 21.7842C18.9634 22.0718 18.5734 22.2333 18.1667 22.2333H2.83338C2.42672 22.2333 2.03671 22.0718 1.74915 21.7842C1.4616 21.4967 1.30005 21.1067 1.30005 20.7V2.3H5.13338M6.66672 13.0333L9.73338 16.1L15.1 9.96666M5.90005 0.766663H15.1V3.83333C15.1 4.23999 14.9385 4.63 14.6509 4.91756C14.3634 5.20512 13.9734 5.36666 13.5667 5.36666H7.43338C7.02672 5.36666 6.63671 5.20512 6.34915 4.91756C6.0616 4.63 5.90005 4.23999 5.90005 3.83333V0.766663Z" stroke="#255346" stroke-width="1.5"/>
-                                </svg>
+                            </svg>
                             <span class=" text-xs text-green-600 text-center font-normal absolute z-[3] bottom-0 left-0 right-0 mx-auto 768max:text-[10px]">
                                 تایید اطلاعات
                             </span>
@@ -43,7 +43,7 @@
                         <div class="w-full flex flex-col items-center gap-5 h-full justify-center pb-12 relative 640max:pb-6">
                             <svg class=" px-3 bg-green-100 box-content w-[30px] text-green-600" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M20.25 19.5C20.0511 19.5 19.8603 19.579 19.7197 19.7197C19.579 19.8603 19.5 20.0511 19.5 20.25C19.5 20.4489 19.579 20.6397 19.7197 20.7803C19.8603 20.921 20.0511 21 20.25 21H23.25C23.4489 21 23.6397 20.921 23.7803 20.7803C23.921 20.6397 24 20.4489 24 20.25C24 20.0511 23.921 19.8603 23.7803 19.7197C23.6397 19.579 23.4489 19.5 23.25 19.5H20.25ZM3 10.125C3 9.03098 3.4346 7.98177 4.20818 7.20818C4.98177 6.4346 6.03098 6 7.125 6H22.875C23.969 6 25.0182 6.4346 25.7918 7.20818C26.5654 7.98177 27 9.03098 27 10.125V19.875C27 20.969 26.5654 22.0182 25.7918 22.7918C25.0182 23.5654 23.969 24 22.875 24H7.125C6.03098 24 4.98177 23.5654 4.20818 22.7918C3.4346 22.0182 3 20.969 3 19.875V10.125ZM7.125 7.5C6.42881 7.5 5.76113 7.77656 5.26884 8.26884C4.77656 8.76113 4.5 9.42881 4.5 10.125V12H25.5V10.125C25.5 9.42881 25.2234 8.76113 24.7312 8.26884C24.2389 7.77656 23.5712 7.5 22.875 7.5H7.125ZM25.5 13.5H4.5V19.875C4.5 21.324 5.676 22.5 7.125 22.5H22.875C23.5712 22.5 24.2389 22.2234 24.7312 21.7312C25.2234 21.2389 25.5 20.5712 25.5 19.875V13.5Z" fill="#255346"/>
-                                </svg>
+                            </svg>
                             <span class=" text-xs text-green-600 text-center font-normal absolute z-[3] bottom-0 left-0 right-0 mx-auto 768max:text-[10px]">
                                 پرداخت
                             </span>
@@ -65,21 +65,21 @@
                         </div>
                     </div>
                     <!-- other -->
-                    <div class="w-full flex flex-col gap-4.5">
+                    <form method="get" action="{{ route('hotelBooking.showPeople') }}" class="w-full flex flex-col gap-4.5">
                         <!--  -->
                         <div class="w-full grid grid-cols-[1fr_220px_220px] h-max gap-2 768max:grid-cols-2 1024max:grid-cols-[1fr_150px_150px]">
                             <!-- اسم و ادرس هتل -->
                             <div class="w-full flex flex-col gap-4.5 p-4.5 rounded-xl bg-light min-h-[170px] 768max:col-start-1 768max:col-end-3">
                                 <div class="flex items-center gap-2">
                                     <h2 class=" text-2xl text-neutral-700 font-medium 768max:text-xl 640max:text-lg">
-                                        هتل بین المللی قصر مشهد
+                                        {{ $hotel->title }}
                                     </h2>
                                     <div class="flex items-center gap-1">
                                         <svg class=" w-4 text-green-600" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.37446 11.9555L7.5005 10.1039L10.6265 11.9798L9.80781 8.47153L12.5617 6.13267L8.93946 5.81595L7.5005 2.50258L6.06153 5.79159L2.4393 6.10831L5.19319 8.47153L4.37446 11.9555ZM2.86107 14L4.09163 8.82236L0 5.34136L5.38968 4.88334L7.5005 0L9.61131 4.88236L15 5.34039L10.9084 8.82138L12.1399 13.999L7.5005 11.2509L2.86107 14Z" fill="currentColor"/>
                                         </svg>
                                         <span class=" text-xs text-green-600 font-normal">
-                                            5 ستاره
+                                            {{ $hotel->star }} ستاره
                                         </span>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.2827 22.7921C11.6005 21.5565 12.8202 20.2135 13.9299 18.7761C16.2674 15.7416 17.6894 12.7497 17.7856 10.0893C17.8237 9.00807 17.6505 7.93002 17.2763 6.91953C16.9022 5.90903 16.3348 4.98683 15.608 4.208C14.8811 3.42917 14.0099 2.8097 13.0462 2.38659C12.0825 1.96348 11.0462 1.74541 9.9991 1.74541C8.95203 1.74541 7.9157 1.96348 6.95201 2.38659C5.98832 2.8097 5.11706 3.42917 4.39025 4.208C3.66345 4.98683 3.09602 5.90903 2.72187 6.91953C2.34771 7.93002 2.1745 9.00807 2.21259 10.0893C2.30999 12.7497 3.73311 15.7416 6.06947 18.7761C7.17916 20.2135 8.39882 21.5565 9.71665 22.7921C9.84346 22.9105 9.9378 22.9966 9.99967 23.0502L10.2827 22.7921ZM9.15405 24.1715C9.15405 24.1715 0.833008 16.9303 0.833008 9.80513C0.833008 7.29305 1.79878 4.88387 3.51786 3.10756C5.23695 1.33126 7.56852 0.333344 9.99967 0.333344C12.4308 0.333344 14.7624 1.33126 16.4815 3.10756C18.2006 4.88387 19.1663 7.29305 19.1663 9.80513C19.1663 16.9303 10.8453 24.1715 10.8453 24.1715C10.3824 24.6119 9.6204 24.6072 9.15405 24.1715ZM9.99967 13.1203C10.8506 13.1203 11.6666 12.771 12.2683 12.1493C12.87 11.5276 13.208 10.6844 13.208 9.80513C13.208 8.9259 12.87 8.08269 12.2683 7.46098C11.6666 6.83927 10.8506 6.49 9.99967 6.49C9.14877 6.49 8.33272 6.83927 7.73104 7.46098C7.12936 8.08269 6.79134 8.9259 6.79134 9.80513C6.79134 10.6844 7.12936 11.5276 7.73104 12.1493C8.33272 12.771 9.14877 13.1203 9.99967 13.1203ZM9.99967 14.541C8.7841 14.541 7.61831 14.0421 6.75877 13.1539C5.89923 12.2658 5.41634 11.0612 5.41634 9.80513C5.41634 8.54909 5.89923 7.3445 6.75877 6.45635C7.61831 5.56819 8.7841 5.06924 9.99967 5.06924C11.2153 5.06924 12.381 5.56819 13.2406 6.45635C14.1001 7.3445 14.583 8.54909 14.583 9.80513C14.583 11.0612 14.1001 12.2658 13.2406 13.1539C12.381 14.0421 11.2153 14.541 9.99967 14.541Z" fill="currentColor"/>
                                     </svg>
                                     <span class=" text-xs text-green-600 font-normal">
-                                        ایران، خراسان رضوی، مشهد، خیابان امام رضا (ع)، بین امام رضا (ع) ۲۴ و ۲۶
+                                        {{ $hotel->address }}
                                     </span>
                                 </div>
                             </div>
@@ -99,10 +99,10 @@
                                 </span>
                                 <div class="flex flex-col items-center gap-2 self-center justify-self-center">
                                     <span class=" text-base text-neutral-700 font-bold text-center">
-                                        1403/12/28
+                                        {{ $dates[0] }}
                                     </span>
                                     <span class=" text-xs text-neutral-400 font-normal text-center">
-                                        ساعت 12:30
+                                        ساعت 14:00
                                     </span>
                                 </div>
                             </div>
@@ -113,110 +113,161 @@
                                 </span>
                                 <div class="flex flex-col items-center gap-2 self-center justify-self-center">
                                     <span class=" text-base text-neutral-700 font-bold text-center">
-                                        1404/01/04
+                                        {{ $dates[1] }}
                                     </span>
                                     <span class=" text-xs text-neutral-400 font-normal text-center">
-                                        ساعت 12:30
+                                        ساعت 12:00
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <!-- وارد کرین اطلاعات فردی -->
+                        @foreach(request()->query() as $key => $value)
+                            @if(is_array($value))
+                                @foreach($value as $arrayValue)
+                                    <input type="hidden" name="{{ $key }}[]" value="{{ $arrayValue }}">
+                                @endforeach
+                            @else
+                                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                            @endif
+                        @endforeach
+                        <!-- item -->
+                        @php $c = 0; @endphp
+                        @foreach($rooms as $key => $room)
+                            <div class="w-full flex flex-col rounded-xl overflow-hidden">
+                                <!-- top -->
+                                <div class="w-full flex items-center gap-4 justify-between p-4.5 bg-[#8CB39880] 512max:flex-col 512max:items-start">
+                                    <div class="flex items-start gap-2">
+                                        <!-- icon -->
+                                        <svg class=" w-6 text-green-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_177_719)">
+                                                <path d="M1.01542e-09 15.2225C0.164583 15.1268 0.329166 15.0646 0.513062 14.9951C0.513062 14.2389 0.502568 13.4631 0.515958 12.6881C0.529874 11.8825 0.761462 11.2444 1.41602 10.9446C1.48093 10.9148 1.53345 10.7244 1.53402 10.6081C1.54171 9.03074 1.54951 7.45315 1.5352 5.87593C1.527 4.97216 2.14437 4.12101 2.83672 4.07285C3.19257 4.04809 3.54849 4.0044 3.90439 4.00412C9.53731 3.99976 15.1702 3.9972 20.8031 4.00516C21.6613 4.00637 22.1459 4.41931 22.4266 5.36442C22.4929 5.58781 22.5127 5.84396 22.5139 6.08535C22.5215 7.59101 22.5188 9.09677 22.5163 10.6025C22.516 10.7908 22.5294 10.8978 22.7123 10.9849C23.136 11.1868 23.4961 11.7629 23.4891 12.4185C23.4799 13.2886 23.4868 14.1589 23.4868 15.0268C23.9455 15.0664 23.9999 15.1397 23.9999 15.689C23.9999 16.9437 24.0002 18.1985 23.9997 19.4533C23.9996 19.9096 23.9358 19.993 23.5843 19.9936C22.9574 19.9948 22.3301 20.0079 21.7038 19.9825C21.5735 19.9773 21.3989 19.8673 21.3271 19.7349C21.0487 19.2214 20.8035 18.6793 20.5369 18.1293C20.45 18.1293 20.3458 18.1293 20.2417 18.1293C14.7607 18.1293 9.27979 18.1323 3.79887 18.1199C3.54244 18.1193 3.41427 18.2365 3.30323 18.4938C3.11976 18.919 2.93352 19.3451 2.71618 19.7428C2.64584 19.8716 2.47579 19.9782 2.34873 19.9829C1.70336 20.0068 1.05695 20.0037 0.411336 19.9856C0.28606 19.982 0.162706 19.8701 0.0192328 19.8293C-1.69894e-07 18.3191 -1.70005e-07 16.7876 1.01542e-09 15.2225ZM13.5117 9.81229C13.5251 9.78172 13.5462 9.75284 13.5507 9.72033C13.6736 8.83248 14.3682 8.28408 15.0149 8.29705C16.2305 8.32142 17.4469 8.32758 18.6622 8.29392C19.249 8.27767 19.9345 8.80381 20.0628 9.59994C20.1251 9.98646 20.1232 10.3894 20.1513 10.7998C20.7008 10.7998 21.2559 10.7998 21.8336 10.7998C21.8336 10.67 21.8336 10.5537 21.8336 10.4374C21.8336 8.99143 21.8337 7.54549 21.8336 6.09956C21.8335 5.34776 21.4439 4.8617 20.8415 4.86169C16.3676 4.86163 11.8936 4.86166 7.41972 4.86166C5.9949 4.86166 4.57002 4.87109 3.14529 4.85677C2.61521 4.85144 2.2057 5.46519 2.21477 6.01267C2.23949 7.50576 2.223 8.99991 2.22385 10.4936C2.2239 10.5964 2.23222 10.6992 2.23629 10.7927C2.7938 10.7927 3.33005 10.7927 3.87647 10.7927C3.87647 10.5455 3.86757 10.319 3.878 10.094C3.92399 9.10232 4.49075 8.31488 5.30459 8.30722C6.56786 8.29533 7.83125 8.30306 9.09459 8.30451C9.70706 8.30522 10.2839 8.73632 10.4303 9.53632C10.5062 9.95092 10.542 10.3771 10.5951 10.7921C11.5548 10.7921 12.5279 10.7921 13.5107 10.7921C13.5107 10.4725 13.5107 10.1749 13.5117 9.81229ZM4.87409 15.0455C10.8449 15.0455 16.8157 15.0455 22.8028 15.0455C22.8028 14.2348 22.7813 13.4591 22.8092 12.6862C22.8336 12.0125 22.516 11.6687 21.9914 11.6701C18.6196 11.6792 15.2477 11.6748 11.8759 11.6748C8.57055 11.6748 5.26519 11.6784 1.95985 11.6703C1.54095 11.6692 1.22317 12.0494 1.20825 12.4298C1.17431 13.295 1.19755 14.1638 1.19755 15.0455C2.42593 15.0455 3.62151 15.0455 4.87409 15.0455ZM5.7862 15.9061C4.09004 15.9061 2.39387 15.9061 0.699661 15.9061C0.699661 17.0264 0.699661 18.107 0.699661 19.205C1.15052 19.205 1.5862 19.2146 2.02117 19.1969C2.10785 19.1934 2.22489 19.1123 2.27148 19.0213C2.49431 18.5859 2.71352 18.145 2.90257 17.6855C3.03235 17.3701 3.20888 17.2638 3.48135 17.2642C8.53385 17.2704 13.5864 17.2687 18.6389 17.2687C19.2847 17.2687 19.9306 17.2756 20.5763 17.2653C20.832 17.2612 21.0161 17.3744 21.1406 17.658C21.3307 18.0912 21.5238 18.5225 21.7252 18.9473C21.7728 19.0478 21.8563 19.1898 21.927 19.1932C22.3872 19.2153 22.8485 19.2046 23.297 19.2046C23.297 18.0766 23.297 16.9959 23.297 15.9061C17.4666 15.9061 11.6549 15.9061 5.7862 15.9061ZM5.3306 10.8142C6.83546 10.8142 8.34033 10.8142 9.86217 10.8142C9.86217 10.5917 9.86878 10.4028 9.86098 10.2148C9.83365 9.55562 9.50694 9.16476 8.98942 9.16471C7.76596 9.16461 6.54244 9.15714 5.31914 9.17439C5.16929 9.17651 4.99859 9.27464 4.87549 9.39152C4.49032 9.75724 4.5474 10.2847 4.57552 10.8142C4.82074 10.8142 5.04726 10.8142 5.3306 10.8142ZM19.4393 10.6241C19.4393 10.4211 19.44 10.2182 19.4392 10.0153C19.4374 9.57529 19.0731 9.17336 18.7827 9.17044C17.4733 9.15728 16.1638 9.16047 14.8544 9.16786C14.5517 9.16957 14.212 9.59751 14.1969 9.97583C14.186 10.2463 14.1947 10.5181 14.1947 10.8139C15.9247 10.8139 17.6304 10.8146 19.336 10.8089C19.3705 10.8088 19.4047 10.7332 19.4393 10.6241Z" fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_177_719">
+                                                    <rect width="24" height="24" fill="currentColor"/>
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <!-- content -->
+                                        <div class="flex flex-col gap-2">
+                                        <span class=" text-base text-green-600 font-bold">
+                                            اتاق {{ $key+1 }}
+                                        </span>
+                                            <span class=" text-xs text-neutral-700 font-normal">
+                                            {{ $room->title }}
+                                        </span>
+                                        </div>
+                                    </div>
+                                    {{--<div class="flex items-center gap-2 512max:w-full">
+                                        <button class="rounded-[6px] w-full flex items-center justify-center py-2 px-4 h-10 min-w-[160px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:text-xs 512max:h-8 512max:px-4">
+                                            تغییر اتاق
+                                        </button>
+                                    </div>--}}
+                                </div>
+                                <!-- bottom -->
+                                <div class="w-full py-8 px-4.5 flex flex-col gap-[52px] bg-light">
+                                    <!-- inputs -->
+                                    @for($i = 0; $i < $room->needCount; $i++)
+                                        <input name="peoples[{{ $c }}][{{ $i }}][room_id]" type="hidden" value="{{ $room->id }}">
+                                        <div class="w-full grid grid-cols-4 gap-x-2 gap-y-4.5 512max:grid-cols-1 640max:grid-cols-2 768max:grid-cols-3">
+                                            <div class="w-full flex flex-col gap-2">
+                                                <label for="" class=" text-sm text-neutral-700 font-normal">
+                                                    جنسیت:
+                                                </label>
+                                                <select name="peoples[{{ $c }}][{{ $i }}][sex]" class=" w-full px-4.5 h-[50px] bg-neutral-50 text-sm text-neutral-700 font-normal rounded-xl placeholder:text-neutral-400 focus:outline-none focus:border-[1px] focus:border-neutral-400 768max:h-10 768max:rounded-md">
+                                                    <option value="زن" class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
+                                                        زن
+                                                    </option>
+                                                    <option value="مرد" class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
+                                                        مرد
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="w-full flex flex-col gap-2">
+                                                <label for="" class=" text-sm text-neutral-700 font-normal">
+                                                    نام:
+                                                </label>
+                                                <input name="peoples[{{ $c }}][{{ $i }}][firstName]" type="text " placeholder="" class=" w-full px-4.5 h-[50px] bg-neutral-50 text-sm text-neutral-700 font-normal rounded-xl placeholder:text-neutral-400 focus:outline-none focus:border-[1px] focus:border-neutral-400 768max:h-10 768max:rounded-md">
+                                            </div>
+                                            <div class="w-full flex flex-col gap-2">
+                                                <label for="" class=" text-sm text-neutral-700 font-normal">
+                                                    نام خانوادگی:
+                                                </label>
+                                                <input name="peoples[{{ $c }}][{{ $i }}][lastName]" type="text " placeholder="" class=" w-full px-4.5 h-[50px] bg-neutral-50 text-sm text-neutral-700 font-normal rounded-xl placeholder:text-neutral-400 focus:outline-none focus:border-[1px] focus:border-neutral-400 768max:h-10 768max:rounded-md">
+                                            </div>
+                                            <div class="w-full flex flex-col gap-2">
+                                                <label for="" class=" text-sm text-neutral-700 font-normal">
+                                                    کد ملی:
+                                                </label>
+                                                <input name="peoples[{{ $c }}][{{ $i }}][nationalCode]" type="text " placeholder="" class=" w-full px-4.5 h-[50px] bg-neutral-50 text-sm text-neutral-700 font-normal rounded-xl placeholder:text-neutral-400 focus:outline-none focus:border-[1px] focus:border-neutral-400 768max:h-10 768max:rounded-md">
+                                            </div>
+                                            @if($i == 0)
+                                            <div class="w-full flex flex-col gap-2">
+                                                <label for="" class=" text-sm text-neutral-700 font-normal">
+                                                    شماره تماس
+                                                </label>
+                                                <input name="peoples[{{ $c }}][{{ $i }}][mobile]" type="tel" placeholder="" class=" w-full px-4.5 h-[50px] bg-neutral-50 text-sm text-neutral-700 font-normal rounded-xl placeholder:text-neutral-400 focus:outline-none focus:border-[1px] focus:border-neutral-400 768max:h-10 768max:rounded-md">
+                                            </div>
+                                            @endif
+                                        </div>
+                                    @endfor
+                                </div>
+                            </div>
+                            @php $c++; @endphp
+                        @endforeach
                         <div class="w-full flex flex-col rounded-xl overflow-hidden">
                             <!-- top -->
                             <div class="w-full flex items-center gap-4 justify-between p-4.5 bg-[#8CB39880] 512max:flex-col 512max:items-start">
                                 <div class="flex items-start gap-2">
                                     <!-- icon -->
-                                    <svg class=" w-6 text-green-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_177_719)">
-                                        <path d="M1.01542e-09 15.2225C0.164583 15.1268 0.329166 15.0646 0.513062 14.9951C0.513062 14.2389 0.502568 13.4631 0.515958 12.6881C0.529874 11.8825 0.761462 11.2444 1.41602 10.9446C1.48093 10.9148 1.53345 10.7244 1.53402 10.6081C1.54171 9.03074 1.54951 7.45315 1.5352 5.87593C1.527 4.97216 2.14437 4.12101 2.83672 4.07285C3.19257 4.04809 3.54849 4.0044 3.90439 4.00412C9.53731 3.99976 15.1702 3.9972 20.8031 4.00516C21.6613 4.00637 22.1459 4.41931 22.4266 5.36442C22.4929 5.58781 22.5127 5.84396 22.5139 6.08535C22.5215 7.59101 22.5188 9.09677 22.5163 10.6025C22.516 10.7908 22.5294 10.8978 22.7123 10.9849C23.136 11.1868 23.4961 11.7629 23.4891 12.4185C23.4799 13.2886 23.4868 14.1589 23.4868 15.0268C23.9455 15.0664 23.9999 15.1397 23.9999 15.689C23.9999 16.9437 24.0002 18.1985 23.9997 19.4533C23.9996 19.9096 23.9358 19.993 23.5843 19.9936C22.9574 19.9948 22.3301 20.0079 21.7038 19.9825C21.5735 19.9773 21.3989 19.8673 21.3271 19.7349C21.0487 19.2214 20.8035 18.6793 20.5369 18.1293C20.45 18.1293 20.3458 18.1293 20.2417 18.1293C14.7607 18.1293 9.27979 18.1323 3.79887 18.1199C3.54244 18.1193 3.41427 18.2365 3.30323 18.4938C3.11976 18.919 2.93352 19.3451 2.71618 19.7428C2.64584 19.8716 2.47579 19.9782 2.34873 19.9829C1.70336 20.0068 1.05695 20.0037 0.411336 19.9856C0.28606 19.982 0.162706 19.8701 0.0192328 19.8293C-1.69894e-07 18.3191 -1.70005e-07 16.7876 1.01542e-09 15.2225ZM13.5117 9.81229C13.5251 9.78172 13.5462 9.75284 13.5507 9.72033C13.6736 8.83248 14.3682 8.28408 15.0149 8.29705C16.2305 8.32142 17.4469 8.32758 18.6622 8.29392C19.249 8.27767 19.9345 8.80381 20.0628 9.59994C20.1251 9.98646 20.1232 10.3894 20.1513 10.7998C20.7008 10.7998 21.2559 10.7998 21.8336 10.7998C21.8336 10.67 21.8336 10.5537 21.8336 10.4374C21.8336 8.99143 21.8337 7.54549 21.8336 6.09956C21.8335 5.34776 21.4439 4.8617 20.8415 4.86169C16.3676 4.86163 11.8936 4.86166 7.41972 4.86166C5.9949 4.86166 4.57002 4.87109 3.14529 4.85677C2.61521 4.85144 2.2057 5.46519 2.21477 6.01267C2.23949 7.50576 2.223 8.99991 2.22385 10.4936C2.2239 10.5964 2.23222 10.6992 2.23629 10.7927C2.7938 10.7927 3.33005 10.7927 3.87647 10.7927C3.87647 10.5455 3.86757 10.319 3.878 10.094C3.92399 9.10232 4.49075 8.31488 5.30459 8.30722C6.56786 8.29533 7.83125 8.30306 9.09459 8.30451C9.70706 8.30522 10.2839 8.73632 10.4303 9.53632C10.5062 9.95092 10.542 10.3771 10.5951 10.7921C11.5548 10.7921 12.5279 10.7921 13.5107 10.7921C13.5107 10.4725 13.5107 10.1749 13.5117 9.81229ZM4.87409 15.0455C10.8449 15.0455 16.8157 15.0455 22.8028 15.0455C22.8028 14.2348 22.7813 13.4591 22.8092 12.6862C22.8336 12.0125 22.516 11.6687 21.9914 11.6701C18.6196 11.6792 15.2477 11.6748 11.8759 11.6748C8.57055 11.6748 5.26519 11.6784 1.95985 11.6703C1.54095 11.6692 1.22317 12.0494 1.20825 12.4298C1.17431 13.295 1.19755 14.1638 1.19755 15.0455C2.42593 15.0455 3.62151 15.0455 4.87409 15.0455ZM5.7862 15.9061C4.09004 15.9061 2.39387 15.9061 0.699661 15.9061C0.699661 17.0264 0.699661 18.107 0.699661 19.205C1.15052 19.205 1.5862 19.2146 2.02117 19.1969C2.10785 19.1934 2.22489 19.1123 2.27148 19.0213C2.49431 18.5859 2.71352 18.145 2.90257 17.6855C3.03235 17.3701 3.20888 17.2638 3.48135 17.2642C8.53385 17.2704 13.5864 17.2687 18.6389 17.2687C19.2847 17.2687 19.9306 17.2756 20.5763 17.2653C20.832 17.2612 21.0161 17.3744 21.1406 17.658C21.3307 18.0912 21.5238 18.5225 21.7252 18.9473C21.7728 19.0478 21.8563 19.1898 21.927 19.1932C22.3872 19.2153 22.8485 19.2046 23.297 19.2046C23.297 18.0766 23.297 16.9959 23.297 15.9061C17.4666 15.9061 11.6549 15.9061 5.7862 15.9061ZM5.3306 10.8142C6.83546 10.8142 8.34033 10.8142 9.86217 10.8142C9.86217 10.5917 9.86878 10.4028 9.86098 10.2148C9.83365 9.55562 9.50694 9.16476 8.98942 9.16471C7.76596 9.16461 6.54244 9.15714 5.31914 9.17439C5.16929 9.17651 4.99859 9.27464 4.87549 9.39152C4.49032 9.75724 4.5474 10.2847 4.57552 10.8142C4.82074 10.8142 5.04726 10.8142 5.3306 10.8142ZM19.4393 10.6241C19.4393 10.4211 19.44 10.2182 19.4392 10.0153C19.4374 9.57529 19.0731 9.17336 18.7827 9.17044C17.4733 9.15728 16.1638 9.16047 14.8544 9.16786C14.5517 9.16957 14.212 9.59751 14.1969 9.97583C14.186 10.2463 14.1947 10.5181 14.1947 10.8139C15.9247 10.8139 17.6304 10.8146 19.336 10.8089C19.3705 10.8088 19.4047 10.7332 19.4393 10.6241Z" fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
-                                        </g>
-                                        <defs>
-                                        <clipPath id="clip0_177_719">
-                                        <rect width="24" height="24" fill="currentColor"/>
-                                        </clipPath>
-                                        </defs>
-                                    </svg>
+
                                     <!-- content -->
-                                     <div class="flex flex-col gap-2">
+                                    <div class="flex flex-col gap-2">
                                         <span class=" text-base text-green-600 font-bold">
-                                            اتاق اول
+                                            ثبت نهایی اتاق ها
                                         </span>
-                                        <span class=" text-xs text-neutral-700 font-normal">
-                                            اتاق سینگل اکونومی استاندارد
-                                        </span>
-                                     </div>
+                                    </div>
                                 </div>
                                 <div class="flex items-center gap-2 512max:w-full">
-                                    <button class="rounded-[6px] w-full flex items-center justify-center py-2 px-4 h-10 min-w-[160px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:text-xs 512max:h-8 512max:px-4">
+                                    <a onclick="changeRooms()" class="rounded-[6px] w-full flex items-center justify-center py-2 px-4 h-10 min-w-[160px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:text-xs 512max:h-8 512max:px-4">
                                         تغییر اتاق
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
+                            <script>
+                                function changeRooms(){
+                                    if (window.history.length > 2) {
+                                        window.history.back();
+                                    } else {
+                                        window.location.href = "{{ route('hotelBooking.results') }}";
+                                    }
+                                }
+                            </script>
                             <!-- bottom -->
-                             <div class="w-full py-8 px-4.5 flex flex-col gap-[52px] bg-light">
-                                <!-- inputs -->
-                                <div class="w-full grid grid-cols-4 gap-x-2 gap-y-4.5 512max:grid-cols-1 640max:grid-cols-2 768max:grid-cols-3">
-                                    <div class="w-full flex flex-col gap-2">
-                                        <label for="" class=" text-sm text-neutral-700 font-normal">
-                                            جنسیت:
-                                        </label>
-                                        <select class=" w-full px-4.5 h-[50px] bg-neutral-50 text-sm text-neutral-700 font-normal rounded-xl placeholder:text-neutral-400 focus:outline-none focus:border-[1px] focus:border-neutral-400 768max:h-10 768max:rounded-md">
-                                            <option class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                                زن
-                                            </option>
-                                            <option class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                                مرد
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="w-full flex flex-col gap-2">
-                                        <label for="" class=" text-sm text-neutral-700 font-normal">
-                                            نام:
-                                        </label>
-                                        <input type="text " placeholder="" class=" w-full px-4.5 h-[50px] bg-neutral-50 text-sm text-neutral-700 font-normal rounded-xl placeholder:text-neutral-400 focus:outline-none focus:border-[1px] focus:border-neutral-400 768max:h-10 768max:rounded-md">
-                                    </div>
-                                    <div class="w-full flex flex-col gap-2">
-                                        <label for="" class=" text-sm text-neutral-700 font-normal">
-                                            نام خانوادگی:
-                                        </label>
-                                        <input type="text " placeholder="" class=" w-full px-4.5 h-[50px] bg-neutral-50 text-sm text-neutral-700 font-normal rounded-xl placeholder:text-neutral-400 focus:outline-none focus:border-[1px] focus:border-neutral-400 768max:h-10 768max:rounded-md">
-                                    </div>
-                                    <div class="w-full flex flex-col gap-2">
-                                        <label for="" class=" text-sm text-neutral-700 font-normal">
-                                            کد ملی:
-                                        </label>
-                                        <input type="text " placeholder="" class=" w-full px-4.5 h-[50px] bg-neutral-50 text-sm text-neutral-700 font-normal rounded-xl placeholder:text-neutral-400 focus:outline-none focus:border-[1px] focus:border-neutral-400 768max:h-10 768max:rounded-md">
-                                    </div>
-                                    <div class="w-full flex flex-col gap-2">
-                                        <label for="" class=" text-sm text-neutral-700 font-normal">
-                                            شماره تماس
-                                        </label>
-                                        <input type="tel" placeholder="" class=" w-full px-4.5 h-[50px] bg-neutral-50 text-sm text-neutral-700 font-normal rounded-xl placeholder:text-neutral-400 focus:outline-none focus:border-[1px] focus:border-neutral-400 768max:h-10 768max:rounded-md">
-                                    </div>
-                                </div>
+                            <div class="w-full py-8 px-4.5 flex flex-col gap-[52px] bg-light">
                                 <!-- ---- -->
                                 <div class="w-full flex items-center justify-between gap-4.5 768max:flex-col 768max:items-start">
-                                    <span class=" text-sm text-neutral-700 font-normal 768max:block 768max:w-full 768max:text-center">
-                                        با کلیک روی تایید و ادامه خرید با قوانین سایت و قوانین هتل موافقت کرده‌اید.
-                                    </span>
+                            <span class=" text-sm text-neutral-700 font-normal 768max:block 768max:w-full 768max:text-center">
+                                با کلیک روی تایید و ادامه خرید با قوانین سایت و قوانین هتل موافقت کرده‌اید.
+                            </span>
                                     <div class="flex items-center gap-4.5 512max:flex-col 768max:self-center">
                                         <div class="flex items-center gap-1">
-                                            <span class=" text-lg text-green-300 font-bold">
-                                                10,391,200
-                                            </span>
+                                    <span class=" text-lg text-green-300 font-bold">
+                                        {{ $totalPrice }}
+                                    </span>
                                             <span class=" text-sm text-green-300 font-medium">
-                                                تومان
-                                            </span>
+                                        تومان
+                                    </span>
                                         </div>
                                         <button class="rounded-[6px] w-full flex items-center justify-center py-2 px-4 h-10 min-w-[160px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:text-xs 512max:h-8 512max:max-w-max 512max:px-4">
                                             تایید و ادامه
                                         </button>
                                     </div>
                                 </div>
-                             </div>
+                            </div>
                         </div>
-                    </div>
+
+                    </form>
                 </div>
             </section>
         </div>

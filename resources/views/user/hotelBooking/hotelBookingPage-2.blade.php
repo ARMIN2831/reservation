@@ -246,8 +246,10 @@
                                         <div class="w-full flex flex-col gap-4">
                                             @foreach($results as $result)
                                                 <!-- item -->
-                                                <div style="background: #f6f6f6;border: 1px solid rgba(0, 0, 0, .12);border-radius: 8px;box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .08);" class="w-full grid grid-cols-[1fr_1px_240px]  1150max:grid-cols-1">
-                                                    @foreach($result['rooms'] as $room)
+                                                @php $q = request()->query(); @endphp
+                                                <form method="get" action="{{ route('hotelBooking.choosePeople',$q) }}" style="background: #f6f6f6;border: 1px solid rgba(0, 0, 0, .12);border-radius: 8px;box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .08);" class="w-full grid grid-cols-[1fr_1px_240px]  1150max:grid-cols-1">
+                                                    @foreach($result['rooms'] as $needCount => $room)
+                                                        <input type="hidden" name="rooms[{{ $needCount }}]" value="{{ $room['room_info']->id }}">
                                                         <!-- right => top in mobile -->
                                                         <div class="w-full h-full flex flex-col justify-between gap-4.5 p-4.5 pb-[30px] bg-neutral-50 rounded-xl">
                                                             <h6 class=" text-base text-black font-normal">
@@ -322,8 +324,16 @@
                                                             رزرو اتاق
                                                         </button>
                                                     </div>
-
-                                                </div>
+                                                        @foreach(request()->except('rooms') as $key => $value)
+                                                            @if(is_array($value))
+                                                                @foreach($value as $arrayValue)
+                                                                    <input type="hidden" name="{{ $key }}[]" value="{{ $arrayValue }}">
+                                                                @endforeach
+                                                            @else
+                                                                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                                                            @endif
+                                                        @endforeach
+                                                </form>
                                             @endforeach
                                         </div>
                                     </div>

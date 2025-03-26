@@ -14,16 +14,12 @@ class logged
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $guard = null): Response
     {
-
-        $guard = $request->segment(1);
         $route = $guard.'.dashboard';
-        if ($guard == 'login') {
-            $guard = 'user';
+        if ($guard == 'user') {
             $route = 'userDashboard.index';
         }
-
 
         if (!Auth::guard($guard)->check()) return $next($request);
         else return redirect()->route($route);

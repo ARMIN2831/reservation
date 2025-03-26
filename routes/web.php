@@ -70,7 +70,7 @@ Route::middleware([ShareUserData::class])->group(function () {
 
     //user auth routes
     Route::get('logout', [UserAuthController::class,'logout'])->name('logout');
-    Route::middleware('logged')->controller(UserAuthController::class)->group(function() {
+    Route::middleware(['logged:user'])->controller(UserAuthController::class)->group(function() {
         Route::get('login', 'login')->name('login');
         Route::post('doLogin', 'doLogin')->name('doLogin');
         Route::post('doRegister', 'doRegister')->name('doRegister');
@@ -91,6 +91,11 @@ Route::middleware([ShareUserData::class])->group(function () {
     Route::prefix('hotelBooking')->controller(hotelBookingController::class)->name('hotelBooking.')->group(function () {
         Route::get('/', 'results')->name('results');
         Route::get('showDescription', 'showDescription')->name('showDescription');
+        Route::middleware('auth:user')->get('choosePeople', 'choosePeople')->name('choosePeople');
+        Route::middleware('auth:user')->get('showPeople', 'showPeople')->name('showPeople');
+        Route::middleware('auth:user')->get('selectPricing', 'selectPricing')->name('selectPricing');
+        Route::middleware('auth:user')->get('reserveHotel', 'reserveHotel')->name('reserveHotel');
+        Route::get('paymentRedirect', 'paymentRedirect')->name('paymentRedirect');
     });
 });
 
@@ -99,7 +104,7 @@ Route::middleware([ShareUserData::class])->group(function () {
 /*admin hotel routes*/
 Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')->group(function () {
 
-    Route::middleware('logged')->controller(HotelAuthController::class)->group(function() {
+    Route::middleware('logged:hotel')->controller(HotelAuthController::class)->group(function() {
         Route::get('login', 'login')->name('login');
         Route::post('doLogin', 'doLogin')->name('doLogin');
     });
@@ -172,7 +177,7 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
 /*admin routes*/
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::middleware('logged')->controller(AdminAuthController::class)->group(function() {
+    Route::middleware('logged:admin')->controller(AdminAuthController::class)->group(function() {
         Route::get('login', 'login')->name('login');
         Route::post('doLogin', 'doLogin')->name('doLogin');
     });

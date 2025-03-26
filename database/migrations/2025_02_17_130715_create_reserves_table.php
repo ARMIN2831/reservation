@@ -22,10 +22,10 @@ return new class extends Migration
             $table->string('paymentCode')->nullable();
             $table->string('price')->nullable();
             $table->string('card')->nullable();
-            $table->string('reserve_by')->nullable();
+            $table->string('date')->nullable();
+            $table->morphs('model');
+            $table->string('type');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('room_id')->references('id')->on('rooms')->onDelete('cascade');
-            $table->foreignId('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
             $table->timestamps();
         });
     }
