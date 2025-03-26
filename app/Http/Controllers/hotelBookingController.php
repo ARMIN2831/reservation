@@ -446,12 +446,16 @@ class hotelBookingController extends Controller
             ->request()
             ->description("reserve Hotel")
             ->callbackUrl(route('hotelBooking.paymentRedirect'))
+            ->email(Auth::guard('user')->user()->email ?? 'example@gmail.com')
+            ->mobile(Auth::guard('user')->user()->mobile ?? '09123456789')
             ->send();
 
         if (!$response->success()) {
             return $response->error()->message();
         }
+        $uniqueCode = microtime().mt_rand(1000,9999);
         $reserve = Reserve::create([
+            'code' => $uniqueCode,
             'entry_date' => $dates[0],
             'exit_date' => $dates[1],
             'paymentStatus' => 'درحال انجام',
@@ -473,6 +477,10 @@ class hotelBookingController extends Controller
                     'lastName' => @$people['lastName'],
                     'nationalCode' => @$people['nationalCode'],
                     'mobile' => @$people['mobile'],
+                    'model_number' => $key,
+                    'people_number' => $key2,
+                    'model_type' => 'App\Models\Room',
+                    'model_id' => $people['room_id'],
                 ]);
             }
         }

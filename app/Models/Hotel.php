@@ -29,6 +29,6 @@ class Hotel extends Model
     }
     public function reserves()
     {
-        return $this->hasMany(Reserve::class);
+        return $this->morphMany(Reserve::class, 'model','model_type');
     }
 }

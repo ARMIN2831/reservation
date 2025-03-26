@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('firstName');
             $table->string('lastName');
             $table->string('nationalCode')->unique()->nullable();
+            $table->string('birth')->nullable();
             $table->timestamps();
         });
 
@@ -27,6 +28,11 @@ return new class extends Migration
             $table->string('mobile')->nullable();
             $table->string('type')->nullable();
             $table->foreignId('people_id')->references('id')->on('people')->onDelete('cascade');
+            $table->integer('wallet')->nullable();
+            $table->string('status')->nullable();
+            $table->string('mobile_status')->nullable();
+            $table->string('card')->nullable();
+            $table->string('bank')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

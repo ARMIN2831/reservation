@@ -22,7 +22,7 @@ class ShareAdminHotelData
             $user = auth()->user();
             $hotel = Hotel::whereHas('users', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
-            })->with('files','facilities','rooms.files','reserves')->first();
+            })->with('files','facilities','rooms.files','reserves.people.room')->first();
             if ($hotel){
                 $hotel->messages = Message::where('receiver_id',$hotel->id)
                     ->where('type','admin')
@@ -31,6 +31,18 @@ class ShareAdminHotelData
                     ->where('status',0)
                     ->get();
             }
+            /*foreach ($hotel->reserves as $reserve){
+                foreach ($reserve->people as $people){
+                    $people->update([
+                        'firstName' => 'آرمین',
+                        'lastName' => 'اسلامی',
+                        'nationalCode' => '5790103911',
+                        'mobile' => '09192008773',
+                        'model_type' => '09192008773',
+                        'model_id' => '09192008773',
+                    ]);
+                }
+            }*/
             View::share('sharedData', $hotel);
         }
 

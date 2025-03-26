@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('lastName')->nullable();
             $table->string('nationalCode')->nullable();
             $table->string('mobile')->nullable();
+            $table->morphs('model');
+            $table->integer('model_number')->nullable();
+            $table->integer('people_number')->nullable();
             $table->timestamps();
         });
     }
