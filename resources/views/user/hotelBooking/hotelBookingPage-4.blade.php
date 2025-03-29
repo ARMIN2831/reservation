@@ -267,7 +267,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="w-full flex items-center justify-between">
+                                {{--<div class="w-full flex items-center justify-between">
                                     <span class=" text-sm text-light font-medium">
                                         مالیات:
                                     </span>
@@ -279,8 +279,8 @@
                                             تومان
                                         </span>
                                     </div>
-                                </div>
-                                {{--<div class="w-full flex items-center justify-between">
+                                </div>--}}
+                                <div class="w-full flex items-center justify-between">
                                     <span class=" text-sm text-light font-medium">
                                         تخفیف:
                                     </span>
@@ -293,7 +293,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="w-full flex flex-col gap-2">
+                                {{--<div class="w-full flex flex-col gap-2">
                                     <span class=" text-sm text-light font-medium">
                                         کد تخفیف:
                                     </span>

@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('cart')->nullable();
             $table->string('cartOwner')->nullable();
+            $table->integer('profit')->nullable();
             $table->timestamps();
         });
         Schema::create('hotel_users', function (Blueprint $table) {

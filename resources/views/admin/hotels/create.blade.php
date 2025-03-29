@@ -144,6 +144,17 @@
 
 
                                                 <div class="form-group row">
+                                                    <label for="profit"
+                                                           class="col-sm-3  col-form-label"><b>درصد سود</b></label>
+                                                    <div class="col-sm-8">
+                                                        <input value="{{ old('profit') }}" type="number"
+                                                               class="form-control " id="profit"
+                                                               placeholder="درصد سود" name="profit">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
                                                     <div class="col-sm-9">
                                                         <a href="{{ route('admin.hotels.index') }}" class="btn btn-warning">لغو</a>
                                                         <button type="submit" name="add"

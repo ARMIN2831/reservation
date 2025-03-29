@@ -46,6 +46,7 @@ class HotelController extends Controller
             'mapAddress' => 'nullable',
             'password' => 'nullable',
             'user_id' => 'required',
+            'profit' => 'required',
         ]);
 
         if ($request->logo) $arr ['logo'] = $validatedData['logo']->store('uploads', 'public');
@@ -61,6 +62,7 @@ class HotelController extends Controller
             'address' => @$validatedData['address'],
             'mapAddress' => @$validatedData['mapAddress'],
             'password' => @$validatedData['password'],
+            'profit' => @$validatedData['profit'],
         ]);
         HotelUser::create([
             'user_id' => $validatedData['user_id'],
@@ -115,6 +117,7 @@ class HotelController extends Controller
             'address' => 'nullable',
             'mapAddress' => 'nullable',
             'password' => 'nullable',
+            'profit' => 'nullable',
         ]);
 
         if ($request->logo) $arr ['logo'] = $validatedData['logo']->store('uploads', 'public');

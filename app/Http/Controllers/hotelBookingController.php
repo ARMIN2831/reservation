@@ -102,20 +102,17 @@ class hotelBookingController extends Controller
                         if ($count < $needCount['persons']) continue;
                         $options = RoomOption::where('room_id',$room->id)->whereBetween('date', [$dates[0], $dates[1]])->get();
                         if (count($options) < $numberOfDays) continue;
-                        $reserves = Reserve::where('room_id',$room->id)->where(function($query) use ($dates) {
-                            $query->where('entry_date', '<=', $dates[0])
-                                ->where('exit_date', '>=', $dates[1]);
-                        })->get();
+                        $countReserve = $this->getRoomReserveCount($hotelId,$dates,$room->id);
                         $ch = false;
                         foreach ($options as $option) {
-                            if (count($reserves) >= $option->capacity) {$ch = true; continue;}
+                            if ($countReserve >= $option->capacity) {$ch = true; continue;}
                             if ($option->entry == 'بسته') {$ch = true; continue;}
                             if ($option->exit == 'بسته') {$ch = true; continue;}
                             if ($option->status == 'بسته') {$ch = true; continue;}
                         }
                         if ($ch) continue;
                         $p = 0;
-                        foreach ($options as $option) $p += $numberOfDays * $option->bord;
+                        foreach ($options as $option) $p += $numberOfDays * $option->ajax;
                         $prices[$needCount['persons']][$room->id] = $p;
                     }
                 }
@@ -134,7 +131,6 @@ class hotelBookingController extends Controller
                 }
             }
         }
-        $totalPrices [2] = 100;
         $sorting = $request->sorting;
         if ($sorting){
             if ($sorting == 'minPrice') asort($totalPrices);
@@ -149,6 +145,13 @@ class hotelBookingController extends Controller
         }
 
         $hotels = Hotel::whereIn('id',array_keys($totalPrices))->get();
+        foreach ($hotels as $hotel){
+            foreach ($totalPrices as $key => $price){
+                if ($key == $hotel->id){
+                    $totalPrices[$key] = ((100 + $hotel->profit) * $price) / 100;
+                }
+            }
+        }
         $facilities = Facility::whereIn('type',[1,2])->get();
         // ارسال نتایج به ویو
         return view('user.hotelBooking.hotelBookingPage-1', compact('hotels', 'personCount', 'numberOfDays','totalPrices','totalRooms','facilities'));
@@ -180,8 +183,8 @@ class hotelBookingController extends Controller
         $results = [];
         if ($request->rooms_data && $request->dates) {
             // Step 1: Find all suitable rooms for each need
-            foreach ($roomsData as $need) {
-                $availableRoomsForNeeds[$need['persons']] = [];
+            foreach ($roomsData as $key => $need) {
+                $availableRoomsForNeeds[$need['persons'] * ($key + 1) * 10] = [];
 
                 foreach ($rooms as $room) {
                     $count = $room->single + $room->double * 2;
@@ -192,16 +195,11 @@ class hotelBookingController extends Controller
                         ->get();
 
                     if (count($options) < $numberOfDays) continue;
-
-                    $reserves = Reserve::where('room_id', $room->id)
-                        ->where(function ($query) use ($dates) {
-                            $query->where('entry_date', '<=', $dates[0])
-                                ->where('exit_date', '>=', $dates[1]);
-                        })->get();
+                    $countReserve = $this->getRoomReserveCount($request->hotelId,$dates,$room->id);
 
                     $isAvailable = true;
                     foreach ($options as $option) {
-                        if (count($reserves) >= $option->capacity) {
+                        if ($countReserve >= $option->capacity) {
                             $isAvailable = false;
                             break;
                         }
@@ -216,10 +214,10 @@ class hotelBookingController extends Controller
                     // Calculate total price for this room for the period
                     $totalPrice = 0;
                     foreach ($options as $option) {
-                        $totalPrice += $numberOfDays * $option->bord;
+                        $totalPrice += $numberOfDays * $option->ajax;
                     }
-                    $room->price = $totalPrice;
-                    $availableRoomsForNeeds[$need['persons']][$room->id] = $room;
+                    $room->price = ((100 + $hotel->profit) * $totalPrice) / 100;
+                    $availableRoomsForNeeds[$need['persons'] * ($key + 1) * 10][$room->id] = $room;
 
                     $roomPrices[$room->id] = $totalPrice;
                 }
@@ -236,7 +234,7 @@ class hotelBookingController extends Controller
                     return;
                 }
 
-                $currentNeed = $needs[$index];
+                $currentNeed = $needs[$index] * ($index + 1) * 10;
                 foreach ($availableRoomsForNeeds[$currentNeed] as $roomId => $roomData) {
                     $newCurrent = $current;
                     $newCurrent[$currentNeed] = $roomData;
@@ -265,7 +263,7 @@ class hotelBookingController extends Controller
                 if (!$equal) {
                     $requireCountIds = array_count_values($arr);
                     foreach ($requireCountIds as $roomId => $requireCountId){
-                        if (!$this->isRoomAvailableForDates($roomId,$dates,$requireCountId)) $ch = false;
+                        if (!$this->isRoomAvailableForDates($roomId,$dates,$requireCountId,$hotel->id)) $ch = false;
                     }
                     if ($ch) {
                         $saver[$key] = $arr;
@@ -280,6 +278,7 @@ class hotelBookingController extends Controller
         // Now $results contains all possible combinations with their total prices
         return view('user.hotelBooking.hotelBookingPage-2',compact('hotel','results','numberOfDays'));
     }
+
 
     protected function areArraysEqualOptimized($a, $b) {
         if (count($a) !== count($b)) {
@@ -297,7 +296,8 @@ class hotelBookingController extends Controller
         return $countValues($a) == $countValues($b);
     }
 
-    protected function isRoomAvailableForDates($roomId, $dates, $requiredCount)
+
+    protected function isRoomAvailableForDates($roomId, $dates, $requiredCount,$hotelId)
     {
         $entryDate = $dates[0];
         $exitDate = $dates[1];
@@ -308,11 +308,7 @@ class hotelBookingController extends Controller
             ->get();
 
         // Get all reserves for this room in date range
-        $reservedCount = Reserve::where('room_id', $roomId)
-            ->where(function($query) use ($entryDate, $exitDate) {
-                $query->where('entry_date', '<=', $exitDate)
-                    ->where('exit_date', '>=', $entryDate);
-            })->count();
+        $reservedCount = $this->getRoomReserveCount($hotelId,$dates,$roomId);
 
         // Check each day's availability
         foreach ($options as $option) {
@@ -330,6 +326,7 @@ class hotelBookingController extends Controller
         return true;
     }
 
+
     public function choosePeople(Request $request)
     {
         $numberOfDays = 0;
@@ -344,19 +341,22 @@ class hotelBookingController extends Controller
 
         $rooms = [];
         $totalPrice = 0;
+        $i = 0;
         foreach ($request->rooms as $needCount => $roomId){
             $room = Room::where('id',$roomId)->first();
-            $room->needCount = $needCount;
+            $room->needCount = $needCount / (++$i * 10);
             $rooms[] = $room;
 
             $options = RoomOption::where('room_id', $room->id)
                 ->whereBetween('date', [$dates[0], $dates[1]])
                 ->get();
-            foreach ($options as $option) $totalPrice += $numberOfDays * $option->bord;
+            foreach ($options as $option) $totalPrice += $numberOfDays * $option->ajax;
         }
         $hotel = Hotel::where('id', $request->hotelId)->with('facilities')->first();
+        $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
         return view('user.hotelBooking.hotelBookingPage-3',compact('rooms','hotel','dates','totalPrice'));
     }
+
 
     public function showPeople(Request $request)
     {
@@ -372,6 +372,7 @@ class hotelBookingController extends Controller
 
         $rooms = [];
         $totalPrice = 0;
+        $totalPriceBord = 0;
         $peoples = $request->peoples;
         foreach ($request->rooms as $needCount => $roomId){
             $room = Room::where('id',$roomId)->first();
@@ -386,10 +387,15 @@ class hotelBookingController extends Controller
             $options = RoomOption::where('room_id', $room->id)
                 ->whereBetween('date', [$dates[0], $dates[1]])
                 ->get();
-            foreach ($options as $option) $totalPrice += $numberOfDays * $option->bord;
+            foreach ($options as $option) {
+                $totalPrice += $numberOfDays * $option->ajax;
+                $totalPriceBord += $numberOfDays * $option->bord;
+            }
         }
         $request->merge(['peoples' => $peoples]);
         $hotel = Hotel::where('id', $request->hotelId)->with('facilities')->first();
+        $discount =
+        $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
         return view('user.hotelBooking.hotelBookingPage-4',compact('rooms','hotel','dates','totalPrice'));
     }
 
@@ -412,8 +418,11 @@ class hotelBookingController extends Controller
             $options = RoomOption::where('room_id', $room->id)
                 ->whereBetween('date', [$dates[0], $dates[1]])
                 ->get();
-            foreach ($options as $option) $totalPrice += $numberOfDays * $option->bord;
+            foreach ($options as $option) $totalPrice += $numberOfDays * $option->ajax;
         }
+
+        $hotel = Hotel::where('id', $request->hotelId)->first();
+        $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
         $gateways = Gateway::get();
         return view('user.hotelBooking.hotelBookingPage-5',compact('gateways','totalPrice'));
     }
@@ -439,6 +448,8 @@ class hotelBookingController extends Controller
                 ->get();
             foreach ($options as $option) $totalPrice += $numberOfDays * $option->bord;
         }
+        $hotel = Hotel::where('id', $request->hotelId)->first();
+        $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
 
         $response = zarinpal()
             ->merchantId(Gateway::where('id',$request->pmo)->first()->api)
@@ -488,6 +499,18 @@ class hotelBookingController extends Controller
     }
 
 
+    public function getRoomReserveCount($hotelId,$dates,$roomId)
+    {
+        $reserves = Reserve::where('model_id',$hotelId)->where('model_type','App\Models\Hotel')->where(function($query) use ($dates) {
+            $query->where('entry_date', '<=', $dates[0])
+                ->where('exit_date', '>=', $dates[1]);
+        })->with('people')->get();
+        $num = 0;
+        foreach ($reserves as $reserve) $num += $reserve->people->max('model_number')+1;
+        return $num;
+    }
+
+
     public function paymentRedirect(Request $request)
     {
         $authority = $request->query('Authority');
@@ -518,60 +541,4 @@ class hotelBookingController extends Controller
             return redirect()->route('wallet')->with(['failed' => "پرداخت ناموفق بود: " . $response->error()->message()]);
         }*/
     }
-
-/*
-    public function payment(Request $request)
-    {
-        $response = zarinpal()
-            ->merchantId($this->loadSetting(['zarin_api'])['zarin_api'][0])
-            ->amount($request->price)
-            ->request()
-            ->description("charge wallet")
-            ->callbackUrl(route('paymentRedirect'))
-            ->send();
-
-        if (!$response->success()) {
-            return $response->error()->message();
-        }
-        Order::create([
-            'user_id' => auth()->user()->id,
-            'price' => $request->price,
-            'status' => 'درحال انجام',
-            'code' => $response->authority(),
-            'date' => Jalalian::now()->format('Y-m-d'),
-        ]);
-        return $response->redirect();
-    }
-
-
-    public function paymentRedirect(Request $request)
-    {
-        $authority = $request->query('Authority');
-        $status = $request->query('Status');
-        if ($status != 'OK') {
-            return redirect()->route('wallet')->with(['failed' => "پرداخت توسط کاربر لغو شد."]);
-        }
-        $order = Order::where('code', $authority)->firstOrFail();
-        $response = zarinpal()
-            ->merchantId($this->loadSetting(['zarin_api'])['zarin_api'][0])
-            ->amount($order->price)
-            ->verification()
-            ->authority($authority)
-            ->send();
-
-        if ($response->success()) {
-            $order->update([
-                'status' => 'پرداخت شده',
-                'card' => $response->cardPan(),
-                'ref_id' => $response->referenceId(),
-            ]);
-            User::where('id',auth()->user()->id)->update(['wallet' => auth()->user()->wallet + $order->price]);
-            return redirect()->route('wallet')->with(['message' => "پرداخت با موفقیت انجام شد. شماره تراکنش: " . $response->referenceId()]);
-        } else {
-            $order->update([
-                'status' => 'ناموفق',
-            ]);
-            return redirect()->route('wallet')->with(['failed' => "پرداخت ناموفق بود: " . $response->error()->message()]);
-        }
-    }*/
 }
