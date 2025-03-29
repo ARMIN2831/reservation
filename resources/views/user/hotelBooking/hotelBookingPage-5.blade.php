@@ -159,14 +159,14 @@
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-lg text-light font-bold">
-                                            {{ $totalPrice }}
+                                            {{ $totalPriceBord }}
                                         </span>
                                         <span class=" text-sm text-light font-medium">
                                             تومان
                                         </span>
                                     </div>
                                 </div>
-                                <div class="w-full flex items-center justify-between">
+                                {{--<div class="w-full flex items-center justify-between">
                                     <span class=" text-sm text-light font-medium">
                                         مالیات:
                                     </span>
@@ -178,21 +178,21 @@
                                             تومان
                                         </span>
                                     </div>
-                                </div>
-                                {{--<div class="w-full flex items-center justify-between">
+                                </div>--}}
+                                <div class="w-full flex items-center justify-between">
                                     <span class=" text-sm text-light font-medium">
                                         تخفیف:
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-lg text-green-300 font-bold">
-                                            {{ $totalPrice }}
+                                            {{ $totalPriceBord - $totalPrice }}
                                         </span>
                                         <span class=" text-sm text-green-300 font-medium">
                                             تومان
                                         </span>
                                     </div>
                                 </div>
-                                <div class="w-full flex flex-col gap-2">
+                                {{--<div class="w-full flex flex-col gap-2">
                                     <span class=" text-sm text-light font-medium">
                                         کد تخفیف:
                                     </span>

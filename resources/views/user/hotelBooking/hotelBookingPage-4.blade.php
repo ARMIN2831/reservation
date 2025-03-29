@@ -260,7 +260,7 @@
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-lg text-light font-bold">
-                                            {{ $totalPrice }}
+                                            {{ $totalPriceBord }}
                                         </span>
                                         <span class=" text-sm text-light font-medium">
                                             تومان
@@ -286,7 +286,7 @@
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-lg text-green-300 font-bold">
-                                            10,391,200
+                                            {{ $totalPriceBord - $totalPrice }}
                                         </span>
                                         <span class=" text-sm text-green-300 font-medium">
                                             تومان
@@ -310,7 +310,7 @@
                                 <!--  -->
                                 <div class="w-full flex items-center justify-between">
                                     <span class=" text-sm text-light font-medium">
-                                        قیمت کل:
+                                        قیمت نهایی:
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-[20px] text-light font-bold">

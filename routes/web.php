@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AdminAuthController;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\adminHotel\editRoomsController;
+use App\Http\Controllers\adminHotel\financialController;
 use App\Http\Controllers\adminHotel\HotelAuthController;
 use App\Http\Controllers\adminHotel\mainPageController;
 use App\Http\Controllers\adminHotel\manageRoomsController;
@@ -133,6 +134,12 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
         //reservation routes
         Route::controller(reservationController::class)->group(function() {
             Route::get('reservation', 'index')->name('reservation');
+        });
+
+
+        //financial routes
+        Route::controller(financialController::class)->group(function() {
+            Route::get('manageFinancial', 'index')->name('manageFinancial');
         });
 
 
