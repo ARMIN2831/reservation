@@ -1,5 +1,6 @@
 @extends('layouts.userHotel')
 @section('content')
+    @if($reserve->paymentStatus == 'پرداخت شده')
     <main class=" w-full mt-[-80px] flex flex-col items-center gap-20 pb-8 flex-grow-[1] justify-end z-[2]">
         <div class="w-full flex-grow-[1] flex flex-col items-center g45">
             <section class="w-full max-w-[1440px] px-[100px] 768max:px-7 1024max:px-[36px] 1280max:px-[64px]">
@@ -83,7 +84,7 @@
                                                     نام مسافر
                                                 </span>
                                                 <span class=" text-sm text-green-600 font-medium">
-                                                    محمد حسینی
+                                                    {{ $reserve->people[0]->firstName.' '.$reserve->people[0]->lastName }}
                                                 </span>
                                             </div>
                                             <div class="flex flex-col gap-[2px]">
@@ -91,7 +92,7 @@
                                                     کد ملی:
                                                 </span>
                                                 <span class=" text-sm text-green-600 font-medium">
-                                                    2475613809
+                                                    {{ $reserve->people[0]->nationalCode }}
                                                 </span>
                                             </div>
                                             <div class="flex flex-col gap-[2px]">
@@ -99,7 +100,7 @@
                                                     شماره تماس:
                                                 </span>
                                                 <span class=" text-sm text-green-600 font-medium">
-                                                    09425873970
+                                                    {{ $reserve->people[0]->mobile }}
                                                 </span>
                                             </div>
                                         </div>
@@ -120,7 +121,7 @@
                                                     شماره سفارش:
                                                 </span>
                                                 <span class=" text-sm text-neutral-400 font-medium 512max:text-[10px] 1024max:text-xs">
-                                                    23456787654567
+                                                    {{ $reserve->code }}
                                                 </span>
                                             </div>
                                             <div class="flex items-center gap-3">
@@ -129,7 +130,7 @@
                                                         تاریخ صدور:
                                                     </span>
                                                     <span class=" text-sm text-neutral-400 font-medium 512max:text-[10px] 1024max:text-xs">
-                                                        1403/12/26
+                                                        {{ $reserve->date }}
                                                     </span>
                                                 </div>
 
@@ -142,10 +143,10 @@
                                                 <div class="w-full h-full grid grid-cols-[1fr_260px] gap-[1px] 1024max:grid-cols-1">
                                                     <div class="w-full flex flex-col gap-2 p-4.5 bg-light content-center justify-center h-full">
                                                         <span class=" text-[20px] text-neutral-700 font-medium 1024max:text-sm">
-                                                            هتل بین المللی قصر مشهد
+                                                            {{ $reserve->hotel->title }}
                                                         </span>
                                                         <span class=" text-xs text-neutral-400 font-normal">
-                                                            ایران، خراسان رضوی، مشهد، خیابان امام رضا (ع)، بین امام رضا (ع) ۲۴ و ۲۶
+                                                            {{ $reserve->hotel->address }}
                                                         </span>
                                                     </div>
                                                     <div class="w-full grid grid-cols-2 gap-[1px]">
@@ -154,7 +155,7 @@
                                                                 تاریخ ورود:
                                                             </span>
                                                             <span class=" text-sm text-neutral-700 font-normal text-center 1024max:gap-1">
-                                                                1403/12/28
+                                                                {{ $reserve->entry_date }}
                                                             </span>
                                                         </div>
                                                         <div class="w-full flex flex-col gap-4 p-4.5 bg-light content-center justify-center h-full">
@@ -162,68 +163,48 @@
                                                                 تاریخ خروج:
                                                             </span>
                                                             <span class=" text-sm text-neutral-700 font-normal text-center 1024max:gap-1">
-                                                                1404/01/04
+                                                                {{ $reserve->exit_date }}
                                                             </span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="w-full h-full grid grid-cols-[auto_auto_auto_auto_auto] items-center content-center p-4.5 gap-3 bg-light 512max:grid-cols-2 640max:grid-cols-3 850max:grid-cols-2">
-                                                    <div class="flex flex-col gap-[2px]">
+                                                @for($i = 0; $i < count($reserve->people); $i++)
+                                                    @if(!isset($reserve->people[$i+1]) or $reserve->people[$i+1]->people_number == 0)
+                                                        <div class="w-full h-full grid grid-cols-[auto_auto_auto_auto_auto] items-center content-center p-4.5 gap-3 bg-light 512max:grid-cols-2 640max:grid-cols-3 850max:grid-cols-2">
+                                                            <div class="flex flex-col gap-[2px]">
                                                         <span class=" text-sm text-neutral-400 font-normal 640max:text-xs">
-                                                            تعداد مهمان:
+                                                            تعداد نفر:
                                                         </span>
-                                                        <span class=" text-sm text-neutral-700 font-medium 640max:text-xs">
-                                                            2 بزرگسال
+                                                                <span class=" text-sm text-neutral-700 font-medium 640max:text-xs">
+                                                            {{ $reserve->people[$i]->people_number+1 }} بزرگسال
                                                         </span>
-                                                    </div>
-                                                    <div class="flex flex-col gap-[2px]">
-                                                        <span class=" text-sm text-neutral-400 font-normal 640max:text-xs">
-                                                            کودک:
-                                                        </span>
-                                                        <span class=" text-sm text-neutral-700 font-medium 640max:text-xs">
-                                                            ندارد
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex flex-col gap-[2px]">
+                                                            </div>
+                                                            <div class="flex flex-col gap-[2px]">
                                                         <span class=" text-sm text-neutral-400 font-normal 640max:text-xs">
                                                             نوع اتاق:
                                                         </span>
-                                                        <span class=" text-sm text-neutral-700 font-medium 640max:text-xs">
-                                                            سینگل اکونومی
+                                                                <span class=" text-sm text-neutral-700 font-medium 640max:text-xs">
+                                                            {{ $reserve->people[$i]->room->title }}
                                                         </span>
-                                                    </div>
-                                                    <div class="flex flex-col gap-[2px]">
+                                                            </div>
+                                                            <div class="flex flex-col gap-[2px]">
                                                         <span class=" text-sm text-neutral-400 font-normal 640max:text-xs">
                                                             تعداد اتاق:
                                                         </span>
-                                                        <span class=" text-sm text-neutral-700 font-medium 640max:text-xs">
+                                                                <span class=" text-sm text-neutral-700 font-medium 640max:text-xs">
                                                             یک عدد
                                                         </span>
-                                                    </div>
-                                                    <div class="flex flex-col gap-[2px]">
-                                                        <span class=" text-sm text-neutral-400 font-normal 640max:text-xs">
-                                                            خدمات اضافیک
-                                                        </span>
-                                                        <span class=" text-sm text-neutral-700 font-medium 640max:text-xs">
-                                                            صبحانه رایگان
-                                                        </span>
-                                                    </div>
-                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endfor
                                                 <div class="w-full h-full grid grid-cols-[auto_auto_auto_auto] items-center content-center p-4.5 gap-3 bg-light 512max:grid-cols-2 640max:grid-cols-3 850max:grid-cols-2">
                                                     <div class="flex flex-col gap-[2px]">
                                                         <span class=" text-xs text-neutral-700 font-medium">
                                                             قیمت پایه:
                                                         </span>
                                                         <span class=" text-xs text-neutral-700 font-bold">
-                                                            6,391,200 تومان
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex flex-col gap-[2px]">
-                                                        <span class=" text-xs text-neutral-700 font-medium">
-                                                            مالیات:
-                                                        </span>
-                                                        <span class=" text-xs text-neutral-700 font-bold">
-                                                            6,391,200 تومان
+                                                            {{ $reserve->bordPrice }} تومان
                                                         </span>
                                                     </div>
                                                     <div class="flex flex-col gap-[2px]">
@@ -231,7 +212,7 @@
                                                             تخفیف:
                                                         </span>
                                                         <span class=" text-xs text-neutral-700 font-bold">
-                                                            6,391,200 تومان
+                                                            {{ $reserve->bordPrice - $reserve->price }} تومان
                                                         </span>
                                                     </div>
                                                     <div class="flex flex-col gap-[2px]">
@@ -239,7 +220,7 @@
                                                             قیمت کل:
                                                         </span>
                                                         <span class=" text-xs text-neutral-700 font-bold">
-                                                            6,391,200 تومان
+                                                            {{ $reserve->price }} تومان
                                                         </span>
                                                     </div>
                                                 </div>
@@ -253,7 +234,7 @@
                                                     </span>
                                                 </div>
                                                 <span class=" text-base text-neutral-700 text-center font-medium">
-                                                    کد پیگیری رزرو: 52903781
+                                                    کد پیگیری رزرو: {{ $reserve->code }}
                                                 </span>
                                             </div>
                                         </div>
@@ -540,6 +521,194 @@
             </div>
         </div>
     </main>
+    @else
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            :root {
+                --primary: #ff4757;
+                --secondary: #ff6b81;
+                --dark: #2f3542;
+                --light: #f1f2f6;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                background-color: #f8f9fa;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                color: var(--dark);
+            }
+
+            .payment-failed-container {
+                background: white;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                width: 90%;
+                max-width: 500px;
+                padding: 40px;
+                text-align: center;
+                transform: scale(0.9);
+                animation: scaleIn 0.5s forwards;
+            }
+
+            @keyframes scaleIn {
+                to {
+                    transform: scale(1);
+                }
+            }
+
+            .icon-container {
+                margin-bottom: 25px;
+            }
+
+            .failed-icon {
+                font-size: 80px;
+                color: var(--primary);
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: bounce 1s;
+            }
+
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% {
+                    transform: translateY(0);
+                }
+                40% {
+                    transform: translateY(-20px);
+                }
+                60% {
+                    transform: translateY(-10px);
+                }
+            }
+
+            h1 {
+                color: var(--primary);
+                margin-bottom: 15px;
+                font-size: 28px;
+            }
+
+            p {
+                color: #666;
+                margin-bottom: 25px;
+                line-height: 1.6;
+            }
+
+            .order-details {
+                background: #f8f9fa;
+                border-radius: 10px;
+                padding: 15px;
+                margin: 20px 0;
+                text-align: right;
+            }
+
+            .detail-row {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+
+            .detail-row:last-child {
+                margin-bottom: 0;
+            }
+
+            .detail-label {
+                color: #666;
+                font-weight: 500;
+            }
+
+            .detail-value {
+                color: var(--dark);
+                font-weight: 600;
+            }
+
+            .action-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 30px;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                border: none;
+                font-size: 16px;
+            }
+
+            .btn-retry {
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                color: white;
+                box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+            }
+
+            .btn-retry:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+            }
+
+            .btn-back {
+                background: white;
+                color: var(--dark);
+                border: 1px solid #ddd;
+            }
+
+            .btn-back:hover {
+                background: #f1f1f1;
+            }
+
+            .support-text {
+                margin-top: 25px;
+                font-size: 14px;
+                color: #888;
+            }
+
+            .support-text a {
+                color: var(--primary);
+                text-decoration: none;
+                font-weight: 600;
+            }
+        </style>
+        <div class="payment-failed-container">
+            <div class="icon-container">
+                <i class="fas fa-times-circle failed-icon"></i>
+            </div>
+            <h1>پرداخت ناموفق بود!</h1>
+            <p>متأسفیم، پرداخت شما با مشکل مواجه شد. لطفاً مجدداً تلاش کنید یا از روش پرداخت دیگری استفاده نمایید.</p>
+
+            <div class="order-details">
+                <div class="detail-row">
+                    <span class="detail-value">{{ $reserve->code }}</span>
+                    <span class="detail-label">شماره سفارش:</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-value">{{ $reserve->price }} تومان</span>
+                    <span class="detail-label">مبلغ:</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-value">{{ $reserve->date }}</span>
+                    <span class="detail-label">تاریخ:</span>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a class="btn btn-retry" href="{{ route('hotelBooking.results') }}">تلاش مجدد</a>
+                <a class="btn btn-back" href="{{ route('index') }}">بازگشت به صفحه اصلی</a>
+            </div>
+        </div>
+    @endif
     <script>
         function accordionFunc (event, targetId){
             if (event.currentTarget.classList.contains('active')){

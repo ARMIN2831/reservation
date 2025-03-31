@@ -6,6 +6,7 @@ use App\Models\Hotel;
 use App\Models\Message;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,8 +19,8 @@ class ShareAdminHotelData
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check()) {
-            $user = auth()->user();
+        if (Auth::guard('hotel')->check()) {
+            $user = Auth::guard('hotel')->user();
             $hotel = Hotel::whereHas('users', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })->with('files','facilities','rooms.files','reserves.people.room')->first();

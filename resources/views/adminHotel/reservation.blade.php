@@ -8,7 +8,7 @@
         </div>
         <main class=" w-full h-full p-4.5 rounded-xl bg-neutral-50 overflow-auto flex flex-col gap-6 768max:rounded-none 768max:px-[25px]">
             <!-- بخش وارد کردن اطلاعات برای جستجو -->
-            <div class="w-full p-4.5 bg-light rounded-xl grid grid-cols-[1.1fr_1fr_1fr_1.1fr_1fr] gap-2 512max:hidden 640max:grid-cols-2 768max:grid-cols-3">
+            <form action="{{ route('hotel.reservation') }}" method="get" class="w-full p-4.5 bg-light rounded-xl grid grid-cols-[1.1fr_1fr_1fr_1.1fr_1fr] gap-2 512max:hidden 640max:grid-cols-2 768max:grid-cols-3">
                 <!-- انتخاب -->
                 <div class="w-full flex flex-col gap-2">
                     <label for="" class=" text-xs text-neutral-700 font-normal">
@@ -22,7 +22,7 @@
                         تاریخ ورود
                     </label>
                     <div class="w-full flex items-center">
-                        <input data-jdp class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
+                        <input value="{{ request('entry_date') }}" name="entry_date" data-jdp class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
                         <svg class=" w-4.5 text-green-300 -mr-[25px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                         </svg>
@@ -34,7 +34,7 @@
                         تاریخ خروج
                     </label>
                     <div class="w-full flex items-center">
-                        <input data-jdp class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
+                        <input value="{{ request('exit_date') }}" name="exit_date" data-jdp class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="1403/11/11" dir="rtl">
                         <svg class=" w-4.5 text-green-300 -mr-[25px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                         </svg>
@@ -45,13 +45,13 @@
                     <label for="" class=" text-xs text-neutral-700 font-normal">
                         شناسه رزرو / نام مسافر
                     </label>
-                    <input class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="شناسه رزرو / نام مسافر">
+                    <input value="{{ request('reserve_id') }}" name="reserve_id" class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="شناسه رزرو / نام مسافر">
                 </div>
                 <!-- ذکمه جستجو -->
                 <button class="w-full max-w-[140px] h-10 text-sm text-light font-medium flex items-center justify-center px-4.5 rounded-md bg-green-600 transition-all duration-500 hover:bg-green-300 hover:transition-none self-end" type="submit">
                     جستجو
                 </button>
-            </div>
+            </form>
             <!-- body -->
             <div class="w-full h-full flex flex-col gap-2">
                 <!-- هدر این بخش -->
@@ -107,7 +107,7 @@
                     </div>
                     <!-- items container -->
                     <div class="w-full flex flex-col gap-2 768max:max-w-[800px] 768max:overflow-y-scroll">
-                        @foreach($sharedData->reserves as $reserve)
+                        @foreach($reserves as $reserve)
                             <!-- item -->
                             <div class="reservation-item w-full py-4 px-6 grid grid-cols-[1.3fr_2.3fr_1.3fr_1.3fr_1.7fr_1fr] items-center bg-light rounded-xl 768max:flex 768max:flex-col 768max:gap-[30px] 768max:bg-[#DBF0DD80] 768max:py-[25px] 768max:px-4.5">
                                 <!-- شناسه رزرو -->
@@ -284,7 +284,7 @@
         <div class=" modal-content w-full h-full flex items-center justify-center">
             <div class="w-full max-w-[800px] p-4.5 bg-light rounded-xl flex flex-col gap-[68px]">
                 <!-- body -->
-                <div class="w-full flex flex-col gap-2">
+                <div id="modalOptions" class="w-full flex flex-col gap-2">
                     <!--  -->
                     <div class="w-full py-[13px] px-4.5 rounded-xl bg-neutral-50">
                         <h6 class=" text-sm text-green-600 font-normal">
@@ -422,24 +422,6 @@
                                     1403/12/24
                                 </span>
                         </div>
-                        <!-- item -->
-                        {{--<div class="w-full flex items-center gap-1">
-                            <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
-                                شماره کارت:
-                            </span>
-                            <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
-                                5064-3690-4572-1869
-                            </span>
-                        </div>--}}
-                    </div>
-                    <!--  -->
-                    <div class="w-full rounded-xl bg-neutral-50 p-4.5 flex items-center">
-                            <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
-                                وضعیت رزرو:
-                            </span>
-                        <span class=" text-sm text-green-600 font-bold 512max:text-xs">
-                                رزرو توسط ادمین 5 تایید شد
-                            </span>
                     </div>
                 </div>
                 <!-- buttons -->
@@ -462,9 +444,134 @@
     </script>
     <script src="{{ asset('src/scripts/reservation.js') }}"></script>
     <script>
-        function openEditPopUp(modal, user) {
+        function openEditPopUp(modal, reserve) {
             modal.classList.toggle('active');
-
+            var tag  = `<!--  -->
+                    <div class="w-full py-[13px] px-4.5 rounded-xl bg-neutral-50">
+                        <h6 class=" text-sm text-green-600 font-normal">
+                            جزئیات رزرو اتاق
+                        </h6>
+                    </div>
+                    <!--  -->
+                    <div class="w-full rounded-xl bg-neutral-50 p-4.5 min-h-[200px] grid grid-cols-3 gap-x-2 gap-y-4.5 items-start 512max:grid-cols-1 content-start 768max:grid-cols-2">
+                        `;
+            reserve.people.forEach(item => {
+                if (item.people_number == 0){
+                    tag += `<!-- item -->
+                        <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    نام مسافر:
+                                </span>
+                            <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    ${item.firstName+' '+item.lastName}
+                                </span>
+                        </div>
+                        <!-- item -->
+                        <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    اتاق:
+                                </span>
+                            <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    ${item.room.title}
+                                </span>
+                        </div>
+                        <!-- item -->
+                        <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    کد ملی مسافر:
+                                </span>
+                            <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    ${item.nationalCode}
+                                </span>
+                        </div>`;
+                }
+            });
+            tag += `<!-- item -->
+                        <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    تاریخ ورود:
+                                </span>
+                            <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    ${ reserve.entry_date }
+                                </span>
+                        </div>
+                        <!-- item -->
+                        <div class="w-full flex items-center gap-1">
+                                <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                                    تاریخ خروج:
+                                </span>
+                            <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                                    ${ reserve.exit_date }
+                                </span>
+                        </div>
+            <!-- item -->
+            <div class="w-full flex items-center gap-1">
+                    <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                        شناسه رزرو:
+                    </span>
+                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                        ${ reserve.id }
+                    </span>
+            </div>
+            <!-- item -->
+            <div class="w-full flex items-center gap-1">
+                    <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                        تعداد نفر:
+                    </span>
+                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                        ${ reserve.people.length } نفر
+                    </span>
+            </div>
+        </div>
+        <!--  -->
+        <div class="w-full rounded-xl bg-green-100 p-4.5 grid grid-cols-3 gap-x-2 gap-y-4.5 items-start content-start 512max:grid-cols-1 768max:grid-cols-2">
+            <!-- item -->
+            <div class="w-full flex items-center gap-1">
+                    <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                        زمان رزرو:
+                    </span>
+                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                        12:30
+                    </span>
+            </div>
+            <!-- item -->
+            <div class="w-full flex items-center gap-1">
+                    <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                        شناسه پرداخت:
+                    </span>
+                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                        ${ reserve.paymentCode }
+                    </span>
+            </div>
+            <!-- item -->
+            <div class="w-full flex items-center gap-1">
+                    <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                        مبلغ پرداختی:
+                    </span>
+                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                        ${ reserve.price } تومان
+                    </span>
+            </div>
+            <!-- item -->
+            <div class="w-full flex items-center gap-1">
+                    <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                        وضعیت پرداخت:
+                    </span>
+                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                        ${ reserve.paymentStatus }
+                    </span>
+            </div>
+            <!-- item -->
+            <div class="w-full flex items-center gap-1">
+                    <span class=" text-sm text-neutral-400 font-normal 512max:text-xs">
+                        تاریخ رزرو:
+                    </span>
+                <span class=" text-sm text-neutral-700 font-normal 512max:text-xs">
+                        ${ reserve.created_at }
+                    </span>
+            </div>
+        </div>`;
+            document.getElementById('modalOptions').innerHTML = tag;
         }
     </script>
 @endsection

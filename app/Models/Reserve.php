@@ -12,4 +12,9 @@ class Reserve extends Model
     {
         return $this->hasMany(PeopleReserve::class);
     }
+
+    public function hotel()
+    {
+        return $this->morphTo(__FUNCTION__,'model_type','model_id');
+    }
 }

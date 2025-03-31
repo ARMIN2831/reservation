@@ -24,6 +24,12 @@
                             <p>داشبورد</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ url('admin/dashboard/financial') }}" class="nav-link {{ (request()->is('admin/dashboard/financial')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>فاکتور ها</p>
+                        </a>
+                    </li>
 
                     <li class="nav-item has-treeview  {{ (request()->is('admin/dashboard/hotels')) ? 'menu-open' : '' }} {{ (request()->is('admin/dashboard/hotels/create')) ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ (request()->is('admin/dashboard/hotels')) ? 'active' : '' }} {{ (request()->is('admin/dashboard/hotels/create')) ? 'active' : '' }}">

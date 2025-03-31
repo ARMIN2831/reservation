@@ -21,11 +21,14 @@ return new class extends Migration
             $table->string('paymentStatus')->nullable();
             $table->string('paymentCode')->nullable();
             $table->string('price')->nullable();
+            $table->string('bordPrice')->nullable();
+            $table->string('hotelPrice')->nullable();
             $table->string('card')->nullable();
             $table->string('date')->nullable();
             $table->morphs('model');
             $table->string('type');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('factorStatus')->nullable();
             $table->timestamps();
         });
     }

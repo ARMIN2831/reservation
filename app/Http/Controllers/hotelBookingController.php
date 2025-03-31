@@ -354,6 +354,7 @@ class hotelBookingController extends Controller
         }
         $hotel = Hotel::where('id', $request->hotelId)->with('facilities')->first();
         $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
+        $totalPriceBord = ((100 + $hotel->profit) * $totalPriceBord) / 100;
         return view('user.hotelBooking.hotelBookingPage-3',compact('rooms','hotel','dates','totalPrice'));
     }
 
@@ -395,6 +396,7 @@ class hotelBookingController extends Controller
         $request->merge(['peoples' => $peoples]);
         $hotel = Hotel::where('id', $request->hotelId)->with('facilities')->first();
         $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
+        $totalPriceBord = ((100 + $hotel->profit) * $totalPriceBord) / 100;
         return view('user.hotelBooking.hotelBookingPage-4',compact('rooms','hotel','dates','totalPrice', 'totalPriceBord'));
     }
 
@@ -426,6 +428,7 @@ class hotelBookingController extends Controller
 
         $hotel = Hotel::where('id', $request->hotelId)->first();
         $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
+        $totalPriceBord = ((100 + $hotel->profit) * $totalPriceBord) / 100;
         $gateways = Gateway::get();
         return view('user.hotelBooking.hotelBookingPage-5',compact('gateways','totalPrice','totalPriceBord'));
     }
@@ -442,6 +445,7 @@ class hotelBookingController extends Controller
             $numberOfDays = $entryDate->diffInDays($exitDate) + 1;
         }
         $totalPrice = 0;
+        $totalPriceBord = 0;
         foreach ($request->rooms as $needCount => $roomId){
             $room = Room::where('id',$roomId)->first();
             $room->needCount = $needCount;
@@ -449,14 +453,18 @@ class hotelBookingController extends Controller
             $options = RoomOption::where('room_id', $room->id)
                 ->whereBetween('date', [$dates[0], $dates[1]])
                 ->get();
-            foreach ($options as $option) $totalPrice += $numberOfDays * $option->bord;
+            foreach ($options as $option) {
+                $totalPrice += $numberOfDays * $option->ajax;
+                $totalPriceBord += $numberOfDays * $option->bord;
+            }
         }
         $hotel = Hotel::where('id', $request->hotelId)->first();
-        $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
+        $totalPriceUser = ((100 + $hotel->profit) * $totalPrice) / 100;
+        $totalPriceBord = ((100 + $hotel->profit) * $totalPriceBord) / 100;
 
         $response = zarinpal()
             ->merchantId(Gateway::where('id',$request->pmo)->first()->api)
-            ->amount($totalPrice)
+            ->amount($totalPriceUser)
             ->request()
             ->description("reserve Hotel")
             ->callbackUrl(route('hotelBooking.paymentRedirect'))
@@ -474,7 +482,9 @@ class hotelBookingController extends Controller
             'exit_date' => $dates[1],
             'paymentStatus' => 'درحال انجام',
             'paymentCode' => $response->authority(),
-            'price' => $totalPrice,
+            'bordPrice' => $totalPriceBord,
+            'price' => $totalPriceUser,
+            'hotelPrice' => $totalPrice,
             'model_type' => 'App\Models\Hotel',
             'model_id' => $request->hotelId,
             'type' => 'hotel',
@@ -518,30 +528,25 @@ class hotelBookingController extends Controller
     {
         $authority = $request->query('Authority');
         $status = $request->query('Status');
-        if ($status != 'OK') {
-            return redirect()->route('wallet')->with(['failed' => "پرداخت توسط کاربر لغو شد."]);
-        }
-        dd($authority,$status);
-        /*$order = Order::where('code', $authority)->firstOrFail();
+        $reserve = Reserve::where('paymentCode', $authority)->with('people','hotel')->firstOrFail();
         $response = zarinpal()
             ->merchantId(Gateway::where('id',1)->first()->api)
-            ->amount($order->price)
+            ->amount($reserve->price)
             ->verification()
             ->authority($authority)
             ->send();
         if ($response->success()) {
-            $order->update([
-                'status' => 'پرداخت شده',
+            $reserve->update([
+                'paymentStatus' => 'پرداخت شده',
                 'card' => $response->cardPan(),
                 'ref_id' => $response->referenceId(),
             ]);
-            User::where('id',auth()->user()->id)->update(['wallet' => auth()->user()->wallet + $order->price]);
-            return redirect()->route('wallet')->with(['message' => "پرداخت با موفقیت انجام شد. شماره تراکنش: " . $response->referenceId()]);
         } else {
-            $order->update([
-                'status' => 'ناموفق',
+            $reserve->update([
+                'paymentStatus' => 'ناموفق',
             ]);
-            return redirect()->route('wallet')->with(['failed' => "پرداخت ناموفق بود: " . $response->error()->message()]);
-        }*/
+        }
+
+        return view('user.hotelBooking.hotelBookingPage-6',compact('reserve'));
     }
 }

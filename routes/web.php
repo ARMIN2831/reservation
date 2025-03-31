@@ -140,6 +140,7 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
         //financial routes
         Route::controller(financialController::class)->group(function() {
             Route::get('manageFinancial', 'index')->name('manageFinancial');
+            Route::post('requestFactor/{reserve_id}', 'requestFactor')->name('requestFactor');
         });
 
 
@@ -192,6 +193,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::prefix('dashboard')->middleware('auth:admin')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+        Route::get('financial', [\App\Http\Controllers\admin\financialController::class, 'index'])->name('financial');
         Route::resource('hotels',\App\Http\Controllers\admin\HotelController::class);
         Route::resource('rooms',\App\Http\Controllers\admin\RoomController::class);
 
