@@ -17,11 +17,8 @@
                         <div class=""></div>
                     </div>
                     <!-- body -->
-                    <form id="storeRoomForm" action="{{ isset($room) ? route('hotel.updateRoom', [$sharedData->id, $room->id]) : route('hotel.storeRoom', $sharedData->id) }}" method="post" enctype="multipart/form-data" class="w-full flex flex-col gap-10 ">
+                    <form id="storeRoomForm" action="{{ isset($room) ? route('hotel.updateRoom', [$room->id]) : route('hotel.storeRoom', $sharedData->id) }}" method="post" enctype="multipart/form-data" class="w-full flex flex-col gap-10 ">
                         @csrf
-                        @if(isset($room))
-                            @method('PUT')
-                        @endif
                         <div class="w-full grid grid-cols-497-1fr gap-[10px] items-start 640max:grid-cols-1 768max:grid-cols-270-1fr 1280max:grid-cols-350-1fr">
                             <!-- images -->
                             <div class="edit-room-image-container w-full grid grid-cols-2 content-start gap-x-[14px] gap-y-[12px] 768max:gap-y-2 768max:gap-x-2">
@@ -73,7 +70,7 @@
                                                                 <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
                                                             </svg>
                                                         </button>
-                                                        <input id="singlebedCountInput" name="single_beds" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->single_beds : old('single_beds') }}" type="text" readonly>
+                                                        <input id="singlebedCountInput" name="single" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->single : old('single') }}" type="text" readonly>
                                                         <button type="button" onclick="addOrDeleteBed('delete', singlebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
                                                             <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                                                 <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
@@ -90,7 +87,7 @@
                                                                 <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
                                                             </svg>
                                                         </button>
-                                                        <input id="doublebedCountInput" name="double_beds" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->double_beds : old('double_beds') }}" type="text" readonly>
+                                                        <input id="doublebedCountInput" name="double" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->double : old('double') }}" type="text" readonly>
                                                         <button type="button" onclick="addOrDeleteBed('delete', doublebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
                                                             <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                                                 <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />

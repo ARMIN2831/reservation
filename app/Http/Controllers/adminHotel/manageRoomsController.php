@@ -4,6 +4,7 @@ namespace App\Http\Controllers\adminHotel;
 
 use App\Http\Controllers\Controller;
 use App\Models\Room;
+use Illuminate\Http\Request;
 
 class manageRoomsController extends Controller
 {
@@ -22,5 +23,12 @@ class manageRoomsController extends Controller
 
         Room::where('id',$roomId)->update(['status'=>$status]);
         return redirect()->route('hotel.manageRooms');
+    }
+
+
+    public function deleteRooms(Request $request)
+    {
+        $roomsId = explode(',',$request->selected_room);
+        Room::whereIn('id',$roomsId)->delete();
     }
 }

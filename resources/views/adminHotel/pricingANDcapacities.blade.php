@@ -84,129 +84,132 @@
                             </button>
                         </div>
                         <!-- body -->
-                        <div style="overflow-x: scroll;" class="grid items-center gap-2">
-                            <!-- head -->
-                            <div style="grid-template-columns: 246px {{ $size }}px 1fr;" class="grid gap-4 items-center p-4.5 rounded-xl bg-green-300">
-                                <div class="w-full grid grid-cols-2 justify-items-center items-center gap-2">
+                        <div style="overflow-x: scroll;transform: rotate(180deg);" class="grid items-center gap-2">
+                            <div style="transform: rotate(180deg);">
+                                <!-- head -->
+                                <div style="grid-template-columns: 246px {{ $size }}px 1fr;" class="grid gap-4 items-center p-4.5 rounded-xl bg-green-300">
+                                    <div class="w-full grid grid-cols-2 justify-items-center items-center gap-2">
                                         <span class=" text-xs text-light font-normal text-center">
                                             تاریخ
                                         </span>
-                                    <span class=" text-xs text-light font-normal text-center">
+                                        <span class=" text-xs text-light font-normal text-center">
                                             نوع
                                         </span>
-                                </div>
-                                <div class="w-full flex justify-items-center gap-16 1280max:gap-4 overflow-hidden">
-                                    @foreach($sharedData->rooms as $room)
-                                        <div class="w-full flex items-center justify-center gap-2">
-                                            <label for="room{{ $room->id }}" class=" text-xs text-light font-normal">
-                                                {{ $room->title }}
-                                            </label>
-                                            <input value="{{ $room->id }}" id="room{{ $room->id }}" name="room[]" type="checkbox" class=" hidden">
-                                            <label for="room{{ $room->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <!-- body -->
-                            <div class="w-full flex flex-col items-center">
-                                <!-- head -->
-                                <div style="grid-template-columns: 246px {{ $size }}px 1fr;" class="grid gap-4 items-center py-2 px-4.5 rounded-xl bg-[#8CB39880]">
-                                    <div class="w-full"></div>
-                                    <div class="w-full flex justify-items-center items-center gap-16 1280max:gap-4">
-                                        @foreach($sharedData->rooms as $room)
-                                            <div class="w-full grid grid-cols-2 justify-items-center items-center gap-6 1280max:gap-2">
-                                                <div class="w-full flex items-center justify-center">
-                                                        <span class=" text-xs text-green-600 font-normal text-center">
-                                                            برد
-                                                        </span>
-                                                </div>
-                                                <div class="w-full flex items-center justify-center">
-                                                        <span class=" text-xs text-green-600 font-normal text-center">
-                                                            آژانس
-                                                        </span>
-                                                </div>
-                                            </div>
-                                        @endforeach
                                     </div>
-                                </div>
-                                <!-- items -->
-                                <div class="flex flex-col gap-2">
-                                    @foreach($options as $option)
-                                        <!-- item -->
-                                        <div style="grid-template-columns: 246px {{ $size }}px 1fr;" class="p-4.5 rounded-xl even:bg-[#DBF0DD80] odd:bg-light grid gap-4 items-center relative">
-                                            <!-- checkbox -->
-                                            <div class=" absolute z-[2] right-4.5 top-0 bottom-0 my-auto flex items-center justify-center 1280max:bottom-auto 1280max:top-4.5">
-                                                <input id="examplaeId{{ $option['option']->id }}" value="{{ $option['option']->date }}" name="option[]" type="checkbox" class=" hidden">
-                                                <label for="examplaeId{{ $option['option']->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
+                                    <div class="w-full flex justify-items-center gap-16 1280max:gap-4 overflow-hidden">
+                                        @foreach($sharedData->rooms as $room)
+                                            <div class="w-full flex items-center justify-center gap-2">
+                                                <label for="room{{ $room->id }}" class=" text-xs text-light font-normal">
+                                                    {{ $room->title }}
+                                                </label>
+                                                <input value="{{ $room->id }}" id="room{{ $room->id }}" name="room[]" type="checkbox" class=" hidden">
+                                                <label for="room{{ $room->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
                                                     <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
                                                 </label>
                                             </div>
-                                            <div class="w-full grid grid-cols-2 justify-items-center items-center gap-6">
-                                                <div class="w-full flex flex-col items-center">
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <!-- body -->
+                                <div class="w-full flex flex-col items-center">
+                                    <!-- head -->
+                                    <div style="grid-template-columns: 246px {{ $size }}px 1fr;" class="grid gap-4 items-center py-2 px-4.5 rounded-xl bg-[#8CB39880]">
+                                        <div class="w-full"></div>
+                                        <div class="w-full flex justify-items-center items-center gap-16 1280max:gap-4">
+                                            @foreach($sharedData->rooms as $room)
+                                                <div class="w-full grid grid-cols-2 justify-items-center items-center gap-6 1280max:gap-2">
+                                                    <div class="w-full flex items-center justify-center">
+                                                        <span class=" text-xs text-green-600 font-normal text-center">
+                                                            برد
+                                                        </span>
+                                                    </div>
+                                                    <div class="w-full flex items-center justify-center">
+                                                        <span class=" text-xs text-green-600 font-normal text-center">
+                                                            آژانس
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <!-- items -->
+                                    <div class="flex flex-col gap-2">
+                                        @foreach($options as $option)
+                                            <!-- item -->
+                                            <div style="grid-template-columns: 246px {{ $size }}px 1fr;" class="p-4.5 rounded-xl even:bg-[#DBF0DD80] odd:bg-light grid gap-4 items-center relative">
+                                                <!-- checkbox -->
+                                                <div class=" absolute z-[2] right-4.5 top-0 bottom-0 my-auto flex items-center justify-center 1280max:bottom-auto 1280max:top-4.5">
+                                                    <input id="examplaeId{{ $option['option']->id }}" value="{{ $option['option']->date }}" name="option[]" type="checkbox" class=" hidden">
+                                                    <label for="examplaeId{{ $option['option']->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
+                                                        <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    </label>
+                                                </div>
+                                                <div class="w-full grid grid-cols-2 justify-items-center items-center gap-6">
+                                                    <div class="w-full flex flex-col items-center">
                                                     <span class=" text-sm text-neutral-700 font-normal text-center">
                                                          {{ $option['option']->date }}
                                                     </span>
-                                                </div>
-                                                <div class="w-full flex flex-col items-center gap-[30px]">
+                                                    </div>
+                                                    <div class="w-full flex flex-col items-center gap-[30px]">
                                                     <span class=" text-xs text-neutral-400 font-normal text-center">
                                                         پایه
                                                     </span>
-                                                    {{--<span class=" text-xs text-neutral-400 font-normal text-center">
-                                                        نفر اضاقه
-                                                    </span>
-                                                    <span class=" text-xs text-neutral-400 font-normal text-center">
-                                                        کودک
-                                                    </span>--}}
+                                                        {{--<span class=" text-xs text-neutral-400 font-normal text-center">
+                                                            نفر اضاقه
+                                                        </span>
+                                                        <span class=" text-xs text-neutral-400 font-normal text-center">
+                                                            کودک
+                                                        </span>--}}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="w-full flex justify-items-center items-center gap-16 1280max:gap-4">
-                                                @foreach($option['rooms'] as $room)
-                                                    <div class="w-full grid grid-cols-2 justify-items-center items-center gap-6 1280max:gap-2">
-                                                        <div class="w-full flex flex-col items-center gap-[30px]">
-                                                            @if(isset($room->bord))
-                                                                <div class="w-full flex items-center justify-center gap-1 text-sm text-neutral-700 text-center font-normal relative 1280max:flex-col">
+                                                <div class="w-full flex justify-items-center items-center gap-16 1280max:gap-4">
+                                                    @foreach($option['rooms'] as $room)
+                                                        <div class="w-full grid grid-cols-2 justify-items-center items-center gap-6 1280max:gap-2">
+                                                            <div class="w-full flex flex-col items-center gap-[30px]">
+                                                                @if(isset($room->bord))
+                                                                    <div class="w-full flex items-center justify-center gap-1 text-sm text-neutral-700 text-center font-normal relative 1280max:flex-col">
                                                             <span>
                                                                 {{ @$room->bord }}
                                                             </span>
-                                                                    <span>
+                                                                        <span>
                                                                 تومان
                                                             </span>
-                                                                    <!-- badge -->
-                                                                    {{--<div class="flex items-center justify-center rounded-full bg-green-600 p-1 absolute z-[2] right-[-20px] top-0 bottom-0 my-auto text-xs text-light font-normal text-center aspect-square min-w-7 max-h-7">
-                                                                        10%
-                                                                    </div>--}}
-                                                                </div>
-                                                            @endif
-                                                        </div>
-                                                        <div class="w-full flex flex-col items-center gap-[30px]">
-                                                            @if(isset($room->bord))
-                                                                <div class="w-full flex items-center justify-center gap-1 text-sm text-neutral-700 text-center font-normal relative 1280max:flex-col">
+                                                                        <!-- badge -->
+                                                                        {{--<div class="flex items-center justify-center rounded-full bg-green-600 p-1 absolute z-[2] right-[-20px] top-0 bottom-0 my-auto text-xs text-light font-normal text-center aspect-square min-w-7 max-h-7">
+                                                                            10%
+                                                                        </div>--}}
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            <div class="w-full flex flex-col items-center gap-[30px]">
+                                                                @if(isset($room->bord))
+                                                                    <div class="w-full flex items-center justify-center gap-1 text-sm text-neutral-700 text-center font-normal relative 1280max:flex-col">
                                                             <span>
                                                                 {{ @$room->ajax }}
                                                             </span>
-                                                                    <span>
+                                                                        <span>
                                                                 تومان
                                                             </span>
-                                                                    <!-- badge -->
-                                                                    {{-- <div class="flex items-center justify-center rounded-full bg-green-600 p-1 absolute z-[2] right-[-20px] top-0 bottom-0 my-auto text-xs text-light font-normal text-center aspect-square min-w-7 max-h-7">
-                                                                         10%
-                                                                     </div>--}}
-                                                                </div>
-                                                            @endif
+                                                                        <!-- badge -->
+                                                                        {{-- <div class="flex items-center justify-center rounded-full bg-green-600 p-1 absolute z-[2] right-[-20px] top-0 bottom-0 my-auto text-xs text-light font-normal text-center aspect-square min-w-7 max-h-7">
+                                                                             10%
+                                                                         </div>--}}
+                                                                    </div>
+                                                                @endif
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                @endforeach
+                                                    @endforeach
+                                                </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -972,88 +975,91 @@
                             </button>
                         </div>
                         <!-- body -->
-                        <div style="overflow-x: scroll;" class="grid items-center gap-2">
-                            <!-- header -->
-                            <div style="grid-template-columns: 246px {{ $size2 }}px 1fr;" class="grid gap-4 items-center p-4.5 rounded-xl bg-green-300">
-                                <div class="w-full grid grid-cols-2 justify-items-center items-center gap-2">
+                        <div style="overflow-x: scroll;transform: rotate(180deg);" class="grid items-center gap-2">
+                            <div style="transform: rotate(180deg);">
+                                <!-- header -->
+                                <div style="grid-template-columns: 246px {{ $size2 }}px 1fr;" class="grid gap-4 items-center p-4.5 rounded-xl bg-green-300">
+                                    <div class="w-full grid grid-cols-2 justify-items-center items-center gap-2">
                                         <span class=" text-xs text-light font-normal text-center">
                                             تاریخ
                                         </span>
-                                    <span class=" text-xs text-light font-normal text-center">
+                                        <span class=" text-xs text-light font-normal text-center">
 
                                         </span>
+                                    </div>
+                                    <div class="w-full flex justify-items-center gap-16 1280max:gap-4 overflow-hidden">
+                                        @foreach($sharedData->rooms as $room)
+                                            <div class="w-full flex items-center justify-center gap-2">
+                                                <label for="room2{{ $room->id }}" class=" text-xs text-light font-normal">
+                                                    {{ $room->title }}
+                                                </label>
+                                                <input value="{{ $room->id }}" id="room2{{ $room->id }}" name="room2[]" type="checkbox" class=" hidden">
+                                                <label for="room2{{ $room->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
+                                                    <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
-                                <div class="w-full flex justify-items-center gap-16 1280max:gap-4 overflow-hidden">
-                                    @foreach($sharedData->rooms as $room)
-                                        <div class="w-full flex items-center justify-center gap-2">
-                                            <label for="room2{{ $room->id }}" class=" text-xs text-light font-normal">
-                                                {{ $room->title }}
-                                            </label>
-                                            <input value="{{ $room->id }}" id="room2{{ $room->id }}" name="room2[]" type="checkbox" class=" hidden">
-                                            <label for="room2{{ $room->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <!-- items -> body -->
-                            <div class="w-full flex flex-col gap-2">
-                                <!-- item -->
-                                @foreach($options as $option)
+                                <!-- items -> body -->
+                                <div class="w-full flex flex-col gap-2">
                                     <!-- item -->
-                                    <div style="grid-template-columns: 246px {{ $size2 }}px 1fr;" class="p-4.5 rounded-xl even:bg-[#DBF0DD80] odd:bg-light grid gap-4 items-center relative">
-                                        <!-- checkbox -->
-                                        <div class=" absolute z-[2] right-4.5 top-0 bottom-0 my-auto flex items-center justify-center 1280max:bottom-auto 1280max:top-4.5">
-                                            <input value="{{ $option['option']->date }}" id="option2{{ $option['option']->id }}" name="option2[]" type="checkbox" class=" hidden">
-                                            <label for="option2{{ $option['option']->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            </label>
-                                        </div>
-                                        <div class="w-full grid grid-cols-2 justify-items-center items-center gap-6">
+                                    @foreach($options as $option)
+                                        <!-- item -->
+                                        <div style="grid-template-columns: 246px {{ $size2 }}px 1fr;" class="p-4.5 rounded-xl even:bg-[#DBF0DD80] odd:bg-light grid gap-4 items-center relative">
+                                            <!-- checkbox -->
+                                            <div class=" absolute z-[2] right-4.5 top-0 bottom-0 my-auto flex items-center justify-center 1280max:bottom-auto 1280max:top-4.5">
+                                                <input value="{{ $option['option']->date }}" id="option2{{ $option['option']->id }}" name="option2[]" type="checkbox" class=" hidden">
+                                                <label for="option2{{ $option['option']->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
+                                                    <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </label>
+                                            </div>
+                                            <div class="w-full grid grid-cols-2 justify-items-center items-center gap-6">
                                             <span class=" text-sm text-neutral-700 font-normal text-center">
                                                 {{ $option['option']->date }}
                                             </span>
-                                        </div>
-                                        <div class="w-full flex justify-items-center items-center gap-16 1280max:gap-4">
-                                            @foreach($option['rooms'] as $room)
-                                                <div class="w-full flex flex-col max-w-[110px]">
-                                                    @if(isset($room->capacity))
-                                                    <div class="flex items-center gap-2 self-start">
-                                                        <div class=" w-full flex items-center">
-                                                            <input id="sallamm2{{ @$room->id }}" name="" type="checkbox" class=" hidden">
-                                                            <label for="sallamm2{{ @$room->id }}" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                                <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                </svg>
-                                                            </label>
-                                                        </div>
-                                                        <span class=" text-xs text-neutral-400 font-normal text-nowrap">
+                                            </div>
+                                            <div class="w-full flex justify-items-center items-center gap-16 1280max:gap-4">
+                                                @foreach($option['rooms'] as $room)
+                                                    <div class="w-full flex flex-col max-w-[110px]">
+                                                        @if(isset($room->capacity))
+                                                            <div class="flex items-center gap-2 self-start">
+                                                                <div class=" w-full flex items-center">
+                                                                    <input id="sallamm2{{ @$room->id }}" name="" type="checkbox" class=" hidden">
+                                                                    <label for="sallamm2{{ @$room->id }}" class=" w-3 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
+                                                                        <svg class=" w-[8px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                        </svg>
+                                                                    </label>
+                                                                </div>
+                                                                <span class=" text-xs text-neutral-400 font-normal text-nowrap">
                                                         رزرو : {{ $room->capacity }}
                                                     </span>
-                                                    </div>
-                                                    <div class="flex items-center gap-2 self-end">
+                                                            </div>
+                                                            <div class="flex items-center gap-2 self-end">
                                                     <span class=" text-[18px] font-normal text-neutral-700">
                                                         5
                                                     </span>
-                                                        <span class=" text-sm font-normal text-neutral-700">
+                                                                <span class=" text-sm font-normal text-neutral-700">
                                                         بهمن
                                                     </span>
+                                                            </div>
+                                                        @endif
                                                     </div>
-                                                    @endif
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
 
 
 
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -1727,5 +1733,17 @@
             }
             window.location.href = '{{ route('hotel.pricingANDcapacities') }}?date=' + formattedDate;
         });
+
+
+
+        var el = document.getElementById("myel");
+
+        // To set the scroll
+        el.scrollTop = 0;
+        el.scrollLeft = 0;
+
+        // To increment the scroll
+        el.scrollTop += 100;
+        el.scrollLeft += 100;
     </script>
 @endsection

@@ -31,21 +31,7 @@
                                             </span>
                                             <div class=" flex items-center gap-1 self-center justify-center flex-wrap">
                                                 <span class=" text-[20px] text-light font-bold">
-                                                    21,364,346,346
-                                                </span>
-                                                <span class=" text-sm text-light font-normal">
-                                                    تومان
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <!-- item -->
-                                        <div class="w-full flex flex-col gap-4.5 p-4.5 pb-[21px] rounded-xl bg-green-300 512max:pb-4.5">
-                                            <span class=" text-base text-light font-normal 512max:self-center">
-                                                درآمد روزانه
-                                            </span>
-                                            <div class=" flex items-center gap-1 self-center justify-center flex-wrap">
-                                                <span class=" text-[20px] text-light font-bold">
-                                                    21,364,346,346
+                                                    {{ $incomes['daily'] }}
                                                 </span>
                                                 <span class=" text-sm text-light font-normal">
                                                     تومان
@@ -59,7 +45,7 @@
                                             </span>
                                             <div class=" flex items-center gap-1 self-center justify-center flex-wrap">
                                                 <span class=" text-[20px] text-light font-bold">
-                                                    21,364,346,346
+                                                    {{ $incomes['monthly'] }}
                                                 </span>
                                                 <span class=" text-sm text-light font-normal">
                                                     تومان
@@ -67,6 +53,20 @@
                                             </div>
                                         </div>
                                         <!-- item -->
+                                        <div class="w-full flex flex-col gap-4.5 p-4.5 pb-[21px] rounded-xl bg-green-300 512max:pb-4.5">
+                                            <span class=" text-base text-light font-normal 512max:self-center">
+                                                درآمد سالانه
+                                            </span>
+                                            <div class=" flex items-center gap-1 self-center justify-center flex-wrap">
+                                                <span class=" text-[20px] text-light font-bold">
+                                                    {{ $incomes['yearly'] }}
+                                                </span>
+                                                <span class=" text-sm text-light font-normal">
+                                                    تومان
+                                                </span>
+                                            </div>
+                                        </div>
+                                        {{--<!-- item -->
                                         <div class="w-full flex flex-col gap-4.5 p-4.5 pb-[21px] rounded-xl bg-green-300 512max:pb-4.5">
                                             <span class=" text-base text-light font-normal 512max:self-center">
                                                 هزینه های اضافی
@@ -79,7 +79,7 @@
                                                     تومان
                                                 </span>
                                             </div>
-                                        </div>
+                                        </div>--}}
                                     </div>
                                 </div>
                             </div>

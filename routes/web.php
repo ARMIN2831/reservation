@@ -128,6 +128,7 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
         Route::controller(manageRoomsController::class)->group(function() {
             Route::get('manageRooms', 'index')->name('manageRooms');
             Route::get('updateRoomStatus/{roomId}/{status}', 'updateRoomStatus')->name('updateRoomStatus');
+            Route::post('deleteRooms', 'deleteRooms')->name('deleteRooms');
         });
 
 
@@ -156,9 +157,10 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
 
         //editRoom routes
         Route::controller(editRoomsController::class)->group(function() {
-            Route::get('editRoom', 'index')->name('editRoom');
+            Route::get('editRooms', 'editRooms')->name('editRooms');
             Route::get('addRoom', 'index')->name('addRoom');
             Route::post('storeRoom/{hotelId}', 'storeRoom')->name('storeRoom');
+            Route::post('updateRoom/{hotelId}', 'updateRoom')->name('updateRoom');
         });
 
 

@@ -8,6 +8,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Morilog\Jalali\Jalalian;
 use Symfony\Component\HttpFoundation\Response;
 
 class ShareAdminHotelData
@@ -24,6 +25,8 @@ class ShareAdminHotelData
             $hotel = Hotel::whereHas('users', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })->with('files','facilities','rooms.files','reserves.people.room')->first();
+            $today = Jalalian::now();
+            $tomorrow = Jalalian::now()->addDays(1);
             if ($hotel){
                 $hotel->messages = Message::where('receiver_id',$hotel->id)
                     ->where('type','admin')
@@ -31,6 +34,8 @@ class ShareAdminHotelData
                     ->where('sender_model','App\Models\User')
                     ->where('status',0)
                     ->get();
+                $hotel->today = $today;
+                $hotel->tomorrow = $tomorrow;
             }
             /*foreach ($hotel->reserves as $reserve){
                 foreach ($reserve->people as $people){
