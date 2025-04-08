@@ -1,15 +1,16 @@
 @extends('layouts.userHotel')
 @section('content')
+    <title>صفحه اصلی</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <main class=" w-full flex flex-col items-center gap-20 pb-8">
         <section class="bannerSection flex w-full max-w-[1440px] h-[400px] items-center justify-between px-[210px] 512max:h-[310px] 512max:px-[28px] 1024max:px-[36px] 1150max:px-[64px] 1150max:justify-center">
             <div class="flex flex-col gap-3 mb-[100px] 1150max:items-center">
                 <img class=" hidden w-[300px] 512max:w-[200px] 768max:block" src="{{ asset('public/icons/chademon.svg') }}" alt="#">
                 <h6 class=" text-[38px] text-light font-extrabold font-farsi-extraBold drop-shadow-textDropShdow1 768max:hidden">
-                    با چمدان بار سفر رو ببند!
+                    با سفری نو بار سفر رو ببند!
                 </h6>
                 <span class=" text-[22px] text-green-600 font-medium drop-shadow-textDropShdow2 768max:text-green-300 512max:text-base">
-                    سفر راحت و بی‌دغدغه با چمدان
+                    سفر راحت و بی‌دغدغه با سفری نو
                 </span>
             </div>
             <img class=" h-full 1150max:hidden" src="{{ asset('public/images/chademanImh.png') }}" alt="#">
@@ -52,7 +53,7 @@
                                 هتل
                             </span>
                         </button>
-                        <button onclick="tabContentControler(event, 'travelTypeSelectionTabContent2')" class="travelTypeButton nextElem h-[54px] px-10 hidden items-center justify-center gap-[6px] 1024max:px-2 1024max:w-full 768max:flex-col  768max:h-[75px] 768max:flex">
+                        {{--<button onclick="tabContentControler(event, 'travelTypeSelectionTabContent2')" class="travelTypeButton nextElem h-[54px] px-10 hidden items-center justify-center gap-[6px] 1024max:px-2 1024max:w-full 768max:flex-col  768max:h-[75px] 768max:flex">
                             <svg class=" w-6 text-inherit" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19.1119 10.5C18.9525 10.5 18.4186 10.5047 18.2681 10.5141L15.2259 10.5938C15.2101 10.5947 15.1944 10.5913 15.1804 10.5838C15.1664 10.5764 15.1547 10.5652 15.1467 10.5516L9.07265 3.16687C9.03581 3.11811 8.98881 3.07792 8.93491 3.04911C8.88101 3.0203 8.82148 3.00354 8.76047 3H7.5L10.9219 10.5469C10.93 10.5642 10.9336 10.5833 10.9321 10.6023C10.9307 10.6214 10.9243 10.6397 10.9136 10.6555C10.9029 10.6714 10.8883 10.6842 10.8712 10.6926C10.854 10.7011 10.835 10.705 10.8159 10.7039L5.11172 10.7883C5.05236 10.7901 4.99341 10.7779 4.93966 10.7526C4.8859 10.7274 4.83886 10.6898 4.80234 10.643L3.06797 8.53359C2.92734 8.35078 2.6639 8.25234 2.43469 8.25234H1.55062C1.49015 8.25234 1.49906 8.30906 1.51547 8.36625L2.44547 11.7141C2.51577 11.8934 2.51577 12.0926 2.44547 12.2719L1.51453 15.6094C1.48687 15.7008 1.49015 15.75 1.5975 15.75H2.4375C2.81906 15.75 2.87109 15.7003 3.06609 15.4547L4.83328 13.3125C4.87012 13.266 4.91723 13.2287 4.9709 13.2035C5.02458 13.1783 5.08337 13.1659 5.14265 13.1672L10.7995 13.2938C10.8201 13.2942 10.8403 13.2997 10.8583 13.3097C10.8763 13.3198 10.8916 13.334 10.9028 13.3513C10.914 13.3686 10.9208 13.3884 10.9227 13.4089C10.9246 13.4294 10.9214 13.4501 10.9134 13.4691L7.5 21H8.74875C8.80965 20.9964 8.86905 20.9797 8.92287 20.951C8.97668 20.9223 9.02363 20.8822 9.06047 20.8336L15.1472 13.4531C15.1655 13.425 15.2409 13.4109 15.2733 13.4109L18.2686 13.4906C18.4233 13.5 18.9525 13.5047 19.1123 13.5047C21.1875 13.5047 22.5 12.9342 22.5 12C22.5 11.0658 21.1931 10.5 19.1119 10.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
@@ -100,7 +101,7 @@
                             <span class=" text-base text-inherit font-medium text-nowrap 640max:text-sm">
                                 تور
                             </span>
-                        </button>
+                        </button>--}}
                     </div>
                     <div class="w-full min-h-[200px] rounded-xl rounded-tr-none bg-light relative p-10 768max:px-4.5 768max:py-[30px] 1024max:rounded-t-none">
                         <!-- support team button -->
@@ -177,23 +178,23 @@
                                                 />
 
                                                 <!-- Modal -->
-                                                <div x-show="isPassengerModalOpen" @click.away="isPassengerModalOpen = false" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-                                                    <div class="bg-white rounded-lg p-6 w-full max-w-md">
-                                                        <div class="space-y-4">
+                                                <div x-show="isPassengerModalOpen" @click.away="isPassengerModalOpen = false" class="passenger-modal-overlay">
+                                                    <div class="passenger-modal-container">
+                                                        <div class="passenger-modal-content">
                                                             <!-- Room List -->
                                                             <template x-for="(room, index) in rooms" :key="index">
-                                                                <div class="border p-4 rounded-lg">
-                                                                    <div class="flex justify-between items-center mb-4">
-                                                                        <h3 class="font-semibold">اتاق <span x-text="index + 1"></span></h3>
-                                                                        <button @click="removeRoom(index)" class="text-red-500 hover:text-red-700">حذف اتاق</button>
+                                                                <div class="room-card">
+                                                                    <div class="room-header">
+                                                                        <h3 class="room-title">اتاق <span x-text="index + 1"></span></h3>
+                                                                        <a @click="removeRoom(index)" class="delete-room-btn">حذف اتاق</a>
                                                                     </div>
-                                                                    <div class="space-y-2">
-                                                                        <div class="flex justify-between items-center">
-                                                                            <span>تعداد نفر:</span>
-                                                                            <div class="flex items-center gap-2">
-                                                                                <a @click="decrementPersons(index)" class="px-2 py-1 bg-gray-200 rounded">-</a>
-                                                                                <span x-text="room.persons"></span>
-                                                                                <a @click="incrementPersons(index)" class="px-2 py-1 bg-gray-200 rounded">+</a>
+                                                                    <div class="room-controls">
+                                                                        <div class="persons-control">
+                                                                            <span class="control-label">تعداد نفر:</span>
+                                                                            <div class="counter">
+                                                                                <a @click="decrementPersons(index)" class="counter-btn decrement">-</a>
+                                                                                <span class="counter-value" x-text="room.persons"></span>
+                                                                                <a @click="incrementPersons(index)" class="counter-btn increment">+</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -201,17 +202,164 @@
                                                             </template>
 
                                                             <!-- Add Room Button -->
-                                                            <a @click="addRoom" class="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                                            <a @click="addRoom" class="add-room-btn">
                                                                 افزودن اتاق
                                                             </a>
 
                                                             <!-- Close Modal Button -->
-                                                            <a @click="isPassengerModalOpen = false" class="w-full py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+                                                            <a @click="isPassengerModalOpen = false" class="close-modal-btn">
                                                                 بستن
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <style>
+                                                    /* استایل کلی مودال */
+                                                    .passenger-modal-overlay {
+                                                        position: fixed;
+                                                        top: 0;
+                                                        left: 0;
+                                                        right: 0;
+                                                        bottom: 0;
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        z-index: 1000;
+                                                        padding: 20px;
+                                                    }
+
+                                                    .passenger-modal-container {
+                                                        background-color: white;
+                                                        border-radius: 12px;
+                                                        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                                                        width: 100%;
+                                                        max-width: 420px;
+                                                        overflow: hidden;
+                                                    }
+
+                                                    .passenger-modal-content {
+                                                        padding: 24px;
+                                                        display: flex;
+                                                        flex-direction: column;
+                                                        gap: 16px;
+                                                    }
+
+                                                    /* استایل کارت اتاق */
+                                                    .room-card {
+                                                        border: 1px solid #e0e0e0;
+                                                        border-radius: 8px;
+                                                        padding: 16px;
+                                                        background-color: #f9f9f9;
+                                                        transition: all 0.3s ease;
+                                                    }
+
+                                                    .room-card:hover {
+                                                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                                                    }
+
+                                                    .room-header {
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                        align-items: center;
+                                                        margin-bottom: 12px;
+                                                    }
+
+                                                    .room-title {
+                                                        font-size: 16px;
+                                                        font-weight: 600;
+                                                        color: #333;
+                                                        margin: 0;
+                                                    }
+
+                                                    .delete-room-btn {
+                                                        background: none;
+                                                        border: none;
+                                                        color: #e74c3c;
+                                                        font-size: 14px;
+                                                        cursor: pointer;
+                                                        padding: 4px 8px;
+                                                        border-radius: 4px;
+                                                        transition: all 0.2s ease;
+                                                    }
+
+                                                    .delete-room-btn:hover {
+                                                        background-color: #fde8e6;
+                                                    }
+
+                                                    /* استایل کنترل تعداد نفرات */
+                                                    .persons-control {
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                        align-items: center;
+                                                    }
+
+                                                    .control-label {
+                                                        font-size: 14px;
+                                                        color: #555;
+                                                    }
+
+                                                    .counter {
+                                                        display: flex;
+                                                        align-items: center;
+                                                        gap: 8px;
+                                                    }
+
+                                                    .counter-btn {
+                                                        width: 28px;
+                                                        height: 28px;
+                                                        border-radius: 50%;
+                                                        border: 1px solid #ddd;
+                                                        background-color: white;
+                                                        font-size: 14px;
+                                                        cursor: pointer;
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        transition: all 0.2s ease;
+                                                    }
+
+                                                    .counter-btn:hover {
+                                                        background-color: #f0f0f0;
+                                                    }
+
+                                                    .counter-value {
+                                                        min-width: 20px;
+                                                        text-align: center;
+                                                        font-weight: 500;
+                                                    }
+
+                                                    /* استایل دکمه‌ها */
+                                                    .add-room-btn, .close-modal-btn {
+                                                        width: 100%;
+                                                        padding: 12px;
+                                                        border-radius: 8px;
+                                                        border: none;
+                                                        font-size: 14px;
+                                                        font-weight: 500;
+                                                        cursor: pointer;
+                                                        transition: all 0.2s ease;
+                                                    }
+
+                                                    .add-room-btn {
+                                                        background-color: #3498db;
+                                                        color: white;
+                                                    }
+
+                                                    .add-room-btn:hover {
+                                                        background-color: #2980b9;
+                                                    }
+
+                                                    .close-modal-btn {
+                                                        background-color: #95a5a6;
+                                                        color: white;
+                                                        margin-top: 8px;
+                                                    }
+
+                                                    .close-modal-btn:hover {
+                                                        background-color: #7f8c8d;
+                                                    }
+                                                </style>
                                             </div>
 
 
@@ -752,7 +900,7 @@
             <!-- header -->
             <div class="w-full flex items-center justify-center">
                 <h5 class="hidden text-[20px] text-black font-bold">
-                    خدمات چمدون برای سفری راحت
+                    خدمات سفری نو برای سفری راحت
                 </h5>
             </div>
             <!-- body -->
@@ -767,7 +915,7 @@
                                 رزرو بلیط هواپیما و قطار
                             </span>
                             <span class=" text-[12px] text-neutral-700 font-normal">
-                                با چمدون، بلیط هواپیما و قطار را سریع و آسان رزرو کنید و سفری راحت را تجربه کنید!
+                                با سفری نو، بلیط هواپیما و قطار را سریع و آسان رزرو کنید و سفری راحت را تجربه کنید!
                             </span>
                         </div>
                         <!-- image -->
@@ -789,7 +937,7 @@
                                 رزرو بروزترین هتل ها
                             </span>
                             <span class=" text-[12px] text-neutral-700 font-normal">
-                                با چمدون، بلیط هواپیما و قطار را سریع و آسان رزرو کنید و سفری راحت را تجربه کنید!
+                                با سفری نو، بلیط هواپیما و قطار را سریع و آسان رزرو کنید و سفری راحت را تجربه کنید!
                             </span>
                         </div>
                         <!-- image -->
@@ -811,7 +959,7 @@
                                 رزرو بهترین تورها
                             </span>
                             <span class=" text-[12px] text-neutral-700 font-normal">
-                                با چمدون، تورهای متنوع را آسان رزرو کنید و سفری به‌یادماندنی داشته باشید!
+                                با سفری نو، تورهای متنوع را آسان رزرو کنید و سفری به‌یادماندنی داشته باشید!
                             </span>
                         </div>
                         <!-- image -->
@@ -829,12 +977,13 @@
             <div class="w-full hidden 768max:block">
                 <p class=" text-xs font-normal text-neutral-700 text-center">
                     <span class=" text-xs font-bold text-green-300">
-                        سایت چمدون
+                        سایت سفری نو
                     </span>
                     یک پلتفرم جامع گردشگری است که امکان خرید بلیط هواپیما، قطار، رزرو هتل و انواع تورهای مسافرتی را با قیمت‌های رقابتی و خدمات مطمئن فراهم می‌کند و تجربه‌ای راحت و سریع برای برنامه‌ریزی سفر به کاربران ارائه می‌دهد.
                 </p>
             </div>
         </section>
+        @if(count($suggestionsOne) > 3)
         <section class=" w-full max-w-[1440px] px-[100px] flex flex-col gap-10 mb-[73px] 512max:px-[0px] 1024max:px-[0px] 1280max:px-[64px]">
             <!-- header -->
             <div class="w-full flex flex-col gap-[6px] 640max:items-center 512max:px-7 640max:gap-2 1024max:px-[36px]">
@@ -855,7 +1004,7 @@
                 </div>
                 <!-- bottom -->
                 <span class=" text-sm text-neutral-400 font-normal 512max:text-[10px]">
-                    در این بخش بهترین پیشنهادات سفر سایت چمدان را مشاهده می کنید
+                    در این بخش بهترین پیشنهادات سفر سایت سفری نو را مشاهده می کنید
                 </span>
             </div>
             <!-- body -->
@@ -872,24 +1021,17 @@
                     <div class="w-full relative">
                         <div class="swiper bestSuggestSlider w-full">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
+                                @foreach($suggestionsOne as $suggestionHotel)
+                                    <div class="swiper-slide">
                                     <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden">
                                         <!-- image -->
                                         <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                            <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
+                                            <img src="{{ asset('storage/' . $suggestionHotel->hotel->banner) }}" alt="#" class="w-full h-full object-cover">
                                             <!-- cover -->
                                             <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
                                                 <div class="w-full flex items-center justify-between 850max:justify-start">
                                                     <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                        روستای پلکانی ماسوله VIP
-                                                    </span>
-                                                    <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                        <span class=" text-sm text-light font-bold">
-                                                            1,550,000
-                                                        </span>
-                                                        <span class=" text-[10px] text-light font-bold">
-                                                            تومان
-                                                        </span>
+                                                        {{ $suggestionHotel->title }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -897,9 +1039,17 @@
                                         <!-- content -->
                                         <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
                                             <!-- button -->
-                                            <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                                جزئیات و رزرو
-                                            </button>
+                                            <form method="get" action="{{ route('hotelBooking.showDescription') }}">
+                                                <input type="hidden" name="destination" value="{{ $suggestionHotel->city }}">
+                                                <input type="hidden" name="hotel_id" value="{{ $suggestionHotel->hotel_id }}">
+                                                <input type="hidden" name="dates" value="{{ $today->format('Y/m/d') }} تا {{ $tomorrow->format('Y/m/d') }}">
+                                                <input type="hidden" name="rooms_data" value='[{"persons":1}]'>
+                                                <input type="hidden" name="hotelId" value="{{ $suggestionHotel->hotel_id }}">
+                                                <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
+                                                    جزئیات و رزرو
+                                                </button>
+                                            </form>
+
                                             <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
                                                 <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
                                                     <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -907,295 +1057,15 @@
                                                     </svg>
                                                     <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
                                                         <span class=" font-medium text-nowrap">
-                                                            12 بهمن
-                                                        </span>
-                                                        <span class=" font-normal text-nowrap">
-                                                            (1 روزه)
+                                                            {{ \Morilog\Jalali\Jalalian::now()->format('%d %B') }}
                                                         </span>
                                                     </span>
                                                 </div>
-                                                <span class=" hidden items-center gap-[2px] 850max:flex">
-                                                    <span class=" text-xs text-neutral-700 font-bold">
-                                                        1,550,000
-                                                    </span>
-                                                    <span class=" text-[6px] text-neutral-700 font-bold">
-                                                        تومان
-                                                    </span>
-                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="swiper-slide">
-                                    <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden">
-                                        <!-- image -->
-                                        <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                            <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                            <!-- cover -->
-                                            <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                                <div class="w-full flex items-center justify-between 850max:justify-start">
-                                                    <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                        روستای پلکانی ماسوله VIP
-                                                    </span>
-                                                    <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                        <span class=" text-sm text-light font-bold">
-                                                            1,550,000
-                                                        </span>
-                                                        <span class=" text-[10px] text-light font-bold">
-                                                            تومان
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- content -->
-                                        <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                            <!-- button -->
-                                            <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                                جزئیات و رزرو
-                                            </button>
-                                            <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                                <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                                    <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                                    </svg>
-                                                    <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                        <span class=" font-medium text-nowrap">
-                                                            12 بهمن
-                                                        </span>
-                                                        <span class=" font-normal text-nowrap">
-                                                            (1 روزه)
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                                <span class=" hidden items-center gap-[2px] 850max:flex">
-                                                    <span class=" text-xs text-neutral-700 font-bold">
-                                                        1,550,000
-                                                    </span>
-                                                    <span class=" text-[6px] text-neutral-700 font-bold">
-                                                        تومان
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden">
-                                        <!-- image -->
-                                        <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                            <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                            <!-- cover -->
-                                            <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                                <div class="w-full flex items-center justify-between 850max:justify-start">
-                                                    <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                        روستای پلکانی ماسوله VIP
-                                                    </span>
-                                                    <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                        <span class=" text-sm text-light font-bold">
-                                                            1,550,000
-                                                        </span>
-                                                        <span class=" text-[10px] text-light font-bold">
-                                                            تومان
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- content -->
-                                        <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                            <!-- button -->
-                                            <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                                جزئیات و رزرو
-                                            </button>
-                                            <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                                <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                                    <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                                    </svg>
-                                                    <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                        <span class=" font-medium text-nowrap">
-                                                            12 بهمن
-                                                        </span>
-                                                        <span class=" font-normal text-nowrap">
-                                                            (1 روزه)
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                                <span class=" hidden items-center gap-[2px] 850max:flex">
-                                                    <span class=" text-xs text-neutral-700 font-bold">
-                                                        1,550,000
-                                                    </span>
-                                                    <span class=" text-[6px] text-neutral-700 font-bold">
-                                                        تومان
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden">
-                                        <!-- image -->
-                                        <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                            <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                            <!-- cover -->
-                                            <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                                <div class="w-full flex items-center justify-between 850max:justify-start">
-                                                    <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                        روستای پلکانی ماسوله VIP
-                                                    </span>
-                                                    <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                        <span class=" text-sm text-light font-bold">
-                                                            1,550,000
-                                                        </span>
-                                                        <span class=" text-[10px] text-light font-bold">
-                                                            تومان
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- content -->
-                                        <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                            <!-- button -->
-                                            <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                                جزئیات و رزرو
-                                            </button>
-                                            <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                                <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                                    <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                                    </svg>
-                                                    <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                        <span class=" font-medium text-nowrap">
-                                                            12 بهمن
-                                                        </span>
-                                                        <span class=" font-normal text-nowrap">
-                                                            (1 روزه)
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                                <span class=" hidden items-center gap-[2px] 850max:flex">
-                                                    <span class=" text-xs text-neutral-700 font-bold">
-                                                        1,550,000
-                                                    </span>
-                                                    <span class=" text-[6px] text-neutral-700 font-bold">
-                                                        تومان
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden">
-                                        <!-- image -->
-                                        <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                            <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                            <!-- cover -->
-                                            <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                                <div class="w-full flex items-center justify-between 850max:justify-start">
-                                                    <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                        روستای پلکانی ماسوله VIP
-                                                    </span>
-                                                    <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                        <span class=" text-sm text-light font-bold">
-                                                            1,550,000
-                                                        </span>
-                                                        <span class=" text-[10px] text-light font-bold">
-                                                            تومان
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- content -->
-                                        <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                            <!-- button -->
-                                            <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                                جزئیات و رزرو
-                                            </button>
-                                            <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                                <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                                    <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                                    </svg>
-                                                    <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                        <span class=" font-medium text-nowrap">
-                                                            12 بهمن
-                                                        </span>
-                                                        <span class=" font-normal text-nowrap">
-                                                            (1 روزه)
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                                <span class=" hidden items-center gap-[2px] 850max:flex">
-                                                    <span class=" text-xs text-neutral-700 font-bold">
-                                                        1,550,000
-                                                    </span>
-                                                    <span class=" text-[6px] text-neutral-700 font-bold">
-                                                        تومان
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden">
-                                        <!-- image -->
-                                        <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                            <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                            <!-- cover -->
-                                            <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                                <div class="w-full flex items-center justify-between 850max:justify-start">
-                                                    <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                        روستای پلکانی ماسوله VIP
-                                                    </span>
-                                                    <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                        <span class=" text-sm text-light font-bold">
-                                                            1,550,000
-                                                        </span>
-                                                        <span class=" text-[10px] text-light font-bold">
-                                                            تومان
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- content -->
-                                        <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                            <!-- button -->
-                                            <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                                جزئیات و رزرو
-                                            </button>
-                                            <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                                <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                                    <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                                    </svg>
-                                                    <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                        <span class=" font-medium text-nowrap">
-                                                            12 بهمن
-                                                        </span>
-                                                        <span class=" font-normal text-nowrap">
-                                                            (1 روزه)
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                                <span class=" hidden items-center gap-[2px] 850max:flex">
-                                                    <span class=" text-xs text-neutral-700 font-bold">
-                                                        1,550,000
-                                                    </span>
-                                                    <span class=" text-[6px] text-neutral-700 font-bold">
-                                                        تومان
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                         <button onclick="bestSuggestSlider.slidePrev()" class="absolute top-0 bottom-0 -right-5 my-auto z-[5] bg-[#F2F2F280] w-10 aspect-square rounded-full flex items-center justify-center backdrop-blur-md 512max:w-[30px] 512max:h-[30px] 512max:right-[-15px]">
@@ -1217,6 +1087,8 @@
                 </div>
             </div>
         </section>
+        @endif
+        @if(count($suggestionsTwo) > 3)
         <section class=" w-full max-w-[1440px] px-[100px] flex flex-col gap-10 512max:px-[28px] 1024max:px-[36px] 1280max:px-[64px]">
             <!-- header -->
             <div class="w-full flex flex-col gap-[6px] 640max:items-center 640max:gap-2">
@@ -1237,7 +1109,7 @@
                 </div>
                 <!-- bottom -->
                 <span class=" text-sm text-neutral-400 font-normal 512max:text-[10px]">
-                    در این بخش بهترین پیشنهادات سفر سایت چمدان را مشاهده می کنید
+                    در این بخش بهترین پیشنهادات سفر سایت سفری نو را مشاهده می کنید
                 </span>
             </div>
             <!-- body -->
@@ -1245,492 +1117,51 @@
                 <!-- slider in desktop -->
                 <div class="swiper readyToursSlider w-full 640max:hidden">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden drop-shadow-materialShadow3">
-                                <!-- image -->
-                                <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                    <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                    <!-- cover -->
-                                    <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                        <div class="w-full flex items-center justify-between 850max:justify-start">
-                                            <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                روستای پلکانی ماسوله VIP
-                                            </span>
-                                            <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                <span class=" text-sm text-light font-bold">
-                                                    1,550,000
-                                                </span>
-                                                <span class=" text-[10px] text-light font-bold">
-                                                    تومان
-                                                </span>
-                                            </span>
+                        @foreach($suggestionsTwo as $suggestionHotel)
+                            <div class="swiper-slide">
+                                <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden">
+                                    <!-- image -->
+                                    <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
+                                        <img src="{{ asset('storage/' . $suggestionHotel->hotel->banner) }}" alt="#" class="w-full h-full object-cover">
+                                        <!-- cover -->
+                                        <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
+                                            <div class="w-full flex items-center justify-between 850max:justify-start">
+                                                    <span class=" text-sm text-light font-medium 512max:text-xs">
+                                                        {{ $suggestionHotel->title }}
+                                                    </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- content -->
-                                <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                    <!-- button -->
-                                    <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                        جزئیات و رزرو
-                                    </button>
-                                    <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                        <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                            <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                            </svg>
-                                            <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                <span class=" font-medium text-nowrap">
-                                                    12 بهمن
-                                                </span>
-                                                <span class=" font-normal text-nowrap">
-                                                    (1 روزه)
-                                                </span>
-                                            </span>
+                                    <!-- content -->
+                                    <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
+                                        <!-- button -->
+                                        <form method="get" action="{{ route('hotelBooking.showDescription') }}">
+                                            <input type="hidden" name="destination" value="{{ $suggestionHotel->city }}">
+                                            <input type="hidden" name="hotel_id" value="{{ $suggestionHotel->hotel_id }}">
+                                            <input type="hidden" name="dates" value="{{ $today->format('Y/m/d') }} تا {{ $tomorrow->format('Y/m/d') }}">
+                                            <input type="hidden" name="rooms_data" value='[{"persons":1}]'>
+                                            <input type="hidden" name="hotelId" value="{{ $suggestionHotel->hotel_id }}">
+                                            <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
+                                                جزئیات و رزرو
+                                            </button>
+                                        </form>
+
+                                        <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
+                                            <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
+                                                <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                                                </svg>
+                                                <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
+                                                        <span class=" font-medium text-nowrap">
+                                                            {{ \Morilog\Jalali\Jalalian::now()->format('%d %B') }}
+                                                        </span>
+                                                    </span>
+                                            </div>
                                         </div>
-                                        <span class=" hidden items-center gap-[2px] 850max:flex">
-                                            <span class=" text-xs text-neutral-700 font-bold">
-                                                1,550,000
-                                            </span>
-                                            <span class=" text-[6px] text-neutral-700 font-bold">
-                                                تومان
-                                            </span>
-                                        </span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden drop-shadow-materialShadow3">
-                                <!-- image -->
-                                <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                    <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                    <!-- cover -->
-                                    <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                        <div class="w-full flex items-center justify-between 850max:justify-start">
-                                            <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                روستای پلکانی ماسوله VIP
-                                            </span>
-                                            <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                <span class=" text-sm text-light font-bold">
-                                                    1,550,000
-                                                </span>
-                                                <span class=" text-[10px] text-light font-bold">
-                                                    تومان
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- content -->
-                                <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                    <!-- button -->
-                                    <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                        جزئیات و رزرو
-                                    </button>
-                                    <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                        <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                            <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                            </svg>
-                                            <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                <span class=" font-medium text-nowrap">
-                                                    12 بهمن
-                                                </span>
-                                                <span class=" font-normal text-nowrap">
-                                                    (1 روزه)
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <span class=" hidden items-center gap-[2px] 850max:flex">
-                                            <span class=" text-xs text-neutral-700 font-bold">
-                                                1,550,000
-                                            </span>
-                                            <span class=" text-[6px] text-neutral-700 font-bold">
-                                                تومان
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden drop-shadow-materialShadow3">
-                                <!-- image -->
-                                <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                    <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                    <!-- cover -->
-                                    <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                        <div class="w-full flex items-center justify-between 850max:justify-start">
-                                            <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                روستای پلکانی ماسوله VIP
-                                            </span>
-                                            <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                <span class=" text-sm text-light font-bold">
-                                                    1,550,000
-                                                </span>
-                                                <span class=" text-[10px] text-light font-bold">
-                                                    تومان
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- content -->
-                                <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                    <!-- button -->
-                                    <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                        جزئیات و رزرو
-                                    </button>
-                                    <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                        <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                            <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                            </svg>
-                                            <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                <span class=" font-medium text-nowrap">
-                                                    12 بهمن
-                                                </span>
-                                                <span class=" font-normal text-nowrap">
-                                                    (1 روزه)
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <span class=" hidden items-center gap-[2px] 850max:flex">
-                                            <span class=" text-xs text-neutral-700 font-bold">
-                                                1,550,000
-                                            </span>
-                                            <span class=" text-[6px] text-neutral-700 font-bold">
-                                                تومان
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden drop-shadow-materialShadow3">
-                                <!-- image -->
-                                <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                    <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                    <!-- cover -->
-                                    <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                        <div class="w-full flex items-center justify-between 850max:justify-start">
-                                            <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                روستای پلکانی ماسوله VIP
-                                            </span>
-                                            <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                <span class=" text-sm text-light font-bold">
-                                                    1,550,000
-                                                </span>
-                                                <span class=" text-[10px] text-light font-bold">
-                                                    تومان
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- content -->
-                                <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                    <!-- button -->
-                                    <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                        جزئیات و رزرو
-                                    </button>
-                                    <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                        <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                            <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                            </svg>
-                                            <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                <span class=" font-medium text-nowrap">
-                                                    12 بهمن
-                                                </span>
-                                                <span class=" font-normal text-nowrap">
-                                                    (1 روزه)
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <span class=" hidden items-center gap-[2px] 850max:flex">
-                                            <span class=" text-xs text-neutral-700 font-bold">
-                                                1,550,000
-                                            </span>
-                                            <span class=" text-[6px] text-neutral-700 font-bold">
-                                                تومان
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden drop-shadow-materialShadow3">
-                                <!-- image -->
-                                <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                    <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                    <!-- cover -->
-                                    <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                        <div class="w-full flex items-center justify-between 850max:justify-start">
-                                            <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                روستای پلکانی ماسوله VIP
-                                            </span>
-                                            <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                <span class=" text-sm text-light font-bold">
-                                                    1,550,000
-                                                </span>
-                                                <span class=" text-[10px] text-light font-bold">
-                                                    تومان
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- content -->
-                                <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                    <!-- button -->
-                                    <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                        جزئیات و رزرو
-                                    </button>
-                                    <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                        <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                            <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                            </svg>
-                                            <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                <span class=" font-medium text-nowrap">
-                                                    12 بهمن
-                                                </span>
-                                                <span class=" font-normal text-nowrap">
-                                                    (1 روزه)
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <span class=" hidden items-center gap-[2px] 850max:flex">
-                                            <span class=" text-xs text-neutral-700 font-bold">
-                                                1,550,000
-                                            </span>
-                                            <span class=" text-[6px] text-neutral-700 font-bold">
-                                                تومان
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden drop-shadow-materialShadow3">
-                                <!-- image -->
-                                <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                    <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                    <!-- cover -->
-                                    <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                        <div class="w-full flex items-center justify-between 850max:justify-start">
-                                            <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                روستای پلکانی ماسوله VIP
-                                            </span>
-                                            <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                <span class=" text-sm text-light font-bold">
-                                                    1,550,000
-                                                </span>
-                                                <span class=" text-[10px] text-light font-bold">
-                                                    تومان
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- content -->
-                                <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                    <!-- button -->
-                                    <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                        جزئیات و رزرو
-                                    </button>
-                                    <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                        <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                            <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                            </svg>
-                                            <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                <span class=" font-medium text-nowrap">
-                                                    12 بهمن
-                                                </span>
-                                                <span class=" font-normal text-nowrap">
-                                                    (1 روزه)
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <span class=" hidden items-center gap-[2px] 850max:flex">
-                                            <span class=" text-xs text-neutral-700 font-bold">
-                                                1,550,000
-                                            </span>
-                                            <span class=" text-[6px] text-neutral-700 font-bold">
-                                                تومان
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden drop-shadow-materialShadow3">
-                                <!-- image -->
-                                <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                    <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                    <!-- cover -->
-                                    <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                        <div class="w-full flex items-center justify-between 850max:justify-start">
-                                            <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                روستای پلکانی ماسوله VIP
-                                            </span>
-                                            <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                <span class=" text-sm text-light font-bold">
-                                                    1,550,000
-                                                </span>
-                                                <span class=" text-[10px] text-light font-bold">
-                                                    تومان
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- content -->
-                                <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                    <!-- button -->
-                                    <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                        جزئیات و رزرو
-                                    </button>
-                                    <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                        <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                            <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                            </svg>
-                                            <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                <span class=" font-medium text-nowrap">
-                                                    12 بهمن
-                                                </span>
-                                                <span class=" font-normal text-nowrap">
-                                                    (1 روزه)
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <span class=" hidden items-center gap-[2px] 850max:flex">
-                                            <span class=" text-xs text-neutral-700 font-bold">
-                                                1,550,000
-                                            </span>
-                                            <span class=" text-[6px] text-neutral-700 font-bold">
-                                                تومان
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden drop-shadow-materialShadow3">
-                                <!-- image -->
-                                <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                    <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                    <!-- cover -->
-                                    <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                        <div class="w-full flex items-center justify-between 850max:justify-start">
-                                            <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                روستای پلکانی ماسوله VIP
-                                            </span>
-                                            <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                <span class=" text-sm text-light font-bold">
-                                                    1,550,000
-                                                </span>
-                                                <span class=" text-[10px] text-light font-bold">
-                                                    تومان
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- content -->
-                                <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                    <!-- button -->
-                                    <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                        جزئیات و رزرو
-                                    </button>
-                                    <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                        <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                            <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                            </svg>
-                                            <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                <span class=" font-medium text-nowrap">
-                                                    12 بهمن
-                                                </span>
-                                                <span class=" font-normal text-nowrap">
-                                                    (1 روزه)
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <span class=" hidden items-center gap-[2px] 850max:flex">
-                                            <span class=" text-xs text-neutral-700 font-bold">
-                                                1,550,000
-                                            </span>
-                                            <span class=" text-[6px] text-neutral-700 font-bold">
-                                                تومان
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden drop-shadow-materialShadow3">
-                                <!-- image -->
-                                <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                    <img src="{{ asset('public/images/slideImage.png') }}" alt="#" class="w-full h-full object-cover">
-                                    <!-- cover -->
-                                    <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
-                                        <div class="w-full flex items-center justify-between 850max:justify-start">
-                                            <span class=" text-sm text-light font-medium 512max:text-xs">
-                                                روستای پلکانی ماسوله VIP
-                                            </span>
-                                            <span class=" flex items-center gap-[2px] 850max:hidden">
-                                                <span class=" text-sm text-light font-bold">
-                                                    1,550,000
-                                                </span>
-                                                <span class=" text-[10px] text-light font-bold">
-                                                    تومان
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- content -->
-                                <div class="w-full px-4 pb-4 pt-4.5 flex items-center gap-[6px] 850max:flex-col-reverse 850max:px-[11px] 850max:pb-[9px] 850max:pt-[12px] 850max:gap-[14px]">
-                                    <!-- button -->
-                                    <button class=" flex items-center justify-center flex-grow-[1] px-4 h-10 text-light text-xs font-bold text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 512max:text-[10px] 768nax:text-[10px] 768max:h-[30px] 850max:w-full">
-                                        جزئیات و رزرو
-                                    </button>
-                                    <div class="flex items-center gap-[6px] 850max:justify-between 850max:w-full">
-                                        <div class="w-[150px] flex items-center gap-3 p-2 rounded-[6px] bg-neutral-50 512max:min-w-[79px] 512max:p-[6px] 512max:gap-[6px]">
-                                            <svg class=" w-6 text-green-600 512max:w-[14px] 640max:w-[14px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                                            </svg>
-                                            <span class=" text-neutral-700 text-sm 640max:text-[8px] text-nowrap">
-                                                <span class=" font-medium text-nowrap">
-                                                    12 بهمن
-                                                </span>
-                                                <span class=" font-normal text-nowrap">
-                                                    (1 روزه)
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <span class=" hidden items-center gap-[2px] 850max:flex">
-                                            <span class=" text-xs text-neutral-700 font-bold">
-                                                1,550,000
-                                            </span>
-                                            <span class=" text-[6px] text-neutral-700 font-bold">
-                                                تومان
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <!-- prevButton -->
                     <button onclick="readyToursSlider.slidePrev()" class="absolute top-0 bottom-0 right-0 my-auto z-[5] bg-[#F2F2F280] w-10 aspect-square rounded-full flex items-center justify-center backdrop-blur-md">
@@ -1964,6 +1395,7 @@
                 </div>
             </div>
         </section>
+        @endif
         <section class=" w-full max-w-[1440px] px-[100px] flex flex-col gap-10 512max:px-[28px] 1024max:px-[36px] 1280max:px-[64px]">
             <div class="w-full flex flex-col gap-[57px]">
                 <!-- top -->
@@ -1977,7 +1409,7 @@
                         <!-- body -->
                         <div class="w-full">
                             <p class=" text-sm text-neutral-700 font-normal leading-[21px]">
-                                همکاری هتل‌ها و آژانس‌های مسافرتی با سایت چمدان فرصتی ایده‌آل برای افزایش دیده‌شدن و جذب مشتریان بیشتر است. این سایت به‌عنوان یک پلتفرم جامع رزرو بلیط هواپیما، قطار، هتل و تور، با ارائه خدمات یکپارچه و دسترسی آسان، امکان معرفی هتل‌ها و تورهای مسافرتی را به کاربران گسترده‌ای فراهم می‌کند.
+                                همکاری هتل‌ها و آژانس‌های مسافرتی با سایت سفری نو فرصتی ایده‌آل برای افزایش دیده‌شدن و جذب مشتریان بیشتر است. این سایت به‌عنوان یک پلتفرم جامع رزرو بلیط هواپیما، قطار، هتل و تور، با ارائه خدمات یکپارچه و دسترسی آسان، امکان معرفی هتل‌ها و تورهای مسافرتی را به کاربران گسترده‌ای فراهم می‌کند.
                             </p>
                             <p class=" text-sm text-neutral-700 font-normal leading-[21px]">
                                 مزایای این همکاری شامل نمایش بهتر در نتایج جستجو، مدیریت آسان رزروها، ارائه پیشنهادهای ویژه و تخفیف‌های هدفمند به مشتریان، و بهره‌مندی از تبلیغات گسترده در فضای دیجیتال است. این تعامل سازنده به هتل‌ها و آژانس‌ها کمک می‌کند تا بازاریابی خود را تقویت کنند و سهم بیشتری از بازار گردشگری را به دست آورند.
@@ -1990,7 +1422,7 @@
                 <!-- bottom -->
                 <form action="#" class="w-full flex flex-col items-center gap-10 p-7 rounded-xl bg-green-600 640max:px-5 640max:py-[30px] 640max:gap-11">
                     <span class="text-sm text-light font-normal text-center 640max:text-xs 640max:leading-[21px]">
-                        اگر علاقه‌مند به شروع همکاری با سایت چمدان هستید، لطفاً فرم زیر را با دقت تکمیل کنید. ما مشتاقانه منتظر ایجاد یک همکاری موفق و پایدار با شما هستیم.
+                        اگر علاقه‌مند به شروع همکاری با سایت سفری نو هستید، لطفاً فرم زیر را با دقت تکمیل کنید. ما مشتاقانه منتظر ایجاد یک همکاری موفق و پایدار با شما هستیم.
                     </span>
                     <!-- inputs -->
                     <div class="w-full flex items-center justify-center gap-2 512max:gap-5 512max:flex-col">
@@ -2014,7 +1446,7 @@
                 </div>
                 <!-- bottom -->
                 <span class=" text-base text-light font-medium 1024max:text-center 768max:text-sm 640max:text-xs">
-                    در این بخش بهترین پیشنهادات سفر سایت چمدان را مشاهده می کنید
+                    در این بخش بهترین پیشنهادات سفر سایت سفری نو را مشاهده می کنید
                 </span>
             </div>
             <!-- body -->
@@ -2069,7 +1501,7 @@
                                         </div>
                                         <!-- content -->
                                         <p class=" w-full text-xs text-black font-normal leading-[21px] 512max:text-[9px]">
-                                            رزرو تور از چمدون تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
+                                            رزرو تور از سفری نو تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
                                         </p>
                                     </div>
                                 </div>
@@ -2105,7 +1537,7 @@
                                         </div>
                                         <!-- content -->
                                         <p class=" w-full text-xs text-black font-normal leading-[21px] 512max:text-[9px]">
-                                            رزرو تور از چمدون تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
+                                            رزرو تور از سفری نو تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
                                         </p>
                                     </div>
                                 </div>
@@ -2141,7 +1573,7 @@
                                         </div>
                                         <!-- content -->
                                         <p class=" w-full text-xs text-black font-normal leading-[21px] 512max:text-[9px]">
-                                            رزرو تور از چمدون تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
+                                            رزرو تور از سفری نو تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
                                         </p>
                                     </div>
                                 </div>
@@ -2177,7 +1609,7 @@
                                         </div>
                                         <!-- content -->
                                         <p class=" w-full text-xs text-black font-normal leading-[21px] 512max:text-[9px]">
-                                            رزرو تور از چمدون تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
+                                            رزرو تور از سفری نو تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
                                         </p>
                                     </div>
                                 </div>
@@ -2213,7 +1645,7 @@
                                         </div>
                                         <!-- content -->
                                         <p class=" w-full text-xs text-black font-normal leading-[21px] 512max:text-[9px]">
-                                            رزرو تور از چمدون تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
+                                            رزرو تور از سفری نو تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
                                         </p>
                                     </div>
                                 </div>
@@ -2249,7 +1681,7 @@
                                         </div>
                                         <!-- content -->
                                         <p class=" w-full text-xs text-black font-normal leading-[21px] 512max:text-[9px]">
-                                            رزرو تور از چمدون تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
+                                            رزرو تور از سفری نو تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
                                         </p>
                                     </div>
                                 </div>
@@ -2285,7 +1717,7 @@
                                         </div>
                                         <!-- content -->
                                         <p class=" w-full text-xs text-black font-normal leading-[21px] 512max:text-[9px]">
-                                            رزرو تور از چمدون تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
+                                            رزرو تور از سفری نو تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
                                         </p>
                                     </div>
                                 </div>
@@ -2321,7 +1753,7 @@
                                         </div>
                                         <!-- content -->
                                         <p class=" w-full text-xs text-black font-normal leading-[21px] 512max:text-[9px]">
-                                            رزرو تور از چمدون تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
+                                            رزرو تور از سفری نو تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
                                         </p>
                                     </div>
                                 </div>
@@ -2357,7 +1789,7 @@
                                         </div>
                                         <!-- content -->
                                         <p class=" w-full text-xs text-black font-normal leading-[21px] 512max:text-[9px]">
-                                            رزرو تور از چمدون تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
+                                            رزرو تور از سفری نو تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
                                         </p>
                                     </div>
                                 </div>
@@ -2393,7 +1825,7 @@
                                         </div>
                                         <!-- content -->
                                         <p class=" w-full text-xs text-black font-normal leading-[21px] 512max:text-[9px]">
-                                            رزرو تور از چمدون تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
+                                            رزرو تور از سفری نو تجربه‌ای عالی بود! انتخاب‌های متنوع، اطلاعات شفاف و قیمت‌های مناسب باعث شد بدون هیچ دغدغه‌ای تور دلخواهم رو پیدا کنم. همه چیز منظم و طبق برنامه بود، و از خدمات و پشتیبانی عالی‌شون کاملاً رضایت دارم.
                                         </p>
                                     </div>
                                 </div>
@@ -2422,13 +1854,13 @@
                 </div>
             </div>
         </section>
-        <section class=" w-full max-w-[1440px] px-[100px] flex flex-col gap-10 512max:px-[28px] 1024max:px-[36px] 1280max:px-[64px]">
+        {{--<section class=" w-full max-w-[1440px] px-[100px] flex flex-col gap-10 512max:px-[28px] 1024max:px-[36px] 1280max:px-[64px]">
             <!-- header -->
             <div class="w-full flex flex-col gap-[6px] 640max:items-center 640max:gap-2">
                 <!-- top -->
                 <div class="w-full flex items-baseline justify-between gap-4.5 640max:justify-center">
                     <h5 class=" text-[24px] text-green-600 font-bold flex-shrink-[0] 640max:text-[20px]">
-                        پیشنهادات برتر
+                        وبلاگ
                     </h5>
                     <div class=" w-full h-[1px] flex-grow-[1] border-[1px] border-dashed border-green-300 640max:hidden"></div>
                     <a href="#" class="flex items-center text-green-300 text-sm font-normal flex-shrink-[0] 640max:hidden">
@@ -2442,7 +1874,7 @@
                 </div>
                 <!-- bottom -->
                 <span class=" text-sm text-neutral-400 font-normal 512max:text-[10px]">
-                    در این بخش بهترین پیشنهادات سفر سایت چمدان را مشاهده می کنید
+                    در این بخش بهترین پیشنهادات سفر سایت سفری نو را مشاهده می کنید
                 </span>
             </div>
             <!-- body -->
@@ -2520,14 +1952,14 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section>--}}
         <section class=" w-full max-w-[1440px] px-[100px] 768max:px-[0px] 1024max:px-[36px] 1280max:px-[64px]">
             <div class="w-full overflow-hidden flex flex-col h-[200px] bg-green-600 rounded-xl relative 768max:h-[370px]">
                 <!-- content -->
                 <div class=" absolute z-[3] top-0 left-0 w-full h-full px-[60px] py-[63px] flex flex-col justify-center 768max:items-center 768max:justify-start 768max:py-10 768max:px-[51px]">
                     <p class=" text-xl text-light font-normal leading-[42px] drop-shadow-txtLightShadow max-w-[528px] 768max:text-center 768max:flex 768max:flex-col 768max:items-center 768max:gap-5">
                         <span class=" text-[24px] text-light font-extrabold font-farsi-extraBold 640max:text-[20px] 768max:text-center 768max:block">
-                            سفر راحت و بی‌دغدغه با چمدون!
+                            سفر راحت و بی‌دغدغه با سفری نو!
                         </span>
                         <span class=" 768max:block 640max:text-base">
                             بهترین قیمت‌ها برای هتل، بلیط هواپیما و قطار در سایت ما منتظر شماست.

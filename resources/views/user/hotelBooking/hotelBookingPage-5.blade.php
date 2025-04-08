@@ -112,7 +112,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="paymentMethodItem w-full bg-light flex flex-col rounded-xl">
+                                    {{--<div class="paymentMethodItem w-full bg-light flex flex-col rounded-xl">
                                         <div class="paymentMethodItem-button w-full flex items-center gap-2 p-4.5">
                                             <div class="flex items-center gap-[9px]">
                                                 <input class="hidden" type="radio" id="paymentMethod-2" name="paymentMethod">
@@ -145,7 +145,7 @@
                                         <div class="paymentMethodItem-content w-full px-11 py-4.5 gap-4.5">
 
                                         </div>
-                                    </div>
+                                    </div>--}}
                                 </div>
                             </div>
                         </div>

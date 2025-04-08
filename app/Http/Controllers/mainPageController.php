@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
+use App\Models\MainPageSetting;
 use Illuminate\Http\Request;
+use Morilog\Jalali\Jalalian;
 
 class mainPageController extends Controller
 {
     public function index()
     {
-        return view('user.mainPage');
+        $suggestionsOne = MainPageSetting::where('type',0)->with('hotel')->get();
+        $suggestionsTwo = MainPageSetting::where('type',1)->with('hotel')->get();
+        $today = Jalalian::now();
+        $tomorrow = Jalalian::now()->addDays(1);
+        return view('user.mainPage',compact('suggestionsOne','suggestionsTwo','today','tomorrow'));
     }
 
 

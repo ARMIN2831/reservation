@@ -1,20 +1,18 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <a href="{{ url('/dashboard') }}" class="brand-link">
-        <img src="{{ asset("IMG_4409.jpeg") }}" alt="ل" class="brand-image img-circle elevation-3"
-             style="opacity: .8;width: 35px">
         <span class="brand-text font-weight-light">مدیریت سامانه</span>
     </a>
 
     <div class="sidebar">
         <div>
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
+                {{--<div class="image">
                     <img src="{{ asset('IMG_4409.jpeg') }}" class="img-circle elevation-2" alt="{{ Auth::user()->name }}">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-                </div>
+                </div>--}}
             </div>
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -28,6 +26,12 @@
                         <a href="{{ url('admin/dashboard/financial') }}" class="nav-link {{ (request()->is('admin/dashboard/financial')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>فاکتور ها</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('admin/dashboard/mainPageSettings') }}" class="nav-link {{ (request()->is('admin/dashboard/mainPageSettings')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>تنظیمات صفحه اصلی</p>
                         </a>
                     </li>
 
@@ -81,12 +85,12 @@
                         </ul>
                     </li>
 
-                    {{--<li class="nav-item">
-                        <a href="{{ url('/dashboard/students') }}" class="nav-link {{ (request()->is('dashboard/students')) ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>دانشجوها</p>
+                    <li class="nav-item">
+                        <a href="{{ route('logout') }}" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>خروج</p>
                         </a>
-                    </li>--}}
+                    </li>
                 </ul>
             </nav>
         </div>

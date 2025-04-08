@@ -194,6 +194,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::prefix('dashboard')->middleware('auth:admin')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
         Route::get('financial', [\App\Http\Controllers\admin\financialController::class, 'index'])->name('financial');
+        Route::post('financialChangeStatus/{reserve_id}', [\App\Http\Controllers\admin\financialController::class, 'financialChangeStatus'])->name('financialChangeStatus');
+
+        Route::get('mainPageSettings', [\App\Http\Controllers\admin\MainPageSettingController::class, 'mainPageSettings'])->name('mainPageSettings');
+        Route::post('updatePageSettings', [\App\Http\Controllers\admin\MainPageSettingController::class, 'updatePageSettings'])->name('updatePageSettings');
+
         Route::resource('hotels',\App\Http\Controllers\admin\HotelController::class);
         Route::resource('rooms',\App\Http\Controllers\admin\RoomController::class);
 

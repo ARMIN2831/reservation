@@ -216,14 +216,14 @@
                             12
                         </div>
                     </a>
-                    <a href="#" class=" relative w-8 h-8 flex items-center justify-center hover:bg-green-600 hover:text-light text-green-300 p-1 rounded-full !aspect-square transition-all duration-600 ease-out hover:transition-none">
+                    {{--<a href="#" class=" relative w-8 h-8 flex items-center justify-center hover:bg-green-600 hover:text-light text-green-300 p-1 rounded-full !aspect-square transition-all duration-600 ease-out hover:transition-none">
                         <svg class=" w-full text-inherit" width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.3034 2.11489H13.4061V0.739003C13.4061 0.482978 13.1809 0.238679 12.9166 0.250406C12.7875 0.252907 12.6645 0.305188 12.5732 0.396281C12.4819 0.487374 12.4296 0.610202 12.4271 0.739003V2.11489H5.57392V0.739003C5.57392 0.482978 5.34874 0.238679 5.08441 0.250406C4.95536 0.252907 4.83231 0.305188 4.74104 0.396281C4.64978 0.487374 4.5974 0.610202 4.59489 0.739003V2.11489H2.69755C2.04866 2.11567 1.42657 2.3733 0.96773 2.83128C0.508893 3.28926 0.250777 3.9102 0.25 4.55788V15.307C0.25 16.6546 1.34846 17.75 2.69755 17.75H15.3024C16.6525 17.75 17.75 16.6546 17.75 15.307V4.55788C17.75 3.91013 17.4923 3.28889 17.0335 2.83077C16.5747 2.37265 15.9524 2.11515 15.3034 2.11489ZM2.69755 3.09209H4.59489V3.67059C4.59489 3.92661 4.82007 4.17091 5.08441 4.15918C5.34972 4.14746 5.57392 3.9442 5.57392 3.67059V3.09209H12.4271V3.67059C12.4271 3.92661 12.6522 4.17091 12.9166 4.15918C13.1819 4.14746 13.4061 3.9442 13.4061 3.67059V3.09209H15.3024C16.1121 3.09209 16.771 3.74974 16.771 4.55788V6.10575H1.22902V4.55788C1.22902 3.74974 1.8879 3.09209 2.69755 3.09209ZM15.3034 16.7728H2.69755C1.8879 16.7728 1.22902 16.1152 1.22902 15.307V7.08295H16.771V15.307C16.771 15.6956 16.6164 16.0683 16.3412 16.3431C16.066 16.618 15.6927 16.7725 15.3034 16.7728Z" fill="currentColor" stroke="currentColor" stroke-width="0.2"/>
                         </svg>
                         <div class=" bg-green-300 rounded-[10px] absolute z-[2] -bottom-[2px] left-[20px] flex items-center justify-center px-[5px] py-[2px] text-[8px] text-black font-bolf font-farsi-bold">
                             12
                         </div>
-                    </a>
+                    </a>--}}
                     <div class="relative" id="message-icon">
                         <a href="#" class="relative w-8 h-8 flex items-center justify-center hover:bg-green-600 hover:text-light text-green-300 p-1 rounded-full !aspect-square transition-all duration-600 ease-out hover:transition-none">
                             <svg class="w-full text-inherit" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

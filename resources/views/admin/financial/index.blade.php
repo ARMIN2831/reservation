@@ -99,22 +99,25 @@
                                             <td>{{ $row->hotel->title }}</td>
                                             <td>{{ $row->factorStatus }}</td>
                                             <td style="padding: 0 !important;">
+                                                <div class="d-flex align-items-center" style="gap: 5px;">
+                                                    <!-- فرم رد کردن -->
+                                                    <form style="display: inline" action="{{route('admin.financialChangeStatus', $row->id)}}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="status" value="0">
+                                                        <button type="submit" class="btn btn-sm btn-danger" title="رد کردن">
+                                                            <i class="fas fa-times-circle"></i>
+                                                        </button>
+                                                    </form>
 
-                                                <form style="display: inline" action="{{route('admin.users.destroy', $row->id)}}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a onclick="confirmDelete(this)" type="submit" class="btn btn-sm btn-danger ml-1 mt-1 float-left">
-                                                        <span class="fa fa-trash fa-fw text-white" aria-hidden="true"></span>
-                                                        <span class="sr-only">حذف</span>
-                                                    </a>
-                                                </form>
-
-                                                <a href="{{route('admin.users.edit', $row->id)}}"
-                                                   class="btn btn-sm btn-primary ml-1 mt-1 float-left">
-                                                    <span class="fas fa-pencil-alt fa-fw" aria-hidden="true"></span>
-                                                    <span class="sr-only">ویرایش</span>
-                                                </a>
-
+                                                    <!-- فرم تایید -->
+                                                    <form style="display: inline" action="{{route('admin.financialChangeStatus', $row->id)}}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="status" value="1">
+                                                        <button type="submit" class="btn btn-sm btn-success" title="تایید">
+                                                            <i class="fas fa-check-circle"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

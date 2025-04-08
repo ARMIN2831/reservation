@@ -18,9 +18,11 @@ class financialController extends Controller
     }
 
 
-    public function requestFactor(Request $request, $reserveId)
+    public function financialChangeStatus(Request $request, $reserveId)
     {
-        Reserve::where('id',$reserveId)->update(['factorStatus' => 'در حال برسی']);
-        return redirect()->route('hotel.manageFinancial');
+        $status = 'رد شده';
+        if ($request->status == 1) $status = 'پرداخت شده';
+        Reserve::where('id',$reserveId)->update(['factorStatus' => $status]);
+        return redirect()->route('admin.financial');
     }
 }

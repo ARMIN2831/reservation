@@ -174,7 +174,6 @@ class hotelBookingController extends Controller
             $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1]);
             $numberOfDays = $entryDate->diffInDays($exitDate) + 1;
         }
-
         $rooms = Room::where('hotel_id', $hotel->id)->where('status', 'تایید شده')->get();
 
         $availableRoomsForNeeds = [];
@@ -341,6 +340,7 @@ class hotelBookingController extends Controller
 
         $rooms = [];
         $totalPrice = 0;
+        $totalPriceBord = 0;
         $i = 0;
         foreach ($request->rooms as $needCount => $roomId){
             $room = Room::where('id',$roomId)->first();
