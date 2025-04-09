@@ -49,8 +49,8 @@ class HotelController extends Controller
             'profit' => 'required',
         ]);
 
-        if ($request->logo) $arr ['logo'] = $validatedData['logo']->store('uploads', 'public');
-        if ($request->banner) $arr ['banner'] = $validatedData['banner']->store('uploads', 'public');
+        if ($request->logo) $arr ['logo'] = $this->uploadFile($validatedData['logo']);
+        if ($request->banner) $arr ['banner'] = $this->uploadFile($validatedData['banner']);
 
         $hotel = Hotel::create([
             'title' => @$validatedData['title'],
@@ -120,8 +120,8 @@ class HotelController extends Controller
             'profit' => 'nullable',
         ]);
 
-        if ($request->logo) $arr ['logo'] = $validatedData['logo']->store('uploads', 'public');
-        if ($request->banner) $arr ['banner'] = $validatedData['banner']->store('uploads', 'public');
+        if ($request->logo) $arr ['logo'] = $this->uploadFile($validatedData['logo']);
+        if ($request->banner) $arr ['banner'] = $this->uploadFile($validatedData['banner']);
 
         if ($request->mapAddress) {
             $map = explode(',', $validatedData['mapAddress']);

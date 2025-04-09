@@ -31,11 +31,113 @@
                     <!--  -->
                     <div class="w-full flex flex-col gap-7">
                         <!-- images in desktop -->
-                        <div class="w-full h-[396px] grid grid-cols-[1fr_268px_268px] grid-rows-2 gap-3 content-start items-center 768max:hidden 1024max:h-[300px] 1024max:grid-cols-[1fr_220px_220px]">
-                            @foreach($hotel->files as $key => $file)
-                                <img src="{{ asset('storage/' . $file->address) }}" alt="#" class=" w-full h-full rounded-xl object-cover @if($key == 0) row-start-1 row-end-3 @endif">
-                            @endforeach
+
+
+                        <div class="relative w-full h-[396px] 768max:hidden 1024max:h-[300px]" style="margin-bottom: 100px">
+                            <!-- اسلایدر اصلی -->
+                            <div class="swiper hotel-gallery">
+                                <div class="swiper-wrapper">
+                                    @foreach($hotel->files as $file)
+                                        <div class="swiper-slide">
+                                            <img
+                                                src="{{ asset('storage/' . $file->address) }}"
+                                                alt="تصویر هتل {{ $hotel->title }}"
+                                                class="w-full h-full rounded-xl object-cover"
+                                                loading="lazy"
+                                            >
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <!-- دکمه‌های ناوبری -->
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+
+                                <!-- پاگینیشن -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+
+                            <!-- نمایش تصویر اصلی در حالت بزرگ -->
+                            <div class="swiper hotel-thumbs mt-3 h-[80px]">
+                                <div class="swiper-wrapper">
+                                    @foreach($hotel->files as $file)
+                                        <div class="swiper-slide cursor-pointer">
+                                            <img
+                                                src="{{ asset('storage/' . $file->address) }}"
+                                                alt="thumbnail"
+                                                class="w-full h-full rounded-md object-cover opacity-70 transition-opacity hover:opacity-100"
+                                                loading="lazy"
+                                            >
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
+
+                        <style>
+                            .hotel-gallery {
+                                height: calc(100% - 90px); /* فضای thumbs */
+                            }
+
+                            .swiper-slide {
+                                transition: transform 0.3s ease;
+                            }
+
+                            .swiper-button-next,
+                            .swiper-button-prev {
+                                color: white;
+                                background: rgba(0,0,0,0.5);
+                                width: 40px;
+                                height: 40px;
+                                border-radius: 50%;
+                                transition: all 0.3s ease;
+                            }
+
+                            .swiper-button-next:hover,
+                            .swiper-button-prev:hover {
+                                background: rgba(0,0,0,0.8);
+                            }
+
+                            .swiper-slide-thumb-active img {
+                                opacity: 1 !important;
+                                border: 2px solid #3b82f6;
+                            }
+                        </style>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const galleryThumbs = new Swiper('.hotel-thumbs', {
+                                    spaceBetween: 10,
+                                    slidesPerView: 4,
+                                    freeMode: true,
+                                    watchSlidesProgress: true,
+                                });
+
+                                const galleryTop = new Swiper('.hotel-gallery', {
+                                    spaceBetween: 10,
+                                    navigation: {
+                                        nextEl: '.swiper-button-next',
+                                        prevEl: '.swiper-button-prev',
+                                    },
+                                    pagination: {
+                                        el: '.swiper-pagination',
+                                        clickable: true,
+                                    },
+                                    thumbs: {
+                                        swiper: galleryThumbs,
+                                    },
+                                    effect: 'fade',
+                                    fadeEffect: {
+                                        crossFade: true
+                                    },
+                                    loop: true,
+                                    autoplay: {
+                                        delay: 5000,
+                                        disableOnInteraction: false,
+                                    },
+                                });
+                            });
+                        </script>
                         <!-- images in mobile and tabets -->
                         <div class="w-full hidden py-4.5 flex-col gap-4.5 items-center 768max:flex">
                             <div class="w-full">

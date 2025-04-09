@@ -67,7 +67,7 @@ class mainPageController extends Controller
         $validatedData = $request->validate([
             'file' => 'required|file|mimes:jpg,jpeg,png',
         ]);
-        $filePath = $validatedData['file']->store('uploads', 'public');
+        $filePath = $this->uploadFile($validatedData['file']);
         File::create([
             'model_type' => 'App\Models\Hotel',
             'type' => 'image',

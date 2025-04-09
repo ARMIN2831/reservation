@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reserve;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -9,9 +10,15 @@ use Illuminate\Support\Facades\Validator;
 
 class userDashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('user.userDashboard');
+        $reserves = Reserve::query()->where('user_id',Auth::guard('user')->user()->id);
+        if ($request->code) $reserves->where('code',$request->code);
+        if ($request->type) $reserves->where('type',$request->type);
+        if ($request->entry_date) $reserves->where('entry_date',$request->entry_date);
+        if ($request->exit_date) $reserves->where('exit_date',$request->exit_date);
+        $reserves = $reserves->with('people.room')->get();
+        return view('user.userDashboard',compact('reserves'));
     }
 
 

@@ -37,8 +37,8 @@ class settingPageController extends Controller
             'website' => $validatedData['website'],
             'description' => $validatedData['description'],
         ];
-        if ($request->logo) $arr ['logo'] = $validatedData['logo']->store('uploads', 'public');
-        if ($request->banner) $arr ['banner'] = $validatedData['banner']->store('uploads', 'public');
+        if ($request->logo) $arr ['logo'] = $this->uploadFile($validatedData['logo']);
+        if ($request->banner) $arr ['banner'] = $this->uploadFile($validatedData['banner']);
 
         Hotel::where('id',$hotelId)->update($arr);
         return redirect()->route('hotel.settingPage');

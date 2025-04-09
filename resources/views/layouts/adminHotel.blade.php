@@ -399,15 +399,6 @@
                 display: none;
             }
 
-            .modal-content {
-                background-color: #f3f4f6;
-                border-radius: 8px;
-                padding: 24px;
-                width: 384px;
-                max-width: 90%;
-                opacity: 1!important;
-            }
-
             .modal-header {
                 display: flex;
                 justify-content: space-between;

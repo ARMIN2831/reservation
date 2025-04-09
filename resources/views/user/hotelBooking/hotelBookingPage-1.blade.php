@@ -81,23 +81,23 @@
                                         />
 
                                         <!-- Modal -->
-                                        <div x-show="isPassengerModalOpen" @click.away="isPassengerModalOpen = false" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-                                            <div class="bg-white rounded-lg p-6 w-full max-w-md">
-                                                <div class="space-y-4">
+                                        <div x-show="isPassengerModalOpen" @click.away="isPassengerModalOpen = false" class="passenger-modal-overlay">
+                                            <div class="passenger-modal-container">
+                                                <div class="passenger-modal-content">
                                                     <!-- Room List -->
                                                     <template x-for="(room, index) in rooms" :key="index">
-                                                        <div class="border p-4 rounded-lg">
-                                                            <div class="flex justify-between items-center mb-4">
-                                                                <h3 class="font-semibold">اتاق <span x-text="index + 1"></span></h3>
-                                                                <button @click="removeRoom(index)" class="text-red-500 hover:text-red-700">حذف اتاق</button>
+                                                        <div class="room-card">
+                                                            <div class="room-header">
+                                                                <h3 class="room-title">اتاق <span x-text="index + 1"></span></h3>
+                                                                <a @click="removeRoom(index)" class="delete-room-btn">حذف اتاق</a>
                                                             </div>
-                                                            <div class="space-y-2">
-                                                                <div class="flex justify-between items-center">
-                                                                    <span>تعداد نفر:</span>
-                                                                    <div class="flex items-center gap-2">
-                                                                        <a @click="decrementPersons(index)" class="px-2 py-1 bg-gray-200 rounded">-</a>
-                                                                        <span x-text="room.persons"></span>
-                                                                        <a @click="incrementPersons(index)" class="px-2 py-1 bg-gray-200 rounded">+</a>
+                                                            <div class="room-controls">
+                                                                <div class="persons-control">
+                                                                    <span class="control-label">تعداد نفر:</span>
+                                                                    <div class="counter">
+                                                                        <a @click="decrementPersons(index)" class="counter-btn decrement">-</a>
+                                                                        <span class="counter-value" x-text="room.persons"></span>
+                                                                        <a @click="incrementPersons(index)" class="counter-btn increment">+</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -105,17 +105,164 @@
                                                     </template>
 
                                                     <!-- Add Room Button -->
-                                                    <a @click="addRoom" class="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                                    <a @click="addRoom" class="add-room-btn">
                                                         افزودن اتاق
                                                     </a>
 
                                                     <!-- Close Modal Button -->
-                                                    <a @click="isPassengerModalOpen = false" class="w-full py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+                                                    <a @click="isPassengerModalOpen = false" class="close-modal-btn">
                                                         بستن
                                                     </a>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <style>
+                                            /* استایل کلی مودال */
+                                            .passenger-modal-overlay {
+                                                position: fixed;
+                                                top: 0;
+                                                left: 0;
+                                                right: 0;
+                                                bottom: 0;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                                z-index: 1000;
+                                                padding: 20px;
+                                            }
+
+                                            .passenger-modal-container {
+                                                background-color: white;
+                                                border-radius: 12px;
+                                                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                                                width: 100%;
+                                                max-width: 420px;
+                                                overflow: hidden;
+                                            }
+
+                                            .passenger-modal-content {
+                                                padding: 24px;
+                                                display: flex;
+                                                flex-direction: column;
+                                                gap: 16px;
+                                            }
+
+                                            /* استایل کارت اتاق */
+                                            .room-card {
+                                                border: 1px solid #e0e0e0;
+                                                border-radius: 8px;
+                                                padding: 16px;
+                                                background-color: #f9f9f9;
+                                                transition: all 0.3s ease;
+                                            }
+
+                                            .room-card:hover {
+                                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                                            }
+
+                                            .room-header {
+                                                display: flex;
+                                                justify-content: space-between;
+                                                align-items: center;
+                                                margin-bottom: 12px;
+                                            }
+
+                                            .room-title {
+                                                font-size: 16px;
+                                                font-weight: 600;
+                                                color: #333;
+                                                margin: 0;
+                                            }
+
+                                            .delete-room-btn {
+                                                background: none;
+                                                border: none;
+                                                color: #e74c3c;
+                                                font-size: 14px;
+                                                cursor: pointer;
+                                                padding: 4px 8px;
+                                                border-radius: 4px;
+                                                transition: all 0.2s ease;
+                                            }
+
+                                            .delete-room-btn:hover {
+                                                background-color: #fde8e6;
+                                            }
+
+                                            /* استایل کنترل تعداد نفرات */
+                                            .persons-control {
+                                                display: flex;
+                                                justify-content: space-between;
+                                                align-items: center;
+                                            }
+
+                                            .control-label {
+                                                font-size: 14px;
+                                                color: #555;
+                                            }
+
+                                            .counter {
+                                                display: flex;
+                                                align-items: center;
+                                                gap: 8px;
+                                            }
+
+                                            .counter-btn {
+                                                width: 28px;
+                                                height: 28px;
+                                                border-radius: 50%;
+                                                border: 1px solid #ddd;
+                                                background-color: white;
+                                                font-size: 14px;
+                                                cursor: pointer;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                                transition: all 0.2s ease;
+                                            }
+
+                                            .counter-btn:hover {
+                                                background-color: #f0f0f0;
+                                            }
+
+                                            .counter-value {
+                                                min-width: 20px;
+                                                text-align: center;
+                                                font-weight: 500;
+                                            }
+
+                                            /* استایل دکمه‌ها */
+                                            .add-room-btn, .close-modal-btn {
+                                                width: 100%;
+                                                padding: 12px;
+                                                border-radius: 8px;
+                                                border: none;
+                                                font-size: 14px;
+                                                font-weight: 500;
+                                                cursor: pointer;
+                                                transition: all 0.2s ease;
+                                            }
+
+                                            .add-room-btn {
+                                                background-color: #3498db;
+                                                color: white;
+                                            }
+
+                                            .add-room-btn:hover {
+                                                background-color: #2980b9;
+                                            }
+
+                                            .close-modal-btn {
+                                                background-color: #95a5a6;
+                                                color: white;
+                                                margin-top: 8px;
+                                            }
+
+                                            .close-modal-btn:hover {
+                                                background-color: #7f8c8d;
+                                            }
+                                        </style>
                                     </div>
                                     <div class=" h-[60px] text-black font-normal text-sm rounded-[6px] focus:outline-none focus:border-[1px] focus:border-neutral-400 block w-full p-2.5 768max:h-12"></div>
                                     {{--<select class="bg-neutral-50 h-[60px] text-black font-normal text-sm rounded-[6px] focus:outline-none focus:border-[1px] focus:border-neutral-400 block w-full p-2.5 768max:h-12">
@@ -209,19 +356,131 @@
                     <!-- sidbar -->
                     <div class="w-full 1024max:hidden">
                         <div class="w-full flex flex-col items-center gap-2">
-                            <!-- view hotels in map -->
-                            <a href="#" target="_blank" class="w-full h-[200px] rounded-xl relative">
 
-                                <!--  -->
-                                <div class="w-full h-full rounded-xl bg-[#255346B2] flex flex-col items-center justify-center gap-2">
-                                    <svg class=" w-10 text-light" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.8147 17.7777H18.8597M18.8597 17.7777H23.9047M18.8597 17.7777V12.7777M18.8597 17.7777V22.7777M28.9498 27.7777L35.6765 34.4443M5.40625 17.7777C5.40625 21.3139 6.82366 24.7053 9.34668 27.2058C11.8697 29.7062 15.2916 31.111 18.8597 31.111C22.4278 31.111 25.8497 29.7062 28.3727 27.2058C30.8957 24.7053 32.3132 21.3139 32.3132 17.7777C32.3132 14.2415 30.8957 10.8501 28.3727 8.34958C25.8497 5.84909 22.4278 4.44434 18.8597 4.44434C15.2916 4.44434 11.8697 5.84909 9.34668 8.34958C6.82366 10.8501 5.40625 14.2415 5.40625 17.7777Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <span class=" text-xs text-light font-normal text-center">
-                                    مشاهده هتل ها بر روی نقشه
-                                </span>
-                                </div>
+
+
+                            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+                            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+                            <a href="#" id="showHotelsOnMap" class="flex items-center gap-2">
+                                <svg class="w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                                </svg>
+                                <span class="text-sm text-green-600 font-medium">
+        نمایش هتل ها روی نقشه
+    </span>
                             </a>
+
+                            <!-- مودال با Tailwind CSS -->
+                            <div id="hotelsMapModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+                                <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+                                <div class="relative bg-white rounded-lg w-full max-w-4xl mx-4 max-h-[90vh] flex flex-col">
+                                    <div class="p-4 border-b flex justify-between items-center">
+                                        <h3 class="text-lg font-bold">نقشه هتل‌ها</h3>
+                                        <a id="closeMapModal" class="text-gray-500 hover:text-gray-700">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </a>
+                                    </div>
+
+                                    <div class="p-4 flex-1 overflow-hidden">
+                                        <div id="hotelsMap" style="height: 60vh" class="w-full"></div>
+                                    </div>
+
+                                    <div class="p-4 border-t flex justify-end">
+                                        <a id="confirmCloseMapModal" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">
+                                            بستن
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                // مدیریت مودال با جاوااسکریپت خالص
+                                const mapModal = document.getElementById('hotelsMapModal');
+                                const showMapBtn = document.getElementById('showHotelsOnMap');
+                                const closeMapBtn = document.getElementById('closeMapModal');
+                                const confirmCloseBtn = document.getElementById('confirmCloseMapModal');
+
+                                let map; // متغیر جهانی برای نقشه
+
+                                function openMapModal() {
+                                    mapModal.classList.remove('hidden');
+                                    document.body.style.overflow = 'hidden';
+
+                                    // ایجاد نقشه پس از نمایش مودال
+                                    setTimeout(() => {
+                                        initMap();
+                                    }, 50);
+                                }
+
+                                function closeMapModal() {
+                                    mapModal.classList.add('hidden');
+                                    document.body.style.overflow = 'auto';
+
+                                    // حذف نقشه هنگام بستن مودال
+                                    if (map) {
+                                        map.remove();
+                                        map = null;
+                                    }
+                                }
+
+                                function initMap() {
+                                    // ایجاد نقشه
+                                    map = L.map('hotelsMap').setView([35.6892, 51.3890], 12);
+
+                                    // اضافه کردن لایه نقشه
+                                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    }).addTo(map);
+
+                                    // دریافت داده‌های هتل‌ها
+                                    const hotelsData = @json($hotels->map(function($hotel) {
+                                            return [
+                                                'name' => $hotel->title,
+                                                'address' => $hotel->address,
+                                                'mapAddress' => json_decode($hotel->mapAddress)
+                                            ];
+                                        }));
+
+                                    const markers = [];
+
+                                    hotelsData.forEach(hotel => {
+                                        if (hotel.mapAddress) {
+                                            const marker = L.marker([hotel.mapAddress[0], hotel.mapAddress[1]]).addTo(map);
+                                            marker.bindPopup(`<b>${hotel.name}</b><br>${hotel.address}`);
+                                            markers.push(marker);
+                                        }
+                                    });
+
+                                    if (markers.length > 0) {
+                                        const group = new L.featureGroup(markers);
+                                        map.fitBounds(group.getBounds().pad(0.1));
+                                    }
+                                }
+
+                                // رویدادهای کلیک
+                                showMapBtn.addEventListener('click', (e) => {
+                                    e.preventDefault();
+                                    openMapModal();
+                                });
+
+                                closeMapBtn.addEventListener('click', closeMapModal);
+                                confirmCloseBtn.addEventListener('click', closeMapModal);
+
+                                // بستن مودال با کلیک خارج از آن
+                                mapModal.addEventListener('click', (e) => {
+                                    if (e.target === mapModal) {
+                                        closeMapModal();
+                                    }
+                                });
+                            </script>
+
+
+
+
                             <div class="w-full flex flex-col items-center bg-[#ADADAD33] gap-[1px] rounded-xl overflow-hidden">
                                 <!-- تعداد نتایج -->
                                 <div class="w-full p-4.5 bg-neutral-50 flex flex-col gap-4.5">
@@ -243,7 +502,7 @@
                                     <div class="w-full flex items-center gap-x-2 gap-y-3 flex-wrap">
                                         <div class="flex-shrink-[0]">
                                             <label for="hotelStart-1" class="checkbox-item-button h-[32px] transition-all duration-200 ease-out px-[14px] rounded-[20px] bg-light flex items-center justify-center text-xs text-neutral-400 font-normal font-farsi-regular">
-                                                <input value="5" class="hidden" type="checkbox" id="hotelStart-1" name="hotelStar[]"  @if(request('hotelStar') and request('hotelStar') == 5) checked @endif>
+                                                <input value="5" class="hidden" type="checkbox" id="hotelStart-1" name="hotelStar[]"  @if(request('hotelStar') and in_array(5,request('hotelStar'))) checked @endif>
                                                 <span>
                                                 پنج ستاره
                                             </span>
@@ -251,7 +510,7 @@
                                         </div>
                                         <div class="flex-shrink-[0]">
                                             <label for="hotelStart-2" class="checkbox-item-button h-[32px] transition-all duration-200 ease-out px-[14px] rounded-[20px] bg-light flex items-center justify-center text-xs text-neutral-400 font-normal font-farsi-regular">
-                                                <input value="4" class="hidden" type="checkbox" id="hotelStart-2" name="hotelStar[]" @if(request('hotelStar') and request('hotelStar') == 4) checked @endif>
+                                                <input value="4" class="hidden" type="checkbox" id="hotelStart-2" name="hotelStar[]" @if(request('hotelStar') and in_array(4,request('hotelStar'))) checked @endif>
                                                 <span>
                                                 چهار ستاره
                                             </span>
@@ -259,7 +518,7 @@
                                         </div>
                                         <div class="flex-shrink-[0]">
                                             <label for="hotelStart-3" class="checkbox-item-button h-[32px] transition-all duration-200 ease-out px-[14px] rounded-[20px] bg-light flex items-center justify-center text-xs text-neutral-400 font-normal font-farsi-regular">
-                                                <input value="3" class="hidden" type="checkbox" id="hotelStart-3" name="hotelStar[]" @if(request('hotelStar') and request('hotelStar') == 3) checked @endif>
+                                                <input value="3" class="hidden" type="checkbox" id="hotelStart-3" name="hotelStar[]" @if(request('hotelStar') and in_array(3,request('hotelStar'))) checked @endif>
                                                 <span>
                                                 سه تاره یا کمتر
                                             </span>
@@ -316,6 +575,9 @@
                                         @endforeach
                                     </div>
                                 </div>
+                                <button class=" w-full h-[60px] flex items-center justify-center flex-grow-[1] px-4 text-light text-[18px] font-medium text-center rounded-[6px] bg-green-600 transition-all duration-500 ease-out hover:bg-green-300 hover:transition-none 640max:max-w-[200px] 640max:mt-4 640max:self-center 640max:self-center 768max:h-12">
+                                    اعمال فیلترها
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -365,7 +627,7 @@
                                                 <svg class=" w-6 text-green-600 hidden 640max:flex" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                                     <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd" />
                                                 </svg>
-                                                <span>
+                                                <span onclick="openMapModal()">
                                             نمایش هتل روی نقشه
                                         </span>
                                             </a>
@@ -945,10 +1207,16 @@
     {{-- rooms filter --}}
     <script>
         const params = new URLSearchParams(window.location.search);
-        let roomsData = params.get('rooms_data');
-        if(!roomsData) roomsData = [{ persons: 1 }];
-        roomsData = roomsData ? JSON.parse(roomsData) : [{ persons: 1 }];
+        let roomsData;
+        try {
+            const roomsDataString = params.get('rooms_data');
+            roomsData = roomsDataString ? JSON.parse(roomsDataString) : [{ persons: 1 }];
+        } catch (e) {
+            console.error('Invalid rooms_data format:', e);
+            roomsData = [{ persons: 1 }];
+        }
 
+        console.log(roomsData);
         document.addEventListener('alpine:init', () => {
             Alpine.data('passengerModal', () => ({
                 isPassengerModalOpen: false,
@@ -989,4 +1257,6 @@
             }));
         });
     </script>
+
+    <script src="{{ asset('src/scripts/leaflet.js') }}"></script>
 @endsection

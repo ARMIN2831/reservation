@@ -36,7 +36,7 @@ class editRoomsController extends Controller
             'status' => 'در انتظار تایید',
         ]);
         foreach ($validatedData['files'] as $file){
-            $filePath = $file->store('uploads', 'public');
+            $filePath = $this->uploadFile($file);
             File::create([
                 'model_type' => 'App\Models\Room',
                 'type' => 'image',
@@ -74,7 +74,7 @@ class editRoomsController extends Controller
         ]);
         if($request->file){
             foreach ($request->file as $file){
-                $filePath = $file->store('uploads', 'public');
+                $filePath = $this->uploadFile($file);
                 File::create([
                     'model_type' => 'App\Models\Room',
                     'type' => 'image',

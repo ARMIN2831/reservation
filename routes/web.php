@@ -16,12 +16,14 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\userDashboardController;
 use App\Http\Middleware\ShareAdminHotelData;
 use App\Http\Middleware\ShareUserData;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/start', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate');
-    \Illuminate\Support\Facades\Artisan::call('cache:clear');
-    \Illuminate\Support\Facades\Artisan::call('config:cache');
+    Artisan::call('storage:link');
+    //\Illuminate\Support\Facades\Artisan::call('migrate');
+    //\Illuminate\Support\Facades\Artisan::call('cache:clear');
+    //\Illuminate\Support\Facades\Artisan::call('config:cache');
     /*\App\Models\User::create([
         'username' => '5790103911',
         'people_id' => 1,
@@ -29,7 +31,7 @@ Route::get('/start', function () {
         'password' => bcrypt('123456'),
     ]);*/
     /*
-    \Illuminate\Support\Facades\Artisan::call('storage:link');*/
+    */
     /*\Illuminate\Support\Facades\Artisan::call('migrate:fresh');
 
     $people = \App\Models\People::create([
