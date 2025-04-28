@@ -110,10 +110,14 @@
                                                     </form>
 
                                                     <!-- فرم تایید -->
-                                                    <form style="display: inline" action="{{route('admin.financialChangeStatus', $row->id)}}" method="post">
+                                                    <form style="display: inline" action="{{route('admin.financialChangeStatus', $row->id)}}" method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         <input type="hidden" name="status" value="1">
-                                                        <button type="submit" class="btn btn-sm btn-success" title="تایید">
+
+                                                        <!-- Input فایل که ابتدا مخفی است -->
+                                                        <input type="file" name="file" id="fileInput-{{$row->id}}" style="display: none" onchange="this.form.submit()">
+
+                                                        <button type="button" class="btn btn-sm btn-success" title="تایید" onclick="document.getElementById('fileInput-{{$row->id}}').click()">
                                                             <i class="fas fa-check-circle"></i>
                                                         </button>
                                                     </form>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\File;
 use App\Models\Hotel;
 use App\Models\Reserve;
 use Illuminate\Http\Request;
@@ -21,7 +22,16 @@ class financialController extends Controller
     public function financialChangeStatus(Request $request, $reserveId)
     {
         $status = 'رد شده';
-        if ($request->status == 1) $status = 'پرداخت شده';
+        if ($request->status == 1) {
+            $filePath = $this->uploadFile($request->file);
+            File::create([
+                'model_type' => 'App\Models\Reserve',
+                'type' => 'image',
+                'model_id' => $reserveId,
+                'address' => $filePath,
+            ]);
+            $status = 'پرداخت شده';
+        }
         Reserve::where('id',$reserveId)->update(['factorStatus' => $status]);
         return redirect()->route('admin.financial');
     }

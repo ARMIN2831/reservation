@@ -286,10 +286,10 @@
                                     </span>
                                     <div class="flex items-center gap-1">
                                         <span class=" text-lg text-green-300 font-bold">
-                                            {{ $totalPriceBord - $totalPrice }}
+                                            {{ (100 * $totalPrice) / $totalPriceBord }}
                                         </span>
                                         <span class=" text-sm text-green-300 font-medium">
-                                            تومان
+                                            درصد
                                         </span>
                                     </div>
                                 </div>

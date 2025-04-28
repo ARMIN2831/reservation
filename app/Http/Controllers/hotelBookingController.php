@@ -112,7 +112,7 @@ class hotelBookingController extends Controller
                         }
                         if ($ch) continue;
                         $p = 0;
-                        foreach ($options as $option) $p += $numberOfDays * $option->ajax;
+                        foreach ($options as $option) $p += $option->ajax;
                         $prices[$needCount['persons']][$room->id] = $p;
                     }
                 }
@@ -213,7 +213,7 @@ class hotelBookingController extends Controller
                     // Calculate total price for this room for the period
                     $totalPrice = 0;
                     foreach ($options as $option) {
-                        $totalPrice += $numberOfDays * $option->ajax;
+                        $totalPrice += $option->ajax;
                     }
                     $room->price = ((100 + $hotel->profit) * $totalPrice) / 100;
                     $availableRoomsForNeeds[$need['persons'] * ($key + 1) * 10][$room->id] = $room;
@@ -350,11 +350,10 @@ class hotelBookingController extends Controller
             $options = RoomOption::where('room_id', $room->id)
                 ->whereBetween('date', [$dates[0], $dates[1]])
                 ->get();
-            foreach ($options as $option) $totalPrice += $numberOfDays * $option->ajax;
+            foreach ($options as $option) $totalPrice += $option->ajax;
         }
         $hotel = Hotel::where('id', $request->hotelId)->with('facilities')->first();
         $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
-        $totalPriceBord = ((100 + $hotel->profit) * $totalPriceBord) / 100;
         return view('user.hotelBooking.hotelBookingPage-3',compact('rooms','hotel','dates','totalPrice'));
     }
 
@@ -389,14 +388,16 @@ class hotelBookingController extends Controller
                 ->whereBetween('date', [$dates[0], $dates[1]])
                 ->get();
             foreach ($options as $option) {
-                $totalPrice += $numberOfDays * $option->ajax;
-                $totalPriceBord += $numberOfDays * $option->bord;
+                $totalPrice += $option->ajax;
+                $totalPriceBord += $option->bord;
             }
         }
         $request->merge(['peoples' => $peoples]);
         $hotel = Hotel::where('id', $request->hotelId)->with('facilities')->first();
         $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
         $totalPriceBord = ((100 + $hotel->profit) * $totalPriceBord) / 100;
+
+
         return view('user.hotelBooking.hotelBookingPage-4',compact('rooms','hotel','dates','totalPrice', 'totalPriceBord'));
     }
 
@@ -421,8 +422,8 @@ class hotelBookingController extends Controller
                 ->whereBetween('date', [$dates[0], $dates[1]])
                 ->get();
             foreach ($options as $option) {
-                $totalPrice += $numberOfDays * $option->ajax;
-                $totalPriceBord += $numberOfDays * $option->bord;
+                $totalPrice += $option->ajax;
+                $totalPriceBord += $option->bord;
             }
         }
 
@@ -454,8 +455,8 @@ class hotelBookingController extends Controller
                 ->whereBetween('date', [$dates[0], $dates[1]])
                 ->get();
             foreach ($options as $option) {
-                $totalPrice += $numberOfDays * $option->ajax;
-                $totalPriceBord += $numberOfDays * $option->bord;
+                $totalPrice += $option->ajax;
+                $totalPriceBord += $option->bord;
             }
         }
         $hotel = Hotel::where('id', $request->hotelId)->first();

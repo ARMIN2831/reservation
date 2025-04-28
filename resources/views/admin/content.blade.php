@@ -32,7 +32,48 @@
                         </div>
 
                         <div style="overflow-x: auto;" class="card-body">
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>{{ $users }}</h3>
 
+                                        <p>تعداد کاربر</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-bag"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer"></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>{{ $priceReserve }}</h3>
+
+                                        <p>درامد دریافتی</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-bag"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer"></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>{{ $countReserve }}</h3>
+
+                                        <p>تعداد رزرو هتل</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-bag"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer"></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -21,7 +21,7 @@ class financialController extends Controller
         if ($request->exit_date) $reserves->where('exit_date','<=',$request->exit_date);
 
         if ($request->reserve_id) $reserves->where('id',$request->reserve_id);
-        $reserves = $reserves->with('people.room')->get();
+        $reserves = $reserves->with('people.room','file')->get();
         return view('adminHotel.financial',compact('reserves'));
     }
 

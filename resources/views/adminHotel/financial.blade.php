@@ -55,7 +55,7 @@
             <!-- body -->
             <div class="w-full h-full flex flex-col gap-2">
                 <!-- هدر این بخش -->
-                <div class="w-full p-4.5 bg-green-300 rounded-xl grid grid-cols-[1.3fr_2.3fr_1.3fr_1.3fr_1.7fr_1fr] items-center 768max:hidden">
+                <div style="grid-template-columns: 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.7fr 1fr;" class="w-full p-4.5 bg-green-300 rounded-xl grid items-center 768max:hidden">
                     <!-- شناسه رزرو -->
                     <div class="w-full flex items-center justify-center">
                             <span class=" text-xs text-light font-normal">
@@ -86,6 +86,12 @@
                                 کدرزرو
                             </span>
                     </div>
+                    <!-- مبلغ دریافتی -->
+                    <div class="w-full flex items-center justify-center">
+                            <span class=" text-xs text-light font-normal">
+                                مبلغ دریافتی
+                            </span>
+                    </div>
                 </div>
                 <!-- اسکرولر و والد ایتم ها -->
                 <div class="w-full flex flex-col gap-4.5 overflow-y-scroll flex-grow-[1] flex-shrink-[1] 768max:bg-light 768max:rounded-xl 768max:p-4.5 768max:overflow-hidden">
@@ -109,7 +115,7 @@
                     <div class="w-full flex flex-col gap-2 768max:max-w-[800px] 768max:overflow-y-scroll">
                         @foreach($reserves as $reserve)
                             <!-- item -->
-                            <div class="reservation-item w-full py-4 px-6 grid grid-cols-[1.3fr_2.3fr_1.3fr_1.3fr_1.7fr_1fr] items-center bg-light rounded-xl 768max:flex 768max:flex-col 768max:gap-[30px] 768max:bg-[#DBF0DD80] 768max:py-[25px] 768max:px-4.5">
+                            <div style="grid-template-columns: 1fr 1.7fr 1.4fr 1.4fr 1.3fr 1.7fr 1fr;" class="reservation-item w-full py-4 px-6 grid items-center bg-light rounded-xl 768max:flex 768max:flex-col 768max:gap-[30px] 768max:bg-[#DBF0DD80] 768max:py-[25px] 768max:px-4.5">
                                 <!-- شناسه رزرو -->
                                 <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
                                     <span class=" text-sm font-medium text-neutral-700">
@@ -190,6 +196,13 @@
                                     {{ $reserve->code }}
                                 </div>
 
+                                <!-- تمبلغ دریافتی -->
+                                <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
+                                    <span class=" text-sm font-normal text-neutral-700">
+                                        {{ $reserve->hotelPrice }}
+                                    </span>
+                                </div>
+
                                 <!-- دکمه لغو و تایید در موبایل -->
                                 <div class="w-full hidden items-center px-[26px] gap-2 768max:flex">
                                     <button class="rounded-[6px] flex items-center justify-center py-2 px-4 text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 w-full flex-grow-[1]">
@@ -235,7 +248,7 @@
                                     </div>
                                 </div>
                                 @if ($reserve->factorStatus == 'پرداخت شده')
-                                <a class=" text-xs text-green-300 font-normal text-center disabled:text-neutral-400 768max:self-center">
+                                <a href="@if($reserve->file){{ asset('storage/' . $reserve->file->address) }}@endif" class=" text-xs text-green-300 font-normal text-center disabled:text-neutral-400 768max:self-center">
                                     دانلود فاکتور
                                 </a>
                                 @elseif ($reserve->factorStatus == 'در حال برسی')

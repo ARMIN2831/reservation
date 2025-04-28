@@ -17,4 +17,9 @@ class Reserve extends Model
     {
         return $this->morphTo(__FUNCTION__,'model_type','model_id');
     }
+
+    public function file()
+    {
+        return $this->morphOne(File::class, 'model','model_type');
+    }
 }
