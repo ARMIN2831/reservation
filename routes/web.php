@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/start', function () {
-    Artisan::call('storage:link');
-    //\Illuminate\Support\Facades\Artisan::call('migrate');
+    //Artisan::call('storage:link');
+    Illuminate\Support\Facades\Artisan::call('migrate');
     //\Illuminate\Support\Facades\Artisan::call('cache:clear');
     //\Illuminate\Support\Facades\Artisan::call('config:cache');
     /*\App\Models\User::create([
@@ -196,6 +196,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::prefix('dashboard')->middleware('auth:admin')->group(function () {
+        Route::get('logout', [AdminAuthController::class,'logout'])->name('logout');
+
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
         Route::get('financial', [\App\Http\Controllers\admin\financialController::class, 'index'])->name('financial');
         Route::post('financialChangeStatus/{reserve_id}', [\App\Http\Controllers\admin\financialController::class, 'financialChangeStatus'])->name('financialChangeStatus');

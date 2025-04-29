@@ -152,72 +152,51 @@
                         <!-- left => bottom in mobile -->
                         <div class="w-full flex flex-col p-4.5 rounded-xl bg-green-600 max-w-[500px] mx-auto">
                             <!-- top -->
-                            <div class="w-full flex flex-col gap-4.5 py-4.5 border-b-[1px] border-[#8CB39880]">
-                                <div class="w-full flex items-center justify-between">
-                                    <span class=" text-sm text-light font-medium">
-                                        قیمت کل:
-                                    </span>
+                            <div class="w-full flex flex-col gap-3 py-4 border-b-[1px] border-[#8CB39880]">
+                                <!-- قیمت اصلی با خط خورده -->
+                                <div class="w-full flex items-center justify-between relative">
+            <span class="text-sm text-light font-medium">
+                قیمت اصلی:
+            </span>
                                     <div class="flex items-center gap-1">
-                                        <span class=" text-lg text-light font-bold">
-                                            {{ $totalPriceBord }}
-                                        </span>
-                                        <span class=" text-sm text-light font-medium">
-                                            تومان
-                                        </span>
+                <span class="text-lg text-light font-bold line-through opacity-80">
+                    {{ number_format($totalPriceBord) }}
+                </span>
+                                        <span class="text-sm text-light font-medium">
+                    تومان
+                </span>
                                     </div>
                                 </div>
-                                {{--<div class="w-full flex items-center justify-between">
-                                    <span class=" text-sm text-light font-medium">
-                                        مالیات:
-                                    </span>
-                                    <div class="flex items-center gap-1">
-                                        <span class=" text-lg text-light font-bold">
-                                            {{ $totalPrice }}
-                                        </span>
-                                        <span class=" text-sm text-light font-medium">
-                                            تومان
-                                        </span>
-                                    </div>
-                                </div>--}}
+
+                                <!-- تخفیف -->
                                 <div class="w-full flex items-center justify-between">
-                                    <span class=" text-sm text-light font-medium">
-                                        تخفیف:
-                                    </span>
+            <span class="text-sm text-light font-medium">
+                تخفیف:
+            </span>
                                     <div class="flex items-center gap-1">
-                                        <span class=" text-lg text-green-300 font-bold">
-                                            {{ (100 * $totalPrice) / $totalPriceBord }}
-                                        </span>
-                                        <span class=" text-sm text-green-300 font-medium">
-                                            درصد
-                                        </span>
+                <span class="text-lg text-green-300 font-bold">
+                    {{ number_format((100 * ($totalPriceBord - $totalPrice)) / $totalPriceBord, 0) }}%
+                </span>
+                                        <span class="text-sm text-green-300 font-medium">
+                    ({{ number_format($totalPriceBord - $totalPrice) }} تومان)
+                </span>
                                     </div>
                                 </div>
-                                {{--<div class="w-full flex flex-col gap-2">
-                                    <span class=" text-sm text-light font-medium">
-                                        کد تخفیف:
-                                    </span>
-                                    <div class="w-full relative rounded-xl h-9 overflow-hidden">
-                                        <input type="text" placeholder="کد تخفیف" class=" w-full h-full text-sm text-neutral-700 font-medium placeholder:text-neutral-400 px-4.5">
-                                        <button class=" h-full absolute z-[2] left-0 top-0 rounded-xl px-6 bg-green-300 flex items-center justify-center text-xs text-light font-normal text-center">
-                                            اعمال
-                                        </button>
-                                    </div>
-                                </div>--}}
                             </div>
                             <!-- bottom -->
                             <div class="w-full flex flex-col gap-4.5 py-4.5 640max:py-0 640max:pt-4.5">
                                 <!--  -->
                                 <div class="w-full flex items-center justify-between">
-                                    <span class=" text-sm text-light font-medium">
-                                        قیمت نهایی:
-                                    </span>
+            <span class="text-sm text-light font-medium">
+                قیمت نهایی:
+            </span>
                                     <div class="flex items-center gap-1">
-                                        <span class=" text-[20px] text-light font-bold">
-                                            {{ $totalPrice }}
-                                        </span>
-                                        <span class=" text-sm text-light font-medium">
-                                            تومان
-                                        </span>
+                <span class="text-[20px] text-light font-bold">
+                    {{ number_format($totalPrice) }}
+                </span>
+                                        <span class="text-sm text-light font-medium">
+                    تومان
+                </span>
                                     </div>
                                 </div>
                                 <!-- button -->

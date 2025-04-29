@@ -18,6 +18,9 @@ class AdminAuthController extends Controller
         if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password, 'type' => 'admin'])) {
             Auth::guard('admin')->user();
             return redirect()->route('admin.dashboard');
+        } else if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password, 'type' => 'agency'])) {
+            Auth::guard('admin')->user();
+            return redirect()->route('admin.dashboard');
         } else return redirect()->route('hotel.login')->with('failed','نام کاربری یا رمز عبور اشتباه است!');
     }
 

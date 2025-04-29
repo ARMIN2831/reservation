@@ -3,20 +3,36 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AgencyUser;
 use App\Models\Reserve;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
     public function index()
    {
-       $users = User::where('type','user')->count();
-       $reserves = Reserve::where('type','hotel')->get();
-       $countReserve = $reserves->count();
-       $priceReserve = $reserves->where('paymentStatus','پرداخت شده')->sum('price');
-       return view('admin.content',compact('users','countReserve','priceReserve'));
+       $user = Auth::guard('admin')->user();
+       $data = [];
+       if ($user->type == 'admin'){
+           $users = User::where('type','user')->count();
+           $reserves = Reserve::where('type','hotel')->get();
+           $countReserve = $reserves->count();
+           $priceReserve = $reserves->where('paymentStatus','پرداخت شده')->sum('price');
+           $data = [
+               'users' => $users,
+               'countReserve' => $countReserve,
+               'priceReserve' => $priceReserve,
+           ];
+       }else if ($user->type == 'agency') {
+           $agencyUsers = AgencyUser::where('agency_id',$user->id)->get();
+           $data = [
+               'agencyUsers' => $agencyUsers->count(),
+           ];
+       }
+       return view('admin.content',compact('data'));
    }
 }

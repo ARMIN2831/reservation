@@ -136,7 +136,19 @@
                                                             <option @if(old('type', $user->type) and 'admin' == old('type', $user->type)) selected @endif value="admin">admin</option>
                                                             <option @if(old('type', $user->type) and 'hotel' == old('type', $user->type)) selected @endif value="hotel">hotel</option>
                                                             <option @if(old('type', $user->type) and 'user' == old('type', $user->type)) selected @endif value="user">user</option>
+                                                            <option @if(old('type', $user->type) and 'agency' == old('type', $user->type)) selected @endif value="agency">agency</option>
                                                         </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
+                                                    <label for="discount"
+                                                           class="col-sm-3  col-form-label"><b>درصد تخفیف</b></label>
+                                                    <div class="col-sm-8">
+                                                        <input value="{{ old('discount', $user->discount) }}" type="text"
+                                                               class="form-control " id="discount"
+                                                               placeholder="درصد تخفیف" name="discount">
                                                     </div>
                                                 </div>
 

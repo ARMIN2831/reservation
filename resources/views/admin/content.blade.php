@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-
+            @if(auth()->user()->type == 'admin')
             <div class="row" style="padding-top: 1rem;position:relative;">
                 <div class="col-md-12">
                     <div class="card card-primary">
@@ -36,7 +36,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <h3>{{ $users }}</h3>
+                                        <h3>{{ $data['users'] }}</h3>
 
                                         <p>تعداد کاربر</p>
                                     </div>
@@ -50,7 +50,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <h3>{{ $priceReserve }}</h3>
+                                        <h3>{{ $data['priceReserve'] }}</h3>
 
                                         <p>درامد دریافتی</p>
                                     </div>
@@ -64,7 +64,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <h3>{{ $countReserve }}</h3>
+                                        <h3>{{ $data['countReserve'] }}</h3>
 
                                         <p>تعداد رزرو هتل</p>
                                     </div>
@@ -78,6 +78,55 @@
                     </div>
                 </div>
             </div>
+            @endif
+
+            @if(auth()->user()->type == 'agency')
+                <div class="row" style="padding-top: 1rem;position:relative;">
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <div style="overflow-x: auto;" class="card-header d-flex justify-content-between align-items-center">
+                                <h3 class="card-title">لینک معرفی شما</h3>
+                            </div>
+                            <div style="overflow-x: auto;" class="card-body">
+                                <div class="form-group">
+                                    <label>لینک معرفی:</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" id="shareLink" class="form-control" value="{{ url('/login?code=' . urlencode(Crypt::encrypt(\Illuminate\Support\Facades\Auth::guard('admin')->user()->id))) }}" readonly>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" onclick="copyShareLink()">کپی</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>{{ $data['agencyUsers'] }}</h3>
+
+                                        <p>تعداد کاربر ثبت نام کرده</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-bag"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function copyShareLink() {
+                        var copyText = document.getElementById("shareLink");
+                        copyText.select();
+                        copyText.setSelectionRange(0, 99999);
+                        document.execCommand("copy");
+                        alert("لینک کپی شد: " + copyText.value);
+                    }
+                </script>
+            @endif
+
 
 
         </div>

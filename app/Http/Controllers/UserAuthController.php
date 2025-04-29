@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AgencyUser;
 use App\Models\People;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use PhpParser\Builder\Property;
 
 class UserAuthController extends Controller
@@ -39,14 +41,29 @@ class UserAuthController extends Controller
                 'lastName' => $request->lastName,
             ]
         );
-        User::create([
+        $user = User::create([
             'people_id' => $people->id,
             'mobile' => $request->mobile,
             'password' => bcrypt($request->password),
             'type' => 'user',
         ]);
-        Auth::attempt(['mobile' => $request->mobile, 'password' => $request->password, 'type' => 'user']);
-        Auth::user();
+        if ($request->code){
+            try {
+                $agency_id = Crypt::decrypt($request->code);
+                if ($agency_id){
+                    AgencyUser::create([
+                        'agency_id' => $agency_id,
+                        'user_id' => $user->id,
+                        'type' => 'hotel',
+                    ]);
+                }
+            }catch (\Exception $e){
+                // code invalid
+            }
+        }
+        Auth::guard('user')->attempt(['mobile' => $request->mobile, 'password' => $request->password, 'type' => 'user']);
+        Auth::guard('user')->user();
+
         return response()->json(['success' => 'success'],200);
     }
 

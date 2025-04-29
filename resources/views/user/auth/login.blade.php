@@ -198,7 +198,6 @@
         </div>
     </div>
 </div>
-
 <script>
     function loginApp() {
         return {
@@ -255,6 +254,8 @@
 
             async submitRegister() {
                 try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const codeParam = urlParams.get('code');
                     const response = await fetch('/doRegister', {
                         method: 'POST',
                         headers: {
@@ -268,6 +269,7 @@
                             nationalCode: this.registerNationalCode,
                             password: this.registerPassword,
                             confirm: this.registerConfirm,
+                            code: codeParam,
                         }),
                     });
 

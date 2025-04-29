@@ -40,23 +40,26 @@ class UserController extends Controller
             'mobile' => [
                 'nullable',
                 Rule::unique('users', 'mobile')->where(function ($query) use ($request) {
+                    if (in_array($request->type, ['admin', 'agency'])) return $query->whereIn('type', ['admin', 'agency']);
                     return $query->where('type', $request->type);
                 }),
             ],
             'email' => [
-                'nullable', 'email',
                 Rule::unique('users', 'email')->where(function ($query) use ($request) {
+                    if (in_array($request->type, ['admin', 'agency'])) return $query->whereIn('type', ['admin', 'agency']);
                     return $query->where('type', $request->type);
                 }),
             ],
             'username' => [
                 'nullable',
                 Rule::unique('users', 'username')->where(function ($query) use ($request) {
+                    if (in_array($request->type, ['admin', 'agency'])) return $query->whereIn('type', ['admin', 'agency']);
                     return $query->where('type', $request->type);
                 }),
             ],
             'password' => 'required',
             'type' => 'required',
+            'discount' => 'required',
         ]);
         $people = People::firstOrCreate(
             ['nationalCode' => $validatedData['nationalCode']],
@@ -73,6 +76,7 @@ class UserController extends Controller
             'username' => @$validatedData['username'],
             'password' => bcrypt($validatedData['password']),
             'type' => $validatedData['type'],
+            'discount' => $validatedData['discount'],
         ]);
 
 
@@ -101,25 +105,28 @@ class UserController extends Controller
             'mobile' => [
                 'nullable',
                 Rule::unique('users', 'mobile')->ignore($id)->where(function ($query) use ($request) {
+                    if (in_array($request->type, ['admin', 'agency'])) return $query->whereIn('type', ['admin', 'agency']);
                     return $query->where('type', $request->type);
                 }),
             ],
             'email' => [
                 'nullable', 'email',
                 Rule::unique('users', 'email')->ignore($id)->where(function ($query) use ($request) {
+                    if (in_array($request->type, ['admin', 'agency'])) return $query->whereIn('type', ['admin', 'agency']);
                     return $query->where('type', $request->type);
                 }),
             ],
             'username' => [
                 'nullable',
                 Rule::unique('users', 'username')->ignore($id)->where(function ($query) use ($request) {
+                    if (in_array($request->type, ['admin', 'agency'])) return $query->whereIn('type', ['admin', 'agency']);
                     return $query->where('type', $request->type);
                 }),
             ],
             'type' => 'required',
+            'discount' => 'required',
         ]);
-        if ($request->password) $validatedData['password'] = bcrypt($validatedData['password']);
-
+        if ($request->password) $validatedData['password'] = bcrypt($request->password);
         $people = People::firstOrCreate(
             ['nationalCode' => $validatedData['nationalCode']],
             [

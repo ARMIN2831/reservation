@@ -15,6 +15,7 @@
                 </div>--}}
             </div>
             <nav class="mt-2">
+                @if(auth()->user()->type == "admin")
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item">
                         <a href="{{ url('admin/dashboard') }}" class="nav-link {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
@@ -86,12 +87,31 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('logout') }}" class="nav-link">
+                        <a href="{{ route('admin.logout') }}" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>خروج</p>
                         </a>
                     </li>
                 </ul>
+                @endif
+                @if(auth()->user()->type == "agency")
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href="{{ url('admin/dashboard') }}" class="nav-link {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>داشبورد</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.logout') }}" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>خروج</p>
+                        </a>
+                    </li>
+                </ul>
+                @endif
+
             </nav>
         </div>
     </div>

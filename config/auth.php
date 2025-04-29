@@ -39,7 +39,11 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ],c
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
         'hotel' => [
             'driver' => 'session',
             'provider' => 'users',
