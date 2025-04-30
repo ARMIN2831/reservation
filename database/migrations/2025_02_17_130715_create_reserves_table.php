@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('paymentStatus')->nullable();
             $table->string('paymentCode')->nullable();
             $table->string('price')->nullable();
+            $table->string('agencyPrice')->nullable();
             $table->string('bordPrice')->nullable();
             $table->string('hotelPrice')->nullable();
             $table->string('card')->nullable();

@@ -29,8 +29,14 @@ class HomeController extends Controller
            ];
        }else if ($user->type == 'agency') {
            $agencyUsers = AgencyUser::where('agency_id',$user->id)->get();
+           $agencyPrices = 0;
+           foreach ($agencyUsers->whereNotNull('reserve_id') as $item){
+               $agencyPrices += $item->reserve->agencyPrice;
+           }
            $data = [
-               'agencyUsers' => $agencyUsers->count(),
+               'agencyUsers' => $agencyUsers,
+               'agencyReserves' => $agencyUsers->whereNotNull('reserve_id')->count(),
+               'agencyPrices' => $agencyPrices,
            ];
        }
        return view('admin.content',compact('data'));

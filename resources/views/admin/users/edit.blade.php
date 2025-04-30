@@ -143,6 +143,19 @@
 
 
                                                 <div class="form-group row">
+                                                    <label for="agencyType"
+                                                           class="col-sm-3  col-form-label"><b>نوع کاربر آژانس</b></label>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control" id="agencyType" name="agencyType">
+                                                            <option>انتخاب کنید</option>
+                                                            <option @if(old('type', $user->type) and 'بلاگر' == old('type', $user->type)) selected @endif value="بلاگر">بلاگر</option>
+                                                            <option @if(old('type', $user->type) and 'شهری' == old('type', $user->type)) selected @endif value="شهری">شهری</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
                                                     <label for="discount"
                                                            class="col-sm-3  col-form-label"><b>درصد تخفیف</b></label>
                                                     <div class="col-sm-8">

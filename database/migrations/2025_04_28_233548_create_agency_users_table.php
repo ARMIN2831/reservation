@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('agency_id');
             $table->integer('reserve_id')->nullable();
             $table->string('type')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

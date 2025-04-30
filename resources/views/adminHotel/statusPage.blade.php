@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordiion active w-full flex flex-col">
+                            {{--<div class="accordiion active w-full flex flex-col">
                                 <!-- button -->
                                 <div class="accordiion-button w-full flex items-center py-3 px-4.5 bg-light gap-2">
                                     <svg class=" w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -97,7 +97,7 @@
                                 <div class="accordiion-content w-full flex flex-col gap-4.5 p-4.5 bg-light overflow-hidden">
                                     <canvas id="myChart" class=" min-h-[300px]"></canvas>
                                 </div>
-                            </div>
+                            </div>--}}
                             {{--<div class="accordiion w-full flex flex-col">
                                 <!-- button -->
                                 <div class="accordiion-button w-full flex items-center py-3 px-4.5 bg-light gap-2">

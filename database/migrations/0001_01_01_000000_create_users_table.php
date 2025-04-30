@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('mobile')->nullable();
             $table->string('type')->nullable();
+            $table->string('agencyType')->nullable();
             $table->string('discount')->nullable();
             $table->foreignId('people_id')->references('id')->on('people')->onDelete('cascade');
             $table->integer('wallet')->nullable();
