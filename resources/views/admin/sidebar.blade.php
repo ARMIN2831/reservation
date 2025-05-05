@@ -30,6 +30,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ url('admin/dashboard/support') }}" class="nav-link {{ (request()->is('admin/dashboard/support')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p> پیام های پشتیبانی</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ url('admin/dashboard/mainPageSettings') }}" class="nav-link {{ (request()->is('admin/dashboard/mainPageSettings')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>تنظیمات صفحه اصلی</p>

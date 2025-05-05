@@ -14,6 +14,7 @@ use App\Http\Controllers\adminHotel\statusPageController;
 use App\Http\Controllers\hotelBookingController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\userDashboardController;
+use App\Http\Controllers\UserSupportController;
 use App\Http\Middleware\ShareAdminHotelData;
 use App\Http\Middleware\ShareUserData;
 use Illuminate\Support\Facades\Artisan;
@@ -100,6 +101,15 @@ Route::middleware([ShareUserData::class])->group(function () {
         Route::middleware('auth:user')->get('selectPricing', 'selectPricing')->name('selectPricing');
         Route::middleware('auth:user')->get('reserveHotel', 'reserveHotel')->name('reserveHotel');
         Route::get('paymentRedirect', 'paymentRedirect')->name('paymentRedirect');
+    });
+
+
+    //support routes
+    Route::prefix('support')->name('support.')->group(function() {
+        Route::get('messages', [UserSupportController::class, 'getMessages']);
+        Route::get('readMessages', [UserSupportController::class, 'readMessages']);
+        Route::post('send', [UserSupportController::class, 'sendMessage']);
+        Route::get('conversations', [UserSupportController::class, 'getConversations']);
     });
 });
 
@@ -201,6 +211,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
         Route::get('financial', [\App\Http\Controllers\admin\financialController::class, 'index'])->name('financial');
         Route::post('financialChangeStatus/{reserve_id}', [\App\Http\Controllers\admin\financialController::class, 'financialChangeStatus'])->name('financialChangeStatus');
+
+        Route::get('/support', function() {
+            return view('admin.support.index');
+        })->name('support');
+
+        Route::get('/support/users', [\App\Http\Controllers\admin\AdminSupportController::class, 'users'])
+            ->name('support.users');
+
+        Route::get('/support/messages', [\App\Http\Controllers\admin\AdminSupportController::class, 'messages'])
+            ->name('support.messages');
+
+        Route::post('/support/send', [\App\Http\Controllers\admin\AdminSupportController::class, 'sendMessage'])
+            ->name('support.send');
 
         Route::get('mainPageSettings', [\App\Http\Controllers\admin\MainPageSettingController::class, 'mainPageSettings'])->name('mainPageSettings');
         Route::post('updatePageSettings', [\App\Http\Controllers\admin\MainPageSettingController::class, 'updatePageSettings'])->name('updatePageSettings');

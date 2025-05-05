@@ -3,6 +3,194 @@
     <title>صفحه اصلی</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <main class=" w-full flex flex-col items-center gap-20 pb-8">
+        @if(isset($userSharedData))
+            <!-- چت باکس پشتیبانی -->
+            <div style="position: fixed; bottom: 24px; right: 24px; z-index: 50;">
+                <!-- دکمه شناور چت -->
+                <button id="chatToggleButton" style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(to bottom right, #48bb78, #38a169); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); transition: all 0.3s ease; transform: scale(1);"
+                        onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'"
+                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'">
+                    <svg style="width: 32px; height: 32px; color: white;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 10H8.01M12 10H12.01M16 10H16.01M9 16H5C3.89543 16 3 15.1046 3 14V6C3 4.89543 3.89543 4 5 4H19C20.1046 4 21 4.89543 21 6V14C21 15.1046 20.1046 16 19 16H14L9 21V16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span id="unreadBadge" style="position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; border-radius: 50%; background-color: #f56565; color: white; font-size: 12px; display: flex; align-items: center; justify-content: center; animation: pulse 1.5s infinite; display: none;">0</span>
+                </button>
+
+                <!-- پنجره چت -->
+                <div id="chatWindow" style="position: fixed; bottom: 96px; right: 24px; width: 320px; height: 500px; background-color: white; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden; display: none; flex-direction: column; border: 1px solid #e2e8f0;">
+                    <!-- هدر چت -->
+                    <div style="background: linear-gradient(to right, #2f855a, #38a169); padding: 16px; color: white; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 style="font-weight: bold; margin: 0;">پشتیبانی آنلاین</h3>
+                            </div>
+                        </div>
+                        <button id="closeChat" style="color: white; background: none; border: none; cursor: pointer; transition: color 0.2s ease;"
+                                onmouseover="this.style.color='#edf2f7'"
+                                onmouseout="this.style.color='white'">
+                            <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- بدنه چت -->
+                    <div id="chatBody" style="flex: 1; padding: 16px; overflow-y: auto; background-color: #f7fafc;">
+                        <!-- پیام های چت -->
+                        <div id="messagesContainer" style="display: flex; flex-direction: column; gap: 12px;">
+
+                        </div>
+                    </div>
+
+                    <!-- فوتور چت -->
+                    <div style="border-top: 1px solid #e2e8f0; background-color: white; padding: 12px;">
+                        <div style="position: relative;">
+                            <input type="text" id="messageInput" placeholder="پیام خود را بنویسید..."
+                                   style="width: 100%; padding: 12px 16px 12px 48px;border: 1px solid #cbd5e0; border-radius: 9999px; outline: none;">
+                            <button id="sendButton" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #38a169; background: none; border: none; cursor: pointer;"
+                                    onmouseover="this.style.color='#2f855a'"
+                                    onmouseout="this.style.color='#38a169'">
+                                <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                </svg>
+                            </button>
+                            {{--<div style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: flex; gap: 8px;">
+                                <button style="color: #718096; background: none; border: none; cursor: pointer;"
+                                        onmouseover="this.style.color='#4a5568'"
+                                        onmouseout="this.style.color='#718096'">
+                                    <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                                    </svg>
+                                </button>
+                                <button style="color: #718096; background: none; border: none; cursor: pointer;"
+                                        onmouseover="this.style.color='#4a5568'"
+                                        onmouseout="this.style.color='#718096'">
+                                    <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </button>
+                            </div>--}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                @keyframes pulse {
+                    0% { opacity: 1; }
+                    50% { opacity: 0.5; }
+                    100% { opacity: 1; }
+                }
+            </style>
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script>
+                // عناصر DOM
+                const chatToggleButton = document.getElementById('chatToggleButton');
+                const chatWindow = document.getElementById('chatWindow');
+                const closeChat = document.getElementById('closeChat');
+                const sendButton = document.getElementById('sendButton');
+                const messageInput = document.getElementById('messageInput');
+                const messagesContainer = document.getElementById('messagesContainer');
+                const unreadBadge = document.getElementById('unreadBadge');
+                const chatBody = document.getElementById('chatBody');
+
+                // متغیرهای حالت
+                let isChatOpen = false;
+                let unreadCount = 0;
+                let lastMessageId = 0;
+
+                // رویدادها
+                chatToggleButton.addEventListener('click', toggleChat);
+                closeChat.addEventListener('click', closeChatWindow);
+                sendButton.addEventListener('click', sendMessage);
+                messageInput.addEventListener('keypress', function(e) {
+                    if(e.key === 'Enter') sendMessage();
+                });
+
+                // توابع
+                function toggleChat() {
+                    isChatOpen = !isChatOpen;
+                    if(isChatOpen) {
+                        chatWindow.style.display = 'flex';
+                        unreadCount = 0;
+                        unreadBadge.style.display = 'none';
+                        fetchMessages();
+                        axios.get(`/support/readMessages`)
+                            .then(response => {
+                                unreadCount = response.data.unread;
+                            });
+                    } else {
+                        chatWindow.style.display = 'none';
+                    }
+                }
+
+                function closeChatWindow() {
+                    chatWindow.style.display = 'none';
+                    isChatOpen = false;
+                }
+
+                function fetchMessages() {
+                    axios.get(`/support/messages`,{
+                        params: {
+                            last_message_id: lastMessageId
+                        }
+                    })
+                        .then(response => {
+                            console.log(lastMessageId)
+                            if(response.data.messages.length > 0) {
+                                lastMessageId = response.data.messages[response.data.messages.length - 1].id;
+                                appendMessages(response.data.messages);
+                            }
+                            unreadCount = response.data.unread;
+                            if (unreadCount > 0) {
+                                unreadBadge.style.display = 'block';
+                            }
+                            unreadBadge.textContent = unreadCount
+                        });
+                }
+
+                function appendMessages(messages) {
+                    messages.forEach(message => {
+                        const messageElement = document.createElement('div');
+                        messageElement.style.display = 'flex';
+                        messageElement.style.justifyContent = message.sender_id === {{ $userSharedData->id }} ? 'flex-start' : 'flex-end';
+
+                        messageElement.innerHTML = `
+                <div style="max-width: 240px; ${message.sender_id === {{ $userSharedData->id }} ?
+                            'background-color: #f0fff4; border-radius: 16px; border-top-right-radius: 0;' :
+                            'background-color: white; border: 1px solid #e2e8f0; border-radius: 16px; border-top-left-radius: 0;'}
+                    padding: 12px; color: #2d3748;">
+                    <p style="margin: 0;">${message.text}</p>
+                    <p style="font-size: 11px; color: #718096; ${message.sender_id === {{ $userSharedData->id }} ? 'text-align: right;' : 'text-align: left;'} margin-top: 4px; margin-bottom: 0;">
+                        ${new Date(message.created_at).toLocaleTimeString('fa-IR', {hour: '2-digit', minute:'2-digit'})}
+                    </p>
+                </div>
+            `;
+
+                        messagesContainer.appendChild(messageElement);
+                    });
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }
+
+                function sendMessage() {
+                    const messageInput = document.getElementById('messageInput');
+                    axios.post('/support/send', {
+                        message: messageInput.value
+                    }).then(() => {
+                        messageInput.value = '';
+                        fetchMessages();
+                    });
+                }
+
+                // بررسی دوره‌ای پیام‌های جدید هر 3 ثانیه
+                setInterval(fetchMessages, 3000);
+            </script>
+        @endif
         <section class="bannerSection flex w-full max-w-[1440px] h-[400px] items-center justify-between px-[210px] 512max:h-[310px] 512max:px-[28px] 1024max:px-[36px] 1150max:px-[64px] 1150max:justify-center">
             <div class="flex flex-col gap-3 mb-[100px] 1150max:items-center">
                 <img class=" hidden w-[300px] 512max:w-[200px] 768max:block" src="{{ asset('public/icons/chademon.svg') }}" alt="#">
@@ -104,16 +292,6 @@
                         </button>--}}
                     </div>
                     <div class="w-full min-h-[200px] rounded-xl rounded-tr-none bg-light relative p-10 768max:px-4.5 768max:py-[30px] 1024max:rounded-t-none">
-                        <!-- support team button -->
-                        <div class="absolute z-[2] bottom-[-24px] right-[-24px]">
-                            <div class=" flex items-center justify-center w-[60px] aspect-square rounded-full bg-[#24524880] sticky z-[100] bottom-[50px] right-[100px]">
-                                <button class=" w-12 aspect-square rounded-full flex items-center justify-center bg-green-600">
-                                    <svg class=" w-6 text-light" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4.46154 10.0004V6.35908C4.47235 5.64331 4.6243 4.93671 4.90868 4.27976C5.19306 3.62282 5.60428 3.02844 6.11878 2.53069C6.63328 2.03294 7.24094 1.64159 7.90695 1.37908C8.57296 1.11657 9.28423 0.988042 10 1.00087C10.7158 0.988042 11.427 1.11657 12.093 1.37908C12.7591 1.64159 13.3667 2.03294 13.8812 2.53069C14.3957 3.02844 14.8069 3.62282 15.0913 4.27976C15.3757 4.93671 15.5276 5.64331 15.5385 6.35908V10.0004M12.7692 17.2693C13.5037 17.2693 14.208 16.9776 14.7274 16.4583C15.2467 15.939 15.5385 15.2346 15.5385 14.5002V11.385M12.7692 17.2693C12.7692 17.7283 12.5869 18.1685 12.2623 18.4931C11.9377 18.8177 11.4975 19 11.0385 19H8.96154C8.50251 19 8.06228 18.8177 7.7377 18.4931C7.41312 18.1685 7.23077 17.7283 7.23077 17.2693C7.23077 16.8103 7.41312 16.3701 7.7377 16.0455C8.06228 15.721 8.50251 15.5386 8.96154 15.5386H11.0385C11.4975 15.5386 11.9377 15.721 12.2623 16.0455C12.5869 16.3701 12.7692 16.8103 12.7692 17.2693ZM2.38462 7.92362H3.76923C3.95284 7.92362 4.12893 7.99655 4.25877 8.12638C4.3886 8.2562 4.46154 8.43229 4.46154 8.61589V12.7695C4.46154 12.9531 4.3886 13.1292 4.25877 13.259C4.12893 13.3889 3.95284 13.4618 3.76923 13.4618H2.38462C2.01739 13.4618 1.66521 13.3159 1.40554 13.0563C1.14588 12.7966 1 12.4445 1 12.0773V9.30816C1 8.94096 1.14588 8.58879 1.40554 8.32914C1.66521 8.06949 2.01739 7.92362 2.38462 7.92362ZM17.6154 13.4618H16.2308C16.0472 13.4618 15.8711 13.3889 15.7412 13.259C15.6114 13.1292 15.5385 12.9531 15.5385 12.7695V8.61589C15.5385 8.43229 15.6114 8.2562 15.7412 8.12638C15.8711 7.99655 16.0472 7.92362 16.2308 7.92362H17.6154C17.9826 7.92362 18.3348 8.06949 18.5945 8.32914C18.8541 8.58879 19 8.94096 19 9.30816V12.0773C19 12.4445 18.8541 12.7966 18.5945 13.0563C18.3348 13.3159 17.9826 13.4618 17.6154 13.4618Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
                         <!-- content -->
                         <div class="w-full h-full">
                             <!-- هتل -->

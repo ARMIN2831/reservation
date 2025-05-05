@@ -51,4 +51,34 @@ class User extends Authenticatable
     {
         return $this->hasOne(AgencyUser::class);
     }
+
+    public function sendMessages()
+    {
+        return $this->morphMany(Message::class,'sender','sender_model');
+    }
+
+    public function sentMessages()
+    {
+        return $this->morphMany(Message::class, 'sender','sender_model');
+    }
+
+
+    public function receivedMessages()
+    {
+        return $this->morphMany(Message::class, 'receiver','receiver_model');
+    }
+
+
+    public function messages()
+    {
+        return $this->sentMessages()->union($this->receivedMessages()->toBase());
+    }
+
+
+    public function lastMessage()
+    {
+        return $this->hasOne(Message::class, 'sender_id')
+            ->where('sender_model', 'App\Models\User')
+            ->latest();
+    }
 }
