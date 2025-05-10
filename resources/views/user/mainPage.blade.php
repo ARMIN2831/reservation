@@ -1647,7 +1647,7 @@
         <div class="w-full websiteWeblogItem flex flex-col gap-[26px]">
             <img class="websiteWeblogItemImg w-full h-[218px] rounded-xl object-cover" src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}">
             <div class="w-full flex flex-col gap-5">
-                <a href="{{ url('/blog/' . $blog->id) }}" class="websiteWeblogItemTitle text-base text-green-600 font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+                <a href="{{ route('blog',$blog->id) }}" class="websiteWeblogItemTitle text-base text-green-600 font-bold whitespace-nowrap overflow-hidden text-ellipsis">
                     {{ $blog->title }}
                 </a>
                 <div class="w-full grid grid-cols-[54px_1fr] gap-4 items-center">

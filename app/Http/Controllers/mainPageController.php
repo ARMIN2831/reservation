@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Hotel;
 use App\Models\MainPageSetting;
 use Illuminate\Http\Request;
@@ -36,5 +37,12 @@ class mainPageController extends Controller
             ])->unique()->values(),
         ];
         return response()->json($result, 200);
+    }
+
+
+    public function blog($id)
+    {
+        $blog = Blog::find($id);
+        return view('user.blogs',compact('blog'));
     }
 }

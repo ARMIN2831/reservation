@@ -89,6 +89,10 @@ Route::middleware([ShareUserData::class])->group(function () {
     Route::get('/', [\App\Http\Controllers\mainPageController::class, 'index'])->name('index');
 
 
+    //blogs
+    Route::get('blog/{id}', [\App\Http\Controllers\mainPageController::class, 'blog'])->name('blog');
+
+
     //UserCheckLogin
     Route::middleware('auth:user')->prefix('userDashboard')->controller(userDashboardController::class)->name('userDashboard.')->group(function () {
         Route::get('/', 'index')->name('index');
