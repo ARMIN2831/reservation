@@ -13,6 +13,11 @@ class Reserve extends Model
         return $this->hasMany(PeopleReserve::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function hotel()
     {
         return $this->morphTo(__FUNCTION__,'model_type','model_id');

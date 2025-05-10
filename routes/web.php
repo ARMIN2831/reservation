@@ -17,6 +17,10 @@ use App\Http\Controllers\userDashboardController;
 use App\Http\Controllers\UserSupportController;
 use App\Http\Middleware\ShareAdminHotelData;
 use App\Http\Middleware\ShareUserData;
+//
+use App\Http\Controllers\BlogController;
+
+//
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -147,6 +151,7 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
         //reservation routes
         Route::controller(reservationController::class)->group(function() {
             Route::get('reservation', 'index')->name('reservation');
+            Route::post('update-reserve-code', 'editCode')->name('reservation.editCode');
         });
 
 
@@ -212,6 +217,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('financial', [\App\Http\Controllers\admin\financialController::class, 'index'])->name('financial');
         Route::post('financialChangeStatus/{reserve_id}', [\App\Http\Controllers\admin\financialController::class, 'financialChangeStatus'])->name('financialChangeStatus');
 
+        Route::get('reserve/{reserve_id}', [\App\Http\Controllers\admin\HotelController::class, 'editReserve'])->name('reserve.edit');
+        Route::POST('reserve/{reserve_id}', [\App\Http\Controllers\admin\HotelController::class, 'updateReserve'])->name('reserve.update');
+
         Route::get('/support', function() {
             return view('admin.support.index');
         })->name('support');
@@ -232,6 +240,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('rooms',\App\Http\Controllers\admin\RoomController::class);
 
         Route::resource('users',\App\Http\Controllers\admin\UserController::class);
+
+
+
+        Route::get('/blog', [BlogController::class, 'blog']);
+        Route::post('/add_blog', [BlogController::class, 'add_blog']);
+        Route::get('/edit_blog/{id}', [BlogController::class, 'edit_blogs']);
+        Route::post('/update_blog', [BlogController::class, 'update_blog']);
+        Route::delete('/delete_blog/{id}', [BlogController::class, 'delete_blog']);
     });
+
+
 
 });

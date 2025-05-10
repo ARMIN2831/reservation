@@ -55,7 +55,7 @@
             <!-- body -->
             <div class="w-full h-full flex flex-col gap-2">
                 <!-- هدر این بخش -->
-                <div class="w-full p-4.5 bg-green-300 rounded-xl grid grid-cols-[1.3fr_2.3fr_1.3fr_1.3fr_1.7fr_1fr] items-center 768max:hidden">
+                <div style="grid-template-columns: 1.3fr 2.3fr 1.3fr 1.3fr 1.7fr 1fr 1fr;" class="w-full p-4.5 bg-green-300 rounded-xl grid items-center 768max:hidden">
                     <!-- شناسه رزرو -->
                     <div class="w-full flex items-center justify-center">
                             <span class=" text-xs text-light font-normal">
@@ -86,6 +86,12 @@
                                 کدرزرو
                             </span>
                     </div>
+                    <!-- تاریخ ویرایش -->
+                    <div class="w-full flex items-center justify-center">
+                            <span class=" text-xs text-light font-normal">
+                                تاریخ ویرایش
+                            </span>
+                    </div>
                 </div>
                 <!-- اسکرولر و والد ایتم ها -->
                 <div class="w-full flex flex-col gap-4.5 overflow-y-scroll flex-grow-[1] flex-shrink-[1] 768max:bg-light 768max:rounded-xl 768max:p-4.5 768max:overflow-hidden">
@@ -109,7 +115,7 @@
                     <div class="w-full flex flex-col gap-2 768max:max-w-[800px] 768max:overflow-y-scroll">
                         @foreach($reserves as $reserve)
                             <!-- item -->
-                            <div class="reservation-item w-full py-4 px-6 grid grid-cols-[1.3fr_2.3fr_1.3fr_1.3fr_1.7fr_1fr] items-center bg-light rounded-xl 768max:flex 768max:flex-col 768max:gap-[30px] 768max:bg-[#DBF0DD80] 768max:py-[25px] 768max:px-4.5">
+                            <div style="    grid-template-columns: 1.3fr 2.3fr 1.3fr 1.3fr 1.7fr 1fr 1fr;" class="reservation-item w-full py-4 px-6 grid items-center bg-light rounded-xl 768max:flex 768max:flex-col 768max:gap-[30px] 768max:bg-[#DBF0DD80] 768max:py-[25px] 768max:px-4.5">
                                 <!-- شناسه رزرو -->
                                 <div class="w-full flex flex-col justify-center items-center gap-1 768max:hidden">
                                     <span class=" text-sm font-medium text-neutral-700">
@@ -185,9 +191,45 @@
                                         {{ $reserve->exit_date }}
                                     </span>
                                 </div>
+                                <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
                                 <!-- آخرین وضعیت -->
                                 <div class="w-full flex justify-center items-center gap-1 768max:hidden">
-                                    {{ $reserve->code }}
+                                    <input
+                                        x-data="{ value: '{{ $reserve->code }}', loading: false }"
+                                        x-model="value"
+                                        x-on:change.debounce.500ms="
+            loading = true;
+            fetch('{{ route('hotel.reservation.editCode') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    reserve_id: {{ $reserve->id }},
+                    new_code: value
+                })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('خطا در بروزرسانی');
+                return response.json();
+            })
+            .catch(error => {
+                console.error(error);
+                // برگرداندن مقدار قبلی در صورت خطا
+                value = '{{ $reserve->code }}';
+            })
+            .finally(() => loading = false);
+        "
+                                        :disabled="loading"
+                                        class="border rounded px-2 py-1 text-center"
+                                        type="text"
+                                    >
+                                </div>
+
+
+                                <div class="w-full flex justify-center items-center gap-1 768max:hidden">
+                                    {{ $reserve->editDate }}
                                 </div>
 
                                 <!-- دکمه لغو و تایید در موبایل -->

@@ -157,7 +157,7 @@ class hotelBookingController extends Controller
             foreach ($totalPrices as $key => $price){
                 if ($key == $hotel->id){
                     $totalPrices[$key] = ((100 + $hotel->profit) * $price) / 100;
-                    $totalPrices[$key] = ($totalPrices[$key] * (100 - $discountPercent)) / 100;
+                    //$totalPrices[$key] = ($totalPrices[$key] * (100 - $discountPercent)) / 100;
                 }
             }
         }
@@ -202,7 +202,6 @@ class hotelBookingController extends Controller
             // Step 1: Find all suitable rooms for each need
             foreach ($roomsData as $key => $need) {
                 $availableRoomsForNeeds[$need['persons'] * ($key + 1) * 10] = [];
-
                 foreach ($rooms as $room) {
                     $count = $room->single + $room->double * 2;
                     if ($count < $need['persons']) continue;
@@ -272,7 +271,7 @@ class hotelBookingController extends Controller
                     $totalPrice += $roomData->price;
                     $roomsInCombination[$needCount] = [
                         'room_info' => $roomData,
-                        'price_for_period' => ($roomData->price * (100 - $discountPercent)) / 100,
+                        'price_for_period' => $roomData->price,
                     ];
                     $arr[] = $roomData->id;
                 } // make this combination array
@@ -286,7 +285,7 @@ class hotelBookingController extends Controller
                         $saver[$key] = $arr;
                         $results[] = [
                             'rooms' => $roomsInCombination,
-                            'total_price' => ($totalPrice * (100 - $discountPercent)) / 100
+                            'total_price' => $totalPrice
                         ];
                     }
                 }
@@ -379,7 +378,7 @@ class hotelBookingController extends Controller
             }
         }
         $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
-        $totalPrice = ($totalPrice * (100 - $discountPercent)) / 100;
+        //$totalPrice = ($totalPrice * (100 - $discountPercent)) / 100;
         return view('user.hotelBooking.hotelBookingPage-3',compact('rooms','hotel','dates','totalPrice'));
     }
 
@@ -430,7 +429,7 @@ class hotelBookingController extends Controller
         }
 
         $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
-        $totalPrice = ($totalPrice * (100 - $discountPercent)) / 100;
+        //$totalPrice = ($totalPrice * (100 - $discountPercent)) / 100;
         $totalPriceBord = ((100 + $hotel->profit) * $totalPriceBord) / 100;
         //$totalPriceBord = ($totalPriceBord * (100 - $discountPercent)) / 100;
 
@@ -475,7 +474,7 @@ class hotelBookingController extends Controller
         }
 
         $totalPrice = ((100 + $hotel->profit) * $totalPrice) / 100;
-        $totalPrice = ($totalPrice * (100 - $discountPercent)) / 100;
+        //$totalPrice = ($totalPrice * (100 - $discountPercent)) / 100;
         $totalPriceBord = ((100 + $hotel->profit) * $totalPriceBord) / 100;
         //$totalPriceBord = ($totalPriceBord * (100 - $discountPercent)) / 100;
         $gateways = Gateway::get();
@@ -523,7 +522,7 @@ class hotelBookingController extends Controller
 
         $response = zarinpal()
             ->merchantId(Gateway::where('id',$request->pmo)->first()->api)
-            ->amount($agencyPrice)
+            ->amount($totalPriceUser)
             ->request()
             ->description("reserve Hotel")
             ->callbackUrl(route('hotelBooking.paymentRedirect'))
@@ -534,15 +533,13 @@ class hotelBookingController extends Controller
         if (!$response->success()) {
             return $response->error()->message();
         }
-        $uniqueCode = microtime().mt_rand(1000,9999);
         $reserve = Reserve::create([
-            'code' => $uniqueCode,
             'entry_date' => $dates[0],
             'exit_date' => $dates[1],
             'paymentStatus' => 'درحال انجام',
             'paymentCode' => $response->authority(),
             'bordPrice' => $totalPriceBord,
-            'price' => $agencyPrice,
+            'price' => $totalPriceUser,
             'agencyPrice' => $totalPriceUser - $agencyPrice,
             'hotelPrice' => $totalPrice,
             'model_type' => 'App\Models\Hotel',

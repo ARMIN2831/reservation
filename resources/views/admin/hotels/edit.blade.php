@@ -359,6 +359,12 @@
                                                                     <i class="fas fa-check-circle"></i>
                                                                 </button>
                                                             </form>
+
+                                                            <a href="{{route('admin.reserve.edit', $row->id)}}"
+                                                               class="btn btn-sm btn-primary ml-1 mt-1 float-left">
+                                                                <span class="fas fa-pencil-alt fa-fw" aria-hidden="true"></span>
+                                                                <span class="sr-only">ویرایش</span>
+                                                            </a>
                                                         </div>
                                                     </td>
                                                 </tr>

@@ -24,4 +24,10 @@ class reservationController extends Controller
         $reserves = $reserves->with('people.room')->get();
         return view('adminHotel.reservation',compact('reserves'));
     }
+
+    public function editCode(Request $request)
+    {
+        Reserve::where('id',$request->reserve_id)->update(['code' => $request->new_code]);
+        return response()->json(['message' => 'success']);
+    }
 }

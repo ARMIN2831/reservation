@@ -1613,6 +1613,75 @@
                 </form>
             </div>
         </section>
+
+
+
+
+                <section class=" w-full max-w-[1440px] px-[100px] flex flex-col gap-10 512max:px-[28px] 1024max:px-[36px] 1280max:px-[64px]">
+            <!-- header -->
+            <div class="w-full flex flex-col gap-[6px] 640max:items-center 640max:gap-2">
+                <!-- top -->
+                <div class="w-full flex items-baseline justify-between gap-4.5 640max:justify-center">
+                    <h5 class=" text-[24px] text-green-600 font-bold flex-shrink-[0] 640max:text-[20px]">
+                        مجله سفری نو
+                    </h5>
+                    <div class=" w-full h-[1px] flex-grow-[1] border-[1px] border-dashed border-green-300 640max:hidden"></div>
+                    <a href="#" class="flex items-center text-green-300 text-sm font-normal flex-shrink-[0] 640max:hidden">
+                        <span>
+                            مشاهده همه
+                        </span>
+                        <svg class=" w-4 text-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                            <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+                <!-- bottom -->
+                <span class=" text-sm text-neutral-400 font-normal 512max:text-[10px]">
+با سفری نو همراه باشید تا به روز ترین اخبار سفر و اقامت مطلع شوید
+                </span>
+            </div>
+            <!-- body -->
+<div class="w-full grid grid-cols-3 gap-4.5 640max:grid-cols-1 1024max:grid-cols-2 1024max:gap-y-10">
+    @foreach($blogs as $blog)
+        <!-- item -->
+        <div class="w-full websiteWeblogItem flex flex-col gap-[26px]">
+            <img class="websiteWeblogItemImg w-full h-[218px] rounded-xl object-cover" src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}">
+            <div class="w-full flex flex-col gap-5">
+                <a href="{{ url('/blog/' . $blog->id) }}" class="websiteWeblogItemTitle text-base text-green-600 font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+                    {{ $blog->title }}
+                </a>
+                <div class="w-full grid grid-cols-[54px_1fr] gap-4 items-center">
+                    <!-- date -->
+                    <div class="websiteWeblogItemِDate w-[54px] aspect-square rounded-[7px] flex flex-col items-center justify-center bg-green-600 text-center text-[18px] text-light font-bold leading-[18px]">
+                        <span>
+                            {{ jdate($blog->created_at)->format('d') }}
+                        </span>
+                        <span>
+                            {{ jdate($blog->created_at)->format('M') }}
+                        </span>
+                    </div>
+                    <!-- text -->
+                    <p class="w-full text-sm text-neutral-400 font-normal leading-[24.5px] line-clamp-2">
+                        {{ Str::limit(preg_replace('/\s+/', ' ', trim(html_entity_decode(strip_tags($blog->content)))), 100) }}
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+
+        </section>
+
+
+
+
+
+
+
+
+
+
         <section class=" w-full max-w-[1440px] flex flex-col gap-10 pt-[75px] pb-[69px] pr-[100px] overflow-hidden 512max:px-7 1024max:px-[36px] 1280max:pr-[64px]" style="background: linear-gradient(270deg, #8CB398 47.83%, #245248 164.22%);">
             <!-- header -->
             <div class="w-full flex flex-col gap-4 pr-[152px] 1024max:items-center 1024max:px-[0px] 1280max:pr-[100px]">
