@@ -16,7 +16,8 @@ class mainPageController extends Controller
         $suggestionsTwo = MainPageSetting::where('type',1)->with('hotel')->get();
         $today = Jalalian::now();
         $tomorrow = Jalalian::now()->addDays(1);
-        return view('user.mainPage',compact('suggestionsOne','suggestionsTwo','today','tomorrow'));
+        $blogs = Blog::get();
+        return view('user.mainPage',compact('suggestionsOne','suggestionsTwo','today','tomorrow','blogs'));
     }
 
 

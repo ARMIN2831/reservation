@@ -69,6 +69,8 @@ Route::prefix('api')->name('api.')->group(function () {
 
     Route::get('hotelSearchDestination/{search}', [\App\Http\Controllers\mainPageController::class,'hotelSearchDestination'])->name('hotelSearchDestination');
     Route::post('changeMessageStatus', [\App\Http\Controllers\adminHotel\HotelController::class,'changeMessageStatus'])->name('changeMessageStatus');
+    Route::post('sendOtp', [\App\Http\Controllers\UserAuthController::class,'sendOtp'])->name('sendOtp');
+    Route::post('verifyOtp', [\App\Http\Controllers\UserAuthController::class,'verifyOtp'])->name('verifyOtp');
 
 });
 

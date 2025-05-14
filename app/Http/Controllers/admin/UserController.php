@@ -60,7 +60,7 @@ class UserController extends Controller
             'password' => 'required',
             'type' => 'required',
             'agencyType' => 'required',
-            'discount' => 'required',
+            'discount' => 'nullable',
         ]);
         $people = People::firstOrCreate(
             ['nationalCode' => $validatedData['nationalCode']],
@@ -127,7 +127,7 @@ class UserController extends Controller
             ],
             'type' => 'required',
             'agencyType' => 'required',
-            'discount' => 'required',
+            'discount' => 'nullable',
         ]);
         if ($request->password) $validatedData['password'] = bcrypt($request->password);
         $people = People::firstOrCreate(
