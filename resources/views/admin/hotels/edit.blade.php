@@ -22,7 +22,7 @@
             <div class="col-md-12 col-md-offset-1">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">ویرایش مراقب
+                        <h3 class="card-title">ویرایش هتل
                         </h3>
 
                         <div class="card-tools">

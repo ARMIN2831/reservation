@@ -30,5 +30,6 @@ class manageRoomsController extends Controller
     {
         $roomsId = explode(',',$request->selected_room);
         Room::whereIn('id',$roomsId)->delete();
+        return redirect()->route('hotel.manageRooms');
     }
 }

@@ -17,104 +17,197 @@
                         <div class=""></div>
                     </div>
                     <!-- body -->
-                    <form id="storeRoomForm" action="{{ isset($room) ? route('hotel.updateRoom', [$room->id]) : route('hotel.storeRoom', $sharedData->id) }}" method="post" enctype="multipart/form-data" class="w-full flex flex-col gap-10 ">
+                    <form id="storeRoomForm" action="{{ isset($rooms) ? route('hotel.updateRoom') : route('hotel.storeRoom', $sharedData->id) }}" method="post" enctype="multipart/form-data" class="w-full flex flex-col gap-10 ">
                         @csrf
-                        <div class="w-full grid grid-cols-497-1fr gap-[10px] items-start 640max:grid-cols-1 768max:grid-cols-270-1fr 1280max:grid-cols-350-1fr">
-                            <!-- images -->
-                            <div class="edit-room-image-container w-full grid grid-cols-2 content-start gap-x-[14px] gap-y-[12px] 768max:gap-y-2 768max:gap-x-2">
-                                @if(isset($room))
-                                    @foreach($room->files as $index => $file)
-                                        <!-- item -->
-                                        <a href="#" class="edit-room-image w-full @if($index == 0) aspect-497/335 @else aspect-241/163 @endif rounded-[14px]">
-                                            <img src="{{ asset('storage/' . $file->address) }}" alt="#" class="w-full h-full object-cover rounded-[14px]">
-                                        </a>
-                                    @endforeach
-                                @endif
-                                <!-- add image button -->
-                                <a onclick="modalController(addImagePopUp)" class="edit-room-image-button w-full aspect-241/163 flex items-center justify-center gap-3 bg-[#255346CC] rounded-[14px] 768max:flex-col">
-                                    <svg class=" w-5 text-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                        <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
-                                    </svg>
-                                    <span class=" text-sm text-light font-normal font-farsi-regular 768max:text-xs">
+                        @if(isset($rooms))
+                            ``<div class="w-full grid grid-cols-497-1fr gap-[10px] items-start 640max:grid-cols-1 768max:grid-cols-270-1fr 1280max:grid-cols-350-1fr">
+                            @foreach($rooms as $room)
+                                    <!-- images -->
+                                    <div class="edit-room-image-container w-full grid grid-cols-2 content-start gap-x-[14px] gap-y-[12px] 768max:gap-y-2 768max:gap-x-2">
+                                        @if(isset($room))
+                                            @foreach($room->files as $index => $file)
+                                                <!-- item -->
+                                                <a href="#" class="edit-room-image w-full @if($index == 0) aspect-497/335 @else aspect-241/163 @endif rounded-[14px]">
+                                                    <img src="{{ asset('storage/' . $file->address) }}" alt="#" class="w-full h-full object-cover rounded-[14px]">
+                                                </a>
+                                            @endforeach
+                                        @endif
+                                        <!-- add image button -->
+                                        <a onclick="modalController(addImagePopUp)" class="edit-room-image-button w-full aspect-241/163 flex items-center justify-center gap-3 bg-[#255346CC] rounded-[14px] 768max:flex-col">
+                                            <svg class=" w-5 text-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                                <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                                            </svg>
+                                            <span class=" text-sm text-light font-normal font-farsi-regular 768max:text-xs">
                                         افزودن عکس دیگر
                                     </span>
-                                </a>
-                            </div>
-                            <!-- body -->
-                            <div class="w-full h-[510px] bg-light rounded-xl p-4.5 flex flex-col gap-4.5 relative overflow-hidden 640max:h-auto 768max:h-[280px] 1280max:h-[361px]">
-                                <div class="w-full h-full max-h-full pb-[76px] flex flex-col flex-grow-[1] overflow-auto">
-                                    <!-- room name -->
-                                    <div class="w-full flex flex-col gap-[9px] mb-[21px]">
-                                        <label for="" class=" text-sm text-neutral-700 font-normal font-farsi-regular">
-                                            عنوان اتاق :
-                                        </label>
-                                        <input name="title" type="text" placeholder="عنوان اتاق" class=" bg-neutral-50 rounded-[6px] px-4.5 py-2 text-sm text-neutral-700 font-medium font-farsi-medium focus:border-neutral-400 focus:border-[1px] focus:outline-none" value="{{ isset($room) ? $room->title : old('title') }}">
+                                        </a>
                                     </div>
-                                    <!-- room type -->
-                                    <div class="w-full flex flex-col gap-[9px] mb-[21px]">
-                                        <label for="room-type" class=" text-sm text-neutral-700 font-normal font-farsi-regular">
-                                            نوع اتاق :
-                                        </label>
-                                        <input name="room-type" type="text" placeholder="نوع اتاق" class=" bg-neutral-50 rounded-[6px] px-4.5 py-2 text-sm text-neutral-700 font-medium font-farsi-medium focus:border-neutral-400 focus:border-[1px] focus:outline-none" value="{{ isset($room) ? $room->type : old('room-type') }}">
-                                    </div>
-                                    <!-- bed -->
-                                    <div class="w-full flex flex-col gap-[20px] mb-[30px]">
-                                        <div class="w-full flex flex-col gap-[13px]">
-                                            <span class="text-sm text-neutral-700 font-normal font-farsi-regular flex-shrink-[0]">تعداد تخت</span>
-                                            <div class="bedItemsContainer flex flex-col gap-2">
-                                                <!-- Single Bed -->
-                                                <div class="w-full flex items-center gap-3">
-                                                    <div class="flex">
-                                                        <button type="button" onclick="addOrDeleteBed('add', singlebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
-                                                            <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                                                <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
-                                                            </svg>
-                                                        </button>
-                                                        <input id="singlebedCountInput" name="single" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->single : old('single') }}" type="text" readonly>
-                                                        <button type="button" onclick="addOrDeleteBed('delete', singlebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
-                                                            <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                                                <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
-                                                            </svg>
-                                                        </button>
+                                    <!-- body -->
+                                    <div class="w-full h-[510px] bg-light rounded-xl p-4.5 flex flex-col gap-4.5 relative overflow-hidden 640max:h-auto 768max:h-[280px] 1280max:h-[361px]">
+                                        <div class="w-full h-full max-h-full pb-[76px] flex flex-col flex-grow-[1] overflow-auto">
+                                            <!-- room name -->
+                                            <div class="w-full flex flex-col gap-[9px] mb-[21px]">
+                                                <label for="" class=" text-sm text-neutral-700 font-normal font-farsi-regular">
+                                                    عنوان اتاق :
+                                                </label>
+                                                <input name="title" type="text" placeholder="عنوان اتاق" class=" bg-neutral-50 rounded-[6px] px-4.5 py-2 text-sm text-neutral-700 font-medium font-farsi-medium focus:border-neutral-400 focus:border-[1px] focus:outline-none" value="{{ isset($room) ? $room->title : old('title') }}">
+                                            </div>
+                                            <!-- room type -->
+                                            <div class="w-full flex flex-col gap-[9px] mb-[21px]">
+                                                <label for="room-type" class=" text-sm text-neutral-700 font-normal font-farsi-regular">
+                                                    نوع اتاق :
+                                                </label>
+                                                <input name="room-type" type="text" placeholder="نوع اتاق" class=" bg-neutral-50 rounded-[6px] px-4.5 py-2 text-sm text-neutral-700 font-medium font-farsi-medium focus:border-neutral-400 focus:border-[1px] focus:outline-none" value="{{ isset($room) ? $room->type : old('room-type') }}">
+                                            </div>
+                                            <!-- bed -->
+                                            <div class="w-full flex flex-col gap-[20px] mb-[30px]">
+                                                <div class="w-full flex flex-col gap-[13px]">
+                                                    <span class="text-sm text-neutral-700 font-normal font-farsi-regular flex-shrink-[0]">تعداد تخت</span>
+                                                    <div class="bedItemsContainer flex flex-col gap-2">
+                                                        <!-- Single Bed -->
+                                                        <div class="w-full flex items-center gap-3">
+                                                            <div class="flex">
+                                                                <button type="button" onclick="addOrDeleteBed('add', singlebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
+                                                                    <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                                                        <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                                                                    </svg>
+                                                                </button>
+                                                                <input id="singlebedCountInput" name="single" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->single : old('single',0) }}" type="text" readonly>
+                                                                <button type="button" onclick="addOrDeleteBed('delete', singlebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
+                                                                    <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                                                        <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                            <span class="text-xs text-neutral-700 font-normal font-farsi-regular">تخت سینگل</span>
+                                                        </div>
+                                                        <!-- Double Bed -->
+                                                        <div class="w-full flex items-center gap-3">
+                                                            <div class="flex">
+                                                                <button type="button" onclick="addOrDeleteBed('add', doublebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
+                                                                    <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                                                        <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                                                                    </svg>
+                                                                </button>
+                                                                <input id="doublebedCountInput" name="double" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->double : old('double',0) }}" type="text" readonly>
+                                                                <button type="button" onclick="addOrDeleteBed('delete', doublebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
+                                                                    <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                                                        <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                            <span class="text-xs text-neutral-700 font-normal font-farsi-regular">تخت دبل</span>
+                                                        </div>
                                                     </div>
-                                                    <span class="text-xs text-neutral-700 font-normal font-farsi-regular">تخت سینگل</span>
                                                 </div>
-                                                <!-- Double Bed -->
-                                                <div class="w-full flex items-center gap-3">
-                                                    <div class="flex">
-                                                        <button type="button" onclick="addOrDeleteBed('add', doublebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
-                                                            <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                                                <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
-                                                            </svg>
-                                                        </button>
-                                                        <input id="doublebedCountInput" name="double" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ isset($room) ? $room->double : old('double') }}" type="text" readonly>
-                                                        <button type="button" onclick="addOrDeleteBed('delete', doublebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
-                                                            <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                                                <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                    <span class="text-xs text-neutral-700 font-normal font-farsi-regular">تخت دبل</span>
-                                                </div>
+                                            </div>
+                                            <!-- caption -->
+                                            <div class="w-full">
+                                                <textarea name="description" id="" class=" w-full text-xs text-neutral-700 rounded-[6px] bg-neutral-50 font-normal min-h-[56px] h-auto placeholder:text-neutral-400 focus:border-neutral-400 focus:border-[1px] focus:outline-none px-[6px] py-1" placeholder="توضیحات">{{ isset($room) ? $room->description : old('description') }}</textarea>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- caption -->
-                                    <div class="w-full">
-                                        <textarea name="description" id="" class=" w-full text-xs text-neutral-700 rounded-[6px] bg-neutral-50 font-normal min-h-[56px] h-auto placeholder:text-neutral-400 focus:border-neutral-400 focus:border-[1px] focus:outline-none px-[6px] py-1" placeholder="توضیحات">{{ isset($room) ? $room->description : old('description') }}</textarea>
-                                    </div>
-                                </div>
-                                <!-- buttons -->
-                                <div class="w-full flex bg-light items-center justify-end gap-4.5 p-4.5 absolute z-[2] bottom-0 left-0 512max:px-[41px]">
-                                    <a href="{{ route('hotel.manageRooms') }}" class="editHotelInfoPopUpReturnButton rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
-                                        بازگشت
-                                    </a>
-                                    <button type="submit" class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
-                                        ذخیره
-                                    </button>
-                                </div>
+                            @endforeach
+                            <!-- buttons -->
+                            <div class="w-full flex bg-light items-center justify-end gap-4.5 p-4.5 absolute z-[2] bottom-0 left-0 512max:px-[41px]">
+                                <a href="{{ route('hotel.manageRooms') }}" class="editHotelInfoPopUpReturnButton rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                                    بازگشت
+                                </a>
+                                <button type="submit" class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                                    ذخیره
+                                </button>
                             </div>
                         </div>
+                        @else
+                            <div class="w-full grid grid-cols-497-1fr gap-[10px] items-start 640max:grid-cols-1 768max:grid-cols-270-1fr 1280max:grid-cols-350-1fr">
+                                <!-- images -->
+                                <div class="edit-room-image-container w-full grid grid-cols-2 content-start gap-x-[14px] gap-y-[12px] 768max:gap-y-2 768max:gap-x-2">
+                                    <!-- add image button -->
+                                    <a onclick="modalController(addImagePopUp)" class="edit-room-image-button w-full aspect-241/163 flex items-center justify-center gap-3 bg-[#255346CC] rounded-[14px] 768max:flex-col">
+                                        <svg class=" w-5 text-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                            <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span class=" text-sm text-light font-normal font-farsi-regular 768max:text-xs">
+                                        افزودن عکس دیگر
+                                    </span>
+                                    </a>
+                                </div>
+                                <!-- body -->
+                                <div class="w-full h-[510px] bg-light rounded-xl p-4.5 flex flex-col gap-4.5 relative overflow-hidden 640max:h-auto 768max:h-[280px] 1280max:h-[361px]">
+                                    <div class="w-full h-full max-h-full pb-[76px] flex flex-col flex-grow-[1] overflow-auto">
+                                        <!-- room name -->
+                                        <div class="w-full flex flex-col gap-[9px] mb-[21px]">
+                                            <label for="" class=" text-sm text-neutral-700 font-normal font-farsi-regular">
+                                                عنوان اتاق :
+                                            </label>
+                                            <input name="title" type="text" placeholder="عنوان اتاق" class=" bg-neutral-50 rounded-[6px] px-4.5 py-2 text-sm text-neutral-700 font-medium font-farsi-medium focus:border-neutral-400 focus:border-[1px] focus:outline-none" value="{{ old('title')  }}">
+                                        </div>
+                                        <!-- room type -->
+                                        <div class="w-full flex flex-col gap-[9px] mb-[21px]">
+                                            <label for="room-type" class=" text-sm text-neutral-700 font-normal font-farsi-regular">
+                                                نوع اتاق :
+                                            </label>
+                                            <input name="room-type" type="text" placeholder="نوع اتاق" class=" bg-neutral-50 rounded-[6px] px-4.5 py-2 text-sm text-neutral-700 font-medium font-farsi-medium focus:border-neutral-400 focus:border-[1px] focus:outline-none" value="{{ old('room-type') }}">
+                                        </div>
+                                        <!-- bed -->
+                                        <div class="w-full flex flex-col gap-[20px] mb-[30px]">
+                                            <div class="w-full flex flex-col gap-[13px]">
+                                                <span class="text-sm text-neutral-700 font-normal font-farsi-regular flex-shrink-[0]">تعداد تخت</span>
+                                                <div class="bedItemsContainer flex flex-col gap-2">
+                                                    <!-- Single Bed -->
+                                                    <div class="w-full flex items-center gap-3">
+                                                        <div class="flex">
+                                                            <button type="button" onclick="addOrDeleteBed('add', singlebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
+                                                                <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                                                    <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                                                                </svg>
+                                                            </button>
+                                                            <input id="singlebedCountInput" name="single" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ old('single',0) }}" type="text" readonly>
+                                                            <button type="button" onclick="addOrDeleteBed('delete', singlebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
+                                                                <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                                                    <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                        <span class="text-xs text-neutral-700 font-normal font-farsi-regular">تخت سینگل</span>
+                                                    </div>
+                                                    <!-- Double Bed -->
+                                                    <div class="w-full flex items-center gap-3">
+                                                        <div class="flex">
+                                                            <button type="button" onclick="addOrDeleteBed('add', doublebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
+                                                                <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                                                    <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                                                                </svg>
+                                                            </button>
+                                                            <input id="doublebedCountInput" name="double" class="w-[30px] [h-30px] bg-neutral-50 text-xs text-neutral-700 font-normal font-farsi-regular text-center focus:outline-none" value="{{ old('double',0) }}" type="text" readonly>
+                                                            <button type="button" onclick="addOrDeleteBed('delete', doublebedCountInput)" class="flex items-center justify-center bg-neutral-50 w-[25px] h-[30px]">
+                                                                <svg class="w-4 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                                                    <path fill-rule="evenodd" d="M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                        <span class="text-xs text-neutral-700 font-normal font-farsi-regular">تخت دبل</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- caption -->
+                                        <div class="w-full">
+                                            <textarea name="description" id="" class=" w-full text-xs text-neutral-700 rounded-[6px] bg-neutral-50 font-normal min-h-[56px] h-auto placeholder:text-neutral-400 focus:border-neutral-400 focus:border-[1px] focus:outline-none px-[6px] py-1" placeholder="توضیحات">{{ old('description') }}</textarea>
+                                        </div>
+                                    </div>
+                                    <!-- buttons -->
+                                    <div class="w-full flex bg-light items-center justify-end gap-4.5 p-4.5 absolute z-[2] bottom-0 left-0 512max:px-[41px]">
+                                        <a href="{{ route('hotel.manageRooms') }}" class="editHotelInfoPopUpReturnButton rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                                            بازگشت
+                                        </a>
+                                        <button type="submit" class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                                            ذخیره
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>
@@ -142,7 +235,7 @@
                             <div class="w-full flex items-center gap-2 768max:flex-col 768max:items-start">
                                 <input type="text" id="imageTitle" class="w-[313px] rounded-xl bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 focus:outline-0 focus:border-[0px] 640max:w-full">
                                 <p class="text-xs text-neutral-400 font-normal font-farsi-regular">
-                                    حجم فایل باید کمتر از 100 کیلوبایت و با فرمت jpg. باشد.
+                                    حجم فایل باید کمتر از 300 کیلوبایت و با فرمت JPG,PNG,JPEG. باشد.
                                 </p>
                             </div>
                         </div>

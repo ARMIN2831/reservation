@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('banner')->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('website')->unique()->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('address')->nullable();
             $table->string('mapAddress')->nullable();
             $table->string('city')->nullable();

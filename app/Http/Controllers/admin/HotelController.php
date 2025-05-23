@@ -24,7 +24,8 @@ class HotelController extends Controller
     public function index()
     {
         $hotels = Hotel::get();
-        return view('admin.hotels.index',compact('hotels'));
+        $rooms = Room::get();
+        return view('admin.hotels.index',compact('hotels','rooms'));
     }
 
     /**
@@ -104,7 +105,7 @@ class HotelController extends Controller
     {
         $hotel = Hotel::where('id',$id)->with('rooms')->first();
         $users = User::where('type','hotel')->with('people')->get();
-        $selectedUser = HotelUser::where('hotel_id',$id)->where('role','admin')->first()->id;
+        $selectedUser = HotelUser::where('hotel_id',$id)->where('role','admin')->first()->user_id;
         return view('admin.hotels.edit',compact('hotel','users','selectedUser'));
     }
 
@@ -127,6 +128,12 @@ class HotelController extends Controller
             'password' => 'nullable',
             'profit' => 'nullable',
         ]);
+
+        if ($request->user_id){
+            HotelUser::where('hotel_id',$id)->update([
+                'user_id' => $request->user_id,
+            ]);
+        }
 
         if ($request->logo) $arr ['logo'] = $this->uploadFile($validatedData['logo']);
         if ($request->banner) $arr ['banner'] = $this->uploadFile($validatedData['banner']);
@@ -170,8 +177,9 @@ class HotelController extends Controller
 
         $dates = [$request->entry_date,$request->exit_date];
         $entryDate = Carbon::createFromFormat('Y/m/d', $request->entry_date);
-        $exitDate = Carbon::createFromFormat('Y/m/d', $request->exit_date);
+        $exitDate = Carbon::createFromFormat('Y/m/d', $request->exit_date)->subDay();
         $numberOfDays = $entryDate->diffInDays($exitDate)+1;
+        $dates[1] = $exitDate->format('Y/m/d');
 
         $hotel = Hotel::where('id', $reserve->model_id)->first();
 

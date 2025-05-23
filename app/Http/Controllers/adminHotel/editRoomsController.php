@@ -19,7 +19,7 @@ class editRoomsController extends Controller
     public function storeRoom(Request $request,$hotelId)
     {
         $validatedData = $request->validate([
-            'files' => 'required',
+            'files' => 'nullable',
             'title' => 'required',
             'description' => 'required',
             'single' => 'required',
@@ -35,15 +35,18 @@ class editRoomsController extends Controller
             'hotel_id' => $hotelId,
             'status' => 'در انتظار تایید',
         ]);
-        foreach ($validatedData['files'] as $file){
-            $filePath = $this->uploadFile($file);
-            File::create([
-                'model_type' => 'App\Models\Room',
-                'type' => 'image',
-                'model_id' => $room->id,
-                'address' => $filePath,
-            ]);
+        if (isset($validatedData['files'])){
+            foreach ($validatedData['files'] as $file){
+                $filePath = $this->uploadFile($file);
+                File::create([
+                    'model_type' => 'App\Models\Room',
+                    'type' => 'image',
+                    'model_id' => $room->id,
+                    'address' => $filePath,
+                ]);
+            }
         }
+
         return redirect()->route('hotel.manageRooms');
     }
 
@@ -51,8 +54,8 @@ class editRoomsController extends Controller
     public function editRooms(Request $request)
     {
         $roomsId = explode(',',$request->selected_room);
-        $room = Room::where('id',$roomsId[0])->firstOrFail();
-        return view('adminHotel.editRooms',compact('room'));
+        $rooms = Room::whereIn('id',$roomsId)->get();
+        return view('adminHotel.editRooms',compact('rooms'));
     }
 
 

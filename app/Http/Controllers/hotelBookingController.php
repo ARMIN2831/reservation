@@ -40,9 +40,10 @@ class hotelBookingController extends Controller
         if ($request->dates){
             $dates = explode(' تا ', $request->dates);
             $entryDate = Carbon::createFromFormat('Y/m/d', $dates[0]); // تبدیل تاریخ ورودی به شی Carbon
-            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1]); // تبدیل تاریخ ورودی به شی Carbon
+            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1])->subDay(); // تبدیل تاریخ ورودی به شی Carbon
             // محاسبه تعداد روزها
             $numberOfDays = $entryDate->diffInDays($exitDate)+1;
+            $dates[1] = $exitDate->format('Y/m/d');
         }
 
 
@@ -180,8 +181,9 @@ class hotelBookingController extends Controller
         if ($request->dates) {
             $dates = explode(' تا ', $request->dates);
             $entryDate = Carbon::createFromFormat('Y/m/d', $dates[0]);
-            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1]);
+            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1])->subDay();
             $numberOfDays = $entryDate->diffInDays($exitDate) + 1;
+            $dates[1] = $exitDate->format('Y/m/d');
         }
         $rooms = Room::where('hotel_id', $hotel->id)->where('status', 'تایید شده')->get();
 
@@ -350,8 +352,9 @@ class hotelBookingController extends Controller
         if ($request->dates) {
             $dates = explode(' تا ', $request->dates);
             $entryDate = Carbon::createFromFormat('Y/m/d', $dates[0]);
-            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1]);
+            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1])->subDay();
             $numberOfDays = $entryDate->diffInDays($exitDate) + 1;
+            $dates[1] = $exitDate->format('Y/m/d');
         }
 
 
@@ -390,8 +393,9 @@ class hotelBookingController extends Controller
         if ($request->dates) {
             $dates = explode(' تا ', $request->dates);
             $entryDate = Carbon::createFromFormat('Y/m/d', $dates[0]);
-            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1]);
+            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1])->subDay();
             $numberOfDays = $entryDate->diffInDays($exitDate) + 1;
+            $dates[1] = $exitDate->format('Y/m/d');
         }
 
 
@@ -446,8 +450,9 @@ class hotelBookingController extends Controller
         if ($request->dates) {
             $dates = explode(' تا ', $request->dates);
             $entryDate = Carbon::createFromFormat('Y/m/d', $dates[0]);
-            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1]);
+            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1])->subDay();
             $numberOfDays = $entryDate->diffInDays($exitDate) + 1;
+            $dates[1] = $exitDate->format('Y/m/d');
         }
         $totalPrice = 0;
         foreach ($request->rooms as $needCount => $roomId){
@@ -489,8 +494,9 @@ class hotelBookingController extends Controller
         if ($request->dates) {
             $dates = explode(' تا ', $request->dates);
             $entryDate = Carbon::createFromFormat('Y/m/d', $dates[0]);
-            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1]);
+            $exitDate = Carbon::createFromFormat('Y/m/d', $dates[1])->subDay();
             $numberOfDays = $entryDate->diffInDays($exitDate) + 1;
+            $dates[1] = $exitDate->format('Y/m/d');
         }
         $totalPrice = 0;
         $totalPriceBord = 0;

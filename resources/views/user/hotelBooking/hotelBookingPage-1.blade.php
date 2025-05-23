@@ -45,7 +45,7 @@
 
                                     <div class="w-full flex flex-col gap-[6px]">
                                         <label for="dateRange" class="text-sm text-[#A8A8A8] font-normal 512max:text-xs">
-                                            تاریخ صفر:
+                                            تاریخ سفر:
                                         </label>
                                         <input
                                             id="dateRange"

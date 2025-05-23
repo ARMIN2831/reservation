@@ -111,7 +111,7 @@
                                     نوع اتاق :
                                 </span>
                                     <span class=" text-xs text-neutral-700 font-normal font-farsi-regular text 768max:text-sm 768max:font-medium 768max:font-farsi-medium">
-                                    استاندارد
+                                    {{ $room->type }}
                                 </span>
                                 </div>
                                 <!-- bed type -->
@@ -119,8 +119,8 @@
                                 <span class="hidden text-xs text-neutral-400 font-normal font-farsi-regular text 768max:inline 768max:text-sm">
                                     تعداد تخت :
                                 </span>
-                                    <span class=" text-xs text-neutral-700 font-normal font-farsi-regular text 768max:text-sm 768max:font-medium 768max:font-farsi-medium">
-                                    {{ $room->single }}  دبل {{ $room->double }}, سینگل
+                                    <span style="direction: ltr" class=" text-xs text-neutral-700 font-normal font-farsi-regular text 768max:text-sm 768max:font-medium 768max:font-farsi-medium">
+                                        {{ $room->single }} سینگل , {{ $room->double }} دبل
                                 </span>
                                 </div>
                                 <div class="w-full 768max:hidden">

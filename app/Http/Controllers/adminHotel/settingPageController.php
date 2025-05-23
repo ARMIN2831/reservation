@@ -41,7 +41,7 @@ class settingPageController extends Controller
         if ($request->banner) $arr ['banner'] = $this->uploadFile($validatedData['banner']);
 
         Hotel::where('id',$hotelId)->update($arr);
-        return redirect()->route('hotel.settingPage');
+        return redirect()->route('hotel.mainPage');
     }
 
 
@@ -58,7 +58,7 @@ class settingPageController extends Controller
         $hotel->update([
             'password' => Hash::make($validatedData['password']),
         ]);
-        return redirect()->route('hotel.settingPage');
+        return redirect()->route('hotel.mainPage');
     }
 
 
@@ -81,13 +81,13 @@ class settingPageController extends Controller
             ['user_id' => $user->id, 'hotel_id' => $hotelId],
             ['user_id' => $user->id, 'hotel_id' => $hotelId, 'role' => $validatedData['role'],]
         );
-        return redirect()->route('hotel.settingPage');
+        return redirect()->route('hotel.mainPage');
     }
 
 
     public function deleteUser($userId)
     {
         User::where('id',$userId)->delete();
-        return redirect()->route('hotel.settingPage');
+        return redirect()->route('hotel.mainPage');
     }
 }

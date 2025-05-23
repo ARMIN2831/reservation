@@ -44,8 +44,12 @@ let editHotelNewPhoto = document.querySelector(".roomsNewImage")
 
 
 let mainPageEditButton = document.querySelector('.editButton')
+let mainPageEditButton2 = document.querySelector('.editButton2')
 
 mainPageEditButton.addEventListener('click', event => {
+    modalController(editHotelInfoPopUp)
+})
+mainPageEditButton2.addEventListener('click', event => {
     modalController(editHotelInfoPopUp)
 })
 
@@ -115,9 +119,9 @@ function handleFiles(files) {
     const file = files[0]; // فقط فایل اول را در نظر می‌گیریم
 
     // بررسی نوع فایل
-    if (file.type === 'image/jpeg') {
+    if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
         // بررسی اندازه فایل (کمتر از 100 کیلوبایت)
-        if (file.size <= 1000 * 1024) {
+        if (file.size <= 3000 * 1024) {
             let defaultText = dropArea.querySelectorAll('.dropAreaText')
             defaultText.forEach(item => {
                 item.classList.add('hidden')
@@ -149,7 +153,7 @@ function handleFiles(files) {
             filesizeElem.classList.add('hidden');
         }
     } else {
-        alert('فقط فایل‌های JPG مجاز هستند.');
+        alert('فقط فایل‌های JPG,PNG,JPEG مجاز هستند.');
     }
 }
 

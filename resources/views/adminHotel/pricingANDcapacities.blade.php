@@ -100,7 +100,7 @@
                                         @foreach($sharedData->rooms as $room)
                                             <div class="w-full flex items-center justify-center gap-2">
                                                 <label for="room{{ $room->id }}" class=" text-xs text-light font-normal">
-                                                    {{ $room->title }}
+                                                    {{ "{$room->title}({$room->type})" }}
                                                 </label>
                                                 <input value="{{ $room->id }}" id="room{{ $room->id }}" name="room[]" type="checkbox" class=" hidden">
                                                 <label for="room{{ $room->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
@@ -991,7 +991,7 @@
                                         @foreach($sharedData->rooms as $room)
                                             <div class="w-full flex items-center justify-center gap-2">
                                                 <label for="room2{{ $room->id }}" class=" text-xs text-light font-normal">
-                                                    {{ $room->title }}
+                                                    {{ "{$room->title}({$room->type})" }}
                                                 </label>
                                                 <input value="{{ $room->id }}" id="room2{{ $room->id }}" name="room2[]" type="checkbox" class=" hidden">
                                                 <label for="room2{{ $room->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
@@ -1067,7 +1067,6 @@
         </main>
     </div>
     <!-- modals -->
-
 
     <!-- پاپ اپ تعیین نرخ -->
     <div class="rateDeterminationModal modal w-[100vw] h-[100vh] fixed z-[15] top-0 left-0 bg-[#0000002c] px-6 py-4">
@@ -1181,7 +1180,7 @@
                                 <select name="room_id" id="countries" class="bg-neutral-50 text-black font-normal text-xs rounded-[6px] focus:outline-none focus:border-[1px] focus:border-neutral-400 block w-full p-2.5">
                                     @foreach($sharedData->rooms as $room)
                                         <option value="{{ $room->id }}" class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                            {{ $room->title }}
+                                            {{ "{$room->title}({$room->type})" }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -1191,7 +1190,7 @@
                         <div class="w-full flex flex-col gap-2">
                             <div class="w-full">
                                     <span class=" text-xs text-neutral-700 font-normal">
-                                        نرخ اتاق سینگل اکونومی:
+                                        نرخ اتاق ها:
                                     </span>
                             </div>
                             <div class="w-full flex flex-col rounded-[6px] overflow-hidden">
@@ -1227,7 +1226,7 @@
                     <a onclick="modalController(document.querySelector('.rateDeterminationModal'))" class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         بازگشت
                     </a>
-                    <button class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                    <button type="submit" class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         ذخیره
                     </button>
                 </div>
@@ -1338,7 +1337,7 @@
                             <!-- title -->
                             <div class="w-full">
                                     <span class=" text-sm text-neutral-700 font-normal">
-                                        نرخ اتاق سینگل اکونومی:
+                                        محدودیت اتاق ها:
                                     </span>
                             </div>
                             <!-- body -->
@@ -1431,7 +1430,7 @@
                                             <div class="w-full px-2 h-10 grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] gap-2 items-center odd:bg-light even:bg-[#DBF0DD80]">
                                                 <div class="w-full flex items-center justify-center">
                                                     <span class=" text-xs text-neutral-400 font-normal text-center">
-                                                        {{ $room->title }}
+                                                        {{ "{$room->title}({$room->type})" }}
                                                     </span>
                                                 </div>
                                                 <div class="w-full flex items-center justify-center h-full">
@@ -1496,7 +1495,7 @@
                     <a onclick="modalController(document.querySelector('.determiningRoomRestrictionsModal'))" class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         بازگشت
                     </a>
-                    <button class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                    <button type="submit" class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         ذخیره
                     </button>
                 </div>
@@ -1528,7 +1527,7 @@
                                 <select name="room_id" id="countries" class="bg-neutral-50 text-black font-normal text-xs rounded-[6px] focus:outline-none focus:border-[1px] focus:border-neutral-400 block w-full p-2.5">
                                     @foreach($sharedData->rooms as $room)
                                         <option value="{{ $room->id }}" class="text-neutral-700 !font-farsi-regular font-normal text-xs transition-all duration-500 hover:bg-neutral-200 hover:transition-none aria-selected:bg-neutral-200">
-                                            {{ $room->title }}
+                                            {{ "{$room->title}({$room->type})" }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -1646,7 +1645,7 @@
                     <a onclick="modalController(document.querySelector('.determinationOfCapacityModal'))" class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         بازگشت
                     </a>
-                    <button class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                    <button type="submit" class=" rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         ذخیره
                     </button>
                 </div>
@@ -1655,6 +1654,70 @@
     </div>
 
     <script src="{{ asset('src/scripts/pricingANDcapacities.js') }}"></script>
+
+
+    <style>
+        .loading-button {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading-button::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .form-disabled {
+            pointer-events: none;
+        }
+    </style>
+
+    <script>
+        // تابع برای فعال کردن حالت لودینگ
+        function enableLoading(form) {
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            // فعال کردن حالت لودینگ
+            submitButton.classList.add('loading-button');
+            submitButton.innerHTML = '<span style="opacity: 0;">ذخیره</span>';
+
+            // غیرفعال کردن سایر عناصر فرم
+            form.classList.add('form-disabled');
+        }
+
+        // اضافه کردن event listener برای همه فرم‌ها
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                // جلوگیری از ارسال چندباره فرم
+                e.preventDefault();
+
+                // فعال کردن لودینگ
+                enableLoading(this);
+
+                // ارسال واقعی فرم پس از نمایش لودینگ
+                setTimeout(() => {
+                    this.submit();
+                }, 100);
+            });
+        });
+    </script>
+
+
     <script>
         jalaliDatepicker.startWatch();
 

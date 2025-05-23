@@ -321,7 +321,7 @@
 
                                             <div class="w-full flex flex-col gap-[6px]">
                                                 <label for="dateRange" class="text-sm text-[#A8A8A8] font-normal 512max:text-xs">
-                                                    تاریخ صفر:
+                                                    تاریخ سفر:
                                                 </label>
                                                 <input
                                                     id="dateRange"
@@ -633,7 +633,7 @@
                                                     </div>
                                                     <div class="w-full flex flex-col gap-[6px]">
                                                         <label for="" class=" text-sm text-[#A8A8A8] font-normal 512max:text-xs">
-                                                            تاریخ صفر:
+                                                            تاریخ سفر:
                                                         </label>
                                                         <div class="w-full grid grid-cols-2">
                                                             <input data-jdp="" placeholder="تاریخ رفت" type="text" class=" h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-r-[6px] bg-neutral-50 focus:outline-none 768max:h-12">
@@ -736,7 +736,7 @@
                                                     </div>
                                                     <div class="w-full flex flex-col gap-[6px]">
                                                         <label for="" class=" text-sm text-[#A8A8A8] font-normal 512max:text-xs">
-                                                            تاریخ صفر:
+                                                            تاریخ سفر:
                                                         </label>
                                                         <div class="w-full grid grid-cols-2">
                                                             <input data-jdp="" placeholder="تاریخ رفت" type="text" class=" h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-r-[6px] bg-neutral-50 focus:outline-none 768max:h-12">
@@ -843,7 +843,7 @@
                                         </div>
                                         <div class="w-full flex flex-col gap-[6px]">
                                             <label for="" class=" text-sm text-[#A8A8A8] font-normal 512max:text-xs">
-                                                تاریخ صفر:
+                                                تاریخ سفر:
                                             </label>
                                             <div class="w-full grid grid-cols-2">
                                                 <input data-jdp="" placeholder="تاریخ رفت" type="text" class=" h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-r-[6px] bg-neutral-50 focus:outline-none 768max:h-12">
@@ -960,7 +960,7 @@
                                         </div>
                                         <div class="w-full flex flex-col gap-[6px]">
                                             <label for="" class=" text-sm text-[#A8A8A8] font-normal 512max:text-xs">
-                                                تاریخ صفر:
+                                                تاریخ سفر:
                                             </label>
                                             <div class="w-full grid grid-cols-2">
                                                 <input data-jdp="" placeholder="تاریخ رفت" type="text" class=" h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-r-[6px] bg-neutral-50 focus:outline-none 768max:h-12">
@@ -1050,7 +1050,7 @@
                                         </div>
                                         <div class="w-full flex flex-col gap-[6px]">
                                             <label for="" class=" text-sm text-[#A8A8A8] font-normal 512max:text-xs">
-                                                تاریخ صفر:
+                                                تاریخ سفر:
                                             </label>
                                             <div class="w-full grid grid-cols-2">
                                                 <input data-jdp="" placeholder="تاریخ رفت" type="text" class=" h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-r-[6px] bg-neutral-50 focus:outline-none 768max:h-12">
@@ -1204,7 +1204,7 @@
                                     <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden">
                                         <!-- image -->
                                         <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                            <img src="{{ asset('storage/' . $suggestionHotel->hotel->banner) }}" alt="#" class="w-full h-full object-cover">
+                                            <img src="{{ asset('storage/' . @$suggestionHotel->hotel->banner) }}" alt="#" class="w-full h-full object-cover">
                                             <!-- cover -->
                                             <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
                                                 <div class="w-full flex items-center justify-between 850max:justify-start">
@@ -1300,7 +1300,7 @@
                                 <div class="w-full bg-light rounded-[6px] flex flex-col overflow-hidden">
                                     <!-- image -->
                                     <div class="w-full relative h-[206px] 640max:h-[117px] 850max:h-[140px]">
-                                        <img src="{{ asset('storage/' . $suggestionHotel->hotel->banner) }}" alt="#" class="w-full h-full object-cover">
+                                        <img src="{{ asset('storage/' . @$suggestionHotel->hotel->banner) }}" alt="#" class="w-full h-full object-cover">
                                         <!-- cover -->
                                         <div class="w-full h-full flex flex-col justify-end p-3 absolute z-[2] top-0 left-0" style="background: linear-gradient(180deg, rgba(36, 82, 72, 0) 47.82%, #245248 96.96%);">
                                             <div class="w-full flex items-center justify-between 850max:justify-start">

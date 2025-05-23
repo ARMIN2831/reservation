@@ -23,12 +23,12 @@
                             <p>داشبورد</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{--<li class="nav-item">
                         <a href="{{ url('admin/dashboard/financial') }}" class="nav-link {{ (request()->is('admin/dashboard/financial')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>فاکتور ها</p>
                         </a>
-                    </li>
+                    </li>--}}
                     <li class="nav-item">
                         <a href="{{ url('admin/dashboard/support') }}" class="nav-link {{ (request()->is('admin/dashboard/support')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>

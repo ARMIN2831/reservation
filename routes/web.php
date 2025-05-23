@@ -134,6 +134,10 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
     });
 
     Route::prefix('dashboard')->middleware('auth:hotel')->group(function () {
+
+        Route::get('logout', [HotelAuthController::class, 'logout'])->name('logout');
+
+
         //mainPage routes
         Route::controller(mainPageController::class)->group(function() {
             Route::get('/', 'index')->name('dashboard');
@@ -183,7 +187,7 @@ Route::middleware([ShareAdminHotelData::class])->prefix('hotel')->name('hotel.')
             Route::get('editRooms', 'editRooms')->name('editRooms');
             Route::get('addRoom', 'index')->name('addRoom');
             Route::post('storeRoom/{hotelId}', 'storeRoom')->name('storeRoom');
-            Route::post('updateRoom/{hotelId}', 'updateRoom')->name('updateRoom');
+            Route::post('updateRoom', 'updateRoom')->name('updateRoom');
         });
 
 
