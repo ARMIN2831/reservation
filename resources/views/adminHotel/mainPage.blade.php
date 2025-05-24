@@ -203,12 +203,14 @@
                         </h4>
                         <!-- slider -->
                         <div class="w-full swiper picturesGallerySlider" style="overflow: visible;">
-                            <div class="swiper-wrapper">
+                            <div class="swiper-wrapper gallery-container2">
                                 @if(isset($sharedData->files))
                                 @foreach($sharedData->files as $file)
-                                    <div class="swiper-slide">
-                                        <div class="w-full rounded-xl overflow-hidden group">
-                                            <img class=" w-full aspect-240/150 object-cover rounded-xl" src="{{ asset('storage/' . $file->address) }}" alt="#">
+                                    <div class="gallery-item">
+                                        <div class="swiper-slide">
+                                            <div class="w-full rounded-xl overflow-hidden group">
+                                                <img class=" w-full aspect-240/150 object-cover rounded-xl" src="{{ asset('storage/' . $file->address) }}" alt="#">
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach
@@ -333,7 +335,7 @@
                     </div>
                     <!-- body -->
                     <div class="w-full bg-light rounded-xl p-4.5">
-                        <div class="w-full grid grid-cols-3 gap-2">
+                        <div class="w-full grid grid-cols-3 gap-2 gallery-container">
 
                             @if(isset($sharedData->files))
                             @foreach($sharedData->files as $file)
@@ -412,6 +414,16 @@
     </div>
     <!-- modals -->
 
+    <script>
+
+        let EditButton = document.querySelector('.editButton')
+        EditButton.addEventListener('click', event => {
+            setTimeout(() => {
+                map.invalidateSize();
+            }, 300);
+        })
+    </script>
+
     <!-- پاپ اپ ویرایش اطلاعات هتل -->
     <div class="hotelEditInfoModal modal w-[100vw] h-[100vh] fixed z-[500] top-0 left-0 bg-[#0000002c] px-6 py-4">
         <div class=" modal-content w-full h-full flex items-center justify-center">
@@ -470,79 +482,142 @@
                         </h6>
                     </div>
                     <!-- body -->
-                    <div class=" w-full flex flex-col gap-10 px-4.5 512max:px-0">
+                    <div class="w-full flex flex-col gap-10 px-4.5 512max:px-0">
+                        <!-- خدمات و امکانات کلی هتل -->
                         <div class="w-full flex flex-col gap-11 640max:gap-7">
-                            <h6 class=" text-sm text-green-300 font-bold font-farsi-bold">
+                            <h6 class="text-sm text-green-300 font-bold font-farsi-bold">
                                 خدمات و امکانات کلی هتل
                             </h6>
                             <div class="w-full flex flex-col gap-4.5">
-                                <!-- checkboxes -->
                                 <div id="facility1" class="w-full grid grid-cols-3 gap-y-5 gap-x-2 768max:grid-cols-2 512max:grid-cols-1">
-                                    @foreach($sharedData->facilities as $facility)
+                                    @php $FacilityIndex = 0; @endphp
+                                    @foreach($facilities as $facility)
                                         @if($facility->type == 1)
+                                            @php
+                                                $isChecked = false;
+                                                if(isset($sharedData) && $sharedData->facilities->contains($facility->id)) {
+                                                    $pivot = $sharedData->facilities->find($facility->id)->pivot;
+                                                    $isChecked = $pivot->status == 1;
+                                                }
+                                            @endphp
                                             <div class="flex items-center gap-[9px]">
-                                                <input @if(isset($facility->pivot->status) && $facility->pivot->status == 1) checked @endif class="hidden" type="checkbox" id="inputText{{ $FacilityIndex }}" name="facilities[{{ $FacilityIndex }}][status]">
-                                                <label for="inputText{{ $FacilityIndex }}" class="w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class="w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <input
+                                                    type="checkbox"
+                                                    id="facility_{{ $facility->id }}"
+                                                    name="facilities[{{ $FacilityIndex }}][status]"
+                                                    value="1"
+                                                    class="hidden"
+                                                    @checked($isChecked)
+                                                >
+                                                <label
+                                                    for="facility_{{ $facility->id }}"
+                                                    class="w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-green-50"
+                                                    style="box-shadow: 0px 0px 10px 0px #8CB3984D;"
+                                                >
+                                                    <svg class="w-[12px] text-green-300 @if(!$isChecked) hidden @endif"
+                                                         viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
                                                 </label>
-                                                <label for="inputText{{ $FacilityIndex }}" class="text-xs text-neutral-700 font-normal font-farsi-regular">
+                                                <label for="facility_{{ $facility->id }}" class="text-xs text-neutral-700 font-normal font-farsi-regular cursor-pointer">
                                                     {{ $facility->title }}
                                                 </label>
-                                                <input type="hidden" value="{{ $facility->title }}" name="facilities[{{ $FacilityIndex }}][title]">
-                                                <input type="hidden" value="1" name="facilities[{{ $FacilityIndex }}][type]">
-                                                <input type="hidden" value="{{ $facility->id }}" name="facilities[{{ $FacilityIndex }}][isNew]">
-                                            </div>
-                                        @endif
-                                        @php $FacilityIndex++; @endphp
-                                    @endforeach
-                                </div>
-                                <!-- add item -->
-                                <div class="w-full flex items-center gap-2">
-                                    <input id="facility1Input" type="text" class=" h-[32px] w-full max-w-[236px] rounded-[6px] bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 transition-all duration-200 focus:outline-0 focus:border-neutral-400 focus:border-[1px]">
-                                    <a onclick="addFacility('facility1','facility1Input',1)" class=" h-[32px] rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[84px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:px-2">
-                                        افزودن
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full flex flex-col gap-11 640max:gap-7">
-                            <h6 class=" text-sm text-green-300 font-bold font-farsi-bold">
-                                استخر و امکانات ورزشی
-                            </h6>
-                            <div class="w-full flex flex-col gap-4.5">
-                                <!-- checkboxes -->
-                                <div id="facility2" class="w-full grid grid-cols-3 gap-y-5 gap-x-2 768max:grid-cols-2 512max:grid-cols-1">
-                                    @foreach($sharedData->facilities as $facility)
-                                        @if($facility->type == 2)
-                                            <div class="flex items-center gap-[9px]">
-                                                <input @if(isset($facility->pivot->status) && $facility->pivot->status == 1) checked @endif class="hidden" type="checkbox" id="inputText{{ $FacilityIndex }}" name="facilities[{{ $FacilityIndex }}][status]">
-                                                <label for="inputText{{ $FacilityIndex }}" class="w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
-                                                    <svg class="w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </label>
-                                                <label for="inputText{{ $FacilityIndex }}" class="text-xs text-neutral-700 font-normal font-farsi-regular">
-                                                    {{ $facility->title }}
-                                                </label>
-                                                <input type="hidden" value="{{ $facility->title }}" name="facilities[{{ $FacilityIndex }}][title]">
-                                                <input type="hidden" value="2" name="facilities[{{ $FacilityIndex }}][type]">
-                                                <input type="hidden" value="{{ $facility->id }}" name="facilities[{{ $FacilityIndex }}][isNew]">
+                                                <input type="hidden" name="facilities[{{ $FacilityIndex }}][id]" value="{{ $facility->id }}">
+                                                <input type="hidden" name="facilities[{{ $FacilityIndex }}][type]" value="1">
                                             </div>
                                             @php $FacilityIndex++; @endphp
                                         @endif
                                     @endforeach
-                                <!-- add item -->
-                                <div class="w-full flex items-center gap-2">
-                                    <input id="facility2Input" type="text" class=" h-[32px] w-full max-w-[236px] rounded-[6px] bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400  transition-all duration-200 focus:outline-0 focus:border-neutral-400 focus:border-[1px]">
-                                    <a onclick="addFacility('facility2','facility2Input',2)" class=" h-[32px] rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[84px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:px-2">
-                                        افزودن
-                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- استخر و امکانات ورزشی -->
+                        <div class="w-full flex flex-col gap-11 640max:gap-7">
+                            <h6 class="text-sm text-green-300 font-bold font-farsi-bold">
+                                استخر و امکانات ورزشی
+                            </h6>
+                            <div class="w-full flex flex-col gap-4.5">
+                                <div id="facility2" class="w-full grid grid-cols-3 gap-y-5 gap-x-2 768max:grid-cols-2 512max:grid-cols-1">
+                                    @foreach($facilities as $facility)
+                                        @if($facility->type == 2)
+                                            @php
+                                                $isChecked = false;
+                                                if(isset($sharedData) && $sharedData->facilities->contains($facility->id)) {
+                                                    $pivot = $sharedData->facilities->find($facility->id)->pivot;
+                                                    $isChecked = $pivot->status == 1;
+                                                }
+                                            @endphp
+                                            <div class="flex items-center gap-[9px]">
+                                                <input
+                                                    type="checkbox"
+                                                    id="facility_{{ $facility->id }}"
+                                                    name="facilities[{{ $FacilityIndex }}][status]"
+                                                    class="hidden"
+                                                    @checked($isChecked)
+                                                >
+                                                <label
+                                                    for="facility_{{ $facility->id }}"
+                                                    class="w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-green-50"
+                                                    style="box-shadow: 0px 0px 10px 0px #8CB3984D;"
+                                                >
+                                                    <svg class="w-[12px] text-green-300 @if(!$isChecked) hidden @endif"
+                                                         viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </label>
+                                                <label for="facility_{{ $facility->id }}" class="text-xs text-neutral-700 font-normal font-farsi-regular cursor-pointer">
+                                                    {{ $facility->title }}
+                                                </label>
+                                                <input type="hidden" name="facilities[{{ $FacilityIndex }}][id]" value="{{ $facility->id }}">
+                                                <input type="hidden" name="facilities[{{ $FacilityIndex }}][type]" value="2">
+                                            </div>
+                                            @php $FacilityIndex++; @endphp
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- JavaScript برای مدیریت تعاملات چک‌باکس -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // مدیریت کلیک روی چک‌باکس‌های سفارشی
+                            document.querySelectorAll('[id^="facility"] [type="checkbox"]').forEach(checkbox => {
+                                // پیدا کردن عناصر مرتبط
+                                const labelForCheckbox = document.querySelector(`label[for="${checkbox.id}"]`);
+                                const svg = labelForCheckbox.querySelector('svg');
+
+                                // تنظیم وضعیت اولیه
+                                if(checkbox.checked) {
+                                    svg.classList.remove('hidden');
+                                    labelForCheckbox.classList.add('bg-green-50');
+                                } else {
+                                    svg.classList.add('hidden');
+                                    labelForCheckbox.classList.remove('bg-green-50');
+                                }
+
+                                // اضافه کردن رویداد کلیک به label
+                                labelForCheckbox.addEventListener('click', function(e) {
+                                    // جلوگیری از رفتار پیش‌فرض
+                                    e.preventDefault();
+
+                                    // تغییر وضعیت چک‌باکس
+                                    checkbox.checked = !checkbox.checked;
+
+                                    // نمایش/پنهان کردن آیکون تیک
+                                    if(checkbox.checked) {
+                                        svg.classList.remove('hidden');
+                                        this.classList.add('bg-green-50');
+                                    } else {
+                                        svg.classList.add('hidden');
+                                        this.classList.remove('bg-green-50');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                 </div>
                     <script>
                         let optionIndex = {{ $FacilityIndex }};
@@ -578,14 +653,14 @@
                         ذخیره
                     </button>
                 </div>
-                    </div>
             </form>
         </div>
     </div>
+
     <!-- پاپ اپ گالری تصاویر -->
     <div class="roomsNewImage modal w-[100vw] h-[100vh] fixed z-[500] top-0 left-0 bg-[#0000002c] px-6 py-4">
         <div class=" modal-content w-full h-full flex items-center justify-center">
-            <form method="post" action="{{ route('hotel.addPhotoGallery', $sharedData->id) }}" enctype="multipart/form-data" class="w-full max-w-[800px] p-4.5 bg-light rounded-xl flex flex-col">
+            <form method="post" id="uploadPhotoForm" action="{{ route('hotel.addPhotoGallery', $sharedData->id) }}" enctype="multipart/form-data" class="w-full max-w-[800px] p-4.5 bg-light rounded-xl flex flex-col">
                 @csrf
                 <div class="w-full flex flex-col gap-8 max-h-[500px] overflow-y-auto">
                     <!-- header -->
@@ -635,13 +710,107 @@
                     <a onclick="modalController(editHotelNewPhoto)" class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         بازگشت
                     </a>
-                    <button type="submit" class="rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                    <button type="submit" class="photoGalleryButtonSave rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         ذخیره
                     </button>
                 </div>
             </form>
         </div>
     </div>
+    <script>
+        const photoGalleryButtonSave = document.querySelector('.photoGalleryButtonSave');
+        document.getElementById('uploadPhotoForm')?.addEventListener('submit', async function(e) {
+            photoGalleryButtonSave.setAttribute('disabled', 'disabled');
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'آپلود با خطا مواجه شد');
+                }
+
+                // بستن مودال
+                if (typeof modalController === 'function') {
+                    modalController(editHotelNewPhoto);
+                }
+
+                // به‌روزرسانی گالری
+                if (data.file) {
+                    updateGallery(data.file);
+
+                    // اگر باز هم نمایش داده نشد، این خط را اضافه کنید
+                    setTimeout(() => {
+                        const newImage = document.querySelector(`#img-select${data.file.id}`)?.closest('.gallery-item');
+                        if (newImage) {
+                            newImage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                    }, 100);
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert(error.message);
+            }
+            photoGalleryButtonSave.removeAttribute('disabled');
+        });
+        // تابع برای به‌روزرسانی گالری
+        function updateGallery(file) {
+            // انتخاب container با روش‌های مختلف برای اطمینان
+            const galleryContainer = document.querySelector('.gallery-container');
+
+            if (!galleryContainer) {
+                console.error('Gallery container not found!');
+                // می‌توانید صفحه را رفرش کنید اگر container پیدا نشد
+                window.location.reload();
+                return;
+            }
+
+            // ساختار HTML باید دقیقاً مشابه ساختار Blade باشد
+            const newImageHTML = `
+        <div class="gallery-item">
+            <button onclick="showBigerImageModalControler(showBigerImageModal, '${file.url}')" class="w-full aspect-250/150 rounded-xl relative overflow-hidden group">
+                <img class="w-full h-full object-cover" src="${file.url}" alt="#">
+                <div class="w-full h-full absolute top-0 right-0 z-[2] flex flex-col items-center justify-center gap-2 bg-[#255346CC] transition-all duration-200 opacity-0 group-hover:opacity-100">
+                    <svg class="w-10 text-light" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.8147 17.7777H18.8597M18.8597 17.7777H23.9047M18.8597 17.7777V12.7777M18.8597 17.7777V22.7777M28.9498 27.7777L35.6765 34.4443M5.40625 17.7777C5.40625 21.3139 6.82366 24.7053 9.34668 27.2058C11.8697 29.7062 15.2916 31.111 18.8597 31.111C22.4278 31.111 25.8497 29.7062 28.3727 27.2058C30.8957 24.7053 32.3132 21.3139 32.3132 17.7777C32.3132 14.2415 30.8957 10.8501 28.3727 8.34958C25.8497 5.84909 22.4278 4.44434 18.8597 4.44434C15.2916 4.44434 11.8697 5.84909 9.34668 8.34958C6.82366 10.8501 5.40625 14.2415 5.40625 17.7777Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="text-light text-xs text-center font-normal font-farsi-regular">
+                        مشاهده در ابعاد بزرگتر
+                    </span>
+                </div>
+                <div class="absolute top-2 right-2 z-[3]">
+                    <input class="checkbox-input hidden" type="checkbox" name="img-select[]" id="img-select${file.id}">
+                    <label for="img-select${file.id}" class="flex items-center justify-center w-4.5 aspect-square rounded-[2px] bg-light">
+                        <svg class="w-4 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                        </svg>
+                    </label>
+                </div>
+            </button>
+        </div>
+    `;
+
+            // اضافه کردن عکس جدید به گالری
+            //galleryContainer.insertAdjacentHTML('beforeend', newImageHTML);
+
+            // اگر باز هم کار نکرد، می‌توانید از این روش استفاده کنید
+            console.log(newImageHTML);
+             galleryContainer.innerHTML += newImageHTML;
+        }
+    </script>
     <!-- پاپ اپ برای مشاهده تصاویر در ابعاد بزرگتر -->
     <div class="showBigerImage modal w-[100vw] h-[100vh] fixed z-[15] top-0 left-0 bg-[#00000079] px-6 py-4">
         <div class=" modal-content w-full h-full flex items-center justify-center">

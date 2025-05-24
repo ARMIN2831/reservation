@@ -13,7 +13,8 @@ class mainPageController extends Controller
 {
     public function index()
     {
-        return view('adminHotel.mainPage');
+        $facilities = Facility::get();
+        return view('adminHotel.mainPage',compact('facilities'));
     }
     public function updateHotel(Request $request,$id)
     {
@@ -43,20 +44,13 @@ class mainPageController extends Controller
 
     public function updateFacility(Request $request,$id)
     {
+        HotelFacility::where('hotel_id',$id)->delete();
         foreach ($request->facilities as $facility){
-            if ($facility['isNew'] == 'true'){
-                $f = Facility::updateOrCreate(
-                    ['title' => $facility['title'], 'type' => $facility['type'],],
-                    ['title' => $facility['title'], 'type' => $facility['type'],]
-                );
-
-                HotelFacility::updateOrCreate(
-                    ['facility_id' => $f->id, 'hotel_id' => $id,],
-                    ['status' => (isset($facility['status']) and $facility['status'] == 'on') ? 1 : 0,]
-                );
-            }else{
-                HotelFacility::where('facility_id', $facility['isNew'])->where('hotel_id', $id)->update([
-                    'status' => (isset($facility['status']) and $facility['status'] == 'on') ? 1 : 0,
+            if (isset($facility['status'])){
+                HotelFacility::create([
+                    'facility_id' => $facility['id'],
+                    'hotel_id' => $id,
+                    'status' => 1,
                 ]);
             }
         }
@@ -64,19 +58,28 @@ class mainPageController extends Controller
     }
 
 
-    public function addPhotoGallery(Request $request,$id)
+    public function addPhotoGallery(Request $request, $id)
     {
         $validatedData = $request->validate([
             'file' => 'required|file|mimes:jpg,jpeg,png',
         ]);
+
         $filePath = $this->uploadFile($validatedData['file']);
-        File::create([
+
+        $file = File::create([
             'model_type' => 'App\Models\Hotel',
             'type' => 'image',
             'model_id' => $id,
             'address' => $filePath,
         ]);
-        return redirect()->route('hotel.mainPage');
+
+        return response()->json([
+            'success' => true,
+            'file' => [
+                'id' => $file->id,
+                'url' => asset('storage/' . $filePath),
+            ],
+        ]);
     }
 
 

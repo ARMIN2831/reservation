@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Facility;
 use App\Models\Gateway;
 use App\Models\Hotel;
 use App\Models\HotelUser;
@@ -25,7 +26,8 @@ class HotelController extends Controller
     {
         $hotels = Hotel::get();
         $rooms = Room::get();
-        return view('admin.hotels.index',compact('hotels','rooms'));
+        $facilities = Facility::get();
+        return view('admin.hotels.index',compact('hotels','rooms', 'facilities'));
     }
 
     /**
@@ -418,6 +420,36 @@ class HotelController extends Controller
         $num = 0;
         foreach ($reserves as $reserve) $num += $reserve->people->max('model_number')+1;
         return $num;
+    }
+
+
+    public function facilitiesDestroy($id)
+    {
+        Facility::where('id',$id)->delete();
+        return redirect()->route('admin.hotels.index');
+    }
+
+
+    public function facilitiesUpdate(Request $request, $id)
+    {
+        Facility::where('id',$id)->update([
+            'title' => $request->title,
+            'icon' => $request->icon,
+            'type' => $request->type,
+        ]);
+        return redirect()->route('admin.hotels.index');
+    }
+
+
+    public function facilitiesStore(Request $request)
+    {
+        Facility::create([
+            'title' => $request->title,
+            'icon' => $request->icon,
+            'type' => $request->type,
+        ]);
+
+        return redirect()->route('admin.hotels.index');
     }
 }
 

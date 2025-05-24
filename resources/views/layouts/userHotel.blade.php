@@ -26,7 +26,10 @@
         <!-- right -->
         <div class="flex items-center gap-12 128max:gap-4">
             <!-- logo -->
-            <img class=" h-12 w-auto 512max:h-8" src="{{ asset('public/icons/chademon.svg') }}" alt="#">
+            <div class="flex justify-between items-center gap-4">
+                <img class=" h-12 w-auto 512max:h-8" src="{{ asset('IMG_5165.png') }}" alt="#">
+                <h2 style="font-size: 20px" class="text-green-600 font-bold text-center">سفری نو</h2>
+            </div>
             <!-- navbar -->
             <nav class=" flex items-center gap-[39px] 1024max:hidden 1280max:gap-6">
                 <a href="/" class=" text-sm text-neutral-700 font-normal transition-all duration-500 hover:text-green-300 hover:transition-none">
@@ -256,7 +259,11 @@
             <!-- right -->
             <div class="flex items-center gap-12 128max:gap-4">
                 <!-- logo -->
-                <img class=" h-12 w-auto 512max:h-8" src="{{ asset('public/icons/chademon.svg') }}" alt="#">
+                <div class="flex justify-between items-center gap-4">
+                    <img class=" h-12 w-auto 512max:h-8" src="{{ asset('IMG_5165.png') }}" alt="#">
+                    <h2 style="font-size: 20px" class="text-green-600 font-bold text-center">سفری نو</h2>
+                </div>
+
                 <!-- navbar -->
                 <nav class=" flex items-center gap-[39px] 1024max:hidden 1280max:gap-6">
                     <a href="#" class=" text-sm text-neutral-700 font-normal transition-all duration-500 hover:text-green-300 hover:transition-none">
