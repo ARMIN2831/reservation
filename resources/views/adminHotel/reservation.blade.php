@@ -290,7 +290,7 @@
                                 تعداد رزرو های امروز
                             </span>
                         <span class=" text-[18px] text-light font-medium text-center">
-                                241 رزرو
+                                {{ $todayReserves }} رزرو
                             </span>
                     </div>
                     <div class="w-full flex flex-col items-center justify-center gap-[21px] p-4.5 rounded-xl bg-green-600 h-[117px]">
@@ -298,7 +298,7 @@
                                 تعداد رزرو های هفته
                             </span>
                         <span class=" text-[18px] text-light font-medium text-center">
-                                6,409 رزرو
+                                {{ $weeklyReserves }} رزرو
                             </span>
                     </div>
                     <div class="w-full flex flex-col items-center justify-center gap-[21px] p-4.5 rounded-xl bg-green-600 h-[117px]">
@@ -306,7 +306,7 @@
                                 تعداد رزرو های سال
                             </span>
                         <span class=" text-[18px] text-light font-medium text-center">
-                                94,359 رزرو
+                                {{ $yearlyReserves }} رزرو
                             </span>
                     </div>
                     <div class="w-full flex flex-col items-center justify-center gap-[21px] p-4.5 rounded-xl bg-green-600 h-[117px]">
@@ -314,7 +314,7 @@
                                 درآمد نهایی سال
                             </span>
                         <span class=" text-[20px] text-light font-bold text-center 1280max:text-[18px]">
-                                21,256,206,024 تومان
+                                {{ $yearlyIncome }} تومان
                             </span>
                     </div>
                 </div>

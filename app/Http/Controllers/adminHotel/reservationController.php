@@ -22,7 +22,29 @@ class reservationController extends Controller
 
         if ($request->reserve_id) $reserves->where('id',$request->reserve_id);
         $reserves = $reserves->with('people.room')->get();
-        return view('adminHotel.reservation',compact('reserves'));
+
+        $todayReserves = Reserve::where('model_type', 'App\Models\Hotel')
+            ->where('model_id', $hotel->id)
+            ->whereDate('created_at', today())
+            ->count();
+
+        $weeklyReserves = Reserve::where('model_type', 'App\Models\Hotel')
+            ->where('model_id', $hotel->id)
+            ->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])
+            ->count();
+
+        $yearlyReserves = Reserve::where('model_type', 'App\Models\Hotel')
+            ->where('model_id', $hotel->id)
+            ->whereYear('created_at', now()->year)
+            ->count();
+
+        // درآمد سال جاری
+        $yearlyIncome = Reserve::where('model_type', 'App\Models\Hotel')
+            ->where('model_id', $hotel->id)
+            ->whereYear('created_at', now()->year)
+            ->sum('hotelPrice');
+
+        return view('adminHotel.reservation',compact('reserves','todayReserves','weeklyReserves','yearlyReserves','yearlyIncome'));
     }
 
     public function editCode(Request $request)

@@ -21,6 +21,7 @@ use App\Http\Middleware\ShareUserData;
 use App\Http\Controllers\BlogController;
 
 //
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -71,6 +72,14 @@ Route::prefix('api')->name('api.')->group(function () {
     Route::post('changeMessageStatus', [\App\Http\Controllers\adminHotel\HotelController::class,'changeMessageStatus'])->name('changeMessageStatus');
     Route::post('sendOtp', [\App\Http\Controllers\UserAuthController::class,'sendOtp'])->name('sendOtp');
     Route::post('verifyOtp', [\App\Http\Controllers\UserAuthController::class,'verifyOtp'])->name('verifyOtp');
+
+    Route::post('/updateSession', function(Request $request) {
+        session(['page' => $request->page]);
+        return response()->json([
+            'redirect' => route('hotel.pricingANDcapacities', $request->date),
+            'page' => $request->page
+        ]);
+    })->name('updateSession');
 
 });
 

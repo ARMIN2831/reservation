@@ -107,7 +107,9 @@ class HotelController extends Controller
     {
         $hotel = Hotel::where('id',$id)->with('rooms')->first();
         $users = User::where('type','hotel')->with('people')->get();
-        $selectedUser = HotelUser::where('hotel_id',$id)->where('role','admin')->first()->user_id;
+        $selectedUser = HotelUser::where('hotel_id', $id)
+                ->where('role', 'admin')
+                ->value('user_id') ?? 0;
         return view('admin.hotels.edit',compact('hotel','users','selectedUser'));
     }
 

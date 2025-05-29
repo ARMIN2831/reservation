@@ -126,10 +126,10 @@
                             </span>
                     </a>
                     <div class="navbar-item-children-links 1024max:!hidden w-full flex-col px-8 gap-4.5 pb-2">
-                        <button class="hotel-content-button navbar-item-child-link navbar-item-child-link-pricingPage text-sm font-normal font-farsi-regular text-start active" data-bs-target="pricingPageContent">
+                        <button class="hotel-content-button navbar-item-child-link navbar-item-child-link-pricingPage buttonPricing text-sm font-normal font-farsi-regular text-start active" data-bs-target="pricingPageContent">
                             قیمت گذاری
                         </button>
-                        <button class="hotel-attr-content-button navbar-item-child-link navbar-item-child-link-pricingPage text-sm font-normal font-farsi-regular text-start " data-bs-target="capacitiesPageContent">
+                        <button class="hotel-attr-content-button navbar-item-child-link navbar-item-child-link-pricingPage buttonCapacities text-sm font-normal font-farsi-regular text-start " data-bs-target="capacitiesPageContent">
                             ظرفیت و محدودیت اتاق ها
                         </button>
                     </div>

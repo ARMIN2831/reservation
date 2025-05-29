@@ -84,7 +84,7 @@
                             </button>
                         </div>
                         <!-- body -->
-                        <div style="overflow-x: scroll;transform: rotate(180deg);" class="grid items-center gap-2">
+                        <div style="overflow-x: scroll;transform: rotate(180deg);display: flex;flex-direction: row-reverse;" class="grid items-center gap-2">
                             <div style="transform: rotate(180deg);">
                                 <!-- head -->
                                 <div style="grid-template-columns: 246px {{ $size }}px 1fr;" class="grid gap-4 items-center p-4.5 rounded-xl bg-green-300">
@@ -932,8 +932,8 @@
                                 </button>
                                 <form action="{{ route('hotel.removeCapacity') }}" method="post">
                                     @csrf
-                                    <input type="hidden" class="selectedOption2" name="selected_option">
-                                    <input type="hidden" class="selectedRoom2" name="selected_room">
+                                    <input type="hidden" class="selectedOptionB" name="selected_option">
+                                    <input type="hidden" class="selectedRoomB" name="selected_room">
                                     <button class="flex items-center justify-center gap-2">
                                         <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
                                             <svg class=" w-[13px] text-inherit" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -975,7 +975,7 @@
                             </button>
                         </div>
                         <!-- body -->
-                        <div style="overflow-x: scroll;transform: rotate(180deg);" class="grid items-center gap-2">
+                        <div style="overflow-x: scroll;transform: rotate(180deg);display: flex;flex-direction: row-reverse;" class="grid items-center gap-2">
                             <div style="transform: rotate(180deg);">
                                 <!-- header -->
                                 <div style="grid-template-columns: 246px {{ $size2 }}px 1fr;" class="grid gap-4 items-center p-4.5 rounded-xl bg-green-300">
@@ -990,11 +990,11 @@
                                     <div class="w-full flex justify-items-center gap-16 1280max:gap-4 overflow-hidden">
                                         @foreach($sharedData->rooms as $room)
                                             <div class="w-full flex items-center justify-center gap-2">
-                                                <label for="room2{{ $room->id }}" class=" text-xs text-light font-normal">
+                                                <label for="roomB{{ $room->id }}" class=" text-xs text-light font-normal">
                                                     {{ "{$room->title}({$room->type})" }}
                                                 </label>
-                                                <input value="{{ $room->id }}" id="room2{{ $room->id }}" name="room2[]" type="checkbox" class=" hidden">
-                                                <label for="room2{{ $room->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
+                                                <input value="{{ $room->id }}" id="roomB{{ $room->id }}" name="roomB[]" type="checkbox" class=" hidden">
+                                                <label for="roomB{{ $room->id }}" class=" w-4.5 aspect-square bg-light rounded-[2px] flex items-center justify-center" style="box-shadow: 0px 0px 10px 0px #8CB3984D;">
                                                     <svg class=" w-[12px] text-green-300" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M0.75 4.75L4.25 8.25L11.25 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
@@ -1041,12 +1041,13 @@
                                                     </span>
                                                             </div>
                                                             <div class="flex items-center gap-2 self-end">
-                                                    <span class=" text-[18px] font-normal text-neutral-700">
-                                                        5
-                                                    </span>
                                                                 <span class=" text-sm font-normal text-neutral-700">
-                                                        بهمن
-                                                    </span>
+                                                                    @php
+                                                                        $jDate = Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $option['option']->date);
+                                                                        $formattedDate = $jDate->format('j F');
+                                                                        echo $formattedDate;
+                                                                    @endphp
+                                                                </span>
                                                             </div>
                                                         @endif
                                                     </div>
@@ -1374,30 +1375,30 @@
                                                     </span>
                                             </div>
                                             <div class="w-full flex items-center justify-center h-full">
-                                                <button data-input-counter-increment="quantity-input1" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
+                                                <a data-input-counter-increment="quantity-input1" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
                                                     <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                                     </svg>
-                                                </button>
+                                                </a>
                                                 <input id="quantity-input1" value="1" data-input-counter data-input-counter-min="0" data-input-counter-max="50" type="text" class=" w-full flex-grow-[1] h-full text-xs text-neutral-700 text-center font-normal focus:outline-none bg-transparent">
-                                                <button data-input-counter-decrement="quantity-input1" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
+                                                <a data-input-counter-decrement="quantity-input1" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
                                                     <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
                                                     </svg>
-                                                </button>
+                                                </a>
                                             </div>
                                             <div class="w-full flex items-center justify-center h-full">
-                                                <button data-input-counter-increment="quantity-input2" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
+                                                <a data-input-counter-increment="quantity-input2" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
                                                     <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                                     </svg>
-                                                </button>
+                                                </a>
                                                 <input id="quantity-input2" value="1" data-input-counter data-input-counter-min="0" data-input-counter-max="50" type="text" class=" w-full flex-grow-[1] h-full text-xs text-neutral-700 text-center font-normal focus:outline-none bg-transparent">
-                                                <button data-input-counter-decrement="quantity-input2" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
+                                                <a data-input-counter-decrement="quantity-input2" class=" w-5 h-full flex items-center justify-center text-sm text-neutral-700 font-medium">
                                                     <svg class=" w-full text-inherit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
                                                     </svg>
-                                                </button>
+                                                </a>
                                             </div>
                                             <div class="w-full flex items-center justify-center h-full">
                                                 <select aria-placeholder="بدون وضعیت" class="w-full h-full text-neutral-700 text-xs font-normal focus:outline-none text-ellipsis text-nowrap bg-transparent">
@@ -1759,18 +1760,23 @@
         });
 
 
-        var selectedRoom2 = [];
-        document.querySelectorAll('input[name="room2[]"]').forEach(checkbox => {
+        var selectedRoomB = [];
+        document.querySelectorAll('input[name="roomB[]"]').forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 if (this.checked) {
-                    selectedRoom2.push(this.value);
+                    selectedRoomB.push(this.value);
                 }else {
-                    selectedRoom2 = selectedRoom2.filter(item => item !== this.value);
+                    selectedRoomB = selectedRoomB.filter(item => item !== this.value);
                 }
-                $('.selectedRoom2').val(selectedRoom2.join(','));
+                $('.selectedRoomB').val(selectedRoomB.join(','));
             });
         });
 
+        let selectPageCapacities = document.querySelector(".capacitiesPageContent");
+        let selectPagePricing = document.querySelector(".pricingPageContent");
+
+        let selectButtonCapacities = document.querySelector(".buttonCapacities");
+        let selectButtonPricing = document.querySelector(".buttonPricing");
 
 
         $('.prevDay').on('click', function () {
@@ -1781,7 +1787,8 @@
             }catch (e) {
                 formattedDate = currentDate;
             }
-            window.location.href = '{{ route('hotel.pricingANDcapacities') }}?date=' + formattedDate;
+            setSessionPage(formattedDate);
+            //window.location.href = '{{ route('hotel.pricingANDcapacities') }}?date=' + formattedDate;
         });
 
         // Handle next month button
@@ -1794,8 +1801,27 @@
             }catch (e) {
                 formattedDate = currentDate;
             }
-            window.location.href = '{{ route('hotel.pricingANDcapacities') }}?date=' + formattedDate;
+            setSessionPage(formattedDate)
+            //window.location.href = '{{ route('hotel.pricingANDcapacities') }}?date=' + formattedDate;
         });
+
+        function setSessionPage(formattedDate) {
+            const page = !selectPageCapacities.classList.contains('hidden') ? 2 : 1;
+            sessionStorage.setItem('page', page.toString());
+
+            fetch('{{ route('api.updateSession') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ page: page, date: formattedDate })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    window.location.href = data.redirect;
+                });
+        }
 
 
 
@@ -1808,5 +1834,22 @@
         // To increment the scroll
         el.scrollTop += 100;
         el.scrollLeft += 100;
+    </script>
+    <script>
+        @if(session('page') and session('page') == 1)
+        selectPagePricing.classList.remove('hidden');
+        selectPageCapacities.classList.add('hidden');
+
+        selectButtonPricing.classList.add('active');
+        selectButtonCapacities.classList.remove('active');
+        @endif
+
+        @if(session('page') and session('page') == 2)
+        selectPagePricing.classList.add('hidden');
+        selectPageCapacities.classList.remove('hidden');
+
+        selectButtonPricing.classList.remove('active');
+        selectButtonCapacities.classList.add('active');
+        @endif
     </script>
 @endsection

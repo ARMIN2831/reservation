@@ -46,18 +46,18 @@ accordionButton.forEach(item => {
 })
 
 
-// برای ورودی شماره کارت
+/*// برای ورودی شماره کارت
 const cardNumberInput = document.querySelector('.cardIDinput')
 
 function formatCardNumber(event) {
     const input = event.target.value.replace(/\D/g, '');
-    
+
     const formatted = input.match(/.{1,4}/g);
-    
+
     event.target.value = formatted ? formatted.join('-') : '';
 }
 
-cardNumberInput.addEventListener('input', formatCardNumber);
+cardNumberInput.addEventListener('input', formatCardNumber);*/
 
 
 // برای قرار دادن عکس اپلود شده توی نگ عکس
@@ -88,6 +88,7 @@ banner.addEventListener('change', function() {
         const reader = new FileReader(); // ایجاد یک FileReader
 
         // وقتی فایل خوانده شد
+        console.log(bannerImgElem);
         reader.onload = function(event) {
             bannerImgElem.src = event.target.result;
         };

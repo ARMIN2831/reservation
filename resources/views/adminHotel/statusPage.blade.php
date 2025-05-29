@@ -704,7 +704,7 @@
                                                         نظرات
                                                     </h5>
                                                     <span class="hidden text-xs text-neutral-400 font-normal 768max:inline">
-                                                        (1,364 نظر)
+                                                        (0 نظر)
                                                     </span>
                                                 </div>
                                                 <div class="hidden items-center gap-2 768max:flex">
@@ -714,11 +714,12 @@
                                                     </svg>
                                                     <!-- text -->
                                                      <span class=" text-base text-green-300 font-bold">
-                                                        امتیاز 4.8 از 5
+                                                        امتیاز 0 از 5
                                                      </span>
                                                 </div>
                                             </div>
                                             <!-- items -->
+                                            {{--
                                             <ul class="w-full flex flex-col max-h-[537px] overflow-auto noscrollbar">
                                                 <li class=" w-full flex flex-col py-4.5 gap-2 border-t-[1px] border-neutral-200">
                                                     <!-- head -->
@@ -1098,6 +1099,7 @@
                                                     </p>
                                                 </li>
                                             </ul>
+                                            --}}
                                         </div>
                                         <!-- info -->
                                         <ul class="w-full flex flex-col gap-[21px] 768max:hidden">
@@ -1106,7 +1108,7 @@
                                                     امتیاز فعلی
                                                 </span>
                                                 <span class=" text-[24px] text-light font-bold">
-                                                    4.8 از 5
+                                                    0 از 5
                                                 </span>
                                             </li>
                                             <li class=" h-[191px] rounded-xl bg-green-300 flex flex-col items-center justify-center gap-4.5">
@@ -1114,7 +1116,7 @@
                                                     تعداد کامنت ثبت شده
                                                 </span>
                                                 <span class=" text-[24px] text-light font-bold">
-                                                    2,136
+                                                    0
                                                 </span>
                                             </li>
                                             <li class=" h-[191px] rounded-xl bg-green-300 flex flex-col items-center justify-center gap-4.5">
@@ -1122,7 +1124,7 @@
                                                     تعداد امتیاز ثبت شده
                                                 </span>
                                                 <span class=" text-[24px] text-light font-bold">
-                                                    62,814
+                                                    0
                                                 </span>
                                             </li>
                                         </ul>

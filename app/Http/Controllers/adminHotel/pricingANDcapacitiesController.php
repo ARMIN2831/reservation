@@ -108,7 +108,7 @@ class pricingANDcapacitiesController extends Controller
                 );
             }
         }
-        return redirect()->route('hotel.pricingANDcapacities');
+        return redirect()->route('hotel.pricingANDcapacities')->with('page', 1);
     }
 
 
@@ -128,7 +128,7 @@ class pricingANDcapacitiesController extends Controller
                 'ajax' => null,
             ]);
         }
-        return redirect()->route('hotel.pricingANDcapacities');
+        return redirect()->route('hotel.pricingANDcapacities')->with('page', 1);
     }
 
 
@@ -174,7 +174,7 @@ class pricingANDcapacitiesController extends Controller
                 );
             }
         }
-        return redirect()->route('hotel.pricingANDcapacities');
+        return redirect()->route('hotel.pricingANDcapacities')->with('page', 2);
     }
 
 
@@ -192,7 +192,7 @@ class pricingANDcapacitiesController extends Controller
                 'capacity' => null,
             ]);
         }
-        return redirect()->route('hotel.pricingANDcapacities');
+        return redirect()->route('hotel.pricingANDcapacities')->with('page', 2);
     }
 
 
@@ -234,6 +234,6 @@ class pricingANDcapacitiesController extends Controller
                 );
             }
         }
-        return redirect()->route('hotel.pricingANDcapacities');
+        return redirect()->route('hotel.pricingANDcapacities')->with('page', 2);
     }
 }
