@@ -293,8 +293,84 @@ class hotelBookingController extends Controller
                 }
             }
         }
+        //sorting results
+        $results = $this->sortResultsByUserNeeds($results, $roomsData);
+
+
         // Now $results contains all possible combinations with their total prices
         return view('user.hotelBooking.hotelBookingPage-2',compact('hotel','results','numberOfDays'));
+    }
+
+
+    function sortResultsByUserNeeds(array $results, array $roomsData)
+    {
+        // ایجاد آرایه‌ای از نیازهای کاربر
+        $userNeeds = array_column($roomsData, 'persons');
+        sort($userNeeds); // مرتب‌سازی نیازها برای مقایسه بهتر
+
+        foreach ($results as &$result) {
+            // محاسبه ظرفیت هر اتاق در این نتیجه
+            $roomCapacities = [];
+            foreach ($result['rooms'] as $room) {
+                $roomObj = $room['room_info'];
+                $capacity = $roomObj->single + $roomObj->double * 2;
+                $roomCapacities[] = $capacity;
+            }
+
+            sort($roomCapacities); // مرتب‌سازی ظرفیت‌ها برای مقایسه بهتر
+
+            // محاسبه امتیاز تطابق
+            $score = $this->calculateMatchScore($userNeeds, $roomCapacities);
+            $result['match_score'] = $score;
+        }
+        unset($result);
+
+        // مرتب‌سازی نتایج بر اساس امتیاز تطابق (بالاترین امتیاز اول)
+        usort($results, function($a, $b) {
+            return $b['match_score'] <=> $a['match_score'];
+        });
+
+        return $results;
+    }
+
+
+    function calculateMatchScore(array $userNeeds, array $roomCapacities)
+    {
+        // اگر تعداد اتاق‌ها با نیازهای کاربر مطابقت نداشته باشد، امتیاز کم
+        if (count($userNeeds) != count($roomCapacities)) {
+            return -1;
+        }
+
+        $totalScore = 0;
+        $perfectMatchBonus = 0;
+
+        // مقایسه هر نیاز کاربر با ظرفیت اتاق متناظر
+        for ($i = 0; $i < count($userNeeds); $i++) {
+            $need = $userNeeds[$i];
+            $capacity = $roomCapacities[$i];
+
+            if ($capacity == $need) {
+                // تطابق کامل - بالاترین امتیاز
+                $score = 1.0;
+                $perfectMatchBonus += 0.5; // پاداش برای تطابق کامل
+            } elseif ($capacity > $need) {
+                // اتاق بزرگتر از نیاز - امتیاز کمتر
+                $difference = $capacity - $need;
+                $score = max(0.1, 1.0 - ($difference * 0.1));
+            } else {
+                // اتاق کوچکتر از نیاز - امتیاز منفی
+                $difference = $need - $capacity;
+                $score = -$difference;
+            }
+
+            $totalScore += $score;
+        }
+
+        // اعمال پاداش تطابق کامل
+        $totalScore += $perfectMatchBonus;
+
+        // نرمالایز کردن امتیاز بر اساس تعداد اتاق‌ها
+        return $totalScore / count($userNeeds);
     }
 
 
@@ -582,7 +658,17 @@ class hotelBookingController extends Controller
                 ->where('exit_date', '>=', $dates[1]);
         })->with('people')->get();
         $num = 0;
-        foreach ($reserves as $reserve) $num += $reserve->people->max('model_number')+1;
+        foreach ($reserves as $reserve) {
+            $modelNumber = 0;
+            foreach ($reserve->people as $peopleReserve){
+                if ($roomId == $peopleReserve->model_id){
+                    if ($modelNumber == $peopleReserve->model_number){
+                        $modelNumber++;
+                        $num++;
+                    }
+                }
+            }
+        }
         return $num;
     }
 

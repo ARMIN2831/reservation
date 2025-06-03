@@ -7,6 +7,7 @@ use App\Models\Facility;
 use App\Models\Gateway;
 use App\Models\Hotel;
 use App\Models\HotelUser;
+use App\Models\Message;
 use App\Models\PeopleReserve;
 use App\Models\Reserve;
 use App\Models\Room;
@@ -131,6 +132,7 @@ class HotelController extends Controller
             'mapAddress' => 'nullable',
             'password' => 'nullable',
             'profit' => 'nullable',
+            'status' => 'nullable',
         ]);
 
         if ($request->user_id){
@@ -154,7 +156,19 @@ class HotelController extends Controller
             $validatedData['province'] = $data['address']['state'];
             $validatedData['country'] = $data['address']['country'];
         }
-        $hotel = Hotel::where('id',$id)->update($validatedData);
+        $hotel = Hotel::where('id',$id)->first();
+        if ($request->status != $hotel->status or $request->changeStatus){
+            Message::create([
+                'text' => $request->changeStatus ?: 'تغییر وضعیت هتل (پیام خودکار سیستم)',
+                'type' => 'admin',
+                'sender_id' => Auth::guard('admin')->user()->id,
+                'sender_model' => 'App\Models\User',
+                'receiver_id' => $id,
+                'receiver_model' => 'App\Models\Hotel',
+                'status' => 0,
+            ]);
+        }
+        $hotel->update($validatedData);
         return redirect()->route('admin.hotels.index')->with('success', 'هتل با موفقیت اپدیت شد.');
     }
 

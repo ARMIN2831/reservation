@@ -20,7 +20,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-md-offset-1">
-                <div class="card">
+                <div class="card collapsed-card">
                     <div class="card-header">
                         <h3 class="card-title">ویرایش هتل
                         </h3>
@@ -40,6 +40,27 @@
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-md-8">
+
+                                        <div class="w-full grid grid-cols-[200px_1fr] gap-4.5 640max:grid-cols-1 p-4">
+                                            <!-- profile image -->
+                                            <div class="w-full flex flex-col gap-2 ml-2">
+                                                <label for="" class=" text-base text-neutral-700 font-normal">
+                                                    لوگو:
+                                                </label>
+                                                <div class="w-full aspect-square relative rounded-xl overflow-hidden group 512max:w-[180max] 640max:w-[200px]">
+                                                    <img id="profileImgElem" src="{{ asset('storage/' . $hotel->logo) }}" class=" w-full h-full object-cover absolute z-[3] top-0 left-0">
+                                                </div>
+                                            </div>
+                                            <!-- banner image -->
+                                            <div class="w-full flex flex-col gap-2 mr-2">
+                                                <label for="" class=" text-base text-neutral-700 font-normal">
+                                                    بنر:
+                                                </label>
+                                                <div class="w-full h-[200px] relative rounded-xl overflow-hidden group 512max:h-[177px]">
+                                                    <img id="bannerImgElem" src="{{ asset('storage/' . $hotel->banner) }}" class=" w-full h-full object-cover absolute z-[3] top-0 left-0">
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <form method="post" action="{{ route('admin.hotels.update', $hotel->id) }}"
                                               enctype="multipart/form-data" align="center">
@@ -153,6 +174,31 @@
 
 
                                                 <div class="form-group row">
+                                                    <label for="status"
+                                                           class="col-sm-3  col-form-label"><b>وضعیت</b></label>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control" id="status" name="status">
+                                                            <option>انتخاب کنید</option>
+                                                            <option @if(old('status', $hotel->status) and 'در انتظار تایید' == old('status', $hotel->status)) selected @endif value="در انتظار تایید">در انتظار تایید</option>
+                                                            <option @if(old('status', $hotel->status) and 'تایید شده' == old('status', $hotel->status)) selected @endif value="تایید شده">تایید شده</option>
+                                                            <option @if(old('status', $hotel->status) and 'رد شده' == old('status', $hotel->status)) selected @endif value="رد شده">رد شده</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
+                                                    <label for="changeStatus"
+                                                           class="col-sm-3  col-form-label"><b>توضیحات تغییر وضعیت</b></label>
+                                                    <div class="col-sm-8">
+                                                        <input value="{{ old('changeStatus') }}" type="text"
+                                                               class="form-control " id="changeStatus"
+                                                               placeholder="توضیحات" name="changeStatus">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
                                                     <div class="col-sm-9">
                                                         <a href="{{ route('admin.hotels.index') }}" class="btn btn-warning">لغو</a>
                                                         <button type="submit" name="add"
@@ -182,7 +228,7 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-1">
-                <div class="card">
+                <div class="card collapsed-card">
                     <div class="card-header">
                         <h3 class="card-title">لیست اتاق ها
                         </h3>

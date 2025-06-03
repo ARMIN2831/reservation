@@ -1508,8 +1508,8 @@
         <div class=" modal-content w-full h-full flex items-center justify-center">
             <form method="post" action="{{ route('hotel.setCapacity') }}" class="w-full max-w-[800px] p-4.5 bg-light rounded-xl flex flex-col">
                 @csrf
-                <input type="hidden" class="selectedOption2" name="selected_option">
-                <input type="hidden" class="selectedRoom2" name="selected_room">
+                <input type="hidden" class="selectedOptionB" name="selected_option">
+                <input type="hidden" class="selectedRoomB" name="selected_room">
                 <div class="w-full flex flex-col gap-8 max-h-[500px] overflow-y-auto">
                     <!-- header -->
                     <div class="w-full py-[13px] px-4.5 rounded-xl bg-neutral-50">
@@ -1747,15 +1747,15 @@
             });
         });
 
-        var selectedOption2 = [];
-        document.querySelectorAll('input[name="option2[]"]').forEach(checkbox => {
+        var selectedOptionB = [];
+        document.querySelectorAll('input[name="optionB[]"]').forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 if (this.checked) {
-                    selectedOption2.push(this.value);
+                    selectedOptionB.push(this.value);
                 }else {
-                    selectedOption2 = selectedOption2.filter(item => item !== this.value);
+                    selectedOptionB = selectedOptionB.filter(item => item !== this.value);
                 }
-                $('.selectedOption2').val(selectedOption2.join(','));
+                $('.selectedOptionB').val(selectedOptionB.join(','));
             });
         });
 
