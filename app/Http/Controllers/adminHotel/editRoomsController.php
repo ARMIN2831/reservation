@@ -59,34 +59,51 @@ class editRoomsController extends Controller
     }
 
 
-    public function updateRoom(Request $request,$roomId)
+    public function updateRoom(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'single' => 'required',
-            'double' => 'required',
-            'room-type' => 'required',
+            'rooms' => 'required|array',
+            'rooms.*.title' => 'required|string',
+            'rooms.*.description' => 'required|string',
+            'rooms.*.single' => 'required|integer',
+            'rooms.*.double' => 'required|integer',
+            'rooms.*.room-type' => 'required|string',
+            'rooms.*.id' => 'required|exists:rooms,id',
+            'files' => 'nullable|array',
+            'files.*' => 'image',
+            'files_room_id' => 'nullable|array',
+            'files_title' => 'nullable|array',
         ]);
-        $room = Room::where('id')->update([
-            'title' => $validatedData['title'],
-            'description' => $validatedData['description'],
-            'single' => $validatedData['single'],
-            'double' => $validatedData['double'],
-            'type' => $validatedData['room-type'],
-        ]);
-        if($request->file){
-            foreach ($request->file as $file){
+        // پردازش اتاق‌ها
+        foreach ($validatedData['rooms'] as $roomData) {
+            $room = Room::find($roomData['id']);
+            $room->update([
+                'title' => $roomData['title'],
+                'description' => $roomData['description'],
+                'single' => $roomData['single'],
+                'double' => $roomData['double'],
+                'type' => $roomData['room-type'],
+            ]);
+        }
+
+        // پردازش فایل‌های آپلود شده
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $index => $file) {
+                $roomId = $request->input("files_room_id.{$index}");
+                $title = $request->input("files_title.{$index}", '');
+
                 $filePath = $this->uploadFile($file);
+
                 File::create([
                     'model_type' => 'App\Models\Room',
                     'type' => 'image',
-                    'model_id' => $room->id,
+                    'model_id' => $roomId,
                     'address' => $filePath,
+                    'title' => $title,
                 ]);
             }
         }
 
-        return redirect()->route('hotel.manageRooms');
+        return redirect()->route('hotel.manageRooms')->with('success', 'اتاق‌ها با موفقیت به‌روزرسانی شدند.');
     }
 }
