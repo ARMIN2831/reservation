@@ -189,8 +189,14 @@
                                                                 </a>
                                                             </form>
 
-                                                            <a href="{{route('admin.rooms.edit', $row->id)}}"
-                                                               class="btn btn-sm btn-primary ml-1 mt-1 float-left">
+                                                            <a href="#"
+                                                               class="btn btn-sm btn-primary ml-1 mt-1 float-left edit-room-btn"
+                                                               data-hotelid="{{ $row->hotel_id }}"
+                                                               data-roomid="{{ $row->id }}"
+                                                               data-status="{{ $row->status }}"
+                                                               data-description="{{ $row->description ?? '' }}"
+                                                               data-toggle="modal"
+                                                               data-target="#editRoomModal">
                                                                 <span class="fas fa-pencil-alt fa-fw" aria-hidden="true"></span>
                                                                 <span class="sr-only">ویرایش</span>
                                                             </a>
@@ -216,7 +222,8 @@
                                                             next: "بعدی",
                                                             previous: "قبلی"
                                                         }
-                                                    }
+                                                    },
+                                                    order: [[3, 'desc']],
                                                 });
                                             </script>
                                         </div>
@@ -382,6 +389,41 @@
                 </div>
             </div>
 
+            <!-- Modal برای ویرایش اتاق -->
+            <div class="modal fade" id="editRoomModal" tabindex="-1" role="dialog" aria-labelledby="editRoomModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editRoomModalLabel">ویرایش اتاق</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="editRoomForm" method="POST" action="">
+                            @csrf
+                            @method('PUT')
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="status">وضعیت</label>
+                                    <select class="form-control" id="status" name="status" required>
+                                        <option value="در انتظار تایید">در انتظار تایید</option>
+                                        <option value="تایید شده">تایید شده</option>
+                                        <option value="رد شده">رد شده</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">توضیحات</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a type="button" class="btn btn-secondary" data-dismiss="modal">بستن</a>
+                                <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <!-- JavaScript -->
             <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
             <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -389,6 +431,39 @@
             <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 
             <script>
+                $(document).ready(function() {
+                    // هنگام کلیک روی دکمه ویرایش
+                    $('.edit-room-btn').on('click', function() {
+                        var roomId = $(this).data('roomid');
+                        var hotelId = $(this).data('hotelid');
+                        var status = $(this).data('status');
+                        //var description = $(this).data('description');
+                        // تنظیم فرم
+                        $('#editRoomForm').attr('action', '/admin/dashboard/editStatusRoom/' + hotelId + "/" + roomId);
+                        $('#status').val(status);
+                        //$('#description').val(description);
+                    });
+
+                    // ارسال فرم با AJAX (اختیاری)
+                    /*$('#editRoomForm').on('submit', function(e) {
+                        e.preventDefault();
+                        var form = $(this);
+                        var url = form.attr('action');
+
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: form.serialize(),
+                            success: function(response) {
+                                $('#editRoomModal').modal('hide');
+                                location.reload(); // رفرش صفحه پس از ویرایش
+                            },
+                            error: function(xhr) {
+                                alert('خطا در ذخیره تغییرات');
+                            }
+                        });
+                    });*/
+                });
                 $(document).ready(function() {
                     // Initialize DataTable
                     $('#facilitiesTable').DataTable({

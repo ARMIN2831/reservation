@@ -54,7 +54,7 @@ class UserAuthController extends Controller
                 'type' => 'otp',
                 'user_id' => $user->id,
                 'status' => 0,
-                'expires_at' => Carbon::now()->addMinutes(5),
+                'expires_at' => Carbon::now()->addMinutes(2),
             ]
         );
 
@@ -115,6 +115,7 @@ class UserAuthController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'ورود با موفقیت انجام شد',
+            'redirect' => false,
         ]);
     }
 

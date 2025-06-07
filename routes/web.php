@@ -259,6 +259,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('facilitiesDestroy/{id}',[\App\Http\Controllers\admin\HotelController::class,'facilitiesDestroy'])->name('facilitiesDestroy');
         Route::post('facilitiesStore',[\App\Http\Controllers\admin\HotelController::class,'facilitiesStore'])->name('facilitiesStore');
         Route::put('facilitiesUpdate/{id}',[\App\Http\Controllers\admin\HotelController::class,'facilitiesUpdate'])->name('facilitiesUpdate');
+        Route::put('editStatusRoom/{hotelId}/{roomId}',[\App\Http\Controllers\admin\HotelController::class,'editStatusRoom'])->name('editStatusRoom');
         Route::resource('rooms',\App\Http\Controllers\admin\RoomController::class);
 
         Route::resource('users',\App\Http\Controllers\admin\UserController::class);

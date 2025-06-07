@@ -6,21 +6,21 @@
             <!-- breadcrumb -->
             <section class=" w-full max-w-[1440px] px-[100px] 512max:px-[28px] 1024max:px-[36px] 1280max:px-[64px]">
                 <div class="w-full flex items-center gap-2 px-4.5 py-5 rounded-xl bg-neutral-50 overflow-auto noscrollbar text-sm font-normal text-neutral-400 text-nowrap">
-                    <a href="#" class=" text-sm text-neutral-400 font-normal hover:text-green-300 text-nowrap flex-shrink-0">
+                    <a href="{{ route('index') }}" class=" text-sm text-neutral-400 font-normal hover:text-green-300 text-nowrap flex-shrink-0">
                         صفحه اصلی
                     </a>
                     <span>/</span>
-                    <a href="#" class=" text-sm text-neutral-400 font-normal hover:text-green-300 text-nowrap flex-shrink-0">
+                    <a href="{{ route('hotelBooking.results') }}" class=" text-sm text-neutral-400 font-normal hover:text-green-300 text-nowrap flex-shrink-0">
                         رزرو هتل
                     </a>
                     @if(request('destination'))
                         <span>/</span>
-                        <a href="#" class=" text-sm text-neutral-400 font-normal hover:text-green-300 text-nowrap flex-shrink-0">
+                        <a href="{{ route('hotelBooking.results',['destination' => request('destination')]) }}" class=" text-sm text-neutral-400 font-normal hover:text-green-300 text-nowrap flex-shrink-0">
                             {{ request('destination') }}
                         </a>
                     @endif
                     <span>/</span>
-                    <a href="#" class=" text-sm text-neutral-400 font-normal hover:text-green-300 text-nowrap flex-shrink-0">
+                    <a href="{{ route('hotelBooking.results',request()->all()) }}" class=" text-sm text-neutral-400 font-normal hover:text-green-300 text-nowrap flex-shrink-0">
                         {{ $hotel->title }}
                     </a>
                 </div>
@@ -253,14 +253,14 @@
                         </div>
                         <!-- top -->
                         <div class="w-full flex items-center px-20 rounded-xl bg-green-300 overflow-auto noscrollbar 1024max:px-0">
-                            <button onclick="tabContentManager(event, 'underBorderActivedButton', 'hotelInfoTabContent', 'hotelInfoTabContent-1')" class="underBorderActivedButton min-w-min active text-base font-normal text-center px-4 text-nowrap py-4 flex-grow-[1] flex-shrink-[0] flex items-center justify-center 768max:text-sm">
+                            <button onclick="tabContentManager(event, 'underBorderActivedButton', 'hotelInfoTabContent', 'hotelInfoTabContent-1')" class="underBorderActivedButton min-w-min active text-base font-normal text-center py-4 px-4 text-nowrap flex-grow-[1] flex-shrink-[0] flex items-center justify-center 768max:text-sm">
+                                اتاق ها
+                            </button>
+                            <button onclick="tabContentManager(event, 'underBorderActivedButton', 'hotelInfoTabContent', 'hotelInfoTabContent-2')" class="underBorderActivedButton min-w-min text-base font-normal text-center px-4 text-nowrap py-4 flex-grow-[1] flex-shrink-[0] flex items-center justify-center 768max:text-sm">
                                 امکانات و ویژگی ها
                             </button>
-                            <button onclick="tabContentManager(event, 'underBorderActivedButton', 'hotelInfoTabContent', 'hotelInfoTabContent-2')" class="underBorderActivedButton min-w-min text-base font-normal text-center py-4 px-4 text-nowrap flex-grow-[1] flex-shrink-[0] flex items-center justify-center 768max:text-sm">
-                                شرح هتل
-                            </button>
                             <button onclick="tabContentManager(event, 'underBorderActivedButton', 'hotelInfoTabContent', 'hotelInfoTabContent-3')" class="underBorderActivedButton min-w-min text-base font-normal text-center py-4 px-4 text-nowrap flex-grow-[1] flex-shrink-[0] flex items-center justify-center 768max:text-sm">
-                                اتاق ها
+                                شرح هتل
                             </button>
                             <button onclick="tabContentManager(event, 'underBorderActivedButton', 'hotelInfoTabContent', 'hotelInfoTabContent-4')" class="underBorderActivedButton min-w-min text-base font-normal text-center py-4 px-4 text-nowrap flex-grow-[1] flex-shrink-[0] flex items-center justify-center 768max:text-sm">
                                 موقعیت هتل روی نقشه
@@ -273,70 +273,8 @@
                         <div class="w-full grid grid-cols-[1fr_322px] gap-4.5 content-start 1024max:grid-cols-1">
                             <!-- اطلاعات هتل -->
                             <div class="w-full flex flex-col gap-10">
-                                <!-- امکانات و ویژگی‌ها -->
-                                <div id="hotelInfoTabContent-1" class="hotelInfoTabContent w-full">
-                                    <div class="w-full flex flex-col gap-4.5">
-                                        <!-- head -->
-                                        <div class="w-full flex items-center justify-between">
-                                            <h4 class=" text-base text-green-600 font-normal">
-                                                امکانات و ویژگی‌ها
-                                            </h4>
-                                            <button class=" flex items-center gap-1 text-green-300">
-                                                <span class=" text-sm font-normal">
-                                                    مشاهده همه
-                                                </span>
-                                                <svg class=" w-3 text-green-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        <!-- body -->
-                                        <div class="w-full py-4.5 px-2 rounded-xl bg-neutral-50 grid grid-cols-4 gap-2 items-start content-start 640max:grid-cols-2 768max:grid-cols-3">
-                                            @foreach($hotel->facilities as $facility)
-                                                @if($facility->type == 1 and $facility->pivot->status == 1)
-                                                    <div class="w-full flex items-center gap-2">
-                                                        <div class="w-10 aspect-square rounded-full bg-green-300 text-light flex items-center justify-center 768max:w-7">
-                                                            @if($facility->icon)
-                                                                {!! $facility->icon !!}
-                                                            @else
-                                                                <svg class=" text-inherit w-5 768max:w-4" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.75 5.625C3.75 5.12772 3.94754 4.65081 4.29917 4.29917C4.65081 3.94754 5.12772 3.75 5.625 3.75H14.0625C14.2283 3.75 14.3872 3.68415 14.5044 3.56694C14.6217 3.44973 14.6875 3.29076 14.6875 3.125C14.6875 2.95924 14.6217 2.80027 14.5044 2.68306C14.3872 2.56585 14.2283 2.5 14.0625 2.5H5.625C4.7962 2.5 4.00134 2.82924 3.41529 3.41529C2.82924 4.00134 2.5 4.7962 2.5 5.625V14.375C2.5 15.2038 2.82924 15.9987 3.41529 16.5847C4.00134 17.1708 4.7962 17.5 5.625 17.5H14.375C15.2038 17.5 15.9987 17.1708 16.5847 16.5847C17.1708 15.9987 17.5 15.2038 17.5 14.375V9.375C17.5 9.20924 17.4342 9.05027 17.3169 8.93306C17.1997 8.81585 17.0408 8.75 16.875 8.75C16.7092 8.75 16.5503 8.81585 16.4331 8.93306C16.3158 9.05027 16.25 9.20924 16.25 9.375V14.375C16.25 14.8723 16.0525 15.3492 15.7008 15.7008C15.3492 16.0525 14.8723 16.25 14.375 16.25H5.625C5.12772 16.25 4.65081 16.0525 4.29917 15.7008C3.94754 15.3492 3.75 14.8723 3.75 14.375V5.625ZM16.7042 6.05417C16.8139 5.93301 16.8718 5.77367 16.8655 5.61031C16.8591 5.44695 16.789 5.29259 16.6702 5.18031C16.5514 5.06803 16.3933 5.00677 16.2299 5.00968C16.0664 5.01258 15.9106 5.07941 15.7958 5.19583L9.13333 12.25L6.045 9.44833C5.98476 9.3904 5.91351 9.34514 5.83546 9.31523C5.75742 9.28532 5.67417 9.27136 5.59064 9.27419C5.50711 9.27702 5.42499 9.29657 5.34915 9.33169C5.27331 9.36681 5.20528 9.41679 5.14909 9.47866C5.09291 9.54053 5.0497 9.61305 5.02203 9.69191C4.99436 9.77078 4.98279 9.85439 4.988 9.93781C4.99321 10.0212 5.0151 10.1027 5.05238 10.1776C5.08965 10.2524 5.14155 10.3189 5.205 10.3733L8.74667 13.5875C8.86781 13.6977 9.02735 13.7559 9.19098 13.7497C9.35461 13.7434 9.50926 13.6732 9.62167 13.5542L16.7042 6.05417Z" fill="currentColor" stroke="currentColor" stroke-width="0.3"></path>
-                                                                </svg>
-                                                            @endif
-                                                        </div>
-                                                        <span class=" text-xs text-neutral-700 font-normal">
-                                                            {{ $facility->title }}
-                                                        </span>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- درباره هتل -->
-                                <div id="hotelInfoTabContent-2" class="hotelInfoTabContent hidden w-full">
-                                    <div class="w-full flex flex-col gap-4.5">
-                                        <!-- head -->
-                                        <div class="w-full flex items-center">
-                                            <h4 class=" text-base text-green-600 font-normal">
-                                                درباره هتل
-                                            </h4>
-                                        </div>
-                                        <!-- body -->
-                                        <div class="w-full p-4.5 flex flex-col gap-4.5 rounded-xl bg-neutral-50 drop-shadow-materialShadow4 512max:px-2 640max:px-3">
-                                            <h6 class=" text-sm text-neutral-700 font-medium">
-                                                {{ $hotel->title }}
-                                            </h6>
-                                            <div class="w-full">
-                                                <p class=" text-sm text-neutral-700 font-normal text-justify">
-                                                    {{ $hotel->description }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <!-- اتاق ها -->
-                                <div id="hotelInfoTabContent-3" class="hotelInfoTabContent hidden w-full">
+                                <div id="hotelInfoTabContent-1" class="hotelInfoTabContent w-full">
                                     <div class="w-full flex flex-col gap-4.5">
                                         <!-- head -->
                                         <div class="w-full flex items-center">
@@ -346,7 +284,7 @@
                                         </div>
                                         <!-- body -->
                                         <div class="w-full flex flex-col gap-4">
-                                            @foreach($results as $result)
+                                            @foreach($results as $parentIndex =>  $result)
                                                 <!-- item -->
                                                 @php $q = request()->query(); @endphp
                                                 <form method="get" action="{{ route('hotelBooking.choosePeople',$q) }}" style="background: #f6f6f6;border: 1px solid rgba(0, 0, 0, .12);border-radius: 8px;box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .08);" class="w-full grid grid-cols-[1fr_1px_240px]  1150max:grid-cols-1">
@@ -357,6 +295,43 @@
                                                             <h6 class=" text-base text-black font-normal">
                                                                 {{ $room['room_info']->title }}
                                                             </h6>
+                                                            <!-- gallery -->
+                                                            <div class="custom-gallery">
+                                                                @foreach($room['room_info']->files as $file)
+                                                                    <div class="custom-gallery-item">
+                                                                        <img src="{{ asset('storage/' . $file->address) }}" alt="عکس اتاق" />
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                            <style>
+                                                                .custom-gallery {
+                                                                    display: flex;
+                                                                    flex-wrap: wrap;
+                                                                    gap: 10px;
+                                                                    margin-bottom: 10px;
+                                                                }
+
+                                                                .custom-gallery-item {
+                                                                    width: 80px;
+                                                                    height: 80px;
+                                                                    overflow: hidden;
+                                                                    border-radius: 6px;
+                                                                    border: 1px solid #ccc;
+                                                                }
+
+                                                                .custom-gallery-item img {
+                                                                    width: 100%;
+                                                                    height: 100%;
+                                                                    object-fit: cover;
+                                                                    display: block;
+                                                                    transition: transform 0.3s ease;
+                                                                }
+
+                                                                .custom-gallery-item img:hover {
+                                                                    transform: scale(1.1);
+                                                                }
+                                                            </style>
+
                                                             <div class="w-full flex flex-col gap-4.5">
                                                                 {{--<div class="flex items-center gap-2">
                                                                 <span class=" text-xs text-neutral-400 font-normal">
@@ -422,21 +397,87 @@
                                                         </div>
                                                     </div>
                                                     <div class="w-full h-full rounded-xl bg-neutral-50 p-[30px] flex flex-col items-center justify-between gap-4.5 1150max:flex-row 1150max:px-4.5 1150max:py-2">
-                                                        <button class="rounded-[6px] w-full flex items-center justify-center py-2 px-4 h-10 max-w-[160px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:text-xs 512max:h-8 512max:max-w-max 512max:px-4">
+                                                        <a
+                                                            onclick="handleBookRoom(this)"
+                                                            class="rounded-[6px] w-full flex items-center justify-center py-2 px-4 h-10 max-w-[160px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:text-xs 512max:h-8 512max:max-w-max 512max:px-4 book-room-btn"
+                                                            data-form="{{ $parentIndex }}"
+                                                            @guest data-require-login="true" @endguest>
                                                             رزرو اتاق
-                                                        </button>
+                                                        </a>
                                                     </div>
-                                                        @foreach(request()->except('rooms') as $key => $value)
-                                                            @if(is_array($value))
-                                                                @foreach($value as $arrayValue)
-                                                                    <input type="hidden" name="{{ $key }}[]" value="{{ $arrayValue }}">
-                                                                @endforeach
-                                                            @else
-                                                                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                                                            @endif
-                                                        @endforeach
+                                                    @foreach(request()->except('rooms') as $key => $value)
+                                                        @if(is_array($value))
+                                                            @foreach($value as $arrayValue)
+                                                                <input type="hidden" name="{{ $key }}[]" value="{{ $arrayValue }}">
+                                                            @endforeach
+                                                        @else
+                                                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                                                        @endif
+                                                    @endforeach
                                                 </form>
                                             @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- امکانات و ویژگی‌ها -->
+                                <div id="hotelInfoTabContent-2" class="hotelInfoTabContent hidden w-full">
+                                    <div class="w-full flex flex-col gap-4.5">
+                                        <!-- head -->
+                                        <div class="w-full flex items-center justify-between">
+                                            <h4 class=" text-base text-green-600 font-normal">
+                                                امکانات و ویژگی‌ها
+                                            </h4>
+                                            <button class=" flex items-center gap-1 text-green-300">
+                                                <span class=" text-sm font-normal">
+                                                    مشاهده همه
+                                                </span>
+                                                <svg class=" w-3 text-green-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <!-- body -->
+                                        <div class="w-full py-4.5 px-2 rounded-xl bg-neutral-50 grid grid-cols-4 gap-2 items-start content-start 640max:grid-cols-2 768max:grid-cols-3">
+                                            @foreach($hotel->facilities as $facility)
+                                                @if($facility->type == 1 and $facility->pivot->status == 1)
+                                                    <div class="w-full flex items-center gap-2">
+                                                        <div class="w-10 aspect-square rounded-full bg-green-300 text-light flex items-center justify-center 768max:w-7">
+                                                            @if($facility->icon)
+                                                                {!! $facility->icon !!}
+                                                            @else
+                                                                <svg class=" text-inherit w-5 768max:w-4" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.75 5.625C3.75 5.12772 3.94754 4.65081 4.29917 4.29917C4.65081 3.94754 5.12772 3.75 5.625 3.75H14.0625C14.2283 3.75 14.3872 3.68415 14.5044 3.56694C14.6217 3.44973 14.6875 3.29076 14.6875 3.125C14.6875 2.95924 14.6217 2.80027 14.5044 2.68306C14.3872 2.56585 14.2283 2.5 14.0625 2.5H5.625C4.7962 2.5 4.00134 2.82924 3.41529 3.41529C2.82924 4.00134 2.5 4.7962 2.5 5.625V14.375C2.5 15.2038 2.82924 15.9987 3.41529 16.5847C4.00134 17.1708 4.7962 17.5 5.625 17.5H14.375C15.2038 17.5 15.9987 17.1708 16.5847 16.5847C17.1708 15.9987 17.5 15.2038 17.5 14.375V9.375C17.5 9.20924 17.4342 9.05027 17.3169 8.93306C17.1997 8.81585 17.0408 8.75 16.875 8.75C16.7092 8.75 16.5503 8.81585 16.4331 8.93306C16.3158 9.05027 16.25 9.20924 16.25 9.375V14.375C16.25 14.8723 16.0525 15.3492 15.7008 15.7008C15.3492 16.0525 14.8723 16.25 14.375 16.25H5.625C5.12772 16.25 4.65081 16.0525 4.29917 15.7008C3.94754 15.3492 3.75 14.8723 3.75 14.375V5.625ZM16.7042 6.05417C16.8139 5.93301 16.8718 5.77367 16.8655 5.61031C16.8591 5.44695 16.789 5.29259 16.6702 5.18031C16.5514 5.06803 16.3933 5.00677 16.2299 5.00968C16.0664 5.01258 15.9106 5.07941 15.7958 5.19583L9.13333 12.25L6.045 9.44833C5.98476 9.3904 5.91351 9.34514 5.83546 9.31523C5.75742 9.28532 5.67417 9.27136 5.59064 9.27419C5.50711 9.27702 5.42499 9.29657 5.34915 9.33169C5.27331 9.36681 5.20528 9.41679 5.14909 9.47866C5.09291 9.54053 5.0497 9.61305 5.02203 9.69191C4.99436 9.77078 4.98279 9.85439 4.988 9.93781C4.99321 10.0212 5.0151 10.1027 5.05238 10.1776C5.08965 10.2524 5.14155 10.3189 5.205 10.3733L8.74667 13.5875C8.86781 13.6977 9.02735 13.7559 9.19098 13.7497C9.35461 13.7434 9.50926 13.6732 9.62167 13.5542L16.7042 6.05417Z" fill="currentColor" stroke="currentColor" stroke-width="0.3"></path>
+                                                                </svg>
+                                                            @endif
+                                                        </div>
+                                                        <span class=" text-xs text-neutral-700 font-normal">
+                                                            {{ $facility->title }}
+                                                        </span>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- درباره هتل -->
+                                <div id="hotelInfoTabContent-3" class="hotelInfoTabContent hidden w-full">
+                                    <div class="w-full flex flex-col gap-4.5">
+                                        <!-- head -->
+                                        <div class="w-full flex items-center">
+                                            <h4 class=" text-base text-green-600 font-normal">
+                                                درباره هتل
+                                            </h4>
+                                        </div>
+                                        <!-- body -->
+                                        <div class="w-full p-4.5 flex flex-col gap-4.5 rounded-xl bg-neutral-50 drop-shadow-materialShadow4 512max:px-2 640max:px-3">
+                                            <h6 class=" text-sm text-neutral-700 font-medium">
+                                                {{ $hotel->title }}
+                                            </h6>
+                                            <div class="w-full">
+                                                <p class=" text-sm text-neutral-700 font-normal text-justify">
+                                                    {{ $hotel->description }}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -513,7 +554,7 @@
                                                     value="{{ request('dates') }}"
                                                     placeholder="تاریخ ورود و خروج"
                                                     onchange="convertDateRange(this.value)"
-                                                    class="w-full min-w-[70px] h-full rounded-r-xl bg-light text-sm px-2 font-normal text-neutral-700 placeholder:text-neutral-400 focus:outline-none"
+                                                    class="w-full min-w-[70px] h-full rounded-r-xl bg-light text-sm px-2 font-normal text-neutral-700 placeholder:text-neutral-400 focus:outline-none text-right rtl"
                                                 />
                                                 {{--<input data-jdp="" type="text" placeholder="1404/01/06" class=" min-w-[70px] h-full rounded-r-xl bg-light text-sm px-2 font-normal text-neutral-700 placeholder:text-neutral-400 focus:outline-none">
                                                 <div class=" px-1 h-full bg-light text-neutral-400 font-normal text-sm flex items-center justify-center">
@@ -527,6 +568,35 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <style>
+                                            .flatpickr-calendar.rtl {
+                                                direction: rtl;
+                                                text-align: right;
+                                            }
+
+                                            /* برای راستچین کردن input */
+                                            .rtl {
+                                                direction: rtl;
+                                                text-align: right;
+                                            }
+
+                                            /* برای راستچین کردن ماه و سال در هدر تقویم */
+                                            .flatpickr-current-month {
+                                                text-align: right;
+                                                padding-right: 10px;
+                                            }
+
+                                            /* برای راستچین کردن روزهای هفته */
+                                            .flatpickr-weekdays {
+                                                text-align: right;
+                                                direction: rtl !important;
+                                            }
+
+                                            /* برای راستچین کردن اعداد روزها */
+                                            .flatpickr-days {
+                                                direction: rtl;
+                                            }
+                                        </style>
                                         <!-- تعداد مهمان -->
                                         <div class="w-full flex flex-col gap-2" x-data="passengerModal()">
                                             <label for="#" class=" text-sm text-black font-normal">
@@ -550,23 +620,26 @@
                                                     id="rooms_data"
                                                     x-model="roomsJSON"
                                                 />
-                                                <div x-show="isPassengerModalOpen" @click.away="isPassengerModalOpen = false" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-                                                    <div class="bg-white rounded-lg p-6 w-full max-w-md">
-                                                        <div class="space-y-4">
+
+
+                                                <!-- Modal -->
+                                                <div x-show="isPassengerModalOpen" @click.away="isPassengerModalOpen = false" class="passenger-modal-overlay" style="display: none">
+                                                    <div class="passenger-modal-container">
+                                                        <div class="passenger-modal-content">
                                                             <!-- Room List -->
                                                             <template x-for="(room, index) in rooms" :key="index">
-                                                                <div class="border p-4 rounded-lg">
-                                                                    <div class="flex justify-between items-center mb-4">
-                                                                        <h3 class="font-semibold">اتاق <span x-text="index + 1"></span></h3>
-                                                                        <button @click="removeRoom(index)" class="text-red-500 hover:text-red-700">حذف اتاق</button>
+                                                                <div class="room-card">
+                                                                    <div class="room-header">
+                                                                        <h3 class="room-title">اتاق <span x-text="index + 1"></span></h3>
+                                                                        <a @click="removeRoom(index)" class="delete-room-btn">حذف اتاق</a>
                                                                     </div>
-                                                                    <div class="space-y-2">
-                                                                        <div class="flex justify-between items-center">
-                                                                            <span>تعداد نفر:</span>
-                                                                            <div class="flex items-center gap-2">
-                                                                                <a @click="decrementPersons(index)" class="px-2 py-1 bg-gray-200 rounded">-</a>
-                                                                                <span x-text="room.persons"></span>
-                                                                                <a @click="incrementPersons(index)" class="px-2 py-1 bg-gray-200 rounded">+</a>
+                                                                    <div class="room-controls">
+                                                                        <div class="persons-control">
+                                                                            <span class="control-label">تعداد نفر:</span>
+                                                                            <div class="counter">
+                                                                                <a @click="decrementPersons(index)" class="counter-btn decrement">-</a>
+                                                                                <span class="counter-value" x-text="room.persons"></span>
+                                                                                <a @click="incrementPersons(index)" class="counter-btn increment">+</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -574,17 +647,166 @@
                                                             </template>
 
                                                             <!-- Add Room Button -->
-                                                            <a @click="addRoom" class="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                                            <a @click="addRoom" class="add-room-btn">
                                                                 افزودن اتاق
                                                             </a>
 
                                                             <!-- Close Modal Button -->
-                                                            <a @click="isPassengerModalOpen = false" class="w-full py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+                                                            <a @click="isPassengerModalOpen = false" class="close-modal-btn">
                                                                 بستن
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <style>
+                                                    /* استایل کلی مودال */
+                                                    .passenger-modal-overlay {
+                                                        position: fixed;
+                                                        top: 0;
+                                                        left: 0;
+                                                        right: 0;
+                                                        bottom: 0;
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        z-index: 1000;
+                                                        padding: 20px;
+                                                    }
+
+                                                    .passenger-modal-container {
+                                                        background-color: white;
+                                                        border-radius: 12px;
+                                                        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                                                        width: 100%;
+                                                        max-width: 420px;
+                                                        overflow: hidden;
+                                                    }
+
+                                                    .passenger-modal-content {
+                                                        padding: 24px;
+                                                        display: flex;
+                                                        flex-direction: column;
+                                                        gap: 16px;
+                                                    }
+
+                                                    /* استایل کارت اتاق */
+                                                    .room-card {
+                                                        border: 1px solid #e0e0e0;
+                                                        border-radius: 8px;
+                                                        padding: 16px;
+                                                        background-color: #f9f9f9;
+                                                        transition: all 0.3s ease;
+                                                    }
+
+                                                    .room-card:hover {
+                                                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                                                    }
+
+                                                    .room-header {
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                        align-items: center;
+                                                        margin-bottom: 12px;
+                                                    }
+
+                                                    .room-title {
+                                                        font-size: 16px;
+                                                        font-weight: 600;
+                                                        color: #333;
+                                                        margin: 0;
+                                                    }
+
+                                                    .delete-room-btn {
+                                                        background: none;
+                                                        border: none;
+                                                        color: #e74c3c;
+                                                        font-size: 14px;
+                                                        cursor: pointer;
+                                                        padding: 4px 8px;
+                                                        border-radius: 4px;
+                                                        transition: all 0.2s ease;
+                                                    }
+
+                                                    .delete-room-btn:hover {
+                                                        background-color: #fde8e6;
+                                                    }
+
+                                                    /* استایل کنترل تعداد نفرات */
+                                                    .persons-control {
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                        align-items: center;
+                                                    }
+
+                                                    .control-label {
+                                                        font-size: 14px;
+                                                        color: #555;
+                                                    }
+
+                                                    .counter {
+                                                        display: flex;
+                                                        align-items: center;
+                                                        gap: 8px;
+                                                    }
+
+                                                    .counter-btn {
+                                                        width: 28px;
+                                                        height: 28px;
+                                                        border-radius: 50%;
+                                                        border: 1px solid #ddd;
+                                                        background-color: white;
+                                                        font-size: 14px;
+                                                        cursor: pointer;
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        transition: all 0.2s ease;
+                                                    }
+
+                                                    .counter-btn:hover {
+                                                        background-color: #f0f0f0;
+                                                    }
+
+                                                    .counter-value {
+                                                        min-width: 20px;
+                                                        text-align: center;
+                                                        font-weight: 500;
+                                                    }
+
+                                                    /* استایل دکمه‌ها */
+                                                    .add-room-btn, .close-modal-btn {
+                                                        width: 100%;
+                                                        padding: 12px;
+                                                        border-radius: 8px;
+                                                        border: none;
+                                                        font-size: 14px;
+                                                        font-weight: 500;
+                                                        cursor: pointer;
+                                                        transition: all 0.2s ease;
+                                                    }
+
+                                                    .add-room-btn {
+                                                        background-color: #3498db;
+                                                        color: white;
+                                                    }
+
+                                                    .add-room-btn:hover {
+                                                        background-color: #2980b9;
+                                                    }
+
+                                                    .close-modal-btn {
+                                                        background-color: #95a5a6;
+                                                        color: white;
+                                                        margin-top: 8px;
+                                                    }
+
+                                                    .close-modal-btn:hover {
+                                                        background-color: #7f8c8d;
+                                                    }
+                                                </style>
+
+
                                             </div>
 
                                         </div>
@@ -676,7 +898,11 @@
     <script>
         flatpickr("#dateRange", {
             mode: 'range',
-            locale: 'fa',
+            locale: {
+                ...flatpickr.l10ns.fa,
+                firstDayOfWeek: 6,
+            },
+            calendar: "jalali",
             dateFormat: 'Y/m/d',
         });
         @if(request('dates'))
@@ -737,5 +963,445 @@
                 },
             }));
         });
+    </script>
+    <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);">
+        <div class="modal-content" style="background-color: #fefefe; margin: 10% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px; border-radius: 8px;opacity: 1">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 id="loginModalLabel" style="margin: 0;">ورود به حساب کاربری</h2>
+                <span class="close" style="cursor: pointer; font-size: 24px;" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="loginApp">
+                    <!-- Step 1: Mobile -->
+                    <div id="loginStep1">
+                        <label for="login-mobile" style="display: block; margin-bottom: 8px;">شماره موبایل</label>
+                        <div style="position: relative; margin-bottom: 16px;">
+                            <input
+                                type="text"
+                                id="login-mobile"
+                                style="width: 100%; padding: 10px 40px 10px 10px; border: 1px solid #ddd; border-radius: 4px;"
+                                placeholder="09123456789"
+                            >
+                            <i class="fa fa-mobile-alt" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #999;"></i>
+                        </div>
+                        <button
+                            id="sendOtpBtn"
+                            style="width: 100%; padding: 10px; background: linear-gradient(to right, #4a6bff, #8a2be2); color: white; border: none; border-radius: 4px; cursor: pointer;"
+                        >
+                            دریافت کد تایید
+                        </button>
+                    </div>
+
+                    <!-- Step 2: OTP Verification -->
+                    <div id="loginStep2" style="display: none;">
+                        <p style="margin-bottom: 16px;">کد ۵ رقمی ارسال شده به شماره <span id="mobileNumber" style="font-weight: bold;"></span> را وارد کنید</p>
+
+                        <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; direction: ltr;">
+                            <input type="text" maxlength="1" class="otp-input" style="width: 40px; height: 40px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="text" maxlength="1" class="otp-input" style="width: 40px; height: 40px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="text" maxlength="1" class="otp-input" style="width: 40px; height: 40px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="text" maxlength="1" class="otp-input" style="width: 40px; height: 40px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="text" maxlength="1" class="otp-input" style="width: 40px; height: 40px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+
+                        <button
+                            id="verifyOtpBtn"
+                            style="width: 100%; padding: 10px; background: linear-gradient(to right, #4a6bff, #8a2be2); color: white; border: none; border-radius: 4px; cursor: pointer; margin-bottom: 10px;"
+                        >
+                            تایید و ادامه
+                        </button>
+                        <button
+                            onclick="showLoginStep(1)"
+                            style="width: 100%; padding: 10px; background: #f1f1f1; color: #333; border: none; border-radius: 4px; cursor: pointer;"
+                        >
+                            بازگشت
+                        </button>
+                        <div class="text-center my-3">
+                            <button id="resendOtpBtn" class="text-blue-500" disabled>
+                                ارسال مجدد کد (<span id="timerDisplay"></span>)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="alertBox" class="alert" style="display: none;"></div>
+
+    <style>
+        .alert {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .alert.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .alert.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .login-step {
+            display: none;
+        }
+        #loginStep1 {
+            display: block;
+        }
+        .otp-input {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            margin: 0 5px;
+            font-size: 18px;
+        }
+    </style>
+
+    <script>
+        // متغیرهای全局
+        let otpTimer;
+        var otpCountdownDuration = 120; // مدت زمان اعتبار کد OTP (ثانیه)
+
+        // مدیریت مودال
+        function openModal() {
+            document.getElementById('loginModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // جلوگیری از اسکرول صفحه
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // فعال کردن اسکرول صفحه
+            resetLoginForm();
+        }
+
+        // مدیریت مراحل لاگین
+        function showLoginStep(step) {
+            if (step === 1){
+                document.getElementById(`loginStep1`).style.display = 'block';
+                document.getElementById(`loginStep2`).style.display = 'none';
+            }
+            if (step === 2){
+                document.getElementById(`loginStep1`).style.display = 'none';
+                document.getElementById(`loginStep2`).style.display = 'block';
+            }
+        }
+
+        function resetLoginForm() {
+            document.getElementById('login-mobile').value = '';
+            document.querySelectorAll('.otp-input').forEach(input => {
+                input.value = '';
+            });
+            showLoginStep(1);
+            clearOTPTimer();
+        }
+
+        // مدیریت تایمر OTP
+        function startOTPTimer() {
+            let timeLeft = otpCountdownDuration;
+            updateOTPTimerDisplay(timeLeft);
+
+            otpTimer = setInterval(() => {
+                timeLeft--;
+                updateOTPTimerDisplay(timeLeft);
+
+                if (timeLeft <= 0) {
+                    clearOTPTimer();
+                }
+            }, 1000);
+        }
+
+        function clearOTPTimer() {
+            if (otpTimer) {
+                clearInterval(otpTimer);
+                otpTimer = null;
+            }
+            document.getElementById('resendOtpBtn').disabled = false;
+            document.getElementById('timerDisplay').textContent = '';
+        }
+
+        function updateOTPTimerDisplay(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            document.getElementById('timerDisplay').textContent =
+                `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+            document.getElementById('resendOtpBtn').disabled = true;
+        }
+
+        // مدیریت کلیک روی دکمه رزرو
+        window.handleBookRoom = function(button) {
+            const requiresLogin = button.getAttribute('data-require-login') === 'true';
+
+            if (requiresLogin) {
+                openModal();
+
+                // ذخیره اطلاعات فرم
+                const form = button.closest('form');
+                localStorage.setItem('pendingBookingForm', form.outerHTML);
+                localStorage.setItem('pendingBookingAction', form.action);
+            } else {
+                button.closest('form').submit();
+            }
+        };
+
+        // ارسال کد OTP
+        document.getElementById('sendOtpBtn').addEventListener('click', async function() {
+            const mobile = document.getElementById('login-mobile').value.trim();
+
+            if (!/^09\d{9}$/.test(mobile)) {
+                showAlert('لطفاً شماره موبایل معتبر وارد کنید', 'error');
+                return;
+            }
+
+            this.disabled = true;
+            this.innerHTML = '<i class="fa fa-spinner fa-spin"></i> در حال ارسال...';
+
+            try {
+                const response = await fetch('{{ route("api.sendOtp") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ mobile })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    clearOTPTimer();
+                    showLoginStep(2);
+                    document.getElementById('mobileNumber').textContent = mobile;
+                    otpCountdownDuration = data.remaining_time;
+                    startOTPTimer();
+                    showAlert('کد تایید ارسال شد', 'success');
+                } else {
+                    showAlert(data.message || 'خطا در ارسال کد تایید', 'error');
+                }
+            } catch (error) {
+                showAlert('خطا در ارتباط با سرور', 'error');
+            } finally {
+                this.disabled = false;
+                this.innerHTML = 'دریافت کد تایید';
+            }
+        });
+
+        // تأیید کد OTP
+        document.getElementById('verifyOtpBtn').addEventListener('click', async function() {
+            const otpCode = Array.from(document.querySelectorAll('.otp-input'))
+                .map(input => input.value)
+                .join('');
+
+            if (otpCode.length !== 5) {
+                showAlert('لطفاً کد ۵ رقمی را کامل وارد کنید', 'error');
+                return;
+            }
+
+            this.disabled = true;
+            this.innerHTML = '<i class="fa fa-spinner fa-spin"></i> در حال بررسی...';
+
+            try {
+                const mobile = document.getElementById('login-mobile').value.trim();
+                const response = await fetch('{{ route("api.verifyOtp") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        mobile,
+                        otp: otpCode
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert('ورود با موفقیت انجام شد', 'success');
+                    closeModal();
+
+                    // ارسال رویداد login-success
+                    window.dispatchEvent(new CustomEvent('login-success', {
+                        detail: { userId: data.user_id }
+                    }));
+
+                    // اگر نیاز به ریدایرکت مستقیم بود
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                    }
+                } else {
+                    const errorMsg = data.error === 'expired'
+                        ? 'کد تایید منقضی شده است. لطفاً کد جدید دریافت کنید'
+                        : 'کد تایید نامعتبر است';
+
+                    showAlert(errorMsg, 'error');
+                }
+            } catch (error) {
+                showAlert('خطا در ارتباط با سرور', 'error');
+            } finally {
+                this.disabled = false;
+                this.innerHTML = 'تایید و ادامه';
+            }
+        });
+
+        // ارسال مجدد کد OTP
+        document.getElementById('resendOtpBtn').addEventListener('click', function() {
+            document.getElementById('sendOtpBtn').click();
+        });
+
+        // مدیریت رویداد login-success
+        window.addEventListener('login-success', function() {
+            const pendingForm = localStorage.getItem('pendingBookingForm');
+            const pendingAction = localStorage.getItem('pendingBookingAction');
+
+            if (pendingForm && pendingAction) {
+                // ایجاد یک فرم موقت و ارسال آن
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = pendingForm;
+                const form = tempDiv.firstChild;
+                form.action = pendingAction;
+                document.body.appendChild(form);
+                form.submit();
+
+                // پاک کردن داده‌های موقت
+                localStorage.removeItem('pendingBookingForm');
+                localStorage.removeItem('pendingBookingAction');
+            }
+        });
+
+        // مدیریت حرکت بین فیلدهای OTP
+        document.querySelectorAll('.otp-input').forEach((input, index, inputs) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+
+                // اگر آخرین فیلد پر شد، دکمه تأیید را فعال کنید
+                if (index === inputs.length - 1 && e.target.value) {
+                    document.getElementById('verifyOtpBtn').focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
+        // بستن مودال با کلیک خارج از آن
+        window.addEventListener('click', function(event) {
+            if (event.target === document.getElementById('loginModal')) {
+                closeModal();
+            }
+        });
+
+        // نمایش پیام به کاربر
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.textContent = message;
+            alertBox.className = `alert ${type}`;
+            alertBox.style.display = 'block';
+
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 5000);
+        }
+
+        // Alpine.js App
+        function loginApp() {
+            return {
+                activeTab: 'login',
+                loginStep: 1,
+                loginMobile: '',
+                otpDigits: Array(5).fill(''),
+                isSendingOTP: false,
+                isVerifying: false,
+                resendDisabled: true,
+                countdown: 120,
+                message: '',
+                messageSuccess: false,
+
+                init() {
+                    // بازیابی زمان باقیمانده از localStorage
+                    const savedTime = localStorage.getItem('otpCountdown');
+                    const savedTimestamp = localStorage.getItem('otpCountdownTimestamp');
+
+                    if (savedTime && savedTimestamp) {
+                        const elapsed = Math.floor((Date.now() - savedTimestamp) / 1000);
+                        this.countdown = Math.max(0, savedTime - elapsed);
+
+                        if (this.countdown > 0) {
+                            this.startCountdown();
+                        }
+                    }
+                },
+
+                startCountdown() {
+                    this.resendDisabled = true;
+                    localStorage.setItem('otpCountdown', this.countdown);
+                    localStorage.setItem('otpCountdownTimestamp', Date.now());
+
+                    const timer = setInterval(() => {
+                        this.countdown--;
+                        localStorage.setItem('otpCountdown', this.countdown);
+                        localStorage.setItem('otpCountdownTimestamp', Date.now());
+
+                        if (this.countdown <= 0) {
+                            clearInterval(timer);
+                            this.resendDisabled = false;
+                            localStorage.removeItem('otpCountdown');
+                            localStorage.removeItem('otpCountdownTimestamp');
+                        }
+                    }, 1000);
+                },
+
+                async sendOTP() {
+                    if (!this.loginMobile || !this.loginMobile.match(/^09\d{9}$/)) {
+                        this.showMessage('لطفاً شماره موبایل معتبر وارد کنید', false);
+                        return;
+                    }
+
+                    this.isSendingOTP = true;
+                    this.message = '';
+
+                    try {
+                        const response = await fetch('{{ route('api.sendOtp') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({
+                                mobile: this.loginMobile
+                            }),
+                        });
+
+                        const data = await response.json();
+                        if (data.success) {
+                            this.loginStep = 2;
+                            this.countdown = data.remaining_time || otpCountdownDuration;
+                            this.startCountdown();
+                            this.showMessage('کد تایید به شماره شما ارسال شد', true);
+                        } else {
+                            this.showMessage(data.message || 'خطا در ارسال کد تایید', false);
+                        }
+                    } catch (error) {
+                        this.showMessage('خطا در ارتباط با سرور', false);
+                    } finally {
+                        this.isSendingOTP = false;
+                    }
+                },
+
+                showMessage(msg, isSuccess) {
+                    this.message = msg;
+                    this.messageSuccess = isSuccess;
+                    setTimeout(() => { this.message = ''; }, 5000);
+                }
+            };
+        }
     </script>
 @endsection

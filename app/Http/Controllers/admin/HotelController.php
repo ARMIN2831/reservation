@@ -467,5 +467,27 @@ class HotelController extends Controller
 
         return redirect()->route('admin.hotels.index');
     }
+
+
+    public function editStatusRoom(Request $request, $hotelId ,$roomId)
+    {
+        $validatedData = $request->validate([
+            'description' => 'nullable',
+            'status' => 'nullable',
+        ]);
+        $room = Room::where('id',$roomId)->update([
+            'status' => $validatedData['status'],
+        ]);
+        Message::create([
+            'text' => $request->description ?: 'تغییر وضعیت اتاق (پیام خودکار سیستم)',
+            'type' => 'admin',
+            'sender_id' => Auth::guard('admin')->user()->id,
+            'sender_model' => 'App\Models\User',
+            'receiver_id' => $hotelId,
+            'receiver_model' => 'App\Models\Hotel',
+            'status' => 0,
+        ]);
+        return redirect()->route('admin.hotels.index');
+    }
 }
 

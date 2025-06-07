@@ -31,7 +31,7 @@ class HomeController extends Controller
            $agencyUsers = AgencyUser::where('agency_id',$user->id)->get();
            $agencyPrices = 0;
            foreach ($agencyUsers->whereNotNull('reserve_id') as $item){
-               $agencyPrices += $item->reserve->agencyPrice;
+               if (isset($item->reserve->agencyPrice)) $agencyPrices += $item->reserve->agencyPrice;
            }
            $data = [
                'agencyUsers' => $agencyUsers,

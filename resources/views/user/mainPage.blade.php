@@ -329,9 +329,38 @@
                                                     name="dates"
                                                     placeholder="تاریخ ورود و خروج"
                                                     onchange="convertDateRange(this.value)"
-                                                    class="h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-[6px] bg-neutral-50 focus:outline-none 768max:h-12"
+                                                    class="h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-[6px] bg-neutral-50 focus:outline-none 768max:h-12 text-right rtl"
                                                 />
                                             </div>
+                                            <style>
+                                                .flatpickr-calendar.rtl {
+                                                    direction: rtl;
+                                                    text-align: right;
+                                                }
+
+                                                /* برای راستچین کردن input */
+                                                .rtl {
+                                                    direction: rtl;
+                                                    text-align: right;
+                                                }
+
+                                                /* برای راستچین کردن ماه و سال در هدر تقویم */
+                                                .flatpickr-current-month {
+                                                    text-align: right;
+                                                    padding-right: 10px;
+                                                }
+
+                                                /* برای راستچین کردن روزهای هفته */
+                                                .flatpickr-weekdays {
+                                                    text-align: right;
+                                                    direction: rtl !important;
+                                                }
+
+                                                /* برای راستچین کردن اعداد روزها */
+                                                .flatpickr-days {
+                                                    direction: rtl;
+                                                }
+                                            </style>
 
 
                                             <div class="w-full flex flex-col gap-[6px]" x-data="passengerModal()">
@@ -356,7 +385,7 @@
                                                 />
 
                                                 <!-- Modal -->
-                                                <div x-show="isPassengerModalOpen" @click.away="isPassengerModalOpen = false" class="passenger-modal-overlay">
+                                                <div x-show="isPassengerModalOpen" @click.away="isPassengerModalOpen = false" class="passenger-modal-overlay" style="display: none">
                                                     <div class="passenger-modal-container">
                                                         <div class="passenger-modal-content">
                                                             <!-- Room List -->
@@ -1650,15 +1679,15 @@
                 <a href="{{ route('blog',$blog->id) }}" class="websiteWeblogItemTitle text-base text-green-600 font-bold whitespace-nowrap overflow-hidden text-ellipsis">
                     {{ $blog->title }}
                 </a>
-                <div class="w-full grid grid-cols-[54px_1fr] gap-4 items-center">
+                <div style="    grid-template-columns: 84px 1fr;" class="w-full grid grid-cols-[54px_1fr] gap-4 items-center">
                     <!-- date -->
-                    <div class="websiteWeblogItemِDate w-[54px] aspect-square rounded-[7px] flex flex-col items-center justify-center bg-green-600 text-center text-[18px] text-light font-bold leading-[18px]">
+                    <div style="width: 84px; height: 54px" class="websiteWeblogItemِDate w-[54px] aspect-square rounded-[7px] flex flex-col items-center justify-center bg-green-600 text-center text-[18px] text-light font-bold leading-[18px]">
                         <span>
-                            {{ jdate($blog->created_at)->format('d') }}
-                        </span>
+    {{ jdate($blog->created_at)->format('d') }}
+</span>
                         <span>
-                            {{ jdate($blog->created_at)->format('M') }}
-                        </span>
+    {{ jdate($blog->created_at)->format('%B') }}
+</span>
                     </div>
                     <!-- text -->
                     <p class="w-full text-sm text-neutral-400 font-normal leading-[24.5px] line-clamp-2">
@@ -2345,7 +2374,11 @@
     <script>
         flatpickr("#dateRange", {
             mode: 'range',
-            locale: 'fa',
+            locale: {
+                ...flatpickr.l10ns.fa,
+                firstDayOfWeek: 6,
+            },
+            calendar: "jalali",
             dateFormat: 'Y/m/d',
         });
         function convertDateRange(dateRange) {

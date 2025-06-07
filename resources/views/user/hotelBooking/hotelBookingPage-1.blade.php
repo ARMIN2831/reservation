@@ -54,9 +54,38 @@
                                             value="{{ request('dates') }}"
                                             placeholder="تاریخ ورود و خروج"
                                             onchange="convertDateRange(this.value)"
-                                            class="h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-[6px] bg-neutral-50 focus:outline-none 768max:h-12"
+                                            class="h-[60px] w-full px-5 text-sm text-neutral-700 font-normal placeholder:text-neutral-700 rounded-[6px] bg-neutral-50 focus:outline-none 768max:h-12 text-right rtl"
                                         />
                                     </div>
+                                    <style>
+                                        .flatpickr-calendar.rtl {
+                                            direction: rtl;
+                                            text-align: right;
+                                        }
+
+                                        /* برای راستچین کردن input */
+                                        .rtl {
+                                            direction: rtl;
+                                            text-align: right;
+                                        }
+
+                                        /* برای راستچین کردن ماه و سال در هدر تقویم */
+                                        .flatpickr-current-month {
+                                            text-align: right;
+                                            padding-right: 10px;
+                                        }
+
+                                        /* برای راستچین کردن روزهای هفته */
+                                        .flatpickr-weekdays {
+                                            text-align: right;
+                                            direction: rtl !important;
+                                        }
+
+                                        /* برای راستچین کردن اعداد روزها */
+                                        .flatpickr-days {
+                                            direction: rtl;
+                                        }
+                                    </style>
 
                                     <div class="w-full flex flex-col gap-[6px]" x-data="passengerModal()">
                                         <label for="passengers" class="text-sm text-[#A8A8A8] font-normal 512max:text-xs">
@@ -81,7 +110,7 @@
                                         />
 
                                         <!-- Modal -->
-                                        <div x-show="isPassengerModalOpen" @click.away="isPassengerModalOpen = false" class="passenger-modal-overlay">
+                                        <div x-show="isPassengerModalOpen" @click.away="isPassengerModalOpen = false" class="passenger-modal-overlay" style="display: none">
                                             <div class="passenger-modal-container">
                                                 <div class="passenger-modal-content">
                                                     <!-- Room List -->
@@ -1189,7 +1218,11 @@
     <script>
         flatpickr("#dateRange", {
             mode: 'range',
-            locale: 'fa',
+            locale: {
+                ...flatpickr.l10ns.fa,
+                firstDayOfWeek: 6,
+            },
+            calendar: "jalali",
             dateFormat: 'Y/m/d',
         });
         @if(request('dates'))
