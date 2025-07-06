@@ -37,7 +37,7 @@
                     <br>
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"> لیست فاکتور ها
+                            <h3 class="card-title"> لیست تنظیمات
                             </h3>
 
                             <div class="card-tools">

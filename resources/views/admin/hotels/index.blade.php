@@ -151,7 +151,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div style="overflow-x: auto" class="card-body">
                             <div class="col-lg-12">
 
                                 <div class="container">
@@ -563,7 +563,6 @@
                 });
             </script>
 
-            @section('styles')
                 <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
                 <style>
                     .badge {
@@ -582,7 +581,6 @@
                         color: white;
                     }
                 </style>
-            @endsection
 
 
 

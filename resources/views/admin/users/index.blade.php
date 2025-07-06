@@ -89,7 +89,7 @@
                                             <td>{{ $row->id }}</td>
                                             <td>{{ @$row->people->firstName }}</td>
                                             <td>{{ @$row->people->lastName }}</td>
-                                            <td>{{ @$row->people->nationaleCode }}</td>
+                                            <td>{{ @$row->people->nationalCode  }}</td>
                                             <td>{{ $row->email }}</td>
                                             <td>{{ $row->mobile }}</td>
                                             <td>{{ $row->username }}</td>
@@ -132,7 +132,18 @@
                                                 next: "بعدی",
                                                 previous: "قبلی"
                                             }
-                                        }
+                                        },
+                                        columnDefs: [
+                                            { type: 'string', targets: [0] },
+                                            { type: 'string', targets: [1] },
+                                            { type: 'string', targets: [2] },
+                                            { type: 'string', targets: [3] },
+                                            { type: 'string', targets: [4] },
+                                            { type: 'string', targets: [5] },
+                                            { type: 'string', targets: [6] },
+                                            { type: 'string', targets: [7] },
+                                            { type: 'string', targets: [8] },
+                                        ]
                                     });
                                 </script>
                             </div>

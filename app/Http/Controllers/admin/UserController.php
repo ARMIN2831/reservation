@@ -130,7 +130,7 @@ class UserController extends Controller
             'discount' => 'nullable',
         ]);
         if ($request->password) $validatedData['password'] = bcrypt($request->password);
-        $people = People::firstOrCreate(
+        $people = People::updateOrCreate(
             ['nationalCode' => $validatedData['nationalCode']],
             [
                 'firstName' => $validatedData['firstName'],

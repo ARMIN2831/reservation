@@ -80,7 +80,7 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        Hotel::whereId($id)->delete();
+        Room::whereId($id)->delete();
         return redirect()->route('admin.hotels.index')->with('success', 'هتل با موفقیت حذف شد.');
     }
 }

@@ -242,7 +242,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div style="overflow-x: auto" class="card-body">
                         <div class="col-lg-12">
 
                             <div class="container">
