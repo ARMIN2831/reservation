@@ -121,7 +121,7 @@
                         @else
                             <div class="w-full grid grid-cols-497-1fr gap-[10px] items-start 640max:grid-cols-1 768max:grid-cols-270-1fr 1280max:grid-cols-350-1fr">
                                 <!-- images -->
-                                <div class="edit-room-image-container w-full grid grid-cols-2 content-start gap-x-[14px] gap-y-[12px] 768max:gap-y-2 768max:gap-x-2">
+                                <div data-room-id="0" class="edit-room-image-container w-full grid grid-cols-2 content-start gap-x-[14px] gap-y-[12px] 768max:gap-y-2 768max:gap-x-2">
                                     <!-- add image button -->
                                     <a onclick="modalController(addImagePopUp)" class="edit-room-image-button w-full aspect-241/163 flex items-center justify-center gap-3 bg-[#255346CC] rounded-[14px] 768max:flex-col">
                                         <svg class=" w-5 text-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -271,7 +271,8 @@
     </div>
 
     <script>
-        let currentRoomId = null; // برای ذخیره ID اتاق فعلی
+
+        let currentRoomId = {{ isset($rooms) ? "null" : 0 }}; // برای ذخیره ID اتاق فعلی
 
         // تابع برای نمایش پاپ‌آپ آپلود تصویر برای اتاق خاص
         function showImageUploadModal(roomId) {
@@ -300,7 +301,6 @@
                 reader.readAsDataURL(file);
             }
         }
-
         function saveImage() {
             const imagePreview = document.getElementById('imagePreview');
             const fileInput = document.getElementById('fileInput');
@@ -350,8 +350,9 @@
             form.appendChild(fileContainer);
 
             // ایجاد عنصر جدید برای نمایش تصویر در گالری
-            if (currentRoomId) {
+            if (currentRoomId || currentRoomId === 0) {
                 const editRoomImageContainer = document.querySelector(`.edit-room-image-container[data-room-id="${currentRoomId}"]`);
+                console.log(editRoomImageContainer);
                 if (editRoomImageContainer) {
                     const newImageContainer = document.createElement('a');
                     newImageContainer.href = '#';
