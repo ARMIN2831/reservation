@@ -10,10 +10,10 @@
             </h3>
         </div>
         <main class=" w-full h-full p-4.5 rounded-xl bg-neutral-50 overflow-auto flex flex-col gap-4.5 768max:rounded-none 768max:px-[25px]">
-            <div class="pricingPageContent pricingPageTabContents w-full h-auto 1024max:!block">
-                <div class="w-full flex flex-col items-center gap-5 1024max:hidden">
+            <div class="pricingPageContent pricingPageTabContents w-full h-auto">
+                <div class="w-full flex flex-col items-center gap-5">
                     <!-- header  -->
-                    <div class="w-full flex items-center justify-between px-4.5 py-[11px] bg-light rounded-xl 768max:hidden">
+                    <div class="w-full flex items-center justify-between px-4.5 py-[11px] bg-light rounded-xl">
                         <h5 class=" text-base text-green-300 font-medium font-farsi-medium">
                             قیمت گذاری
                         </h5>
@@ -214,7 +214,7 @@
                     </div>
                 </div>
                 <!-- all parts in mobile -->
-                <div class="w-full hidden flex-col items-center gap-4.5 1024max:flex">
+                {{--<div class="w-full hidden flex-col items-center gap-4.5 1024max:flex">
                     <!-- قیمت پایه اتاق ها -->
                     <div class="w-full flex flex-col items-center gap-4.5 px-4.5 py-3 rounded-xl bg-light">
                         <!-- header -->
@@ -888,7 +888,7 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div>--}}
             </div>
 
 
@@ -896,10 +896,10 @@
 
 
 
-            <div class="capacitiesPageContent pricingPageTabContents hidden 1024max:!block w-full h-auto">
-                <div class="w-full flex flex-col items-center gap-5 1024max:hidden">
+            <div class="capacitiesPageContent pricingPageTabContents hidden w-full h-auto">
+                <div class="w-full flex flex-col items-center gap-5">
                     <!-- header  -->
-                    <div class="w-full flex items-center justify-between px-4.5 py-[11px] bg-light rounded-xl 768max:hidden">
+                    <div class="w-full flex md:flex-col items-center justify-between px-4.5 py-[11px] bg-light rounded-xl">
                         <h5 class=" text-base text-green-300 font-medium font-farsi-medium">
                             ظرفیت و محدودیت اتاق ها
                         </h5>
@@ -916,7 +916,7 @@
                                 <span class=" text-base text-neutral-700 font-normal font-farsi-regular">
                                         تعیین ظرفیت اتاق
                                     </span>
-                                </a>
+                                </button>
                                 <button onclick="modalController(document.querySelector('.determiningRoomRestrictionsModal'))" class="editButton flex items-center justify-center gap-2">
                                     <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
                                         <svg class=" w-[13px] text-inherit" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1068,7 +1068,22 @@
         </main>
     </div>
     <!-- modals -->
-
+    <style>
+        [data-input-counter-increment],
+        [data-input-counter-decrement],
+        [data-input-counter] {
+            user-select: none; /* جلوگیری از انتخاب متن */
+            -webkit-user-select: none; /* برای مرورگرهای مبتنی بر Webkit */
+            -moz-user-select: none; /* برای فایرفاکس */
+            -ms-user-select: none; /* برای اینترنت اکسپلورر/Edge */
+        }
+        .rateDeterminationModal,.determiningRoomRestrictionsModal,.determinationOfCapacityModal{
+            user-select: none; /* جلوگیری از انتخاب متن */
+            -webkit-user-select: none; /* برای مرورگرهای مبتنی بر Webkit */
+            -moz-user-select: none; /* برای فایرفاکس */
+            -ms-user-select: none; /* برای اینترنت اکسپلورر/Edge */
+        }
+    </style>
     <!-- پاپ اپ تعیین نرخ -->
     <div class="rateDeterminationModal modal w-[100vw] h-[100vh] fixed z-[15] top-0 left-0 bg-[#0000002c] px-6 py-4">
         <div class=" modal-content w-full h-full flex items-center justify-center">

@@ -79,7 +79,7 @@ class HotelController extends Controller
         HotelUser::create([
             'user_id' => $validatedData['user_id'],
             'hotel_id' => $hotel->id,
-            'role' => 'admin',
+            'role' => 'مالک',
         ]);
         if ($request->mapAddress){
             $map = explode(',',$validatedData['mapAddress']);

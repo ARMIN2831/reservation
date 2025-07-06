@@ -2916,12 +2916,12 @@ input:checked + .radio-label .icon{
 
 .border-green-100 {
     --tw-border-opacity: 1;
-    border-color: rgb(219 240 221 / var(--tw-border-opacity, 1));
+    border-color: rgb(219 240 221 / var(--tw-border-opacity, 1)) !important;
 }
 
 .border-green-300 {
     --tw-border-opacity: 1;
-    border-color: rgb(140 179 152 / var(--tw-border-opacity, 1));
+    border-color: rgb(140 179 152 / var(--tw-border-opacity, 1)) !important;
 }
 
 .border-light {
@@ -3038,17 +3038,17 @@ input:checked + .radio-label .icon{
 
 .bg-green-100 {
     --tw-bg-opacity: 1;
-    background-color: rgb(219 240 221 / var(--tw-bg-opacity, 1));
+    background-color: rgb(219 240 221 / var(--tw-bg-opacity, 1)) !important;
 }
 
 .bg-green-300 {
     --tw-bg-opacity: 1;
-    background-color: rgb(140 179 152 / var(--tw-bg-opacity, 1));
+    background-color: rgb(140 179 152 / var(--tw-bg-opacity, 1)) !important;
 }
 
 .bg-green-600 {
     --tw-bg-opacity: 1;
-    background-color: rgb(37 83 70 / var(--tw-bg-opacity, 1));
+    background-color: rgb(37 83 70 / var(--tw-bg-opacity, 1)) !important;
 }
 
 .bg-inherit {
@@ -3075,7 +3075,7 @@ input:checked + .radio-label .icon{
 }
 
 .to-green-600 {
-    --tw-gradient-to: #255346 var(--tw-gradient-to-position);
+    --tw-gradient-to: #255346 var(--tw-gradient-to-position) !important;
 }
 
 .object-contain {
@@ -3666,12 +3666,12 @@ input:checked + .radio-label .icon{
 
 .text-green-300 {
     --tw-text-opacity: 1;
-    color: rgb(140 179 152 / var(--tw-text-opacity, 1));
+    color: rgb(140 179 152 / var(--tw-text-opacity, 1)) !important;
 }
 
 .text-green-600 {
     --tw-text-opacity: 1;
-    color: rgb(37 83 70 / var(--tw-text-opacity, 1));
+    color: rgb(37 83 70 / var(--tw-text-opacity, 1)) !important;
 }
 
 .text-inherit {
@@ -3843,17 +3843,17 @@ input:checked + .radio-label .icon{
 
 .hover\:bg-green-100:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(219 240 221 / var(--tw-bg-opacity, 1));
+    background-color: rgb(219 240 221 / var(--tw-bg-opacity, 1)) !important;
 }
 
 .hover\:bg-green-300:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(140 179 152 / var(--tw-bg-opacity, 1));
+    background-color: rgb(140 179 152 / var(--tw-bg-opacity, 1)) !important;
 }
 
 .hover\:bg-green-600:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(37 83 70 / var(--tw-bg-opacity, 1));
+    background-color: rgb(37 83 70 / var(--tw-bg-opacity, 1)) !important;
 }
 
 .hover\:bg-neutral-200:hover {
@@ -3863,12 +3863,12 @@ input:checked + .radio-label .icon{
 
 .hover\:text-green-300:hover {
     --tw-text-opacity: 1;
-    color: rgb(140 179 152 / var(--tw-text-opacity, 1));
+    color: rgb(140 179 152 / var(--tw-text-opacity, 1)) !important;
 }
 
 .hover\:text-green-600:hover {
     --tw-text-opacity: 1;
-    color: rgb(37 83 70 / var(--tw-text-opacity, 1));
+    color: rgb(37 83 70 / var(--tw-text-opacity, 1)) !important;
 }
 
 .hover\:text-light:hover {
@@ -4330,7 +4330,7 @@ input:checked + .radio-label .icon{
 
     .\31 024max\:bg-green-600 {
         --tw-bg-opacity: 1;
-        background-color: rgb(37 83 70 / var(--tw-bg-opacity, 1));
+        background-color: rgb(37 83 70 / var(--tw-bg-opacity, 1)) !important;
     }
 
     .\31 024max\:bg-light {
@@ -4484,7 +4484,7 @@ input:checked + .radio-label .icon{
 
     .\38 50max\:text-green-600 {
         --tw-text-opacity: 1;
-        color: rgb(37 83 70 / var(--tw-text-opacity, 1));
+        color: rgb(37 83 70 / var(--tw-text-opacity, 1)) !important;
     }
 }
 
@@ -4793,7 +4793,7 @@ input:checked + .radio-label .icon{
 
     .\37 68max\:bg-green-100 {
         --tw-bg-opacity: 1;
-        background-color: rgb(219 240 221 / var(--tw-bg-opacity, 1));
+        background-color: rgb(219 240 221 / var(--tw-bg-opacity, 1)) !important;
     }
 
     .\37 68max\:bg-light {
@@ -4940,7 +4940,7 @@ input:checked + .radio-label .icon{
 
     .\37 68max\:text-green-300 {
         --tw-text-opacity: 1;
-        color: rgb(140 179 152 / var(--tw-text-opacity, 1));
+        color: rgb(140 179 152 / var(--tw-text-opacity, 1)) !important;
     }
 
     .\37 68max\:drop-shadow-materialShadow1 {
@@ -5126,13 +5126,13 @@ input:checked + .radio-label .icon{
 
     .\36 40max\:border-y-green-100 {
         --tw-border-opacity: 1;
-        border-top-color: rgb(219 240 221 / var(--tw-border-opacity, 1));
-        border-bottom-color: rgb(219 240 221 / var(--tw-border-opacity, 1));
+        border-top-color: rgb(219 240 221 / var(--tw-border-opacity, 1)) !important;
+        border-bottom-color: rgb(219 240 221 / var(--tw-border-opacity, 1)) !important;
     }
 
     .\36 40max\:bg-green-100 {
         --tw-bg-opacity: 1;
-        background-color: rgb(219 240 221 / var(--tw-bg-opacity, 1));
+        background-color: rgb(219 240 221 / var(--tw-bg-opacity, 1)) !important;
     }
 
     .\36 40max\:p-4 {

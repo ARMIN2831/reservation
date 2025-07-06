@@ -5,8 +5,10 @@ namespace App\Http\Controllers\adminHotel;
 use App\Http\Controllers\Controller;
 use App\Models\Hotel;
 use App\Models\HotelUser;
+use App\Models\People;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class settingPageController extends Controller
@@ -51,11 +53,11 @@ class settingPageController extends Controller
             'LastPassword' => 'required|string',
             'password' => 'required|string|min:8|confirmed',
         ]);
-        $hotel = Hotel::find($hotelId);
-        if (!Hash::check($validatedData['LastPassword'], $hotel->password)) {
+        $user = Auth::guard('hotel')->user();
+        if (!Hash::check($validatedData['LastPassword'], $user->password)) {
             return redirect()->route('hotel.settingPage')->with(['error'=>'password is wrong']);
         }
-        $hotel->update([
+        $user->update([
             'password' => Hash::make($validatedData['password']),
         ]);
         return redirect()->route('hotel.mainPage');
@@ -65,19 +67,44 @@ class settingPageController extends Controller
     public function addUserAccess(Request $request, $hotelId)
     {
         $validatedData = $request->validate([
-            'username' => 'required|string|min:3|max:50|unique:users,username',
-            'email' => 'required|email|max:100|unique:users,email',
+            'username' => 'required|string|min:3|max:50',
+            'email' => 'required|email|max:100',
             'firstName' => 'required|string|min:2|max:50',
             'lastName' => 'required|string|min:2|max:50',
-            'password' => 'required|string|min:8',
             'role' => 'required',
         ]);
-        $validatedData['password'] = bcrypt($validatedData['password']);
-        $user = User::createOrUpdate(
+        $user = User::where('id',$request->userId)->first();
+        if ($user){
+            if (User::where('type', 'hotel')
+                ->where('id', '!=', $request->userId)
+                ->where(function($query) use ($validatedData) {
+                    $query->where('username', $validatedData['username'])
+                        ->orWhere('email', $validatedData['email']);
+                })
+                ->exists()) {
+                return redirect()->route('hotel.settingPage')
+                    ->with(['error' => 'The username or email has already been taken']);
+            }
+            if ($request->password){
+                $validatedData['password'] = bcrypt($validatedData['password']);
+            }
+            People::where('id',$user->people_id)->update([
+                'firstName' => $validatedData['firstName'],
+                'lastName' => $validatedData['lastName']
+            ]);
+        }else{
+            $people = People::create([
+                'firstName' => $validatedData['firstName'],
+                'lastName' => $validatedData['lastName']
+            ]);
+            $validatedData['password'] = bcrypt($request->password);
+            $validatedData['people_id'] = $people->id;
+        }
+        $user = User::updateOrCreate(
             ['username' => $validatedData['username']],
             $validatedData
         );
-        HotelUser::createOrUpdate(
+        HotelUser::updateOrCreate(
             ['user_id' => $user->id, 'hotel_id' => $hotelId],
             ['user_id' => $user->id, 'hotel_id' => $hotelId, 'role' => $validatedData['role'],]
         );

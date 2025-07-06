@@ -8,7 +8,7 @@
         </div>
         <main class=" w-full h-full p-4.5 rounded-xl bg-neutral-50 overflow-auto flex flex-col gap-6 768max:rounded-none 768max:px-[25px]">
             <!-- بخش وارد کردن اطلاعات برای جستجو -->
-            <form action="{{ route('hotel.reservation') }}" method="get" class="w-full p-4.5 bg-light rounded-xl grid grid-cols-[1.1fr_1fr_1fr_1.1fr_1fr] gap-2 512max:hidden 640max:grid-cols-2 768max:grid-cols-3">
+            <form action="{{ route('hotel.reservation') }}" method="get" class="w-full p-4.5 bg-light rounded-xl grid grid-cols-[1.1fr_1fr_1fr_1.1fr_1fr] gap-2 640max:grid-cols-2 768max:grid-cols-3">
                 <!-- انتخاب -->
                 <div class="w-full flex flex-col gap-2">
                     <label for="" class=" text-xs text-neutral-700 font-normal">

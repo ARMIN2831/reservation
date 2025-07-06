@@ -1,20 +1,49 @@
 @extends('layouts.adminHotel')
 @section('content')
     <div class="w-full  h-full overflow-auto noscrollbar flex flex-col gap-7 768max:max-h-minContent 1024max:pt-[76px] 1024max:gap-0">
-            <div class="w-full items-center py-[18px] px-[25px] bg-light hidden 768max:flex">
+            {{--<div class="w-full items-center flex justify-between py-[18px] px-[25px] bg-light hidden 768max:flex">
                 <h3 class=" text-base text-green-300 font-medium font-farsi-medium">
                     مدیریت اتاق ها
                 </h3>
-            </div>
+                <div class=" flex items-center justify-end gap-4.5">
+                    <form action="{{ route('hotel.editRooms') }}" method="get" class="editButton flex items-center justify-center gap-2" onsubmit="return validateForm()">
+                        @csrf
+                        <input type="hidden" class="selectedRoom" name="selected_room">
+                        <div class="w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
+                            <svg class="w-[13px] text-inherit" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- SVG Path (همان کد قبلی) -->
+                            </svg>
+                        </div>
+                        <button class="text-base text-neutral-700 font-normal font-farsi-regular">
+                            ویرایش
+                        </button>
+                    </form>
+
+                    <form action="{{ route('hotel.deleteRooms') }}" method="post">
+                        @csrf
+                        <input type="hidden" class="selectedRoom" name="selected_room">
+                        <button class="flex items-center justify-center gap-2">
+                            <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
+                                <svg class=" w-[13px] text-inherit" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.25 6.33333V10.3333M5.75 6.33333V10.3333M3.25 3.66667V11.6667C3.25 12.0203 3.3817 12.3594 3.61612 12.6095C3.85054 12.8595 4.16848 13 4.5 13H9.5C9.83152 13 10.1495 12.8595 10.3839 12.6095C10.6183 12.3594 10.75 12.0203 10.75 11.6667V3.66667M2 3.66667H12M3.875 3.66667L5.125 1H8.875L10.125 3.66667" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class=" text-base text-neutral-700 font-normal font-farsi-regular">
+                                    حذف اتاق
+                                </span>
+                        </button>
+                    </form>
+                </div>
+            </div>--}}
             <main class=" w-full h-full p-4.5 rounded-xl bg-neutral-50 overflow-auto flex flex-col gap-4.5 768max:rounded-none 768max:px-[25px]">
                 <div class="w-full h-full py-5 flex flex-col gap-4.5 768max:py-0">
                     <!-- header  -->
-                    <div class="w-full flex items-center justify-between px-4.5 py-[11px] bg-light 768max:hidden">
+                    <div class="w-full flex items-center justify-between px-4.5 py-[11px] bg-light">
                         <h5 class=" text-base text-green-300 font-medium font-farsi-medium">
                             مدیریت اتاق ها
                         </h5>
                         <div class=" flex items-center justify-end gap-4.5">
-                            <form action="{{ route('hotel.editRooms') }}" method="get" class="editButton flex items-center justify-center gap-2">
+                            <form onsubmit="return validateForm()" action="{{ route('hotel.editRooms') }}" method="get" class="editButton flex items-center justify-center gap-2">
                                 @csrf
                                 <input type="hidden" class="selectedRoom" name="selected_room">
                                 <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
@@ -46,6 +75,21 @@
                             </form>
                         </div>
                     </div>
+
+
+
+                    <script>
+                        function validateForm() {
+                            const selectedRoom = document.querySelector('.selectedRoom').value;
+
+                            if (!selectedRoom || selectedRoom.trim() === '') {
+                                alert('⚠️ لطفاً حداقل یک اتاق را انتخاب کنید!');
+                                return false; // جلوگیری از ارسال فرم
+                            }
+
+                            return true; // ارسال فرم اگر مقدار وجود دارد
+                        }
+                    </script>
                     <!-- add room button -->
                     <a href="{{ route('hotel.addRoom') }}" class="w-full flex items-center justify-center px-4.5 py-3 rounded-xl bg-green-600 transition-all duration-500 hover:bg-green-300 hover:transition-none">
                         <span class=" text-sm text-light text-center fnt-bold font-farsi-bold">

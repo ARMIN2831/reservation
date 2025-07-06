@@ -121,7 +121,7 @@ function handleFiles(files) {
     // بررسی نوع فایل
     if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
         // بررسی اندازه فایل (کمتر از 100 کیلوبایت)
-        if (file.size <= 3000 * 1024) {
+        if (file.size <= 300 * 1024) {
             let defaultText = dropArea.querySelectorAll('.dropAreaText')
             defaultText.forEach(item => {
                 item.classList.add('hidden')

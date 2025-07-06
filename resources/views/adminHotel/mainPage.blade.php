@@ -21,7 +21,7 @@
                                         ویرایش
                                     </span>
                 </button>
-                <button class="flex items-center justify-center gap-2">
+                {{--<button class="flex items-center justify-center gap-2">
                     <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
                         <svg class=" w-[13px] text-inherit" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.25 6.33333V10.3333M5.75 6.33333V10.3333M3.25 3.66667V11.6667C3.25 12.0203 3.3817 12.3594 3.61612 12.6095C3.85054 12.8595 4.16848 13 4.5 13H9.5C9.83152 13 10.1495 12.8595 10.3839 12.6095C10.6183 12.3594 10.75 12.0203 10.75 11.6667V3.66667M2 3.66667H12M3.875 3.66667L5.125 1H8.875L10.125 3.66667" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -30,7 +30,7 @@
                     <span class=" text-base text-neutral-700 font-normal font-farsi-regular">
                                         حذف
                                     </span>
-                </button>
+                </button>--}}
             </div>
         </div>
 
@@ -57,7 +57,7 @@
                                         ویرایش
                                     </span>
                             </button>
-                            <button class="flex items-center justify-center gap-2">
+                            {{--<button class="flex items-center justify-center gap-2">
                                 <div class=" w-6 aspect-square rounded-[6px] bg-green-300 flex items-center justify-center text-light">
                                     <svg class=" w-[13px] text-inherit" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M8.25 6.33333V10.3333M5.75 6.33333V10.3333M3.25 3.66667V11.6667C3.25 12.0203 3.3817 12.3594 3.61612 12.6095C3.85054 12.8595 4.16848 13 4.5 13H9.5C9.83152 13 10.1495 12.8595 10.3839 12.6095C10.6183 12.3594 10.75 12.0203 10.75 11.6667V3.66667M2 3.66667H12M3.875 3.66667L5.125 1H8.875L10.125 3.66667" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -66,7 +66,7 @@
                                 <span class=" text-base text-neutral-700 font-normal font-farsi-regular">
                                         حذف
                                     </span>
-                            </button>
+                            </button>--}}
                         </div>
                     </div>
                     <!-- body -->
@@ -219,7 +219,7 @@
                         </div>
                     </div>
                     <!-- map -->
-                    <div class="w-full">
+                    <div class="w-full" style="z-index: 10">
                         <div id="viewMap" class="w-full h-[294px] rounded-xl 512max:h-[160px]">
                             <!-- <iframe class=" w-full h-[294px] rounded-xl 512max:h-[160px]" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11879.097076998887!2d51.38925232364651!3d35.73699554213622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfa!2s!4v1737705495356!5m2!1sfa!2s" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
                             <!-- <img class="w-full h-full rounded-xl" src="https://map.ir/static?zoom_level=15&center=51.3890,35.6892&markers=51.3890,35.6892&apiKey=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjBhNzQ2ZDQzYzE3ZjY2N2VkNmY3MDMyYmMzNmYwYTlhMDNhY2M2ZWE2MGRlMzI3NjJlNGQ4MzM2ZWVlYzE2NWQzYjU4ZjVlZGQzOTk1ZWI1In0.eyJhdWQiOiIzMDg4NyIsImp0aSI6IjBhNzQ2ZDQzYzE3ZjY2N2VkNmY3MDMyYmMzNmYwYTlhMDNhY2M2ZWE2MGRlMzI3NjJlNGQ4MzM2ZWVlYzE2NWQzYjU4ZjVlZGQzOTk1ZWI1IiwiaWF0IjoxNzM4Njc5NDk0LCJuYmYiOjE3Mzg2Nzk0OTQsImV4cCI6MTc0MTE4NTA5NCwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.VGj7mhm1jBH7nyiAr0G6J01sB8kmrCBgFRFmGV-bctmp1XtarcuggSMmz0avPM98GSlp_EmNWCJfSSyvXY_lHUKL0P8YACPBHvgGKIMHxnFXFfqhzPcAmDZ6wpLQSDTefKerTGF2JXBC8bDqTfqC_LjsBhSRlaqknUchWQkLwNQQXtafAVIDiv1K632_HLt73LKZ3GFQGgl6s6TPlljrn0Nj20ufWH0f8HGWq9ikDny49PGU3EUJIuf_IXRC3-f9tJ9WsDtQB2-wyfn1fJp4nh4kpsSRAwYgtH6fkEfRHOkmOlUzfJmY1XR7iC6Cm3_QXpKIMBzMs0aCfo-TPhxbQg" alt="نقشه"> -->
@@ -443,14 +443,16 @@
                             <label class=" text-[14px] text-neutral-700 font-normal font-farsi-regular" for="">
                                 آدرس:
                             </label>
-                            <input name="address" value="{{ old('address', $sharedData->address) }}" type="text" class=" w-full rounded-xl bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400
-                                 transition-all duration-200 focus:outline-none focus:outline-[#00000000] focus:border-neutral-400 focus:border-[1px]">
+                            <input name="address" id="addressInput" value="{{ old('address', $sharedData->address) }}" type="text" class=" w-full rounded-xl bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400
+                             transition-all duration-200 focus:outline-none focus:outline-[#00000000] focus:border-neutral-400 focus:border-[1px]">
+                            <span id="addressError" class="hidden text-red-500 text-xs mt-1">لطفا آدرس هتل را وارد کنید</span>
                         </div>
                         <div class="w-full flex flex-col gap-1">
                             <label class=" text-[14px] text-neutral-700 font-normal font-farsi-regular" for="">
                                 توضیحات:
                             </label>
-                            <textarea name="description" class=" min-h-[200px] w-full rounded-xl bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 transition-all duration-200 focus:outline-0 focus:outline-none focus:border-neutral-400 focus:border-[1px]">{{ old('description', $sharedData->description) }}</textarea>
+                            <textarea name="description" id="descriptionInput" class=" min-h-[200px] w-full rounded-xl bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 transition-all duration-200 focus:outline-0 focus:outline-none focus:border-neutral-400 focus:border-[1px]">{{ old('description', $sharedData->description) }}</textarea>
+                            <span id="descriptionError" class="hidden text-red-500 text-xs mt-1">لطفا توضیحات هتل را وارد کنید</span>
                         </div>
                         <div id="mapMarker" class=" w-full h-[250px] rounded-xl 512max:h-[160px]">
                         </div>
@@ -461,13 +463,63 @@
                     <a class="editHotelInfoPopUpReturnButton rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         بازگشت
                     </a>
-                    <button type="submit" class="editHotelInfoPopUpSaveButton rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
+                    <button type="submit" id="saveButton" class="editHotelInfoPopUpSaveButton rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                         ذخیره
                     </button>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addressInput = document.getElementById('addressInput');
+            const descriptionInput = document.getElementById('descriptionInput');
+            const saveButton = document.getElementById('saveButton');
+            const addressError = document.getElementById('addressError');
+            const descriptionError = document.getElementById('descriptionError');
+
+            function validateForm() {
+                const addressValid = addressInput.value.trim() !== '';
+                const descriptionValid = descriptionInput.value.trim() !== '';
+
+                // نمایش یا پنهان کردن پیام‌های خطا
+                addressError.classList.toggle('hidden', addressValid);
+                descriptionError.classList.toggle('hidden', descriptionValid);
+
+                // فعال/غیرفعال کردن دکمه ذخیره
+                saveButton.disabled = !(addressValid && descriptionValid);
+
+                return addressValid && descriptionValid;
+            }
+
+            // رویدادهای تغییر برای فیلدها
+            addressInput.addEventListener('input', validateForm);
+            descriptionInput.addEventListener('input', validateForm);
+
+            // اعتبارسنجی هنگام ارسال فرم
+            document.querySelector('form').addEventListener('submit', function(e) {
+                if (!validateForm()) {
+                    e.preventDefault();
+                    // نمایش تمام پیام‌های خطا اگر فرم نامعتبر است
+                    addressError.classList.remove('hidden');
+                    descriptionError.classList.remove('hidden');
+
+                    // اسکرول به اولین فیلد دارای خطا
+                    if (!addressInput.value.trim()) {
+                        addressInput.focus();
+                    } else if (!descriptionInput.value.trim()) {
+                        descriptionInput.focus();
+                    }
+                }
+            });
+        });
+    </script>
+    <style>
+        .leaflet-bottom.leaflet-right{
+            display: none !important;
+        }
+    </style>
     <!-- پاپ اپ لیست امکانات تفریحی رفاهی هتل -->
     <div class="hotelEditAttrModal modal w-[100vw] h-[100vh] fixed z-[500] top-0 left-0 bg-[#0000002c] px-6 py-4">
         <div class=" modal-content w-full h-full flex items-center justify-center">
@@ -677,7 +729,7 @@
                                 عنوان عکس:
                             </label>
                             <div class="w-full flex items-center gap-2 768max:flex-col 768max:items-start">
-                                <input type="text" class=" w-[313px] rounded-xl bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 focus:outline-0 focus:border-[0px] 640max:w-full">
+                                {{--<input type="text" class=" w-[313px] rounded-xl bg-neutral-50 text-[12px] text-black font-normal font-farsi-regular py-2 px-4.5 placeholder:text-neutral-400 focus:outline-0 focus:border-[0px] 640max:w-full">--}}
                                 <p class=" text-xs text-neutral-400 font-normal font-farsi-regular">
                                     حجم فایل باید کمتر از 300 کیلوبایت و با فرمت .jpg,.jpeg,.png باشد.
                                 </p>
@@ -807,8 +859,9 @@
             //galleryContainer.insertAdjacentHTML('beforeend', newImageHTML);
 
             // اگر باز هم کار نکرد، می‌توانید از این روش استفاده کنید
-            console.log(newImageHTML);
-             galleryContainer.innerHTML += newImageHTML;
+            const addButton = galleryContainer.lastElementChild;
+            galleryContainer.insertAdjacentHTML('beforeend', newImageHTML);
+            galleryContainer.appendChild(addButton); // بازگرداندن دکمه به انتها
         }
     </script>
     <!-- پاپ اپ برای مشاهده تصاویر در ابعاد بزرگتر -->

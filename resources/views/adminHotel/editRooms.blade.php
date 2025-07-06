@@ -108,7 +108,8 @@
                                     </div>
                                 @endforeach
                                 <!-- buttons -->
-                                <div class="w-full flex bg-light items-center justify-end gap-4.5 p-4.5 absolute z-[2] bottom-0 left-0 512max:px-[41px]">
+                                    <div></div>
+                                <div class="w-full flex bg-light items-center justify-end gap-4.5 p-4.5 z-[2] bottom-0 left-0 512max:px-[41px]" style="z-index: 10">
                                     <a href="{{ route('hotel.manageRooms') }}" class="editHotelInfoPopUpReturnButton rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                                         بازگشت
                                     </a>

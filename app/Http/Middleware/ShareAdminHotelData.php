@@ -24,7 +24,7 @@ class ShareAdminHotelData
             $user = Auth::guard('hotel')->user();
             $hotel = Hotel::whereHas('users', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
-            })->with('files','facilities','rooms.files','reserves.people.room')->first();
+            })->with('files','facilities','rooms.files','reserves.people.room','users.people')->first();
             $today = Jalalian::now();
             $tomorrow = Jalalian::now()->addDays(1);
             if ($hotel){

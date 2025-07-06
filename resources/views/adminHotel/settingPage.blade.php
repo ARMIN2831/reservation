@@ -501,6 +501,7 @@
             <div class=" modal-content w-full h-full flex items-center justify-center">
                 <form method="post" action="{{ route('hotel.addUserAccess', $sharedData->id) }}" class="w-full max-w-[800px] min-h-[580px] p-4.5 bg-light rounded-xl flex flex-col">
                     @csrf
+                    <input class="userId" type="hidden" name="userId">
                     <div class="w-full flex-grow-[1] flex flex-col gap-8 max-h-[500px] overflow-y-auto">
                         <!-- header -->
                         <div class="w-full py-[13px] px-4.5 rounded-xl bg-neutral-50">
@@ -587,13 +588,15 @@
     function openEditPopUp(modal, user) {
         // نمایش پاپ‌آپ
         modal.classList.toggle('active');
+        console.log(user);
 
         // پر کردن فرم با اطلاعات کاربر
         if (user) {
             document.querySelector('.username').value = user.username || '';
+            document.querySelector('.userId').value = user.id || '';
             document.querySelector('.email').value = user.email || '';
-            document.querySelector('.firstName').value = user.firstName || '';
-            document.querySelector('.lastName').value = user.lastName || '';
+            document.querySelector('.firstName').value = user.people.firstName || '';
+            document.querySelector('.lastName').value = user.people.lastName || '';
             document.querySelector('.role').value = user.pivot.role || '';
         }
     }

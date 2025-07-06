@@ -8,14 +8,14 @@
         </div>
         <main class=" w-full h-full p-4.5 rounded-xl bg-neutral-50 overflow-auto flex flex-col gap-6 768max:rounded-none 768max:px-[25px]">
             <!-- بخش وارد کردن اطلاعات برای جستجو -->
-            <form action="{{ route('hotel.reservation') }}" method="get" class="w-full p-4.5 bg-light rounded-xl grid grid-cols-[1.1fr_1fr_1fr_1.1fr_1fr] gap-2 512max:hidden 640max:grid-cols-2 768max:grid-cols-3">
+            <form action="{{ route('hotel.reservation') }}" method="get" class="w-full p-4.5 bg-light rounded-xl grid gap-2 640max:grid-cols-2 768max:grid-cols-3" style="grid-template-columns: 1fr 1fr 1.1fr 1fr;">
                 <!-- انتخاب -->
-                <div class="w-full flex flex-col gap-2">
+                {{--<div class="w-full flex flex-col gap-2">
                     <label for="" class=" text-xs text-neutral-700 font-normal">
                         انتخاب کنید
                     </label>
                     <input class=" w-full rounded-[4px] bg-neutral-50 text-neutral-700 placeholder:text-neutral-400 font-normal text-sm h-10 p-2 focus:outline-none focus:border-[1px] focus:border-neutral-400 transition-all duration-200 ease-out" type="text" placeholder="تاریخ ورود">
-                </div>
+                </div>--}}
                 <!-- تاریخ ورود -->
                 <div class="w-full flex flex-col gap-2">
                     <label class=" text-xs text-neutral-700 font-normal">

@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="theme-color" content="#255346">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{--<script src="https://cdn.tailwindcss.com"></script>--}}
     <link rel="stylesheet" href="{{ asset('src/scripts/Swiper/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('src/styles/leaflet.css') }}">
     <link rel="stylesheet" href="{{ asset('src/styles/style.css') }}">
-
     <link rel="stylesheet" href="{{ asset('node_modules/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css') }}">
     <script src="{{ asset('node_modules/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js') }}"></script>
 
@@ -41,7 +41,7 @@
                                 صفحه اصلی
                             </span>
                     </a>
-                    <div class="navbar-item-children-links 1024max:!hidden w-full flex-col px-8 gap-4.5 pb-2">
+                    <div class="navbar-item-children-links w-full flex-col px-8 gap-4.5 pb-2">
                         <button class="hotel-content-button navbar-item-child-link navbar-item-child-link-mainPage active text-sm font-normal font-farsi-regular text-start" data-bs-target="hotel-content">
                             اطلاعات هتل
                         </button>
@@ -125,7 +125,7 @@
                                 قیمت گذاری و ظرفیت ها
                             </span>
                     </a>
-                    <div class="navbar-item-children-links 1024max:!hidden w-full flex-col px-8 gap-4.5 pb-2">
+                    <div class="navbar-item-children-links w-full flex-col px-8 gap-4.5 pb-2">
                         <button class="hotel-content-button navbar-item-child-link navbar-item-child-link-pricingPage buttonPricing text-sm font-normal font-farsi-regular text-start active" data-bs-target="pricingPageContent">
                             قیمت گذاری
                         </button>
@@ -157,14 +157,14 @@
                             تنظیمات
                         </span>
                 </a>
-                <a href="#" class="sidbar-bottom-navtab w-full h-[51px] flex items-center justify-center bg-green-300 text-light rounded-xl gap-[6px] transition-all duration-300 ease-out hover:bg-neutral-200 hover:text-green-600">
+                {{--<a href="#" class="sidbar-bottom-navtab w-full h-[51px] flex items-center justify-center bg-green-300 text-light rounded-xl gap-[6px] transition-all duration-300 ease-out hover:bg-neutral-200 hover:text-green-600">
                     <svg class=" text-inherit w-4.5" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4.46154 10.0004V6.35908C4.47235 5.64331 4.6243 4.93671 4.90868 4.27976C5.19306 3.62282 5.60428 3.02844 6.11878 2.53069C6.63328 2.03294 7.24094 1.64159 7.90695 1.37908C8.57296 1.11657 9.28423 0.988042 10 1.00087C10.7158 0.988042 11.427 1.11657 12.093 1.37908C12.7591 1.64159 13.3667 2.03294 13.8812 2.53069C14.3957 3.02844 14.8069 3.62282 15.0913 4.27976C15.3757 4.93671 15.5276 5.64331 15.5385 6.35908V10.0004M12.7692 17.2693C13.5037 17.2693 14.208 16.9776 14.7274 16.4583C15.2467 15.939 15.5385 15.2346 15.5385 14.5002V11.385M12.7692 17.2693C12.7692 17.7283 12.5869 18.1685 12.2623 18.4931C11.9377 18.8177 11.4975 19 11.0385 19H8.96154C8.50251 19 8.06228 18.8177 7.7377 18.4931C7.41312 18.1685 7.23077 17.7283 7.23077 17.2693C7.23077 16.8103 7.41312 16.3701 7.7377 16.0455C8.06228 15.721 8.50251 15.5386 8.96154 15.5386H11.0385C11.4975 15.5386 11.9377 15.721 12.2623 16.0455C12.5869 16.3701 12.7692 16.8103 12.7692 17.2693ZM2.38462 7.92362H3.76923C3.95284 7.92362 4.12893 7.99655 4.25877 8.12638C4.3886 8.2562 4.46154 8.43229 4.46154 8.61589V12.7695C4.46154 12.9531 4.3886 13.1292 4.25877 13.259C4.12893 13.3889 3.95284 13.4618 3.76923 13.4618H2.38462C2.01739 13.4618 1.66521 13.3159 1.40554 13.0563C1.14588 12.7966 1 12.4445 1 12.0773V9.30816C1 8.94096 1.14588 8.58879 1.40554 8.32914C1.66521 8.06949 2.01739 7.92362 2.38462 7.92362ZM17.6154 13.4618H16.2308C16.0472 13.4618 15.8711 13.3889 15.7412 13.259C15.6114 13.1292 15.5385 12.9531 15.5385 12.7695V8.61589C15.5385 8.43229 15.6114 8.2562 15.7412 8.12638C15.8711 7.99655 16.0472 7.92362 16.2308 7.92362H17.6154C17.9826 7.92362 18.3348 8.06949 18.5945 8.32914C18.8541 8.58879 19 8.94096 19 9.30816V12.0773C19 12.4445 18.8541 12.7966 18.5945 13.0563C18.3348 13.3159 17.9826 13.4618 17.6154 13.4618Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <span class=" text-base text-inherit font-normal font-farsi-regular">
                             پشتیبانی
                         </span>
-                </a>
+                </a>--}}
                 <a href="{{ route('hotel.logout') }}" class="sidbar-bottom-navtab w-full h-[51px] flex items-center justify-center bg-green-300 text-light rounded-xl gap-[6px] transition-all duration-300 ease-out hover:bg-neutral-200 hover:text-green-600">
                     <svg class=" text-inherit w-4.5" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4.46154 10.0004V6.35908C4.47235 5.64331 4.6243 4.93671 4.90868 4.27976C5.19306 3.62282 5.60428 3.02844 6.11878 2.53069C6.63328 2.03294 7.24094 1.64159 7.90695 1.37908C8.57296 1.11657 9.28423 0.988042 10 1.00087C10.7158 0.988042 11.427 1.11657 12.093 1.37908C12.7591 1.64159 13.3667 2.03294 13.8812 2.53069C14.3957 3.02844 14.8069 3.62282 15.0913 4.27976C15.3757 4.93671 15.5276 5.64331 15.5385 6.35908V10.0004M12.7692 17.2693C13.5037 17.2693 14.208 16.9776 14.7274 16.4583C15.2467 15.939 15.5385 15.2346 15.5385 14.5002V11.385M12.7692 17.2693C12.7692 17.7283 12.5869 18.1685 12.2623 18.4931C11.9377 18.8177 11.4975 19 11.0385 19H8.96154C8.50251 19 8.06228 18.8177 7.7377 18.4931C7.41312 18.1685 7.23077 17.7283 7.23077 17.2693C7.23077 16.8103 7.41312 16.3701 7.7377 16.0455C8.06228 15.721 8.50251 15.5386 8.96154 15.5386H11.0385C11.4975 15.5386 11.9377 15.721 12.2623 16.0455C12.5869 16.3701 12.7692 16.8103 12.7692 17.2693ZM2.38462 7.92362H3.76923C3.95284 7.92362 4.12893 7.99655 4.25877 8.12638C4.3886 8.2562 4.46154 8.43229 4.46154 8.61589V12.7695C4.46154 12.9531 4.3886 13.1292 4.25877 13.259C4.12893 13.3889 3.95284 13.4618 3.76923 13.4618H2.38462C2.01739 13.4618 1.66521 13.3159 1.40554 13.0563C1.14588 12.7966 1 12.4445 1 12.0773V9.30816C1 8.94096 1.14588 8.58879 1.40554 8.32914C1.66521 8.06949 2.01739 7.92362 2.38462 7.92362ZM17.6154 13.4618H16.2308C16.0472 13.4618 15.8711 13.3889 15.7412 13.259C15.6114 13.1292 15.5385 12.9531 15.5385 12.7695V8.61589C15.5385 8.43229 15.6114 8.2562 15.7412 8.12638C15.8711 7.99655 16.0472 7.92362 16.2308 7.92362H17.6154C17.9826 7.92362 18.3348 8.06949 18.5945 8.32914C18.8541 8.58879 19 8.94096 19 9.30816V12.0773C19 12.4445 18.8541 12.7966 18.5945 13.0563C18.3348 13.3159 17.9826 13.4618 17.6154 13.4618Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -182,7 +182,7 @@
             <!-- right -->
             <div class="flex items-center gap-3 flex-shrink-0">
                 <!-- image -->
-                <img class=" bg-netural-50 w-[50px] aspect-square rounded-full object-contain object-center" src="{{ asset('public/images/darvishiLogo.png') }}" alt="#">
+                <img class=" bg-netural-50 w-[50px] aspect-square rounded-full object-contain object-center" src="{{ asset('storage/' . @$sharedData->logo) }}" alt="#">
                 <!-- content -->
                 <div class="flex flex-col gap-1">
                     <h4 class=" text-sm text-green-600 font-farsi-bold font-bold">
@@ -196,14 +196,14 @@
             <!-- left -->
             <div id="message-leave" class="flex items-center gap-7 w-full justify-end">
                 <!-- search box -->
-                <form action="#" class="inputContainer w-full max-w-[280px] h-10 flex items-center justify-center px-2 py-[5px] bg-neutral-50 rounded-xl">
+                {{--<form action="#" class="inputContainer w-full max-w-[280px] h-10 flex items-center justify-center px-2 py-[5px] bg-neutral-50 rounded-xl">
                     <button type="submit" class=" h-full aspect-square flex items-center justify-center flex-shrink-0">
                         <svg class=" w-4.5 text-green-300" viewBox="0 0 17.5 17.5" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2656 12.3312C9.91137 13.4133 8.19421 13.9358 6.46681 13.7913C4.7394 13.6468 3.13289 12.8463 1.97721 11.5543C0.821527 10.2622 0.204419 8.57669 0.252626 6.84382C0.300833 5.11096 1.0107 3.46233 2.23642 2.23653C3.46214 1.01074 5.11068 0.300836 6.84344 0.252626C8.57621 0.204416 10.2617 0.82156 11.5536 1.97731C12.8456 3.13305 13.646 4.73966 13.7905 6.46717C13.935 8.19467 13.4125 9.91192 12.3305 11.2662L17.5102 16.4452C17.5842 16.5142 17.6436 16.5974 17.6848 16.6898C17.726 16.7823 17.7481 16.882 17.7499 16.9832C17.7517 17.0844 17.7331 17.1849 17.6952 17.2787C17.6573 17.3725 17.6009 17.4578 17.5293 17.5293C17.4578 17.6009 17.3725 17.6573 17.2787 17.6952C17.1849 17.7331 17.0844 17.7517 16.9833 17.7499C16.8821 17.7481 16.7823 17.726 16.6899 17.6848C16.5975 17.6436 16.5143 17.5842 16.4453 17.5102L11.2656 12.3312ZM3.30415 10.7619C2.56682 10.0244 2.06463 9.08495 1.86106 8.06215C1.65748 7.03936 1.76166 5.97916 2.16043 5.01556C2.55919 4.05196 3.23464 3.2282 4.10142 2.64839C4.96819 2.06858 5.98738 1.75874 7.03018 1.75804C8.07298 1.75734 9.09259 2.0658 9.96014 2.64444C10.8277 3.22309 11.5043 4.04594 11.9043 5.009C12.3044 5.97207 12.41 7.03212 12.2078 8.05519C12.0056 9.07826 11.5047 10.0184 10.7683 10.7569L10.7633 10.7619L10.7583 10.7659C9.76884 11.7531 8.42804 12.3072 7.03038 12.3064C5.63273 12.3057 4.29252 11.7502 3.30415 10.7619Z" fill="currentColor"/>
                         </svg>
                     </button>
                     <input type="text" class=" w-full h-full px-2 text-xs font-normal font-farsi-regular text-black placeholder:text-neutral-400 bg-inherit focus:outline-0 focus:outline-none" placeholder="جستجو کنید...">
-                </form>
+                </form>--}}
                 <!-- other buttons -->
                 <div class="flex items-center gap-3.5">
                     <form method="get" action="{{ route('hotelBooking.showDescription') }}" class=" relative w-8 h-8 flex items-center justify-center hover:bg-green-600 hover:text-light text-green-300 p-1 rounded-full !aspect-square transition-all duration-600 ease-out hover:transition-none">
@@ -273,175 +273,6 @@
                 </div>
             </div>
         </header>
-        <script>
-            document.getElementById('message-icon').addEventListener('click', function(e) {
-                e.preventDefault();
-                const dropdown = document.getElementById('message-dropdown');
-                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-            });
-
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('#message-icon')) {
-                    document.getElementById('message-dropdown').style.display = 'none';
-                }
-            });
-
-            // باز کردن مودال
-            function openModal(message, id) {
-                /*document.getElementById('modal-title').innerText = message;*/
-                document.getElementById('message-modal').classList.remove('hidden');
-
-                fetch(`/api/changeMessageStatus`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({ id: id }),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById('modal-title').textContent = 'پیام #' + id;
-                        document.getElementById('modal-content').innerText = `${message}`;
-                        document.getElementById('message-modal').style.display = 'flex';
-                    })
-                    .catch(error => {
-                        console.error('خطا:', error);
-                        document.getElementById('modal-content').innerText = 'خطا در دریافت اطلاعات';
-                    });
-            }
-
-            // بستن مودال
-            function closeModal() {
-                document.getElementById('message-modal').style.display = 'none';
-            }
-        </script>
-        <style>
-            /* استایل‌های عمومی */
-            .message-container {
-                position: relative;
-                display: inline-block;
-            }
-
-            /* آیکون پیام */
-            .message-icon {
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                color: #4ade80;
-                text-decoration: none;
-                transition: all 0.3s ease;
-            }
-
-            .message-icon:hover {
-                background-color: #16a34a;
-                color: #f8fafc;
-            }
-
-            .message-icon-svg {
-                width: 100%;
-                height: 100%;
-            }
-
-            /* شمارنده پیام‌ها */
-            .message-count {
-                position: absolute;
-                z-index: 2;
-                bottom: -2px;
-                left: 20px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 2px 5px;
-                font-size: 8px;
-                font-weight: bold;
-                background-color: #4ade80;
-                color: #000;
-                border-radius: 10px;
-            }
-
-            /* منوی پیام‌ها */
-            .message-dropdown {
-                position: absolute;
-                left: 0;
-                width: 192px;
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                display: none;
-                z-index: 1000;
-            }
-
-            .message-list {
-                padding: 8px 0;
-                margin: 0;
-                list-style: none;
-            }
-
-            .message-item {
-                padding: 8px 16px;
-                background-color: #f3f4f6;
-                cursor: pointer;
-                transition: background-color 0.2s;
-            }
-
-            .message-item:hover {
-                background-color: #e5e7eb;
-            }
-
-            /* مودال پیام */
-            .modal-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: rgba(0, 0, 0, 0.5);
-                align-items: center;
-                justify-content: center;
-                z-index: 10000;
-                display: none;
-            }
-
-            .modal-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 16px;
-            }
-
-            .modal-title {
-                font-size: 18px;
-                font-weight: bold;
-                margin: 0;
-            }
-
-            .modal-close-button {
-                color: #6b7280;
-                background: none;
-                border: none;
-                cursor: pointer;
-                padding: 4px;
-            }
-
-            .modal-close-button:hover {
-                color: #374151;
-            }
-
-            .modal-close-icon {
-                width: 24px;
-                height: 24px;
-            }
-
-            .modal-body {
-                margin: 0;
-                line-height: 1.5;
-            }
-        </style>
         <!-- mobile and tablet header -->
         <header class=" w-full hidden items-center justify-between bg-green-600 fixed z-[10] top-0 right-0 pt-[26px] pb-[14px] px-[25px] rounded-br-xl rounded-bl-xl 1024max:flex">
             <!-- right -->
@@ -473,9 +304,26 @@
                         12
                     </div>
                 </button>
-                <button class=" flex items-center justify-center w-10 aspect-square rounded-full overflow-hidden">
-                    <img class=" w-full h-full object-cover" src="../../../public/public/images/image1.jpg" alt="#">
-                </button>
+                <div class="message-container" id="message-iconM">
+                    <a href="#" class="relative w-8 h-8 flex items-center justify-center hover:bg-green-600 hover:text-light text-green-300 p-1 rounded-full !aspect-square transition-all duration-600 ease-out hover:transition-none">
+                        <svg class="w-full text-inherit" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.46154 10.0004V6.35908C4.47235 5.64331 4.6243 4.93671 4.90868 4.27976C5.19306 3.62282 5.60428 3.02844 6.11878 2.53069C6.63328 2.03294 7.24094 1.64159 7.90695 1.37908C8.57296 1.11657 9.28423 0.988042 10 1.00087C10.7158 0.988042 11.427 1.11657 12.093 1.37908C12.7591 1.64159 13.3667 2.03294 13.8812 2.53069C14.3957 3.02844 14.8069 3.62282 15.0913 4.27976C15.3757 4.93671 15.5276 5.64331 15.5385 6.35908V10.0004M12.7692 17.2693C13.5037 17.2693 14.208 16.9776 14.7274 16.4583C15.2467 15.939 15.5385 15.2346 15.5385 14.5002V11.385M12.7692 17.2693C12.7692 17.7283 12.5869 18.1685 12.2623 18.4931C11.9377 18.8177 11.4975 19 11.0385 19H8.96154C8.50251 19 8.06228 18.8177 7.7377 18.4931C7.41312 18.1685 7.23077 17.7283 7.23077 17.2693C7.23077 16.8103 7.41312 16.3701 7.7377 16.0455C8.06228 15.721 8.50251 15.5386 8.96154 15.5386H11.0385C11.4975 15.5386 11.9377 15.721 12.2623 16.0455C12.5869 16.3701 12.7692 16.8103 12.7692 17.2693ZM2.38462 7.92362H3.76923C3.95284 7.92362 4.12893 7.99655 4.25877 8.12638C4.3886 8.2562 4.46154 8.43229 4.46154 8.61589V12.7695C4.46154 12.9531 4.3886 13.1292 4.25877 13.259C4.12893 13.3889 3.95284 13.4618 3.76923 13.4618H2.38462C2.01739 13.4618 1.66521 13.3159 1.40554 13.0563C1.14588 12.7966 1 12.4445 1 12.0773V9.30816C1 8.94096 1.14588 8.58879 1.40554 8.32914C1.66521 8.06949 2.01739 7.92362 2.38462 7.92362ZM17.6154 13.4618H16.2308C16.0472 13.4618 15.8711 13.3889 15.7412 13.259C15.6114 13.1292 15.5385 12.9531 15.5385 12.7695V8.61589C15.5385 8.43229 15.6114 8.2562 15.7412 8.12638C15.8711 7.99655 16.0472 7.92362 16.2308 7.92362H17.6154C17.9826 7.92362 18.3348 8.06949 18.5945 8.32914C18.8541 8.58879 19 8.94096 19 9.30816V12.0773C19 12.4445 18.8541 12.7966 18.5945 13.0563C18.3348 13.3159 17.9826 13.4618 17.6154 13.4618Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div class="bg-green-300 rounded-[10px] absolute z-[2] -bottom-[2px] left-[20px] flex items-center justify-center px-[5px] py-[2px] text-[8px] text-black font-bolf font-farsi-bold">{{ count($sharedData->messages) }}</div>
+                    </a>
+
+                    <!-- منوی پیام‌ها -->
+                    <div class="message-dropdownM" id="message-dropdownM">
+                        <ul class="message-list">
+                            @foreach($sharedData->messages as $message)
+                                <li class="message-item" onclick="openModal('{{ $message->text }}',{{ $message->id }})">
+                                    {{ $message->text }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </header>
         @if($errors->any())
@@ -500,6 +348,186 @@
 
 </div>
 
+<script>
+    document.getElementById('message-icon').addEventListener('click', function(e) {
+        e.preventDefault();
+        const dropdown = document.getElementById('message-dropdown');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#message-icon')) {
+            document.getElementById('message-dropdown').style.display = 'none';
+        }
+    });
+    document.getElementById('message-iconM').addEventListener('click', function(e) {
+        e.preventDefault();
+        const dropdown = document.getElementById('message-dropdownM');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#message-iconM')) {
+            document.getElementById('message-dropdownM').style.display = 'none';
+        }
+    });
+
+    // باز کردن مودال
+    function openModal(message, id) {
+        /*document.getElementById('modal-title').innerText = message;*/
+        document.getElementById('message-modal').classList.remove('hidden');
+
+        fetch(`/api/changeMessageStatus`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id: id }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('modal-title').textContent = 'پیام #' + id;
+                document.getElementById('modal-content').innerText = `${message}`;
+                document.getElementById('message-modal').style.display = 'flex';
+            })
+            .catch(error => {
+                console.error('خطا:', error);
+                document.getElementById('modal-content').innerText = 'خطا در دریافت اطلاعات';
+            });
+    }
+
+    // بستن مودال
+    function closeModal() {
+        document.getElementById('message-modal').style.display = 'none';
+    }
+</script>
+<style>
+    /* استایل‌های عمومی */
+    .message-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* آیکون پیام */
+    .message-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        color: #4ade80;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .message-icon:hover {
+        background-color: #16a34a;
+        color: #f8fafc;
+    }
+
+    .message-icon-svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* شمارنده پیام‌ها */
+    .message-count {
+        position: absolute;
+        z-index: 2;
+        bottom: -2px;
+        left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px 5px;
+        font-size: 8px;
+        font-weight: bold;
+        background-color: #4ade80;
+        color: #000;
+        border-radius: 10px;
+    }
+
+    /* منوی پیام‌ها */
+    .message-dropdown,.message-dropdownM {
+        position: absolute;
+        left: 0;
+        width: 192px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+        z-index: 1000;
+    }
+
+    .message-list {
+        padding: 8px 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .message-item {
+        padding: 8px 16px;
+        background-color: #f3f4f6;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .message-item:hover {
+        background-color: #e5e7eb;
+    }
+
+    /* مودال پیام */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        display: none;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+
+    .modal-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .modal-close-button {
+        color: #6b7280;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+    }
+
+    .modal-close-button:hover {
+        color: #374151;
+    }
+
+    .modal-close-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .modal-body {
+        margin: 0;
+        line-height: 1.5;
+    }
+</style>
 <script src="{{ asset('src/scripts/leaflet.js') }}"></script>
 <script src="{{ asset('src/scripts/mainScipts.js') }}"></script>
 <script>
