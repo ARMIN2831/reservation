@@ -21,7 +21,7 @@
         </span>
 </div>
 @if(isset($userSharedData))
-    <header class="w-full bg-light py-4.5 px-12 drop-shadow-materialBlack 512max:px-[28px] 640max:py-2 1024max:px-[36px] 1280max:px-[64px]">
+    <header style="z-index: 1;" class="w-full bg-light py-4.5 px-12 drop-shadow-materialBlack 512max:px-[28px] 640max:py-2 1024max:px-[36px] 1280max:px-[64px]">
     <div class="w-full max-w-[1240px] mx-auto flex items-center justify-between">
         <!-- right -->
         <div class="flex items-center gap-12 128max:gap-4">
@@ -301,9 +301,9 @@
                 <div class="flex items-center gap-3">
 
                     <a href="#" class="">
-                        <a href="{{ route('login') }}" class=" text-sm text-inherit font-normal">
+                        <button onclick="handleLogin()" class=" text-sm text-inherit font-normal">
                             ورود/ثبت نام
-                        </a>
+                        </button>
                     </a>
                 </div>
                 <!-- left -->
@@ -501,6 +501,446 @@
         </div>
     </div>
 </footer>
+<div id="loginModal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);">
+    <div class="modal-content" style="background-color: #fefefe; margin: 10% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px; border-radius: 8px;opacity: 1">
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 id="loginModalLabel" style="margin: 0;">ورود به حساب کاربری</h2>
+            <span class="close" style="cursor: pointer; font-size: 24px;" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div id="loginApp">
+                <!-- Step 1: Mobile -->
+                <div id="loginStep1">
+                    <label for="login-mobile" style="display: block; margin-bottom: 8px;">شماره موبایل</label>
+                    <div style="position: relative; margin-bottom: 16px;">
+                        <input
+                            type="text"
+                            id="login-mobile"
+                            style="width: 100%; padding: 10px 40px 10px 10px; border: 1px solid #ddd; border-radius: 4px;"
+                            placeholder="09123456789"
+                        >
+                        <i class="fa fa-mobile-alt" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #999;"></i>
+                    </div>
+                    <button
+                        id="sendOtpBtn"
+                        style="width: 100%; padding: 10px; background: linear-gradient(to right, #4a6bff, #8a2be2); color: white; border: none; border-radius: 4px; cursor: pointer;"
+                    >
+                        دریافت کد تایید
+                    </button>
+                </div>
+
+                <!-- Step 2: OTP Verification -->
+                <div id="loginStep2" style="display: none;">
+                    <p style="margin-bottom: 16px;">کد ۵ رقمی ارسال شده به شماره <span id="mobileNumber" style="font-weight: bold;"></span> را وارد کنید</p>
+
+                    <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; direction: ltr;">
+                        <input type="text" maxlength="1" class="otp-input" style="width: 40px; height: 40px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="text" maxlength="1" class="otp-input" style="width: 40px; height: 40px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="text" maxlength="1" class="otp-input" style="width: 40px; height: 40px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="text" maxlength="1" class="otp-input" style="width: 40px; height: 40px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="text" maxlength="1" class="otp-input" style="width: 40px; height: 40px; text-align: center; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+
+                    <button
+                        id="verifyOtpBtn"
+                        style="width: 100%; padding: 10px; background: linear-gradient(to right, #4a6bff, #8a2be2); color: white; border: none; border-radius: 4px; cursor: pointer; margin-bottom: 10px;"
+                    >
+                        تایید و ادامه
+                    </button>
+                    <button
+                        onclick="showLoginStep(1)"
+                        style="width: 100%; padding: 10px; background: #f1f1f1; color: #333; border: none; border-radius: 4px; cursor: pointer;"
+                    >
+                        بازگشت
+                    </button>
+                    <div class="text-center my-3">
+                        <button id="resendOtpBtn" class="text-blue-500" disabled>
+                            ارسال مجدد کد (<span id="timerDisplay"></span>)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="alertBox" class="alert" style="display: none;"></div>
+
+<style>
+    .alert {
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 4px;
+        display: none;
+    }
+    .alert.success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    .alert.error {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    .login-step {
+        display: none;
+    }
+    #loginStep1 {
+        display: block;
+    }
+    .otp-input {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        margin: 0 5px;
+        font-size: 18px;
+    }
+</style>
+
+<script>
+    function handleLogin(){
+        openModal();
+    }
+    // متغیرهای全局
+    let otpTimer;
+    var otpCountdownDuration = 120; // مدت زمان اعتبار کد OTP (ثانیه)
+
+    // مدیریت مودال
+    function openModal() {
+        document.getElementById('loginModal').style.display = 'block';
+        document.body.style.overflow = 'hidden'; // جلوگیری از اسکرول صفحه
+    }
+
+    function closeModal() {
+        document.getElementById('loginModal').style.display = 'none';
+        document.body.style.overflow = 'auto'; // فعال کردن اسکرول صفحه
+        resetLoginForm();
+    }
+
+    // مدیریت مراحل لاگین
+    function showLoginStep(step) {
+        if (step === 1){
+            document.getElementById(`loginStep1`).style.display = 'block';
+            document.getElementById(`loginStep2`).style.display = 'none';
+        }
+        if (step === 2){
+            document.getElementById(`loginStep1`).style.display = 'none';
+            document.getElementById(`loginStep2`).style.display = 'block';
+        }
+    }
+
+    function resetLoginForm() {
+        document.getElementById('login-mobile').value = '';
+        document.querySelectorAll('.otp-input').forEach(input => {
+            input.value = '';
+        });
+        showLoginStep(1);
+        clearOTPTimer();
+    }
+
+    // مدیریت تایمر OTP
+    function startOTPTimer() {
+        let timeLeft = otpCountdownDuration;
+        updateOTPTimerDisplay(timeLeft);
+
+        otpTimer = setInterval(() => {
+            timeLeft--;
+            updateOTPTimerDisplay(timeLeft);
+
+            if (timeLeft <= 0) {
+                clearOTPTimer();
+            }
+        }, 1000);
+    }
+
+    function clearOTPTimer() {
+        if (otpTimer) {
+            clearInterval(otpTimer);
+            otpTimer = null;
+        }
+        document.getElementById('resendOtpBtn').disabled = false;
+        document.getElementById('timerDisplay').textContent = '';
+    }
+
+    function updateOTPTimerDisplay(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        document.getElementById('timerDisplay').textContent =
+            `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        document.getElementById('resendOtpBtn').disabled = true;
+    }
+
+    // مدیریت کلیک روی دکمه رزرو
+    window.handleBookRoom = function(button) {
+        const requiresLogin = button.getAttribute('data-require-login') === 'true';
+
+        if (requiresLogin) {
+            openModal();
+
+            // ذخیره اطلاعات فرم
+            const form = button.closest('form');
+            localStorage.setItem('pendingBookingForm', form.outerHTML);
+            localStorage.setItem('pendingBookingAction', form.action);
+        } else {
+            button.closest('form').submit();
+        }
+    };
+
+    // ارسال کد OTP
+    document.getElementById('sendOtpBtn').addEventListener('click', async function() {
+        const mobile = document.getElementById('login-mobile').value.trim();
+
+        if (!/^09\d{9}$/.test(mobile)) {
+            showAlert('لطفاً شماره موبایل معتبر وارد کنید', 'error');
+            return;
+        }
+
+        this.disabled = true;
+        this.innerHTML = '<i class="fa fa-spinner fa-spin"></i> در حال ارسال...';
+
+        try {
+            const response = await fetch('{{ route("api.sendOtp") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ mobile })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                clearOTPTimer();
+                showLoginStep(2);
+                document.getElementById('mobileNumber').textContent = mobile;
+                otpCountdownDuration = data.remaining_time;
+                startOTPTimer();
+                showAlert('کد تایید ارسال شد', 'success');
+            } else {
+                showAlert(data.message || 'خطا در ارسال کد تایید', 'error');
+            }
+        } catch (error) {
+            showAlert('خطا در ارتباط با سرور', 'error');
+        } finally {
+            this.disabled = false;
+            this.innerHTML = 'دریافت کد تایید';
+        }
+    });
+
+    // تأیید کد OTP
+    document.getElementById('verifyOtpBtn').addEventListener('click', async function() {
+        const otpCode = Array.from(document.querySelectorAll('.otp-input'))
+            .map(input => input.value)
+            .join('');
+
+        if (otpCode.length !== 5) {
+            showAlert('لطفاً کد ۵ رقمی را کامل وارد کنید', 'error');
+            return;
+        }
+
+        this.disabled = true;
+        this.innerHTML = '<i class="fa fa-spinner fa-spin"></i> در حال بررسی...';
+
+        try {
+            const mobile = document.getElementById('login-mobile').value.trim();
+            const response = await fetch('{{ route("api.verifyOtp") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    mobile,
+                    otp: otpCode
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                showAlert('ورود با موفقیت انجام شد', 'success');
+                closeModal();
+
+                // ارسال رویداد login-success
+                window.dispatchEvent(new CustomEvent('login-success', {
+                    detail: { userId: data.user_id }
+                }));
+
+                // اگر نیاز به ریدایرکت مستقیم بود
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
+            } else {
+                const errorMsg = data.error === 'expired'
+                    ? 'کد تایید منقضی شده است. لطفاً کد جدید دریافت کنید'
+                    : 'کد تایید نامعتبر است';
+
+                showAlert(errorMsg, 'error');
+            }
+        } catch (error) {
+            showAlert('خطا در ارتباط با سرور', 'error');
+        } finally {
+            this.disabled = false;
+            this.innerHTML = 'تایید و ادامه';
+        }
+    });
+
+    // ارسال مجدد کد OTP
+    document.getElementById('resendOtpBtn').addEventListener('click', function() {
+        document.getElementById('sendOtpBtn').click();
+    });
+
+    // مدیریت رویداد login-success
+    window.addEventListener('login-success', function() {
+        const pendingForm = localStorage.getItem('pendingBookingForm');
+        const pendingAction = localStorage.getItem('pendingBookingAction');
+
+        if (pendingForm && pendingAction) {
+            // ایجاد یک فرم موقت و ارسال آن
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = pendingForm;
+            const form = tempDiv.firstChild;
+            form.action = pendingAction;
+            document.body.appendChild(form);
+            form.submit();
+
+            // پاک کردن داده‌های موقت
+            localStorage.removeItem('pendingBookingForm');
+            localStorage.removeItem('pendingBookingAction');
+        }
+    });
+
+    // مدیریت حرکت بین فیلدهای OTP
+    document.querySelectorAll('.otp-input').forEach((input, index, inputs) => {
+        input.addEventListener('input', (e) => {
+            if (e.target.value && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+
+            // اگر آخرین فیلد پر شد، دکمه تأیید را فعال کنید
+            if (index === inputs.length - 1 && e.target.value) {
+                document.getElementById('verifyOtpBtn').focus();
+            }
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                inputs[index - 1].focus();
+            }
+        });
+    });
+
+    // بستن مودال با کلیک خارج از آن
+    window.addEventListener('click', function(event) {
+        if (event.target === document.getElementById('loginModal')) {
+            closeModal();
+        }
+    });
+
+    // نمایش پیام به کاربر
+    function showAlert(message, type) {
+        const alertBox = document.getElementById('alertBox');
+        alertBox.textContent = message;
+        alertBox.className = `alert ${type}`;
+        alertBox.style.display = 'block';
+
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 5000);
+    }
+
+    // Alpine.js App
+    function loginApp() {
+        return {
+            activeTab: 'login',
+            loginStep: 1,
+            loginMobile: '',
+            otpDigits: Array(5).fill(''),
+            isSendingOTP: false,
+            isVerifying: false,
+            resendDisabled: true,
+            countdown: 120,
+            message: '',
+            messageSuccess: false,
+
+            init() {
+                // بازیابی زمان باقیمانده از localStorage
+                const savedTime = localStorage.getItem('otpCountdown');
+                const savedTimestamp = localStorage.getItem('otpCountdownTimestamp');
+
+                if (savedTime && savedTimestamp) {
+                    const elapsed = Math.floor((Date.now() - savedTimestamp) / 1000);
+                    this.countdown = Math.max(0, savedTime - elapsed);
+
+                    if (this.countdown > 0) {
+                        this.startCountdown();
+                    }
+                }
+            },
+
+            startCountdown() {
+                this.resendDisabled = true;
+                localStorage.setItem('otpCountdown', this.countdown);
+                localStorage.setItem('otpCountdownTimestamp', Date.now());
+
+                const timer = setInterval(() => {
+                    this.countdown--;
+                    localStorage.setItem('otpCountdown', this.countdown);
+                    localStorage.setItem('otpCountdownTimestamp', Date.now());
+
+                    if (this.countdown <= 0) {
+                        clearInterval(timer);
+                        this.resendDisabled = false;
+                        localStorage.removeItem('otpCountdown');
+                        localStorage.removeItem('otpCountdownTimestamp');
+                    }
+                }, 1000);
+            },
+
+            async sendOTP() {
+                if (!this.loginMobile || !this.loginMobile.match(/^09\d{9}$/)) {
+                    this.showMessage('لطفاً شماره موبایل معتبر وارد کنید', false);
+                    return;
+                }
+
+                this.isSendingOTP = true;
+                this.message = '';
+
+                try {
+                    const response = await fetch('{{ route('api.sendOtp') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            mobile: this.loginMobile
+                        }),
+                    });
+
+                    const data = await response.json();
+                    if (data.success) {
+                        this.loginStep = 2;
+                        this.countdown = data.remaining_time || otpCountdownDuration;
+                        this.startCountdown();
+                        this.showMessage('کد تایید به شماره شما ارسال شد', true);
+                    } else {
+                        this.showMessage(data.message || 'خطا در ارسال کد تایید', false);
+                    }
+                } catch (error) {
+                    this.showMessage('خطا در ارتباط با سرور', false);
+                } finally {
+                    this.isSendingOTP = false;
+                }
+            },
+
+            showMessage(msg, isSuccess) {
+                this.message = msg;
+                this.messageSuccess = isSuccess;
+                setTimeout(() => { this.message = ''; }, 5000);
+            }
+        };
+    }
+</script>
 
 </body>
 </html>

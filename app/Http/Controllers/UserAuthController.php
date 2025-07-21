@@ -58,16 +58,19 @@ class UserAuthController extends Controller
             ]
         );
 
-        /*$sender = "2000660110";
-        $receptor = $request->mobile;
-        $message = "وب سرویس پیام کوتاه کاوه نگار";
-        $api = new KavenegarApi("31677968536844656F526C5278476E6D49502F62706D3134744363752F3573766C6C5238444232687431383D");
-        $api -> Send ($sender,$receptor,$message);*/
 
+        $api = new KavenegarApi("31677968536844656F526C5278476E6D49502F62706D3134744363752F3573766C6C5238444232687431383D");
+        $receptor = $request->mobile;
+        $token = $otpCode;
+        $token2 = "";
+        $token3 = "";
+        $template = "safariino";
+        $type = "sms";
+        $api->VerifyLookup($receptor, $token, $token2, $token3, $template, $type);
         return response()->json([
             'success' => true,
             'message' => 'کد تایید ارسال شد',
-            'expires_in' => 120 // زمان انقضا به ثانیه
+            'remaining_time' => 120
         ]);
     }
 
@@ -115,7 +118,7 @@ class UserAuthController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'ورود با موفقیت انجام شد',
-            'redirect' => false,
+            'redirect' => route("index"),
         ]);
     }
 
