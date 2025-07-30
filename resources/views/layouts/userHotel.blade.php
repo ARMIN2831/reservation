@@ -76,7 +76,7 @@
                                 <path d="M10 2.08331C10.9801 2.08301 11.9345 2.39689 12.723 2.97887C13.5116 3.56085 14.0929 4.38029 14.3815 5.31691C14.6701 6.25354 14.6509 7.25801 14.3267 8.18291C14.0024 9.10781 13.3903 9.90442 12.58 10.4558C13.9864 10.9716 15.2062 11.8966 16.0824 13.1116C16.9587 14.3266 17.4512 15.776 17.4967 17.2733C17.5009 17.3564 17.4885 17.4395 17.4602 17.5178C17.4319 17.5961 17.3883 17.6679 17.3318 17.729C17.2754 17.7902 17.2073 17.8395 17.1316 17.874C17.0559 17.9085 16.974 17.9275 16.8908 17.93C16.8076 17.9324 16.7248 17.9182 16.6472 17.8882C16.5696 17.8582 16.4987 17.813 16.4388 17.7553C16.3789 17.6975 16.3311 17.6284 16.2982 17.5519C16.2654 17.4754 16.2481 17.3932 16.2475 17.31C16.1979 15.6862 15.518 14.1455 14.3518 13.0145C13.1857 11.8834 11.625 11.2509 10.0004 11.2509C8.37587 11.2509 6.81516 11.8834 5.64902 13.0145C4.48288 14.1455 3.80296 15.6862 3.75333 17.31C3.74836 17.4757 3.67774 17.6327 3.55702 17.7464C3.43629 17.8601 3.27534 17.9212 3.10958 17.9162C2.94382 17.9113 2.78683 17.8406 2.67313 17.7199C2.55944 17.5992 2.49836 17.4382 2.50333 17.2725C2.54896 15.7753 3.04158 14.3261 3.9178 13.1112C4.79402 11.8964 6.01375 10.9716 7.42 10.4558C6.60974 9.90442 5.99757 9.10781 5.67333 8.18291C5.3491 7.25801 5.32989 6.25354 5.61851 5.31691C5.90713 4.38029 6.48839 3.56085 7.27697 2.97887C8.06555 2.39689 9.01992 2.08301 10 2.08331ZM6.66667 6.66665C6.66667 7.5507 7.01786 8.39855 7.64298 9.02367C8.2681 9.64879 9.11594 9.99998 10 9.99998C10.8841 9.99998 11.7319 9.64879 12.357 9.02367C12.9821 8.39855 13.3333 7.5507 13.3333 6.66665C13.3333 5.78259 12.9821 4.93474 12.357 4.30962C11.7319 3.6845 10.8841 3.33331 10 3.33331C9.11594 3.33331 8.2681 3.6845 7.64298 4.30962C7.01786 4.93474 6.66667 5.78259 6.66667 6.66665Z" fill="currentColor"/>
                             </svg>
                             <span class=" text-xs text-neutral-700 font-normal">
-                                    {{ $userSharedData->people->firstName.' '.$userSharedData->people->lastName }}
+                                    {{ @$userSharedData->people->firstName.' '.@$userSharedData->people->lastName }}
                                 </span>
                         </div>
                         <svg class=" w-3 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6">
@@ -91,10 +91,10 @@
                                 <img src="{{ asset('public/images/UserProfile.svg') }}" alt="#" class=" w-10 aspect-square rounded-full object-cover 640max:w-8">
                                 <div class="flex flex-col gap-[1px]">
                                         <span class=" text-xs text-green-600 font-bold 640max:text-[10px]">
-                                            {{ $userSharedData->people->firstName.' '.$userSharedData->people->lastName }}
+                                            {{ @$userSharedData->people->firstName.' '.@$userSharedData->people->lastName }}
                                         </span>
                                     <span class="text-[10px] text-neutral-700 font-medium 640max:text-[8px]">
-                                            {{ $userSharedData->mobile }}
+                                            {{ @$userSharedData->mobile }}
                                         </span>
                                 </div>
                             </div>
@@ -184,10 +184,10 @@
                                 <img src="{{ asset('public/images/UserProfile.svg') }}" alt="#" class=" w-10 aspect-square rounded-full object-cover 640max:w-8">
                                 <div class="flex flex-col gap-[1px]">
                                         <span class=" text-xs text-green-600 font-bold 640max:text-[10px]">
-                                            {{ $userSharedData->people->firstName.' '.$userSharedData->people->lastName }}
+                                            {{ @$userSharedData->people->firstName.' '.@$userSharedData->people->lastName }}
                                         </span>
                                     <span class="text-[10px] text-neutral-700 font-medium 640max:text-[8px]">
-                                            {{ $userSharedData->mobile }}
+                                            {{ @$userSharedData->mobile }}
                                         </span>
                                 </div>
                             </div>

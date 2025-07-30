@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\People;
 use App\Models\Reserve;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,5 +43,54 @@ class userDashboardController extends Controller
         ]);
 
         return redirect()->back()->with('status', 'رمز عبور با موفقیت تغییر یافت');
+    }
+
+
+    public function showProfile()
+    {
+        $user = Auth::guard('user')->user();
+
+        return response()->json([
+            'firstName' => $user->firstName,
+            'lastName' => $user->lastName,
+            'mobile' => $user->mobile,
+            'email' => $user->email,
+            'birth' => $user->birth,
+            'nationalCode' => $user->nationalCode,
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::guard('user')->user();
+
+        $request->validate([
+            'firstName' => 'nullable|string|max:255',
+            'lastName' => 'nullable|string|max:255',
+            'mobile' => 'nullable|string|max:11',
+            'email' => 'nullable|email|unique:users,email,'.$user->id,
+            'birth' => 'nullable|date',
+            'nationalCode' => 'nullable|string|max:10|unique:people,nationalCode,'.$user->people_id,
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        $filePath = $user->image;
+        if ($request->hasFile('avatar')) {
+            $filePath = $this->uploadFile($request->file('avatar'));
+        }
+        People::where('id',$user->people_id)->update([
+            'firstName' => $request->firstName,
+            'lastName' => $request->lastName,
+            'nationalCode' => $request->nationalCode,
+            'birth' => $request->birth,
+        ]);
+        $user->update([
+            'mobile' => $request->mobile,
+            'email' => $request->email,
+            'image' => $filePath,
+        ]);
+
+
+
+        return response()->json(['message' => 'Profile updated successfully']);
     }
 }

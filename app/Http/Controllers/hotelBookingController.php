@@ -601,15 +601,15 @@ class hotelBookingController extends Controller
         $totalPriceUser = ((100 + $hotel->profit) * $totalPrice) / 100;
         $agencyPrice = ($totalPriceUser * (100 - $discountPercent)) / 100;
         $totalPriceBord = ((100 + $hotel->profit) * $totalPriceBord) / 100;
-
+        //dd($totalPriceUser,Gateway::where('id',$request->pmo)->first()->api,Auth::guard('user')->user()->email);
         $response = zarinpal()
             ->merchantId(Gateway::where('id',$request->pmo)->first()->api)
             ->amount($totalPriceUser)
             ->request()
             ->description("reserve Hotel")
             ->callbackUrl(route('hotelBooking.paymentRedirect'))
-            ->email(Auth::guard('user')->user()->email ?? 'example@gmail.com')
-            ->mobile(Auth::guard('user')->user()->mobile ?? '09123456789')
+            //->email('www.arminarmita@gmail.com')
+            //->mobile('09192008773')
             ->send();
 
         if (!$response->success()) {
@@ -684,12 +684,13 @@ class hotelBookingController extends Controller
             ->verification()
             ->authority($authority)
             ->send();
-        if ($response->success()) {
+        if ($response->success() || ($reserve->paymentStatus == "پرداخت شده" and $reserve->ref_id and $reserve->trk)) {
             AgencyUser::where('user_id',$reserve->user_id)->update(['reserve_id' => $reserve->id]);
             $reserve->update([
                 'paymentStatus' => 'پرداخت شده',
                 'card' => $response->cardPan(),
                 'ref_id' => $response->referenceId(),
+                'trk' => strtoupper(uniqid('TRK')),
             ]);
         } else {
             $reserve->update([

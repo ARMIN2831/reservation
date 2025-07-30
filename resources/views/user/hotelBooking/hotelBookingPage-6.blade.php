@@ -234,7 +234,7 @@
                                                     </span>
                                                 </div>
                                                 <span class=" text-base text-neutral-700 text-center font-medium">
-                                                    کد پیگیری رزرو: {{ $reserve->code }}
+                                                    کد پیگیری رزرو: {{ $reserve->trk }}
                                                 </span>
                                             </div>
                                         </div>

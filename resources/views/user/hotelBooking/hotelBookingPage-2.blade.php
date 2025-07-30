@@ -401,7 +401,7 @@
                                                             onclick="handleBookRoom(this)"
                                                             class="rounded-[6px] w-full flex items-center justify-center py-2 px-4 h-10 max-w-[160px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:text-xs 512max:h-8 512max:max-w-max 512max:px-4 book-room-btn"
                                                             data-form="{{ $parentIndex }}"
-                                                            @guest data-require-login="true" @endguest>
+                                                            @if(!\Illuminate\Support\Facades\Auth::guard('user')->user())data-require-login="true" @endif>
                                                             رزرو اتاق
                                                         </a>
                                                     </div>

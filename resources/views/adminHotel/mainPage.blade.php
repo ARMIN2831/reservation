@@ -463,7 +463,7 @@
                     <a class="editHotelInfoPopUpReturnButton rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-300 transition-all duration-400 ease-out hover:bg-green-100 hover:text-green-600 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2">
                         بازگشت
                     </a>
-                    <button type="submit" id="saveButton" class="editHotelInfoPopUpSaveButton rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    <button type="submit" id="saveButton" class="editHotelInfoPopUpSaveButton rounded-[6px] flex items-center justify-center py-2 px-4 min-w-[140px] text-[14px] text-light font-medium font-farsi-medium bg-green-600 transition-all duration-400 ease-out hover:bg-green-300 512max:min-w-[0px] 512max:flex-grow-[1] 512max:px-2 disabled:opacity-50 disabled:cursor-not-allowed">
                         ذخیره
                     </button>
                 </div>

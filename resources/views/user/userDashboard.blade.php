@@ -104,7 +104,7 @@
                                             <!-- image -->
                                             <div class="w-20 flex items-center justify-center relative">
                                                 <img src="{{ asset('public/images/UserProfile.svg') }}" alt="#" class=" w-full aspect-square rounded-full object-cover">
-                                                <button class=" w-[21px] aspect-square rounded-full border-[1px] border-light flex items-center justify-center bg-green-300 absolute z-[2] left-0 bottom-0">
+                                                <button onclick="openModalProfile()" class=" w-[21px] aspect-square rounded-full border-[1px] border-light flex items-center justify-center bg-green-300 absolute z-[2] left-0 bottom-0">
                                                     <svg class=" w-[8px] text-light" viewBox="0 0 13.5 13.5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <g clip-path="url(#clip0_177_599)">
                                                         <path d="M4.13922 2.05706C3.96322 1.87545 3.75285 1.73066 3.52036 1.63114C3.28786 1.53161 3.03789 1.47933 2.78499 1.47734C2.53209 1.47535 2.28133 1.52369 2.04729 1.61955C1.81326 1.71541 1.60064 1.85687 1.42181 2.03569C1.24298 2.21452 1.10151 2.42713 1.00565 2.66115C0.909785 2.89518 0.861441 3.14593 0.863429 3.39882C0.865418 3.65171 0.917701 3.90167 1.01723 4.13416C1.11677 4.36664 1.26156 4.577 1.44318 4.75299L2.18992 5.49971C1.90442 5.79715 1.74686 6.19462 1.75103 6.60688C1.7552 7.01913 1.92077 7.41334 2.21223 7.70494L3.17379 8.66597C3.20708 8.7017 3.24723 8.73036 3.29184 8.75024C3.33645 8.77011 3.38461 8.7808 3.43344 8.78166C3.48227 8.78252 3.53077 8.77354 3.57606 8.75525C3.62134 8.73696 3.66248 8.70974 3.69701 8.6752C3.73154 8.64067 3.75877 8.59954 3.77706 8.55426C3.79535 8.50897 3.80433 8.46047 3.80347 8.41164C3.80261 8.36281 3.79192 8.31466 3.77205 8.27005C3.75217 8.22544 3.72351 8.18529 3.68778 8.152L2.72671 7.19048C2.5716 7.03538 2.48258 6.82623 2.47833 6.60692C2.47408 6.3876 2.55493 6.17517 2.70392 6.01417L8.61291 11.9229C8.82626 12.1363 9.0915 12.2914 9.38244 12.3729L12.061 13.123C12.1231 13.1403 12.1887 13.1408 12.2511 13.1245C12.3135 13.1081 12.3704 13.0754 12.4159 13.0299C12.4615 12.9843 12.4942 12.9274 12.5106 12.865C12.5269 12.8027 12.5264 12.7371 12.5091 12.675L11.7589 9.996C11.6775 9.70507 11.5228 9.44033 11.3089 9.22698L4.13922 2.05706Z" fill="currentColor"></path>
@@ -918,6 +918,378 @@
         </section>
 
         <!-- modals -->
+    <div id="editProfileModal" class="profile-modal">
+        <div class="modal-overlay" onclick="closeModalProfile()"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>ویرایش پروفایل</h3>
+                <button onclick="closeModalProfile()" class="close-btn">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body" style="overflow-y: auto">
+                <form id="profileForm" enctype="multipart/form-data">
+                    <div class="form-scrollable">
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label for="firstName">نام</label>
+                                <input type="text" id="firstName" name="firstName">
+                            </div>
+                            <div class="form-row">
+                                <label for="lastName">نام خانوادگی</label>
+                                <input type="text" id="lastName" name="lastName">
+                            </div>
+                            <div class="form-row">
+                                <label for="mobile">موبایل</label>
+                                <input type="text" id="mobile" name="mobile">
+                            </div>
+                            <div class="form-row">
+                                <label for="email">ایمیل</label>
+                                <input type="email" id="email" name="email">
+                            </div>
+                            <div class="form-row">
+                                <label for="birth">تاریخ تولد</label>
+                                <input type="date" id="birth" name="birth">
+                            </div>
+                            <div class="form-row">
+                                <label for="nationalCode">کد ملی</label>
+                                <input type="text" id="nationalCode" name="nationalCode">
+                            </div>
+                            <div class="form-row">
+                                <label for="avatar">عکس پروفایل</label>
+                                <input type="file" id="avatar" name="avatar" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <div id="formErrors" class="error-message"></div>
+                        <div class="button-group">
+                            <button type="button" onclick="closeModalProfile()" class="cancel-btn">انصراف</button>
+                            <button type="submit" class="submit-btn">ذخیره تغییرات</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <style>
+        /* استایل پایه */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* مودال اصلی */
+        .profile-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .profile-modal.active {
+            display: flex;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-container {
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* هدر مودال */
+        .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e1e1e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f8f9fa;
+        }
+
+        .modal-header h3 {
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6c757d;
+            padding: 0 5px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #495057;
+        }
+
+        /* بدنه مودال */
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .form-scrollable {
+            overflow-y: auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* استایل فرم */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-row label {
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .form-row input {
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.15s;
+        }
+
+        .form-row input:focus {
+            border-color: #80bdff;
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .form-row input[type="file"] {
+            padding: 8px 0;
+            border: none;
+        }
+
+        /* فوتر فرم */
+        .form-footer {
+            padding: 16px 20px;
+            border-top: 1px solid #e1e1e1;
+            background-color: #f8f9fa;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 13px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .cancel-btn, .submit-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .cancel-btn {
+            background-color: #f8f9fa;
+            color: #495057;
+            border-color: #ced4da;
+        }
+
+        .cancel-btn:hover {
+            background-color: #e2e6ea;
+        }
+
+        .submit-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background-color: #0069d9;
+        }
+
+        /* اسکرول بار */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+    <script>
+        // مدیریت مودال
+        function openModalProfile() {
+            const modal = document.getElementById('editProfileModal');
+            modal.classList.add('active');
+            fetchProfileData();
+        }
+
+        function closeModalProfile() {
+            const modal = document.getElementById('editProfileModal');
+            modal.classList.remove('active');
+            clearErrors();
+        }
+
+        // نمایش خطاها
+        function showErrors(errors) {
+            const errorContainer = document.getElementById('formErrors');
+            errorContainer.innerHTML = '';
+
+            if (typeof errors === 'string') {
+                errorContainer.textContent = errors;
+                return;
+            }
+
+            if (Array.isArray(errors)) {
+                errorContainer.textContent = errors.join('<br>');
+                return;
+            }
+
+            if (typeof errors === 'object') {
+                const errorMessages = [];
+                for (const key in errors) {
+                    if (errors.hasOwnProperty(key)) {
+                        errorMessages.push(errors[key]);
+                    }
+                }
+                errorContainer.innerHTML = errorMessages.join('<br>');
+            }
+        }
+
+        function clearErrors() {
+            document.getElementById('formErrors').textContent = '';
+        }
+
+        // دریافت داده‌های پروفایل
+        async function fetchProfileData() {
+            try {
+                const response = await fetch('{{ route('userDashboard.showProfile') }}', {
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'خطا در دریافت اطلاعات پروفایل');
+                }
+
+                const data = await response.json();
+
+                // پر کردن فرم
+                document.getElementById('firstName').value = data.firstName || '';
+                document.getElementById('lastName').value = data.lastName || '';
+                document.getElementById('mobile').value = data.mobile || '';
+                document.getElementById('email').value = data.email || '';
+                document.getElementById('birth').value = data.birth || '';
+                document.getElementById('nationalCode').value = data.nationalCode || '';
+
+            } catch (error) {
+                console.error('Error:', error);
+                showErrors(error.message);
+            }
+        }
+
+        // ارسال فرم
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            clearErrors();
+
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'در حال ذخیره...';
+
+                const response = await fetch('{{ route('userDashboard.updateProfile') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json'
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw result.errors || result.message || 'خطا در ذخیره اطلاعات';
+                }
+
+                // موفقیت آمیز بود
+                setTimeout(() => {
+                    closeModalProfile();
+                    // اگر نیاز به رفرش اطلاعات دارید اینجا اضافه کنید
+                }, 1000);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showErrors(error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            }
+        });
+
+        // رویداد کلیک برای دکمه ویرایش
+        document.querySelector('.bg-green-300').addEventListener('click', openModalProfile);
+    </script>
+
+
 
     <script>
         function openEditPopUp(target, reserve) {

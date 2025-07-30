@@ -27,10 +27,19 @@ class UserAuthController extends Controller
         $request->validate([
             'mobile' => 'required|regex:/^09\d{9}$/'
         ]);
-        $user = User::firstOrCreate(
-            ['mobile' => $request->mobile, 'type' => 'user'],
-            ['mobile' => $request->mobile, 'type' => 'user']
-        );
+        $user = User::where('mobile',$request->mobile)->where('type','user')->first();
+        if (!$user){
+            $people = People::create([
+                'firstName' => 'کاربر',
+                'lastName' => '',
+            ]);
+            $user = User::create([
+                'mobile' => $request->mobile,
+                'people_id' => $people->id,
+                'password' => '1234455',
+                'type' => 'user',
+            ]);
+        }
         // بررسی وجود کد فعال برای این کاربر
         $existingOtp = SmsNotification::where('user_id', $user->id)
             ->where('type', 'otp')
@@ -126,7 +135,7 @@ class UserAuthController extends Controller
     public function logout()
     {
         Auth::guard('user')->logout();
-        return redirect()->route('login');
+        return redirect()->route('index');
     }
 }
 

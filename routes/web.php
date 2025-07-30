@@ -108,6 +108,10 @@ Route::middleware([ShareUserData::class])->group(function () {
     Route::middleware('auth:user')->prefix('userDashboard')->controller(userDashboardController::class)->name('userDashboard.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('changePassword', 'changePassword')->name('changePassword');
+
+
+        Route::get('showProfile','showProfile')->name('showProfile');
+        Route::post('updateProfile', 'updateProfile')->name('updateProfile');
     });
 
 
