@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="{{ asset('src/styles/style.css') }}">
     <link rel="stylesheet" href="{{ asset('src/styles/leaflet.css') }}">
 
+    <style>
+        .flatpickr-day.selected.endRange, .flatpickr-day.startRange.endRange, .flatpickr-day.endRange.endRange{
+            border-radius: 50px 0 0 50px !important;
+        }
+
+        .flatpickr-day.selected.startRange, .flatpickr-day.startRange.startRange, .flatpickr-day.endRange.startRange {
+            border-radius: 0 50px 50px 0 !important;
+        }
+    </style>
 </head>
 <body class=" bg-neutral-50 flex flex-col min-h-[100vh]">
 <div class=" w-full flex justify-center h-10 gap-7 512max:flex-col 512max:items-center 512max:gap-2 512max:py-2 512max:h-auto 640max:h-8 768max:h-9" style="background: radial-gradient(50% 900.78% at 50% 50%, #245248 29.5%, #8CB398 100%);">

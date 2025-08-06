@@ -1673,12 +1673,12 @@
 <div class="w-full grid grid-cols-3 gap-4.5 640max:grid-cols-1 1024max:grid-cols-2 1024max:gap-y-10">
     @foreach($blogs as $blog)
         <!-- item -->
-        <div class="w-full websiteWeblogItem flex flex-col gap-[26px]">
+        <a href="{{ route('blog',$blog->id) }}" class="w-full websiteWeblogItem flex flex-col gap-[26px]">
             <img class="websiteWeblogItemImg w-full h-[218px] rounded-xl object-cover" src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}">
             <div class="w-full flex flex-col gap-5">
-                <a href="{{ route('blog',$blog->id) }}" class="websiteWeblogItemTitle text-base text-green-600 font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+                <span class="websiteWeblogItemTitle text-base text-green-600 font-bold whitespace-nowrap overflow-hidden text-ellipsis">
                     {{ $blog->title }}
-                </a>
+                </span>
                 <div style="    grid-template-columns: 84px 1fr;" class="w-full grid grid-cols-[54px_1fr] gap-4 items-center">
                     <!-- date -->
                     <div style="width: 84px; height: 54px" class="websiteWeblogItemِDate w-[54px] aspect-square rounded-[7px] flex flex-col items-center justify-center bg-green-600 text-center text-[18px] text-light font-bold leading-[18px]">
@@ -1696,7 +1696,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </a>
     @endforeach
 </div>
 
@@ -2382,9 +2382,23 @@
             dateFormat: 'Y/m/d',
         });
         function convertDateRange(dateRange) {
+            if (!dateRange) return;
+
             const [startDate, endDate] = dateRange.split(' to ');
-            document.getElementById('dateRange').value = `${startDate} تا ${endDate}`;
+
+            let result = '';
+
+            if (startDate && endDate) {
+                result = `${startDate} تا ${endDate}`;
+            } else if (startDate) {
+                result = `${startDate}`;
+            } else if (endDate) {
+                result = `${endDate}`;
+            }
+
+            document.getElementById('dateRange').value = result;
         }
+
     </script>
 
     <script>
